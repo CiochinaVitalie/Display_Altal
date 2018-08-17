@@ -1872,7 +1872,6 @@ void Down_8_OnUp();
 void Down_9_OnPress()();
 void Down_9_OnUp();
 void EEV1DownOnDown();
-void EEV1DownOnUp();
 void EEV1UpOnDown();
 void EEV1UpOnUp();
 void EEV2_AutoOnClick();

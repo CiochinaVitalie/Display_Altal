@@ -36,7 +36,7 @@ volatile bool end_packet=false;
 volatile  unsigned char sizeOfBuffer=0;
 volatile uint32_t rx_time = 0;
 volatile uint32_t rx_time_previos = 0;
-extern  int system_reg[NOMBER_OF_REG];
+extern  int system_reg[600];
 extern volatile uint8_t frame[BUFFER_SIZE];
 extern unsigned char transmission_ready_Flag;
 void (*send_data_again)() = 0;
@@ -115,6 +115,7 @@ void main() {
   InitSysTick();
   USART_init();
   InitTimer2();
+
    /*// Mon 31/12/2015
     My_Date.RTC_DayofWeek     = 5;
     My_Date.RTC_Date_Tens     = 3;
@@ -155,7 +156,7 @@ void main() {
   Messages_Label.Caption = "UPDATE_DIS";
   DrawLabel (&Messages_Label);
  while(end_packet==false){
-  reciev_data_packet(COMP_DEL,37);
+  reciev_data_packet(COMP_DEL,46);
   Delay_ms(1000);
 
   }
@@ -170,7 +171,7 @@ void main() {
   startPage();
   ptr= send_data_packet;
   while (1) {
-    if(pushButton) {ptr(adressReg,nomReg);Delay_ms(500);}
+    if(pushButton) {ptr(adressReg,nomReg);}
    if(end_packet){
      end_packet=false;
      checkResponse();

@@ -1,6 +1,6 @@
-#line 1 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
-#line 1 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -21,11 +21,11 @@ extern float ReadLowPressure (int low_press);
 extern void main_page();
 extern void sensor_1(unsigned char num_page);
 extern void data_eeprom();
-extern void HP_display();
-extern void LP_display();
+extern void HP_display(int pressure);
+extern void LP_display(int pressure);
 extern void find_errors();
-extern void count_steps();
-extern void working_time();
+extern void count_steps(unsigned char num_page);
+extern void working_time(unsigned char num_page);
 extern void void startPage();
 extern void schema1_page();
 
@@ -64,125 +64,116 @@ extern void schema1_page();
 }Packet;
 
 enum _system {
-FUNCTION,
-VOLT_A=410,
-VOLT_B=420,
-VOLT_C=430,
-CURR_A,
-CURR_B,
-CURR_C,
+
 ELECT_HEAT,
 PROG_REL,
 TIME_REL,
-DHW_TEMP,
-BAC_TEMP,
-ERRORS_1,
-THREE_STATE_MAIN,
-SOURC_OUT_1,
-SOURC_IN_1,
-HEAT_OUT_1,
-HEAT_IN_1,
-EXAUST_TEMP_1,
-SUCT_TEMP_1,
-HIGH_PRESS_1,
-LOW_PRESS_1,
-CONDENS_TEMP_1,
-S_HEAT_1,
-S_COOL_1,
-TRV_STEPS_1,
 TRV_CORRECT_1,
-TIM_P_HEAT_1,
-TIM_P_SOURS_1,
-TIM_REV_1,
-TIM_COM_1,
-TIM_THREE_1,
+TRV_CORRECT_2,
 NUM_P_HEAT_1,
 NUM_P_SOURS_1,
 NUM_REV_1,
 NUM_COM_1,
-NUM_THREE_1,
-COM_STATE_1,
-PUMP_HEAT_STATE_1,
-PUMP_SOURS_STATE_1,
-REV_STATE_1,
-THREE_STATE_1,
-HEAT_OUT_2,
-HEAT_IN_2,
-SOURC_OUT_2,
-SOURC_IN_2,
-EXAUST_TEMP_2,
-SUCT_TEMP_2,
-HIGH_PRESS_2,
-LOW_PRESS_2,
-COMP_TEMP_2,
-ERRORS_2,
-S_HEAT_2,
-S_COOL_2,
-TRV_STEPS_2,
-TRV_CORRECT_2,
-TIM_P_HEAT_2,
-TIM_P_SOURS_2,
-TIM_REV_2,
-TIM_COM_2,
-TIM_THREE_2,
 NUM_P_HEAT_2,
 NUM_P_SOURS_2,
 NUM_REV_2,
 NUM_COM_2,
-NUM_THREE_2,
-COM_STATE_2,
-PUMP_HEAT_STATE_2,
-PUMP_SOURS_STATE_2,
-REV_STATE_2,
-THREE_STATE_2,
-COMP_DEL,
-SOURS_DEL,
-REVERS_DEL,
-HEAT_DEL,
-THREE_WAY_DEL,
-TRV_DEL,
-DEL_DHW_MAX,
-DEL_DHW_MIN,
-HEAT_MAX,
-HEAT_MIN,
-SOURS_MAX,
-SOURS_MIN,
-COOL_MAX,
-COOL_MIN,
-EXAUST_MAX,
-S_HEAT_MIN,
-S_HEAT_MAX,
-S_COOL_MIN,
-S_COOL_MAX,
-HP_MIN,
-HP_MAX,
-LP_MIN,
-LP_MAX,
-DEL_HEAT_MAX,
-DEL_HEAT_MIN,
-DEL_SOURS_MAX,
-DEL_SOURS_MIN,
-SET_HEAT,
-SET_COOL,
-SET_DHW,
-DIFF_HEAT,
-DIFF_COOL,
-DIFF_DHW,
-POWER,
-HEATWATER,
-HEAT,
-COOL,
-REVERS_MOD,
+
 K_FLOW_HEAT,
 K_FLOW_SOURS,
 TOTAL_ERRORS,
-AIRE_TO_WATER,
-TIME_DEFROST,
-TEMP_DEFROST,
-TEMP_OUT,
-TEMP_STOP_DEFROST,
-NOMBER_OF_REG
+
+
+VOLT_A=470,
+VOLT_B=480,
+VOLT_C=490,
+CURR_A=500,
+CURR_B=510,
+CURR_C=520,
+
+TRV_STEPS_1=61, TRV_STEPS_2=62,
+BAC_TEMP=71,
+DHW_TEMP=81,
+CONDENS_TEMP_1=91,CONDENS_TEMP_2=92,
+SUCT_TEMP_1=101, SUCT_TEMP_2=102,
+S_COOL_1=111,S_COOL_2=112,
+S_HEAT_1=121,S_HEAT_2=122,
+HEAT_IN_1=131,HEAT_IN_2=132,
+HEAT_OUT_1=141,HEAT_OUT_2=142,
+SOURC_IN_1=151, SOURC_IN_2=152,
+SOURC_OUT_1=161,SOURC_OUT_2=162,
+HIGH_PRESS_1=171, HIGH_PRESS_2 =172,
+LOW_PRESS_1=181,LOW_PRESS_2=182,
+ERRORS_1=191,ERRORS_2=192,
+EXAUST_TEMP_1=201,EXAUST_TEMP_2=202,
+
+
+
+
+
+
+TIM_COM_1=341,TIM_COM_2=342,
+TIM_P_HEAT_1=351, TIM_P_HEAT_2=352,
+TIM_P_SOURS_1=371,TIM_P_SOURS_2=372,
+TIM_REV_1=381, TIM_REV_2=382,
+
+
+
+COM_STATE_1=11, COM_STATE_2=12,
+PUMP_SOURS_STATE_1=21, PUMP_SOURS_STATE_2=22,
+PUMP_HEAT_STATE_1=31, PUMP_HEAT_STATE_2=32,
+REV_STATE_1=41,REV_STATE_2=42,
+THREE_STATE=51,
+
+COMP_DEL=10,
+HEAT_DEL=20,
+SOURS_DEL=30,
+REVERS_DEL=40,
+THREE_WAY_DEL=50,
+COOL_MAX=60,
+COOL_MIN=70,
+HEAT_MAX=80,
+HEAT_MIN=90,
+DEL_HEAT_MAX=100,
+DEL_HEAT_MIN=110,
+DEL_SOURS_MAX=120,
+DEL_SOURS_MIN=130,
+DIFF_COOL=140,
+DIFF_DHW=150,
+DIFF_HEAT=160,
+AIRE_TO_WATER=170,
+EXAUST_MAX=180,
+COOL=190,
+HEAT=200,
+HEATWATER=210,
+HP_MAX=220,
+LP_MAX=230,
+HP_MIN=240,
+LP_MIN=250,
+S_COOL_MAX=260,
+S_COOL_MIN=270,
+S_HEAT_MAX=280,
+S_HEAT_MIN=290,
+NUM_THREE =300,
+POWER=310,
+SET_COOL=320,
+SET_DHW=330,
+SET_HEAT=340,
+TEMP_DEFROST=350,
+TIME_DEFROST=360,
+TEMP_OUT=370,
+TEMP_STOP_DEFROST=380,
+TIM_THREE=390,
+NOMB_COMPRESSORS=400,
+REVERS_MOD=410,
+TRV_DEL=420,
+SOURS_MAX=430,
+SOURS_MIN=440,
+DEL_DHW_MAX=450,
+DEL_DHW_MIN=460
 };
+
+
  typedef enum _system regAdress;
  extern void (*ptr)(regAdress , unsigned char );
  extern regAdress adressReg;
@@ -1943,6 +1934,7 @@ extern TCircleButton * const code Screen37_CircleButtons[1];
 
 
 
+
 void BackToHome();
 void goToBack();
 void nextPage();
@@ -1992,7 +1984,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2023 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2015 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -3636,7 +3628,7 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/controller_resources.h"
+#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_resources.h"
 #line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
 
 
@@ -3691,7 +3683,7 @@ typedef unsigned long long uintmax_t;
 
 
  typedef char _Bool;
-#line 7 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 7 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
 unsigned char tenYearU;
 unsigned char oneYearU;
 unsigned char oneMonth;
@@ -3717,7 +3709,7 @@ unsigned char nomReg;
 extern TScreen* CurrentScreen;
 TScreen BackScreen,NextScreen;
 extern Packet bus_data;
-extern int system_reg[NOMBER_OF_REG];
+extern int system_reg[600];
  _Bool  two_compressors_mode,ground_heat_pump,SYSTEM_ON;
 extern  _Bool  sendMessage;
 unsigned char num_page;
@@ -3760,7 +3752,9 @@ void BackToHome(){
 void goToBack(){
  Tone2();
  BLED_Fade_Out();
- num_page=0;
+
+if( num_page==0)
+{
  if(CurrentScreen == &SYSTEM_SET)DrawScreen(&USER_MENU);
  else if (CurrentScreen==&ERRORS) DrawScreen(&USER_MENU);
  else if (CurrentScreen==&SENSOR1) DrawScreen(&USER_MENU);
@@ -3774,18 +3768,20 @@ void goToBack(){
  else if (CurrentScreen==&LIMITS3) DrawScreen(&LIMITS2);
  else if (CurrentScreen==&LIMITS4) DrawScreen(&LIMITS3);
  else if (CurrentScreen==&LIMITS5) DrawScreen(&LIMITS4);
-
+ else if (CurrentScreen==&MODE2) DrawScreen(&MODE);
+}
+else num_page=0;
  BLED_Fade_In();
 }
 void nextPage(){
  Tone2();
+
  BLED_Fade_Out();
- num_page = 1;
  if (CurrentScreen==&LIMITS1){DrawScreen(&LIMITS2);}
  else if (CurrentScreen==&LIMITS2){DrawScreen(&LIMITS3);}
  else if (CurrentScreen==&LIMITS3){DrawScreen(&LIMITS4);}
  else if (CurrentScreen==&LIMITS4){DrawScreen(&LIMITS5);}
-
+ else if (CurrentScreen==&MODE){DrawScreen(&MODE2);}
  BLED_Fade_In();
 }
 void selectPage(){
@@ -3795,24 +3791,47 @@ void selectPage(){
 if (CurrentScreen==&HOME)
  {
  main_page();
- reciev_data_packet(DHW_TEMP,6);
-
+ reciev_data_packet(BAC_TEMP,2);
+ reciev_data_packet(SOURC_IN_1,2);
  }
 
-else if(CurrentScreen==&SENSOR1) { sensor_1(0);reciev_data_packet(DHW_TEMP,16);
-
-
+else if(CurrentScreen==&SENSOR1)
+ {
+ sensor_1(num_page);
+ reciev_data_packet(BAC_TEMP,2);
+ if(num_page==0)
+ {
+ reciev_data_packet(CONDENS_TEMP_1,12);
+ if(strcmp(CircleButton10.Caption,"1")!=0){CircleButton10.Caption="1";DrawCircleButton(&CircleButton10); }
+ }
+ else
+ {reciev_data_packet(CONDENS_TEMP_2,12);
+ if(strcmp(CircleButton10.Caption,"2")!=0) {CircleButton10.Caption="2";DrawCircleButton(&CircleButton10);}
+ }
  }
 
-else if(CurrentScreen==&GAUGE1){LP_display(),HP_display();reciev_data_packet(HIGH_PRESS_1,2);}
-else if(CurrentScreen==&EEV){ count_steps(); reciev_data_packet(S_HEAT_1,3);}
-else if(CurrentScreen==&SYSTEM_EVENTS){working_time();reciev_data_packet(TIM_P_HEAT_1,5);}
+
+else if(CurrentScreen==&GAUGE1)
+{
+ if(num_page==0)
+ {
+ LP_display(system_reg[LOW_PRESS_1]),HP_display(system_reg[HIGH_PRESS_1]);reciev_data_packet(HIGH_PRESS_1,2);
+ if(strcmp(CircleButton8.Caption,"1")!=0) {CircleButton8.Caption="1";DrawCircleButton(&CircleButton8);Next_b2.Caption="NEXT";DrawRoundButton(&Next_b2);Next_b2.OnClickPtr=nextPage;}
+ }
+ else
+ {
+ LP_display(system_reg[LOW_PRESS_2]),HP_display(system_reg[HIGH_PRESS_2]);reciev_data_packet(HIGH_PRESS_2,2);
+ if(strcmp(CircleButton8.Caption,"2")!=0){CircleButton8.Caption="2";DrawCircleButton(&CircleButton8);Next_b2.Caption="BACK";DrawRoundButton(&Next_b2);Next_b2.OnClickPtr=goToBack;}
+ }
+}
+else if(CurrentScreen==&EEV){ count_steps(num_page); reciev_data_packet(S_HEAT_1,3);}
+else if(CurrentScreen==&SYSTEM_EVENTS){working_time(num_page);reciev_data_packet(TIM_P_HEAT_1,5);}
 else if(CurrentScreen==&Schema1){schema1_page();reciev_data_packet(DHW_TEMP,32);}
 }
 
 
 void Main_OFFOnClick()
-{ if(!pushButton){
+{
  if ((unsigned long)Main_OFF.Picture_Name ==  0x00081F90 )
  {
  Main_OFF.Picture_Name =  0x0007FBEE ;
@@ -3835,7 +3854,6 @@ void Main_OFFOnClick()
 
  }
 
- }
  pushButton= 1 ;
  send_data_packet(POWER,1);
  adressReg= POWER;
@@ -4356,7 +4374,7 @@ void user_defrostOnPress(){
  Image57.Visible = 1;
  DrawImage(&Image57);
 }
-#line 722 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 748 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
 void DEC_EEV1OnPress() {
 
  Tone1();
@@ -4989,7 +5007,7 @@ void Delay_heat_pump_DOWNOnPress() {
  Image307.Visible = 1;
  Delay_heat_pump_DOWN.Visible = 0;
  DrawImage(&Image307);
-#line 1356 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1382 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[HEAT_DEL]--;
  if (system_reg[HEAT_DEL] <0) system_reg[HEAT_DEL]=0;
  IntToStr(system_reg[HEAT_DEL], txt);
@@ -5010,7 +5028,7 @@ void Delay_heat_pump_upOnPress() {
  Image313.Visible = 1;
  Delay_heat_pump_up.Visible = 0;
  DrawImage(&Image313);
-#line 1378 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1404 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[HEAT_DEL]++;
  if (system_reg[HEAT_DEL] >99)
  system_reg[HEAT_DEL] = 99;
@@ -5049,7 +5067,7 @@ void Delay_reversing_DOWNOnPress() {
  Image308.Visible = 1;
  Delay_reversing_DOWN.Visible = 0;
  DrawImage(&Image308);
-#line 1418 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1444 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[REVERS_DEL]--;
  if (system_reg[REVERS_DEL] <0)
  system_reg[REVERS_DEL] = 0;
@@ -5071,7 +5089,7 @@ void Delay_reversing_UPOnPress() {
  Image314.Visible = 1;
  Delay_reversing_UP.Visible = 0;
  DrawImage(&Image314);
-#line 1441 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1467 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[REVERS_DEL]++;
  if (system_reg[REVERS_DEL] >99)
  system_reg[REVERS_DEL] = 99 ;
@@ -5109,7 +5127,7 @@ void Delay_trv_DOWNOnPress() {
  Image309.Visible = 1;
  Delay_trv_DOWN.Visible = 0;
  DrawImage(&Image309);
-#line 1480 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1506 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[TRV_DEL]--;
  if (system_reg[TRV_DEL] < 0)
  system_reg[TRV_DEL] = 0;
@@ -5131,7 +5149,7 @@ void Delay_trv_UPOnPress(){
  Image315.Visible = 1;
  Delay_trv_up.Visible = 0;
  DrawImage(&Image315);
-#line 1503 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1529 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[TRV_DEL]++;
  if (system_reg[TRV_DEL] >99)
  system_reg[TRV_DEL] = 99;
@@ -5169,7 +5187,7 @@ void Delay_DHW_valve_DOWNOnPress() {
  Image310.Visible = 1;
  Delay_DHW_valve_DOWN.Visible = 0;
  DrawImage(&Image310);
-#line 1542 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1568 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[THREE_WAY_DEL]--;
  if (system_reg[THREE_WAY_DEL] < 0)
  system_reg[THREE_WAY_DEL] = 0;
@@ -5191,7 +5209,7 @@ void Delay_DHW_valve_UPOnPress() {
  Image316.Visible = 1;
  Delay_DHW_valve_UP.Visible = 0;
  DrawImage(&Image316);
-#line 1565 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1591 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[THREE_WAY_DEL]++;
  if (system_reg[THREE_WAY_DEL] >99)
  system_reg[THREE_WAY_DEL] = 99;
@@ -5229,7 +5247,7 @@ void Delay_compressor_DOWNOnPress() {
  Image311.Visible = 1;
  Delay_compressor_DOWN.Visible = 0;
  DrawImage(&Image311);
-#line 1604 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1630 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[COMP_DEL]--;
  if (system_reg[COMP_DEL] < 0)
  system_reg[COMP_DEL] = 0;
@@ -5251,7 +5269,7 @@ void Delay_compressor_UPOnPress() {
  Image317.Visible = 1;
  Delay_compressor_UP.Visible = 0;
  DrawImage(&Image317);
-#line 1627 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1653 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[COMP_DEL]++;
  if (system_reg[COMP_DEL] >99)
  system_reg[COMP_DEL] = 99;
@@ -6231,11 +6249,38 @@ void Set_23_OnUp(){
 
 
 void One_CompressorsOnClick() {
-
+ if ((unsigned long)One_Compressors.Picture_Name ==  0x00325F58 )
+ {
+ One_Compressors.Picture_Name =  0x003247DC ;
+ DrawImage(&Two_Compressors);
+ system_reg[NOMB_COMPRESSORS]=2;
+ two_compressors_mode= 1 ;
+ }
+ else {
+ One_Compressors.Picture_Name =  0x00325F58 ;
+ DrawImage(&One_Compressors);
+ system_reg[NOMB_COMPRESSORS]=1;
+ two_compressors_mode= 0 ;
+ }
+ send_data_packet(NOMB_COMPRESSORS,1);
+ Delay_ms (300);
 }
 
 void Reversing_ON_HEATOnClick() {
+ if ((unsigned long)Reversing_ON_HEAT.Picture_Name ==  0x00326B16 )
+ {
+ Reversing_ON_HEAT.Picture_Name =  0x0032539A ;
+ DrawImage(&Reversing_Heat_OFF);
+ system_reg[REVERS_MOD]=0;
 
+ }
+ else {
+ Reversing_ON_HEAT.Picture_Name =  0x00326B16 ;
+ DrawImage(&Reversing_ON_HEAT);
+ system_reg[REVERS_MOD]=1;
+ }
+ send_data_packet(REVERS_MOD,1);
+ Delay_ms (300);
 }
 void Flow_Source__Sensor_ONOnClick(){
 
@@ -6575,7 +6620,21 @@ void EEV2_AutoOnClick() {
 }
 
 void Mode_ground_onOnClick () {
-
+ if ((unsigned long)Mode_ground_on.Picture_Name ==  0x0041E932 )
+ {
+ Mode_ground_on.Picture_Name =  0x0041CB2C ;
+ DrawImage(&Mode_air_on);
+ system_reg[AIRE_TO_WATER]=1;
+ ground_heat_pump= 0 ;
+ }
+ else {
+ Mode_ground_on.Picture_Name =  0x0041E932 ;
+ DrawImage(&Mode_ground_on);
+ system_reg[AIRE_TO_WATER]=0;
+ ground_heat_pump= 1 ;
+ }
+ send_data_packet(AIRE_TO_WATER,1);
+ Delay_ms (300);
 }
 
 

@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-  extern  int system_reg[NOMBER_OF_REG];
+  extern  int system_reg[600];
 void find_errors(){
   if(system_reg[ERRORS_1]==0){
     //Messages_Label.Font_Color= 0x07E0;

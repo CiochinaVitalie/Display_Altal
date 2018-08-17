@@ -30,14 +30,16 @@ volatile bool uartRX_flag;
 //bit update_time;
 //volatile uint8_t rx_buffer[BUFFER_SIZE];
 int er;
+volatile bool pushButton;
 volatile unsigned int rx_wr_index=0;
 volatile bool end_packet=false;
 volatile  unsigned char sizeOfBuffer=0;
 volatile uint32_t rx_time = 0;
 volatile uint32_t rx_time_previos = 0;
-extern  int system_reg[NOMBER_OF_REG];
+extern  int system_reg[600];
 extern volatile uint8_t frame[BUFFER_SIZE];
 extern unsigned char transmission_ready_Flag;
+void (*send_data_again)() = 0;
 //extern float press;
 //------------------------------------------------------------------------------
 //Timer2 Prescaler :0; Preload = 119; Actual Interrupt Time = 1 us
@@ -113,6 +115,7 @@ void main() {
   InitSysTick();
   USART_init();
   InitTimer2();
+
    /*// Mon 31/12/2015
     My_Date.RTC_DayofWeek     = 5;
     My_Date.RTC_Date_Tens     = 3;
@@ -153,30 +156,22 @@ void main() {
   Messages_Label.Caption = "UPDATE_DIS";
   DrawLabel (&Messages_Label);
  while(end_packet==false){
-  reciev_data_packet(COMP_DEL,37);
+  reciev_data_packet(COMP_DEL,46);
   Delay_ms(1000);
 
   }
   end_packet=false;
   checkResponse();
   check_packet_status();
-  
-  while(end_packet==false){
-  reciev_data_packet(TRV_CORRECT_1,1);
-  Delay_ms(1000);
-  }
-  end_packet=false;
-  checkResponse();
-  check_packet_status();
-
   DrawRoundBox (&Messages_Box);
   Messages_Label.Caption = "DIS_UPDATE";
   DrawLabel (&Messages_Label);
   DisableInterrupts();
   data_eeprom();
   startPage();
+  ptr= send_data_packet;
   while (1) {
-
+    if(pushButton) {ptr(adressReg,nomReg);}
    if(end_packet){
      end_packet=false;
      checkResponse();
@@ -201,12 +196,12 @@ void main() {
 
    }
    DisableInterrupts();
-   if(millis() - old_time_count > 1500)//
+   if(millis() - old_time_count > 3000)//
        {     old_time_count = millis();
 
-           selectPage();
+           if(!pushButton)selectPage();
 
-        }//
+        }
 
     Check_TP();
   EnableInterrupts();

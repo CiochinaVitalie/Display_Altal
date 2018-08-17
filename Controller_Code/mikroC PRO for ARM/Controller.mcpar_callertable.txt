@@ -852,17 +852,12 @@ main
 			millis
 		check_F3_data
 			calculateCRC
-			IntToStr
-				WordToStr
-			Ltrim
-			UART2_Write_Text
-				UARTx_Write_Text
-					UARTx_Write
 			millis
 	check_packet_status
 		millis
 	data_eeprom
 		IntToStr
+			WordToStr
 		Ltrim
 		strncpy
 		DrawImage
@@ -890,6 +885,8 @@ main
 			strncmp
 			strncpy
 			DrawRoundButton
+		strcmp
+		DrawCircleButton
 		LP_display
 			DrawImage
 			TFT_Set_Pen
@@ -905,6 +902,7 @@ main
 			sin
 			cos
 			TFT_Line
+		DrawRoundButton
 		count_steps
 			IntToStr
 			Ltrim
@@ -970,6 +968,21 @@ main
 		Process_TP_Press
 			Get_Object
 				IsInsideObject
+			nextPage
+				Tone2
+					Sound_Play
+						Get_Fosc_kHz
+						Delay_Cyc
+				BLED_Fade_Out
+					TFT_Set_DBC_SSD1963
+				DrawScreen
+				BLED_Fade_In
+					TFT_Set_DBC_SSD1963
+			goToBack
+				Tone2
+				BLED_Fade_Out
+				DrawScreen
+				BLED_Fade_In
 			Main_OFFOnClick
 				DrawImage
 				DrawRoundBox
@@ -1004,14 +1017,9 @@ main
 				send_data_packet
 			MainBut3OnUp
 				Tone2
-					Sound_Play
-						Get_Fosc_kHz
-						Delay_Cyc
 				BLED_Fade_Out
-					TFT_Set_DBC_SSD1963
 				DrawScreen
 				BLED_Fade_In
-					TFT_Set_DBC_SSD1963
 			MainBut3OnPress
 				DrawImage
 			MainBut4OnUp
@@ -1185,16 +1193,6 @@ main
 					TFT_Set_Ext_Font
 					TFT_Write_Text_Return_Pos
 					Update_Percentage
-			goToBack
-				Tone2
-				BLED_Fade_Out
-				DrawScreen
-				BLED_Fade_In
-			nextPage
-				Tone2
-				BLED_Fade_Out
-				DrawScreen
-				BLED_Fade_In
 			Set_Trv
 				send_data_packet
 			_1OnClick
@@ -1903,7 +1901,11 @@ main
 				send_data_packet
 				DrawImage
 			One_CompressorsOnClick
+				DrawImage
+				send_data_packet
 			Reversing_ON_HEATOnClick
+				DrawImage
+				send_data_packet
 			Flow_Source__Sensor_ONOnClick
 			Flow_Source__Heat1_ONOnClick
 			Flow_Source__Heat2_ONOnClick
@@ -2021,6 +2023,8 @@ main
 				strncpy
 				DrawRoundButton
 			Mode_ground_onOnClick
+				DrawImage
+				send_data_packet
 			Up_24_OnUp
 				DrawImage
 			Up_24_OnPress
@@ -2137,6 +2141,8 @@ main
 			DrawCircleButton
 			DrawBox
 			DrawRoundBox
+			nextPage
+			goToBack
 			Main_OFFOnClick
 			DHW_SetingOnClick
 			Heat_SettingOnClick
@@ -2184,8 +2190,6 @@ main
 			user_settingOnPress
 			DEC_EEV1OnPress
 			INC_EEV1OnPress
-			goToBack
-			nextPage
 			Set_Trv
 			_1OnClick
 			_2OnClick
@@ -2568,6 +2572,8 @@ main
 			DrawBox
 			DrawRoundBox
 			Get_Object
+			nextPage
+			goToBack
 			Main_OFFOnClick
 			DHW_SetingOnClick
 			Heat_SettingOnClick
@@ -2615,8 +2621,6 @@ main
 			user_settingOnPress
 			DEC_EEV1OnPress
 			INC_EEV1OnPress
-			goToBack
-			nextPage
 			Set_Trv
 			_1OnClick
 			_2OnClick

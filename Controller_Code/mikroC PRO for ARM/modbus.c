@@ -22,8 +22,10 @@ volatile uint8_t frame[BUFFER_SIZE];
 unsigned int time_out, polling;
 unsigned long previousTimeout, previousPolling;
 unsigned int total_no_of_packets;
-int system_reg[NOMBER_OF_REG]={0};
+int system_reg[600]={0};
 Packet bus_data;
+//
+
 //------------------------------------------------------------------------------
 //void modbus_update();
 void modbus_configure(unsigned int _time_out, unsigned int _polling,unsigned char _retry_count);
@@ -158,13 +160,14 @@ void constructPacket()
 
 
 
-      for (i = 0; i < no_of_registers; i++)
+      for (i = 0; i < no_of_registers;)
     {
       temp = bus_data.register_array[i+bus_data.address]; // get the data
       frame[index] = Hi(temp);
       index++;
       frame[index] = Lo(temp);
       index++;
+       i+=10;
     }
     crc16 = calculateCRC(frameSize - 2);
     frame[frameSize - 2] = Hi(crc16); // split crc into 2 bytes
@@ -240,7 +243,7 @@ if (messageErrFlag && pollingFinished)
 //------------------------------------------------------------------------------
 void check_F3_data(unsigned char buffer)
 {  /*char txt[7];*/
-  unsigned char no_of_registers = bus_data.no_of_registers;
+  unsigned char no_of_registers = bus_data.no_of_registers ;
   unsigned char no_of_bytes = no_of_registers * 2;
   if (frame[2] == no_of_bytes) // check number of bytes returned
   {  //
@@ -249,19 +252,25 @@ void check_F3_data(unsigned char buffer)
     unsigned int recieved_crc = ((frame[buffer - 2] << 8) | frame[buffer - 1]);
     unsigned int calculated_crc = calculateCRC(buffer - 2);
     //UART2_Write_Text("L10;");
-    IntToStr(calculated_crc,txt);
-    Ltrim(txt);
-    UART2_Write_Text(txt);
+    // IntToStr(calculated_crc,txt);
+    //Ltrim(txt);
+    //UART2_Write_Text(txt);
     if (calculated_crc == recieved_crc) // verify checksum
     {  //UART2_Write_Text("L11");
       unsigned char index = 3;
       unsigned char i = 0;
+      int incAdr=0;
       //UART2_Write_Text("L11");
-                        for (i = 0; i < no_of_registers; i++)
+    for (i = 0; i < no_of_registers; i++)
       {
         // start at the 4th element in the recieveFrame and combine the Lo byte
-        bus_data.register_array[bus_data.address + i] = (frame[index] << 8) | frame[index + 1];
+        bus_data.register_array[bus_data.address + incAdr] = (frame[index] << 8) | frame[index + 1];
+        /*UART2_Write(bus_data.address + i);
+        UART2_Write_Text("\n");
+        UART2_Write(bus_data.register_array[bus_data.address + i]);
+        UART2_Write_Text("\n");*/
         index += 2;
+        incAdr+=10;
       }
       messageOkFlag = 1; // message successful
     }

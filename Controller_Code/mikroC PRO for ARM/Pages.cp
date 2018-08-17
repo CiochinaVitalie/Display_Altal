@@ -1,6 +1,6 @@
-#line 1 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Pages.c"
-#line 1 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -21,11 +21,11 @@ extern float ReadLowPressure (int low_press);
 extern void main_page();
 extern void sensor_1(unsigned char num_page);
 extern void data_eeprom();
-extern void HP_display();
-extern void LP_display();
+extern void HP_display(int pressure);
+extern void LP_display(int pressure);
 extern void find_errors();
-extern void count_steps();
-extern void working_time();
+extern void count_steps(unsigned char num_page);
+extern void working_time(unsigned char num_page);
 extern void void startPage();
 extern void schema1_page();
 
@@ -64,125 +64,116 @@ extern void schema1_page();
 }Packet;
 
 enum _system {
-FUNCTION,
-VOLT_A=410,
-VOLT_B=420,
-VOLT_C=430,
-CURR_A,
-CURR_B,
-CURR_C,
+
 ELECT_HEAT,
 PROG_REL,
 TIME_REL,
-DHW_TEMP,
-BAC_TEMP,
-ERRORS_1,
-THREE_STATE_MAIN,
-SOURC_OUT_1,
-SOURC_IN_1,
-HEAT_OUT_1,
-HEAT_IN_1,
-EXAUST_TEMP_1,
-SUCT_TEMP_1,
-HIGH_PRESS_1,
-LOW_PRESS_1,
-CONDENS_TEMP_1,
-S_HEAT_1,
-S_COOL_1,
-TRV_STEPS_1,
 TRV_CORRECT_1,
-TIM_P_HEAT_1,
-TIM_P_SOURS_1,
-TIM_REV_1,
-TIM_COM_1,
-TIM_THREE_1,
+TRV_CORRECT_2,
 NUM_P_HEAT_1,
 NUM_P_SOURS_1,
 NUM_REV_1,
 NUM_COM_1,
-NUM_THREE_1,
-COM_STATE_1,
-PUMP_HEAT_STATE_1,
-PUMP_SOURS_STATE_1,
-REV_STATE_1,
-THREE_STATE_1,
-HEAT_OUT_2,
-HEAT_IN_2,
-SOURC_OUT_2,
-SOURC_IN_2,
-EXAUST_TEMP_2,
-SUCT_TEMP_2,
-HIGH_PRESS_2,
-LOW_PRESS_2,
-COMP_TEMP_2,
-ERRORS_2,
-S_HEAT_2,
-S_COOL_2,
-TRV_STEPS_2,
-TRV_CORRECT_2,
-TIM_P_HEAT_2,
-TIM_P_SOURS_2,
-TIM_REV_2,
-TIM_COM_2,
-TIM_THREE_2,
 NUM_P_HEAT_2,
 NUM_P_SOURS_2,
 NUM_REV_2,
 NUM_COM_2,
-NUM_THREE_2,
-COM_STATE_2,
-PUMP_HEAT_STATE_2,
-PUMP_SOURS_STATE_2,
-REV_STATE_2,
-THREE_STATE_2,
-COMP_DEL,
-SOURS_DEL,
-REVERS_DEL,
-HEAT_DEL,
-THREE_WAY_DEL,
-TRV_DEL,
-DEL_DHW_MAX,
-DEL_DHW_MIN,
-HEAT_MAX,
-HEAT_MIN,
-SOURS_MAX,
-SOURS_MIN,
-COOL_MAX,
-COOL_MIN,
-EXAUST_MAX,
-S_HEAT_MIN,
-S_HEAT_MAX,
-S_COOL_MIN,
-S_COOL_MAX,
-HP_MIN,
-HP_MAX,
-LP_MIN,
-LP_MAX,
-DEL_HEAT_MAX,
-DEL_HEAT_MIN,
-DEL_SOURS_MAX,
-DEL_SOURS_MIN,
-SET_HEAT,
-SET_COOL,
-SET_DHW,
-DIFF_HEAT,
-DIFF_COOL,
-DIFF_DHW,
-POWER,
-HEATWATER,
-HEAT,
-COOL,
-REVERS_MOD,
+
 K_FLOW_HEAT,
 K_FLOW_SOURS,
 TOTAL_ERRORS,
-AIRE_TO_WATER,
-TIME_DEFROST,
-TEMP_DEFROST,
-TEMP_OUT,
-TEMP_STOP_DEFROST,
-NOMBER_OF_REG
+
+
+VOLT_A=470,
+VOLT_B=480,
+VOLT_C=490,
+CURR_A=500,
+CURR_B=510,
+CURR_C=520,
+
+TRV_STEPS_1=61, TRV_STEPS_2=62,
+BAC_TEMP=71,
+DHW_TEMP=81,
+CONDENS_TEMP_1=91,CONDENS_TEMP_2=92,
+SUCT_TEMP_1=101, SUCT_TEMP_2=102,
+S_COOL_1=111,S_COOL_2=112,
+S_HEAT_1=121,S_HEAT_2=122,
+HEAT_IN_1=131,HEAT_IN_2=132,
+HEAT_OUT_1=141,HEAT_OUT_2=142,
+SOURC_IN_1=151, SOURC_IN_2=152,
+SOURC_OUT_1=161,SOURC_OUT_2=162,
+HIGH_PRESS_1=171, HIGH_PRESS_2 =172,
+LOW_PRESS_1=181,LOW_PRESS_2=182,
+ERRORS_1=191,ERRORS_2=192,
+EXAUST_TEMP_1=201,EXAUST_TEMP_2=202,
+
+
+
+
+
+
+TIM_COM_1=341,TIM_COM_2=342,
+TIM_P_HEAT_1=351, TIM_P_HEAT_2=352,
+TIM_P_SOURS_1=371,TIM_P_SOURS_2=372,
+TIM_REV_1=381, TIM_REV_2=382,
+
+
+
+COM_STATE_1=11, COM_STATE_2=12,
+PUMP_SOURS_STATE_1=21, PUMP_SOURS_STATE_2=22,
+PUMP_HEAT_STATE_1=31, PUMP_HEAT_STATE_2=32,
+REV_STATE_1=41,REV_STATE_2=42,
+THREE_STATE=51,
+
+COMP_DEL=10,
+HEAT_DEL=20,
+SOURS_DEL=30,
+REVERS_DEL=40,
+THREE_WAY_DEL=50,
+COOL_MAX=60,
+COOL_MIN=70,
+HEAT_MAX=80,
+HEAT_MIN=90,
+DEL_HEAT_MAX=100,
+DEL_HEAT_MIN=110,
+DEL_SOURS_MAX=120,
+DEL_SOURS_MIN=130,
+DIFF_COOL=140,
+DIFF_DHW=150,
+DIFF_HEAT=160,
+AIRE_TO_WATER=170,
+EXAUST_MAX=180,
+COOL=190,
+HEAT=200,
+HEATWATER=210,
+HP_MAX=220,
+LP_MAX=230,
+HP_MIN=240,
+LP_MIN=250,
+S_COOL_MAX=260,
+S_COOL_MIN=270,
+S_HEAT_MAX=280,
+S_HEAT_MIN=290,
+NUM_THREE =300,
+POWER=310,
+SET_COOL=320,
+SET_DHW=330,
+SET_HEAT=340,
+TEMP_DEFROST=350,
+TIME_DEFROST=360,
+TEMP_OUT=370,
+TEMP_STOP_DEFROST=380,
+TIM_THREE=390,
+NOMB_COMPRESSORS=400,
+REVERS_MOD=410,
+TRV_DEL=420,
+SOURS_MAX=430,
+SOURS_MIN=440,
+DEL_DHW_MAX=450,
+DEL_DHW_MIN=460
 };
+
+
  typedef enum _system regAdress;
  extern void (*ptr)(regAdress , unsigned char );
  extern regAdress adressReg;
@@ -1943,6 +1934,7 @@ extern TCircleButton * const code Screen37_CircleButtons[1];
 
 
 
+
 void BackToHome();
 void goToBack();
 void nextPage();
@@ -1992,7 +1984,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2023 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2015 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -3636,13 +3628,13 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/controller_resources.h"
+#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_resources.h"
 #line 1 "e:/mikroc/mikroc pro for arm/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 1 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/systick.h"
+#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
 #line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
 
 
@@ -3692,13 +3684,13 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 25 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/systick.h"
+#line 25 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
  void InitSysTick();
  uint32_t millis();
 #line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
 #line 1 "e:/mikroc/mikroc pro for arm/include/built_in.h"
-#line 8 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Pages.c"
- extern int system_reg[NOMBER_OF_REG];
+#line 8 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
+ extern int system_reg[600];
 
  void main_page(){
  int convert_temp;
@@ -3743,7 +3735,7 @@ typedef unsigned long long uintmax_t;
  DrawLabel (&sourse_temp_input_main);
  }
 
- if(system_reg[THREE_STATE_MAIN]==1){
+ if(system_reg[THREE_STATE]==1){
  dhw_led.Gradient_Start_Color = 0xFFFF;
  dhw_led.Gradient_End_Color = 0xF800;
  dhw_led.Color = 0xF800;
@@ -3784,29 +3776,15 @@ typedef unsigned long long uintmax_t;
  char txt[7];
  if(num_page==0)
  {
-
  IntToStr(system_reg[SOURC_IN_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_Brine_Inlet_1.Caption,2)!=0){strncpy(S_Brine_Inlet_1.Caption, txt, 2);DrawRoundButton(&S_Brine_Inlet_1);}
-
-
  IntToStr(system_reg[SOURC_OUT_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_Brine_Outlet_1.Caption,2)!=0){strncpy(S_Brine_Outlet_1.Caption, txt, 2);DrawRoundButton(&S_Brine_Outlet_1);}
-
-
  IntToStr(system_reg[HEAT_IN_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_Heat_Inlet_1.Caption,2)!=0){strncpy(S_Heat_Inlet_1.Caption, txt, 2);DrawRoundButton(&S_Heat_Inlet_1);}
-
-
  IntToStr(system_reg[HEAT_OUT_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_Heat_Outlet_1.Caption,2)!=0){strncpy(S_Heat_Outlet_1.Caption, txt, 2);DrawRoundButton(&S_Heat_Outlet_1);}
-
-
  IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);
-
  if(system_reg[EXAUST_TEMP_1]<100){
  if(strncmp(txt,S_Compressor_1.Caption,2)!=0){strncpy(S_Compressor_1.Caption, txt, 2);
  S_Compressor_1.Caption[2]=S_Compressor_1.Caption[1];S_Compressor_1.Caption[1]=S_Compressor_1.Caption[0];S_Compressor_1.Caption[0]='0';
@@ -3815,48 +3793,25 @@ typedef unsigned long long uintmax_t;
  }
  }
  else{if(strncmp(txt,S_Compressor_1.Caption,3)!=0){strncpy(S_Compressor_1.Caption, txt, 3);DrawRoundButton(&S_Compressor_1);} }
-
-
  IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_Superheat_1.Caption,2)!=0){strncpy(S_Superheat_1.Caption, txt, 2);DrawRoundButton(&S_Superheat_1);}
-
-
  IntToStr(system_reg[S_COOL_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_Subcool_1.Caption,2)!=0){strncpy(S_Subcool_1.Caption, txt, 2);DrawRoundButton(&S_Subcool_1);}
-
-
-
-
  IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);
-
  if(strncmp(txt,S_DHW.Caption,2)!=0){strncpy(S_DHW.Caption, txt, 2);DrawRoundButton(&S_DHW);}
-
-
  IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);
-
  if(strncmp(txt,SS_tank.Caption,2)!=0){strncpy(SS_tank.Caption, txt, 2);DrawRoundButton(&SS_tank);}
-
-
  IntToStr(system_reg[CONDENS_TEMP_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_condenser_1.Caption,2)!=0){strncpy(S_condenser_1.Caption, txt, 2);DrawRoundButton(&S_condenser_1);}
-
-
  IntToStr(system_reg[SUCT_TEMP_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_suction_1.Caption,2)!=0){strncpy(S_suction_1.Caption, txt, 2);DrawRoundButton(&S_suction_1);}
-
-
  IntToStr(system_reg[HIGH_PRESS_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_High_Pressure_1.Caption,2)!=0){strncpy(S_High_Pressure_1.Caption, txt, 2);DrawRoundButton(&S_High_Pressure_1);}
-
-
  IntToStr(system_reg[LOW_PRESS_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_Low_Pressure_1.Caption,2)!=0){strncpy(S_Low_Pressure_1.Caption, txt, 2);DrawRoundButton(&S_Low_Pressure_1);}
+ }
+ else if(num_page==1)
+ {
 
  }
  }
@@ -3966,9 +3921,10 @@ typedef unsigned long long uintmax_t;
  DrawRoundButton(&ON_OFF_DHW);
  }
  }
- void count_steps(){
+ void count_steps(unsigned char num_page){
  char txt[7];
-#line 282 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Pages.c"
+ if(num_page==0)
+ {
  IntToStr(system_reg[TRV_STEPS_1], txt);Ltrim(txt);
  if(system_reg[TRV_STEPS_1]<100){
  if(strncmp(txt,EEV1_value.Caption,2)!=0){strncpy(EEV1_value.Caption, txt, 2);
@@ -3977,15 +3933,28 @@ typedef unsigned long long uintmax_t;
  strncpy(EEV1_value.Caption, txt, 3);
  }}
  else{if(strncmp(txt,EEV1_value.Caption,3)!=0){strncpy(EEV1_value.Caption, txt, 3);DrawRoundButton(&EEV1_value);} }
-
-
  IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);
  if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
-
+ }
+ else
+ {
+ IntToStr(system_reg[TRV_STEPS_2], txt);Ltrim(txt);
+ if(system_reg[TRV_STEPS_2]<100){
+ if(strncmp(txt,EEV1_value.Caption,2)!=0){strncpy(EEV1_value.Caption, txt, 2);
+ EEV1_value.Caption[2]=EEV1_value.Caption[1];EEV1_value.Caption[1]=EEV1_value.Caption[0];EEV1_value.Caption[0]='0';
+ DrawRoundButton(&EEV1_value);
+ strncpy(EEV1_value.Caption, txt, 3);
+ }}
+ else{if(strncmp(txt,EEV1_value.Caption,3)!=0){strncpy(EEV1_value.Caption, txt, 3);DrawRoundButton(&EEV1_value);} }
+ IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);
+ if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
+ }
  }
 
- void working_time(){
+ void working_time(unsigned char num_page){
  char txt[7];
+ if(num_page==0)
+ {
  IntToStr(system_reg[TIM_COM_1], txt);Ltrim(txt);
  if(strncmp(txt,Time_compressor1.Caption,7)!=0){strcpy(Time_compressor1.Caption, txt);DrawRoundButton(&Time_compressor1);}
  IntToStr(system_reg[TIM_REV_1], txt);Ltrim(txt);
@@ -3994,6 +3963,18 @@ typedef unsigned long long uintmax_t;
  if(strncmp(txt,Time_source1.Caption,7)!=0){strcpy(Time_source1.Caption, txt);DrawRoundButton(&Time_source1);}
  IntToStr(system_reg[TIM_P_HEAT_1], txt);Ltrim(txt);
  if(strncmp(txt,Time_heat1.Caption,7)!=0){strcpy(Time_heat1.Caption, txt);DrawRoundButton(&Time_heat1);}
+ }
+ else
+ {
+ IntToStr(system_reg[TIM_COM_2], txt);Ltrim(txt);
+ if(strncmp(txt,Time_compressor1.Caption,7)!=0){strcpy(Time_compressor1.Caption, txt);DrawRoundButton(&Time_compressor1);}
+ IntToStr(system_reg[TIM_REV_2], txt);Ltrim(txt);
+ if(strncmp(txt,Time_reversing1.Caption,7)!=0){strcpy(Time_reversing1.Caption, txt);DrawRoundButton(&Time_reversing1);}
+ IntToStr(system_reg[TIM_P_SOURS_2], txt);Ltrim(txt);
+ if(strncmp(txt,Time_source1.Caption,7)!=0){strcpy(Time_source1.Caption, txt);DrawRoundButton(&Time_source1);}
+ IntToStr(system_reg[TIM_P_HEAT_2], txt);Ltrim(txt);
+ if(strncmp(txt,Time_heat1.Caption,7)!=0){strcpy(Time_heat1.Caption, txt);DrawRoundButton(&Time_heat1);}
+ }
  }
 
  void schema1_page(){
@@ -4007,31 +3988,17 @@ typedef unsigned long long uintmax_t;
  else DrawImage(&Image117);
  if(system_reg[REV_STATE_1]==1) DrawImage(&Image73);
  else DrawImage(&Image118);
- if(system_reg[THREE_STATE_1]==1) DrawImage(&Image77);
+ if(system_reg[THREE_STATE]==1) DrawImage(&Image77);
  else DrawImage(&Image120);
-
  IntToStr(system_reg[SOURC_IN_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_Brine_In_1.Caption,2)!=0){strncpy(S_Brine_In_1.Caption, txt, 2);DrawButton(&S_Brine_In_1);}
-
-
  IntToStr(system_reg[SOURC_OUT_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_Brine_Out_1.Caption,2)!=0){strncpy(S_Brine_Out_1.Caption, txt, 2);DrawButton(&S_Brine_Out_1);}
-
-
  IntToStr(system_reg[HEAT_IN_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_Heat_In_1.Caption,2)!=0){strncpy(S_Heat_In_1.Caption, txt, 2);DrawButton(&S_Heat_In_1);}
-
-
  IntToStr(system_reg[HEAT_OUT_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_Heat_Out_1.Caption,2)!=0){strncpy(S_Heat_Out_1.Caption, txt, 2);DrawButton(&S_Heat_Out_1);}
-
-
  IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);
-
  if(system_reg[HEAT_OUT_1]<100){
  if(strncmp(txt,S_ComprEx_1.Caption,2)!=0){strncpy(S_ComprEx_1.Caption, txt, 2);
  S_ComprEx_1.Caption[2]=S_ComprEx_1.Caption[1];S_ComprEx_1.Caption[1]=S_ComprEx_1.Caption[0];S_ComprEx_1.Caption[0]='0';
@@ -4040,30 +4007,17 @@ typedef unsigned long long uintmax_t;
  }
  }
  else{if(strncmp(txt,S_ComprEx_1.Caption,3)!=0){strncpy(S_ComprEx_1.Caption, txt, 3);DrawButton(&S_ComprEx_1);} }
-
  IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_SH_1.Caption,2)!=0){strncpy(S_SH_1.Caption, txt, 2);DrawButton(&S_SH_1);}
 
 
 
-
  IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);
-
  if(strncmp(txt,Sens_DHW.Caption,2)!=0){strncpy(Sens_DHW.Caption, txt, 2);DrawButton(&Sens_DHW);}
-
-
  IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);
-
  if(strncmp(txt,S_tank.Caption,2)!=0){strncpy(S_tank.Caption, txt, 2);DrawButton(&S_tank);}
-
-
  IntToStr(system_reg[HIGH_PRESS_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_High_Press_1.Caption,2)!=0){strncpy(S_High_Press_1.Caption, txt, 2);DrawButton(&S_High_Press_1);}
-
-
  IntToStr(system_reg[LOW_PRESS_1], txt);Ltrim(txt);
-
  if(strncmp(txt,S_Low_Press_1.Caption,2)!=0){strncpy(S_Low_Press_1.Caption, txt, 2);DrawButton(&S_Low_Press_1);}
  }

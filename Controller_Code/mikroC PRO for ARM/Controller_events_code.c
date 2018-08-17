@@ -29,7 +29,7 @@ unsigned char nomReg;
 extern TScreen*  CurrentScreen;
 TScreen  BackScreen,NextScreen;
 extern Packet bus_data;
-extern int system_reg[NOMBER_OF_REG];
+extern int system_reg[600];
 bool two_compressors_mode,ground_heat_pump,SYSTEM_ON;
 extern bool sendMessage;
 unsigned char num_page;
@@ -72,7 +72,9 @@ void BackToHome(){
 void goToBack(){
         Tone2();
         BLED_Fade_Out();
-        num_page=0;
+
+if( num_page==0)
+{
         if(CurrentScreen == &SYSTEM_SET)DrawScreen(&USER_MENU);
         else if (CurrentScreen==&ERRORS)  DrawScreen(&USER_MENU);
         else if (CurrentScreen==&SENSOR1)  DrawScreen(&USER_MENU);
@@ -86,18 +88,20 @@ void goToBack(){
         else if (CurrentScreen==&LIMITS3)  DrawScreen(&LIMITS2);
         else if (CurrentScreen==&LIMITS4)  DrawScreen(&LIMITS3);
         else if (CurrentScreen==&LIMITS5)  DrawScreen(&LIMITS4);
-        
+        else if (CurrentScreen==&MODE2)    DrawScreen(&MODE);
+}
+else   num_page=0;
         BLED_Fade_In();
 }
 void nextPage(){
         Tone2();
+        
         BLED_Fade_Out();
-        num_page = 1;
   if (CurrentScreen==&LIMITS1){DrawScreen(&LIMITS2);}
    else if (CurrentScreen==&LIMITS2){DrawScreen(&LIMITS3);}
     else if (CurrentScreen==&LIMITS3){DrawScreen(&LIMITS4);}
       else if (CurrentScreen==&LIMITS4){DrawScreen(&LIMITS5);}
-
+        else if (CurrentScreen==&MODE){DrawScreen(&MODE2);}
         BLED_Fade_In();
 }
 void selectPage(){
@@ -107,24 +111,47 @@ void selectPage(){
 if (CurrentScreen==&HOME)
         {
           main_page();
-          reciev_data_packet(DHW_TEMP,6);
-
+          reciev_data_packet(BAC_TEMP,2);
+          reciev_data_packet(SOURC_IN_1,2);
         }
 
-else if(CurrentScreen==&SENSOR1) {  sensor_1(0);reciev_data_packet(DHW_TEMP,16);
-            //if(num_page==0){}//BackScreen = USER_MENU;
-             // else {sensor_1(num_page);/*while (UART2_Tx_Idle()  == 0);Delay_ms(500);*/reciev_data_packet(HEAT_OUT_2,12);}
-            }
+else if(CurrentScreen==&SENSOR1) 
+     {  
+        sensor_1(num_page);
+        reciev_data_packet(BAC_TEMP,2);
+        if(num_page==0)
+        {
+        reciev_data_packet(CONDENS_TEMP_1,12);
+        if(strcmp(CircleButton10.Caption,"1")!=0){CircleButton10.Caption="1";DrawCircleButton(&CircleButton10);  }
+        }
+         else 
+         {reciev_data_packet(CONDENS_TEMP_2,12);
+             if(strcmp(CircleButton10.Caption,"2")!=0) {CircleButton10.Caption="2";DrawCircleButton(&CircleButton10);}
+         }
+     }
 
-else if(CurrentScreen==&GAUGE1){LP_display(),HP_display();reciev_data_packet(HIGH_PRESS_1,2);}
-else if(CurrentScreen==&EEV){ count_steps(); reciev_data_packet(S_HEAT_1,3);}
-else if(CurrentScreen==&SYSTEM_EVENTS){working_time();reciev_data_packet(TIM_P_HEAT_1,5);}
+
+else if(CurrentScreen==&GAUGE1)
+{
+     if(num_page==0)
+     {
+      LP_display(system_reg[LOW_PRESS_1]),HP_display(system_reg[HIGH_PRESS_1]);reciev_data_packet(HIGH_PRESS_1,2);
+       if(strcmp(CircleButton8.Caption,"1")!=0) {CircleButton8.Caption="1";DrawCircleButton(&CircleButton8);Next_b2.Caption="NEXT";DrawRoundButton(&Next_b2);Next_b2.OnClickPtr=nextPage;}
+     }
+      else 
+      {
+        LP_display(system_reg[LOW_PRESS_2]),HP_display(system_reg[HIGH_PRESS_2]);reciev_data_packet(HIGH_PRESS_2,2);
+        if(strcmp(CircleButton8.Caption,"2")!=0){CircleButton8.Caption="2";DrawCircleButton(&CircleButton8);Next_b2.Caption="BACK";DrawRoundButton(&Next_b2);Next_b2.OnClickPtr=goToBack;}
+      }
+}
+else if(CurrentScreen==&EEV){ count_steps(num_page); reciev_data_packet(S_HEAT_1,3);}
+else if(CurrentScreen==&SYSTEM_EVENTS){working_time(num_page);reciev_data_packet(TIM_P_HEAT_1,5);}
 else if(CurrentScreen==&Schema1){schema1_page();reciev_data_packet(DHW_TEMP,32);}
 }
 //--------------------------------Main_event
 
 void Main_OFFOnClick()
-{  if(!pushButton){
+{
   if ((unsigned long)Main_OFF.Picture_Name == main_off_bmp)
   {
       Main_OFF.Picture_Name = main_on_bmp;
@@ -147,7 +174,6 @@ void Main_OFFOnClick()
 
        }
 
-      }
       pushButton=true;
       send_data_packet(POWER,1);
       adressReg= POWER;
@@ -2603,11 +2629,38 @@ void Set_23_OnUp(){
  //---------------------------------------------- mode
 
 void One_CompressorsOnClick() {
-
+      if ((unsigned long)One_Compressors.Picture_Name == Compressor1_jpg)
+  {
+      One_Compressors.Picture_Name = Compressor2_jpg;
+      DrawImage(&Two_Compressors);
+      system_reg[NOMB_COMPRESSORS]=2;
+      two_compressors_mode=true;
+  }
+  else {
+      One_Compressors.Picture_Name = Compressor1_jpg;
+      DrawImage(&One_Compressors);
+      system_reg[NOMB_COMPRESSORS]=1;
+      two_compressors_mode=false;
+       }
+      send_data_packet(NOMB_COMPRESSORS,1);
+    Delay_ms (300);
 }
 
 void Reversing_ON_HEATOnClick() {
+      if ((unsigned long)Reversing_ON_HEAT.Picture_Name == but_ON_jpg)
+  {
+      Reversing_ON_HEAT.Picture_Name = but_OFF_jpg;
+      DrawImage(&Reversing_Heat_OFF);
+      system_reg[REVERS_MOD]=0;
 
+  }
+  else {
+      Reversing_ON_HEAT.Picture_Name = but_ON_jpg;
+      DrawImage(&Reversing_ON_HEAT);
+      system_reg[REVERS_MOD]=1;
+       }
+      send_data_packet(REVERS_MOD,1);
+    Delay_ms (300);
 }
 void Flow_Source__Sensor_ONOnClick(){
 
@@ -2947,7 +3000,21 @@ void EEV2_AutoOnClick() {
 }
 //-------------------------------------------------mode2
 void  Mode_ground_onOnClick () {
-
+       if ((unsigned long)Mode_ground_on.Picture_Name == mode_brine_jpg)
+  {
+      Mode_ground_on.Picture_Name = mode_air_jpg;
+      DrawImage(&Mode_air_on);
+      system_reg[AIRE_TO_WATER]=1;
+      ground_heat_pump=false;
+  }
+  else {
+      Mode_ground_on.Picture_Name = mode_brine_jpg;
+      DrawImage(&Mode_ground_on);
+      system_reg[AIRE_TO_WATER]=0;
+      ground_heat_pump=true;
+       }
+      send_data_packet(AIRE_TO_WATER,1);
+    Delay_ms (300);
 }
 //-------------------------------------------------defrost
 

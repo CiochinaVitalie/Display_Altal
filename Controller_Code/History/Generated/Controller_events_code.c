@@ -20,10 +20,16 @@ extern RTC_DateTypeDef      Read_Date;
 extern float old_HP_pressure;
 extern float old_LP_pressure;
 //------------------------------------------------------------------------------
+extern volatile  bool pushButton;
+extern   void (*send_data_again)();
+void (*ptr)(regAdress , unsigned char );
+regAdress adressReg;
+unsigned char nomReg;
+//------------------------------------------------------------------------------
 extern TScreen*  CurrentScreen;
 TScreen  BackScreen,NextScreen;
 extern Packet bus_data;
-extern int system_reg[NOMBER_OF_REG];
+extern int system_reg[600];
 bool two_compressors_mode,ground_heat_pump,SYSTEM_ON;
 extern bool sendMessage;
 unsigned char num_page;
@@ -66,29 +72,36 @@ void BackToHome(){
 void goToBack(){
         Tone2();
         BLED_Fade_Out();
-        num_page=0;
+
+if( num_page==0)
+{
         if(CurrentScreen == &SYSTEM_SET)DrawScreen(&USER_MENU);
         else if (CurrentScreen==&ERRORS)  DrawScreen(&USER_MENU);
         else if (CurrentScreen==&SENSOR1)  DrawScreen(&USER_MENU);
         else if (CurrentScreen==&SETTINGS)  DrawScreen(&USER_MENU);
+        else if (CurrentScreen==&ENERGY)  DrawScreen(&USER_MENU);
         else if(CurrentScreen == &EEV) DrawScreen(&SYSTEM_SET);
         else if(CurrentScreen == &DELAY_MENU) DrawScreen(&SYSTEM_SET);
         else if(CurrentScreen == &LIMITS1) DrawScreen(&SYSTEM_SET);
+        else if(CurrentScreen == &SYSTEM_EVENTS) DrawScreen(&SYSTEM_SET);
         else if (CurrentScreen==&LIMITS2)  DrawScreen(&LIMITS1);
         else if (CurrentScreen==&LIMITS3)  DrawScreen(&LIMITS2);
         else if (CurrentScreen==&LIMITS4)  DrawScreen(&LIMITS3);
         else if (CurrentScreen==&LIMITS5)  DrawScreen(&LIMITS4);
+        else if (CurrentScreen==&MODE)
+}
+else   num_page=0;
         BLED_Fade_In();
 }
 void nextPage(){
         Tone2();
+        if(system_reg[NOMB_COMPRESSORS]==2) num_page = 1;
+        
         BLED_Fade_Out();
-        num_page = 1;
   if (CurrentScreen==&LIMITS1){DrawScreen(&LIMITS2);}
    else if (CurrentScreen==&LIMITS2){DrawScreen(&LIMITS3);}
     else if (CurrentScreen==&LIMITS3){DrawScreen(&LIMITS4);}
       else if (CurrentScreen==&LIMITS4){DrawScreen(&LIMITS5);}
-
         BLED_Fade_In();
 }
 void selectPage(){
@@ -98,18 +111,38 @@ void selectPage(){
 if (CurrentScreen==&HOME)
         {
           main_page();
-          reciev_data_packet(DHW_TEMP,6);
-
+          reciev_data_packet(BAC_TEMP,2);
+          reciev_data_packet(SOURC_IN_1,2);
         }
 
-else if(CurrentScreen==&SENSOR1) {  sensor_1(0);reciev_data_packet(DHW_TEMP,16);
-            //if(num_page==0){}//BackScreen = USER_MENU;
-             // else {sensor_1(num_page);/*while (UART2_Tx_Idle()  == 0);Delay_ms(500);*/reciev_data_packet(HEAT_OUT_2,12);}
-            }
+else if(CurrentScreen==&SENSOR1) 
+     {  
+        sensor_1(num_page);
+        reciev_data_packet(BAC_TEMP,2);
+        if(num_page==0)
+        {
+        reciev_data_packet(CONDENS_TEMP_1,12);
+        if(strcmp(CircleButton10.Caption,"1")!=0){CircleButton10.Caption="1";DrawCircleButton(&CircleButton10);  }
+        }
+         else {reciev_data_packet(CONDENS_TEMP_2,12);CircleButton10.Caption="2";DrawCircleButton(&CircleButton10);}
+     }
 
-else if(CurrentScreen==&GAUGE1){LP_display(),HP_display();reciev_data_packet(HIGH_PRESS_1,2);}
-else if(CurrentScreen==&EEV){ count_steps(); reciev_data_packet(S_HEAT_1,3);}
-else if(CurrentScreen==&SYSTEM_EVENTS){working_time();reciev_data_packet(TIM_P_HEAT_1,5);}
+
+else if(CurrentScreen==&GAUGE1)
+{
+     if(num_page==0)
+     {
+      LP_display(system_reg[LOW_PRESS_1]),HP_display(system_reg[HIGH_PRESS_1]);reciev_data_packet(HIGH_PRESS_1,2);
+       if(strcmp(CircleButton8.Caption,"1")!=0) {CircleButton8.Caption="1";DrawCircleButton(&CircleButton8);Next_b2.Caption="NEXT";DrawRoundButton(&Next_b2);Next_b2.OnClickPtr=nextPage;}
+     }
+      else 
+      {
+        LP_display(system_reg[LOW_PRESS_2]),HP_display(system_reg[HIGH_PRESS_2]);reciev_data_packet(HIGH_PRESS_2,2);
+        if(strcmp(CircleButton8.Caption,"2")!=0){CircleButton8.Caption="2";DrawCircleButton(&CircleButton8);Next_b2.Caption="BACK";DrawRoundButton(&Next_b2);Next_b2.OnClickPtr=goToBack;}
+      }
+}
+else if(CurrentScreen==&EEV){ count_steps(num_page); reciev_data_packet(S_HEAT_1,3);}
+else if(CurrentScreen==&SYSTEM_EVENTS){working_time(num_page);reciev_data_packet(TIM_P_HEAT_1,5);}
 else if(CurrentScreen==&Schema1){schema1_page();reciev_data_packet(DHW_TEMP,32);}
 }
 //--------------------------------Main_event
@@ -137,12 +170,15 @@ void Main_OFFOnClick()
       system_reg[POWER]=0;
 
        }
-      // while (UART2_Tx_Idle()  == 0);Delay_ms(500);
+
+      pushButton=true;
       send_data_packet(POWER,1);
-    Delay_ms (300);
+      adressReg= POWER;
+      nomReg =1;
 }
 void bar_heatingOnClick()
 {
+
     if ( strcmp(bar_heating.Caption,"HEATING")==0 )
      {
       bar_heating.Caption = "COOLING";
@@ -163,7 +199,12 @@ void bar_heatingOnClick()
             system_reg[COOL]=0;
 
      }
-     if (strcmp(ON_OFF_Heat_Cool.Caption,"ON")==0 ) {/*while (UART2_Tx_Idle()  == 0);Delay_ms(500);*/send_data_packet(HEAT,2);}
+
+     if (strcmp(ON_OFF_Heat_Cool.Caption,"ON")==0 ) {send_data_packet(HEAT,2);
+      pushButton=true;
+      adressReg= HEAT;
+      nomReg =2;
+     }
 
 }
 void DHW_SetingOnClick()
@@ -233,9 +274,10 @@ void DHW_SetingOnClick()
             DrawCircle(&dhw_led);
             DrawLabel(&dhw_point);
             DrawLabel(&dhw_celc);
-            //while (UART2_Tx_Idle()  == 0);Delay_ms(500);
             send_data_packet(SET_DHW,1);
-
+             pushButton=true;
+             adressReg= SET_DHW;
+             nomReg =1;
              }
 
 
@@ -243,6 +285,7 @@ void DHW_SetingOnClick()
 void Heat_SettingOnClick(){
            static unsigned char count_push = 0;
            char txt[7];
+
       if(count_push==0) {
             Set_Heat_Box.Visible       = 1;
             Set_Heat_Box.Active        = 1;
@@ -305,9 +348,10 @@ void Heat_SettingOnClick(){
             DrawCircle(&heat_led);
             DrawLabel(&heat_point);
             DrawLabel(&heat_celc);
-             if ( strcmp(bar_heating.Caption,"HEATING")==0 ){ DrawImage(&heat_icon);/*while (UART2_Tx_Idle()  == 0);Delay_ms(500); */ send_data_packet(SET_HEAT,1);}
-             else  {DrawImage(&cool_icon);/*while (UART2_Tx_Idle()  == 0);Delay_ms(500);*/ send_data_packet(SET_COOL,1);}
+             if ( strcmp(bar_heating.Caption,"HEATING")==0 ){ DrawImage(&heat_icon);send_data_packet(SET_HEAT,1);adressReg= SET_HEAT;nomReg =1;}
+             else  {DrawImage(&cool_icon);send_data_packet(SET_COOL,1);adressReg= SET_COOL;nomReg =1;}
              }
+             pushButton=true;
 
 }
 
@@ -327,8 +371,11 @@ void Click_HEAT()
         DrawRoundButton(&ON_OFF_Heat_Cool);
 
     }
-   //while (UART2_Tx_Idle()  == 0);Delay_ms(500);
-   send_data_packet(HEAT,2);
+    pushButton=true;
+    adressReg= HEAT;
+    nomReg =2;
+    send_data_packet(HEAT,2);
+
 }
 void Click_DHW()
 {
@@ -345,7 +392,9 @@ void Click_DHW()
         DrawRoundButton(&ON_OFF_DHW);
         system_reg[HEATWATER]=1;
     }
-   // while (UART2_Tx_Idle()  == 0);Delay_ms(500);
+    pushButton=true; 
+    adressReg= HEATWATER;
+    nomReg =1;
     send_data_packet(HEATWATER,1);
 }
 void MainBut1OnUp(){
@@ -694,10 +743,8 @@ void EEV1UpOnDown() {
 }*/
 
 void DEC_EEV1OnPress() {
-    int temp;
-    char txt[7];
+
     Tone1();
-    temp= Red_bar.Position;
     //temp= Red_bar.Position;
     if(Red_bar.Position >= Red_bar.Min + 5) {
     //EEV1_value.Caption = Red_bar_Caption;
@@ -705,34 +752,24 @@ void DEC_EEV1OnPress() {
     Red_bar.Position -= 5;
     //system_reg[TRV_CORRECT_1]=Red_bar.Position - temp;
     DrawProgressBar(&Red_bar);
-    
-    system_reg[TRV_CORRECT_1]= system_reg[TRV_CORRECT_1]+Red_bar.Position-temp;
-    IntToStr(system_reg[TRV_CORRECT_1], txt);Ltrim(txt);
-    strncpy(ButtonRound2.Caption,txt,4);
-    DrawRoundButton(&ButtonRound2);
     Delay_ms (50);
     }
  }
 void INC_EEV1OnPress() {
-   int temp;
-    char txt[7];
     Tone1();
-    temp= Red_bar.Position;
     if(Red_bar.Position <= Red_bar.Max - 5) {
-    //EEV1_value.Caption = Red_bar_Caption;
-    //DrawRoundButton (&EEV1_value);
     Red_bar.Position += 5;
-    //system_reg[TRV_CORRECT_1]=Red_bar.Position - temp;
     UpdatePBPosition(&Red_bar);
     Delay_ms (50);
     }
 }
 
 void Set_Trv() {
-       //int temp;
-       //temp= Red_bar.Position;
-       //system_reg[TRV_CORRECT_1]=Red_bar.Position - system_reg[TRV_STEPS_1];
-//while (UART2_Tx_Idle()  == 0);Delay_ms(500);
+
+      system_reg[TRV_CORRECT_1]=Red_bar.Position - system_reg[TRV_STEPS_1];
+      adressReg= TRV_CORRECT_1;
+      nomReg=1;
+      pushButton=true;
       send_data_packet(TRV_CORRECT_1,1);
 }
 
@@ -1315,7 +1352,9 @@ void Delay_Source_SETOnUp() {
 }
 void Delay_Source_SETOnDown() {
       Tone1();
-      //while (UART2_Tx_Idle()  == 0);Delay_ms(500);
+      adressReg= SOURS_DEL;
+      nomReg=1;
+      pushButton=true;
       send_data_packet(SOURS_DEL,1);
       Delay_Source_SET.Visible = 0;
       Image344.Visible = 1;
@@ -1376,7 +1415,9 @@ void Delay_heat_pump_SETOnUp() {
 }
 void Delay_heat_pump_SETOnDown() {
      Tone1();
-     //while (UART2_Tx_Idle()  == 0);Delay_ms(500);
+      adressReg= HEAT_DEL;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(HEAT_DEL,1);
      Delay_heat_pump_SET.Visible = 0;
      Image345.Visible = 1;
@@ -1436,7 +1477,9 @@ void Delay_reversing_SETOnUp() {
 }
 void Delay_reversing_SETOnDown() {
      Tone1();
-    // while (UART2_Tx_Idle()  == 0);Delay_ms(500);
+      adressReg= REVERS_DEL;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(REVERS_DEL,1);
      Delay_reversing_SET.Visible = 0;
      Image346.Visible = 1;
@@ -1445,15 +1488,15 @@ void Delay_reversing_SETOnDown() {
    //4 line
 void Delay_trv_DOWNOnUp() {
        Image309.Visible = 0;
-       Delay_trv_up.Visible = 1;
-       DrawImage(&Delay_trv_up);
+       Delay_trv_DOWN.Visible = 1;
+       DrawImage(&Delay_trv_DOWN);
 }
 void Delay_trv_DOWNOnPress() {
        //int _data;
        char txt[7];
        Tone2 ();
        Image309.Visible = 1;
-       Delay_trv_up.Visible = 0;
+       Delay_trv_DOWN.Visible = 0;
        DrawImage(&Image309);
        /*_data = atoi(Delay_EEV.Caption);
        _data--;*/
@@ -1496,7 +1539,9 @@ void Delay_EEV_SETOnUp() {
 }
 void Delay_EEV_SETOnDown() {
      Tone1();
-     //while (UART2_Tx_Idle()  == 0);Delay_ms(500);
+     adressReg= TRV_DEL;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(TRV_DEL,1);
      Delay_EEV_SET.Visible = 0;
      Image347.Visible = 1;
@@ -1556,7 +1601,9 @@ void Delay_DHW_valve_SETOnUp() {
 }
 void Delay_DHW_valve_SETOnDown() {
      Tone1();
-     //while (UART2_Tx_Idle()  == 0);Delay_ms(500);
+     adressReg= THREE_WAY_DEL;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(THREE_WAY_DEL,1);
      Delay_DHW_valve_SET.Visible = 0;
      Image348.Visible = 1;
@@ -1616,7 +1663,9 @@ void Delay_compressor_SETOnUp() {
 }
 void Delay_compressor_SETOnDown() {
      Tone1();
-     //while (UART2_Tx_Idle()  == 0);Delay_ms(500);
+      adressReg= COMP_DEL;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(COMP_DEL,1);
      Delay_compressor_SET.Visible = 0;
      Image349.Visible = 1;
@@ -1874,6 +1923,9 @@ void Up_6_OnUp() {
 }
 void Set_1_OnDown() {
         Tone1();
+         adressReg= HEAT_MIN;
+      nomReg=1;
+      pushButton=true;
          send_data_packet(HEAT_MIN,1);
          Set_1_.Visible = 0;
      Image246.Visible = 1;
@@ -1886,6 +1938,9 @@ void Set_1_OnUp() {
 }
 void Set_2_OnDown() {
       Tone1();
+      adressReg= HEAT_MAX;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(HEAT_MAX,1);
      Set_2_.Visible = 0;
      Image247.Visible = 1;
@@ -1899,6 +1954,9 @@ void Set_2_OnUp(){
 
 void Set_3_OnDown() {
      Tone1();
+     adressReg= EXAUST_MAX;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(EXAUST_MAX,1);
      Set_3_.Visible = 0;
      Image248.Visible = 1;
@@ -1911,6 +1969,9 @@ void Set_3_OnUp()  {
 }
 void Set_4_OnDown() {
      Tone1();
+      adressReg= SOURS_MIN;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(SOURS_MIN,1);
      Set_4_.Visible = 0;
      Image249.Visible = 1;
@@ -1925,6 +1986,9 @@ void Set_4_OnUp() {
 
 void Set_5_OnDown() {
      Tone1();
+     adressReg= SOURS_MAX;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(SOURS_MAX,1);
      Set_5_.Visible = 0;
      Image250.Visible = 1;
@@ -1945,6 +2009,9 @@ void Furnance_HP_OFF_save_ondown() {
 }
 void Set_6_OnDown(){
      Tone1();
+     adressReg= DEL_HEAT_MIN;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(DEL_HEAT_MIN,1);
      Set_6_.Visible = 0;
      Image251.Visible = 1;
@@ -2196,6 +2263,9 @@ void Set_7_OnUp() {
 }
 void Set_7_OnDown(){
      Tone1();
+      adressReg= DEL_HEAT_MAX;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(DEL_HEAT_MAX,1);
      Set_7_.Visible = 0;
      Image252.Visible = 1;
@@ -2204,6 +2274,9 @@ void Set_7_OnDown(){
 
 void Set_8_OnDown() {
       Tone1();
+      adressReg= DEL_DHW_MIN;
+      nomReg=1;
+      pushButton=true;
       send_data_packet(DEL_DHW_MIN,1);
      Set_8_.Visible = 0;
      Image253.Visible = 1;
@@ -2223,6 +2296,9 @@ void Set_8_OnUp() {
 }
 void Set_9_OnDown() {
      Tone1();
+      adressReg= DEL_DHW_MAX;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(DEL_DHW_MAX,1);
      Set_9_.Visible = 0;
      Image256.Visible = 1;
@@ -2230,6 +2306,9 @@ void Set_9_OnDown() {
 }
  void Set_10_OnDown() {
         Tone1();
+      adressReg= DEL_SOURS_MIN;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(DEL_SOURS_MIN,1);
      Set_10_.Visible = 0;
      Image254.Visible = 1;
@@ -2243,6 +2322,9 @@ void Set_10_OnUp() {
 }
 void Set_11_OnDown() {
      Tone1();
+      adressReg= DEL_SOURS_MAX;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(DEL_SOURS_MAX,1);
      Set_11_.Visible = 0;
      Image255.Visible = 1;
@@ -2470,13 +2552,19 @@ void Set_19_OnUp() {
 }
 void void Set_19_OnDown(){
       Tone1();
+      adressReg= S_HEAT_MAX;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(S_HEAT_MAX,1);
      Set_19_.Visible = 0;
      Image264.Visible = 1;
      DrawImage (&Image264);
 }
 void Set_20_OnDown() {
-     Tone1();
+      Tone1();
+      adressReg= S_COOL_MIN;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(S_COOL_MIN,1);
      Set_20_.Visible = 0;
      Image265.Visible = 1;
@@ -2489,6 +2577,9 @@ void Set_20_OnUp() {
 }
 void Set_21_OnDown() {
       Tone1();
+      adressReg= S_COOL_MAX;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(S_COOL_MAX,1);
      Set_21_.Visible = 0;
      Image266.Visible = 1;
@@ -2501,6 +2592,9 @@ void Set_21_OnUp() {
 }
 void Set_22_OnDown(){
      Tone1();
+      adressReg= HP_MAX;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(HP_MAX,1);
      Set_22_.Visible = 0;
      Image34.Visible = 1;
@@ -2515,6 +2609,9 @@ void Set_22_OnUp(){
 }
 void Set_23_OnDown(){
      Tone1();
+     adressReg= HP_MIN;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(HP_MIN,1);
      Set_23_.Visible = 0;
      Image33.Visible = 1;
@@ -2529,11 +2626,38 @@ void Set_23_OnUp(){
  //---------------------------------------------- mode
 
 void One_CompressorsOnClick() {
-
+      if ((unsigned long)One_Compressors.Picture_Name == Compressor1_jpg)
+  {
+      One_Compressors.Picture_Name = Compressor2_jpg;
+      DrawImage(&Two_Compressors);
+      system_reg[NOMB_COMPRESSORS]=2;
+      two_compressors_mode=true;
+  }
+  else {
+      One_Compressors.Picture_Name = Compressor1_jpg;
+      DrawImage(&One_Compressors);
+      system_reg[NOMB_COMPRESSORS]=1;
+      two_compressors_mode=false;
+       }
+      send_data_packet(NOMB_COMPRESSORS,1);
+    Delay_ms (300);
 }
 
 void Reversing_ON_HEATOnClick() {
+      if ((unsigned long)Reversing_ON_HEAT.Picture_Name == but_ON_jpg)
+  {
+      Reversing_ON_HEAT.Picture_Name = but_OFF_jpg;
+      DrawImage(&Reversing_Heat_OFF);
+      system_reg[REVERS_MOD]=0;
 
+  }
+  else {
+      Reversing_ON_HEAT.Picture_Name = but_ON_jpg;
+      DrawImage(&Reversing_ON_HEAT);
+      system_reg[REVERS_MOD]=1;
+       }
+      send_data_packet(REVERS_MOD,1);
+    Delay_ms (300);
 }
 void Flow_Source__Sensor_ONOnClick(){
 
@@ -2807,6 +2931,9 @@ void Set_heat_onup(){
 }
 void Set_heat_OnDown(){
      Tone1();
+      adressReg= DIFF_HEAT;
+      nomReg=1;
+      pushButton=true;
      send_data_packet (DIFF_HEAT,1);
      Image135.Visible = 0;
      Image128.Visible = 1;
@@ -2820,6 +2947,9 @@ void Set_cool_OnUp(){
 }
 void Set_cool_OnDown(){
       Tone1();
+      adressReg= DIFF_COOL;
+      nomReg=1;
+      pushButton=true;
      send_data_packet (DIFF_COOL,1);
      Image138.Visible = 0;
      Image129.Visible = 1;
@@ -2833,6 +2963,9 @@ void Set_dhw_OnUp(){
 }
 void Set_dhw_OnDown(){
        Tone1();
+      adressReg= DIFF_DHW;
+      nomReg=1;
+      pushButton=true;
      send_data_packet (DIFF_DHW,1);
      Set_DHW_HY.Visible = 0;
      Image130.Visible = 1;
@@ -2864,7 +2997,21 @@ void EEV2_AutoOnClick() {
 }
 //-------------------------------------------------mode2
 void  Mode_ground_onOnClick () {
-
+       if ((unsigned long)Mode_ground_on.Picture_Name == mode_brine_jpg)
+  {
+      Mode_ground_on.Picture_Name = mode_air_jpg;
+      DrawImage(&Mode_air_on);
+      system_reg[AIRE_TO_WATER]=1;
+      ground_heat_pump=false;
+  }
+  else {
+      Mode_ground_on.Picture_Name = mode_brine_jpg;
+      DrawImage(&Mode_ground_on);
+      system_reg[AIRE_TO_WATER]=0;
+      ground_heat_pump=true;
+       }
+      send_data_packet(AIRE_TO_WATER,1);
+    Delay_ms (300);
 }
 //-------------------------------------------------defrost
 
@@ -2966,6 +3113,9 @@ void UP_26_OnUp() {
 }
 void Set_24_OnDown(){
       Tone1();
+      adressReg= LP_MAX;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(LP_MAX,1);
      Image279.Visible = 0;
      Image29.Visible = 1;
@@ -2979,6 +3129,9 @@ void Set_24_OnUp(){
 }
 void Set_25_OnDown(){
 Tone1();
+      adressReg= LP_MIN;
+      nomReg=1;
+      pushButton=true;
      send_data_packet(LP_MIN,1);
      Image282.Visible = 0;
      Image22.Visible = 1;
@@ -3129,6 +3282,7 @@ void Set_18_OnUp() {
 }
 void Set_18_OnDown() {
      Tone1();
+     
      send_data_packet(S_HEAT_MIN,1);
      Set_18_.Visible = 0;
      Image485.Visible = 1;

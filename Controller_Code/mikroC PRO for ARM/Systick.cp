@@ -1,5 +1,5 @@
-#line 1 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Systick.c"
-#line 1 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/systick.h"
+#line 1 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Systick.c"
+#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
 #line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
 
 
@@ -49,11 +49,11 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 25 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/systick.h"
+#line 25 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
  void InitSysTick();
  uint32_t millis();
 #line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
-#line 4 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/Systick.c"
+#line 4 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Systick.c"
  volatile uint32_t time_count = 0;
 
 

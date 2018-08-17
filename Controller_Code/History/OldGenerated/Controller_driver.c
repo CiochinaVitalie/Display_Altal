@@ -570,10 +570,7 @@ char CircleButton9_Caption[2] = "1";
   TButton_Round          ButtonRound1;
 char ButtonRound1_Caption[4] = "SET";
 
-  TButton_Round          ButtonRound2;
-char ButtonRound2_Caption[5] = "";
-
-  TButton_Round          * const code Screen3_Buttons_Round[9]=
+  TButton_Round          * const code Screen3_Buttons_Round[8]=
          {
          &DEC_EEV1,            
          &INC_EEV1,            
@@ -582,8 +579,7 @@ char ButtonRound2_Caption[5] = "";
          &Next_b1,             
          &EEV1_superheat,      
          &EEV1_value,          
-         &ButtonRound1,        
-         &ButtonRound2         
+         &ButtonRound1         
          };
   TLabel                 * const code Screen3_Labels[2]=
          {
@@ -4304,7 +4300,7 @@ static void InitializeObjects() {
   EEV.Width                     = 480;
   EEV.Height                    = 272;
   EEV.ButtonsCount              = 0;
-  EEV.Buttons_RoundCount        = 9;
+  EEV.Buttons_RoundCount        = 8;
   EEV.Buttons_Round             = Screen3_Buttons_Round;
   EEV.LabelsCount               = 2;
   EEV.Labels                    = Screen3_Labels;
@@ -4319,7 +4315,7 @@ static void InitializeObjects() {
   EEV.LinesCount                = 0;
   EEV.ProgressBarsCount         = 1;
   EEV.ProgressBars              = Screen3_ProgressBars;
-  EEV.ObjectsCount              = 15;
+  EEV.ObjectsCount              = 14;
 
   Keyboard.Color                     = 0x0008;
   Keyboard.Width                     = 480;
@@ -7068,7 +7064,7 @@ static void InitializeObjects() {
   User_defrost_label.Top             = 203;
   User_defrost_label.Width           = 45;
   User_defrost_label.Height          = 16;
-  User_defrost_label.Visible         = 0;
+  User_defrost_label.Visible         = 1;
   User_defrost_label.Active          = 0;
   User_defrost_label.Caption         = User_defrost_label_Caption;
   User_defrost_label.FontName        = Arial_Narrow13x16_Bold;
@@ -7632,7 +7628,7 @@ static void InitializeObjects() {
 
   EEV1_superheat.OwnerScreen     = &EEV;
   EEV1_superheat.Order           = 10;
-  EEV1_superheat.Left            = 158;
+  EEV1_superheat.Left            = 204;
   EEV1_superheat.Top             = 51;
   EEV1_superheat.Width           = 44;
   EEV1_superheat.Height          = 27;
@@ -7662,7 +7658,7 @@ static void InitializeObjects() {
 
   EEV1_value.OwnerScreen     = &EEV;
   EEV1_value.Order           = 11;
-  EEV1_value.Left            = 284;
+  EEV1_value.Left            = 286;
   EEV1_value.Top             = 51;
   EEV1_value.Width           = 48;
   EEV1_value.Height          = 27;
@@ -7747,36 +7743,6 @@ static void InitializeObjects() {
   ButtonRound1.OnDownPtr       = 0;
   ButtonRound1.OnClickPtr      = Set_Trv;
   ButtonRound1.OnPressPtr      = 0;
-
-  ButtonRound2.OwnerScreen     = &EEV;
-  ButtonRound2.Order           = 14;
-  ButtonRound2.Left            = 202;
-  ButtonRound2.Top             = 51;
-  ButtonRound2.Width           = 82;
-  ButtonRound2.Height          = 27;
-  ButtonRound2.Pen_Width       = 1;
-  ButtonRound2.Pen_Color       = 0x0000;
-  ButtonRound2.Visible         = 1;
-  ButtonRound2.Active          = 1;
-  ButtonRound2.Transparent     = 1;
-  ButtonRound2.Caption         = ButtonRound2_Caption;
-  ButtonRound2.TextAlign       = _taCenter;
-  ButtonRound2.TextAlignVertical= _tavMiddle;
-  ButtonRound2.FontName        = Arial_Narrow16x19_Bold;
-  ButtonRound2.PressColEnabled = 1;
-  ButtonRound2.Font_Color      = 0xF800;
-  ButtonRound2.VerticalText    = 0;
-  ButtonRound2.Gradient        = 1;
-  ButtonRound2.Gradient_Orientation = 0;
-  ButtonRound2.Gradient_Start_Color = 0xFFFF;
-  ButtonRound2.Gradient_End_Color = 0xC618;
-  ButtonRound2.Color           = 0xFFFF;
-  ButtonRound2.Press_Color     = 0xE71C;
-  ButtonRound2.Corner_Radius   = 3;
-  ButtonRound2.OnUpPtr         = 0;
-  ButtonRound2.OnDownPtr       = 0;
-  ButtonRound2.OnClickPtr      = 0;
-  ButtonRound2.OnPressPtr      = 0;
 
   Image31.OwnerScreen     = &Keyboard;
   Image31.Order           = 0;
@@ -10233,7 +10199,7 @@ static void InitializeObjects() {
   Label2.Order           = 4;
   Label2.Left            = 60;
   Label2.Top             = 135;
-  Label2.Width           = 50;
+  Label2.Width           = 0;
   Label2.Height          = 57;
   Label2.Visible         = 1;
   Label2.Active          = 1;
@@ -10586,7 +10552,7 @@ static void InitializeObjects() {
   Next_b2.Pen_Width       = 1;
   Next_b2.Pen_Color       = 0xC618;
   Next_b2.Visible         = 1;
-  Next_b2.Active          = 0;
+  Next_b2.Active          = 1;
   Next_b2.Transparent     = 1;
   Next_b2.Caption         = Next_b2_Caption;
   Next_b2.TextAlign       = _taCenter;
@@ -10614,8 +10580,8 @@ static void InitializeObjects() {
   CircleButton8.Radius          = 12;
   CircleButton8.Pen_Width       = 1;
   CircleButton8.Pen_Color       = 0x0000;
-  CircleButton8.Visible         = 0;
-  CircleButton8.Active          = 0;
+  CircleButton8.Visible         = 1;
+  CircleButton8.Active          = 1;
   CircleButton8.Transparent     = 1;
   CircleButton8.Caption         = CircleButton8_Caption;
   CircleButton8.TextAlign       = _taCenter;
@@ -11067,7 +11033,7 @@ static void InitializeObjects() {
   system_mode.Picture_Ratio   = 1;
   system_mode.Picture_Name    = system_3a_on_jpg;
   system_mode.Visible         = 1;
-  system_mode.Active          = 0;
+  system_mode.Active          = 1;
   system_mode.OnUpPtr         = system_modeOnUp;
   system_mode.OnDownPtr       = system_modeOnDown;
   system_mode.OnClickPtr      = 0;
@@ -12168,7 +12134,7 @@ static void InitializeObjects() {
   Next_b3.Pen_Width       = 1;
   Next_b3.Pen_Color       = 0xC618;
   Next_b3.Visible         = 1;
-  Next_b3.Active          = 0;
+  Next_b3.Active          = 1;
   Next_b3.Transparent     = 1;
   Next_b3.Caption         = Next_b3_Caption;
   Next_b3.TextAlign       = _taCenter;
@@ -15380,8 +15346,8 @@ static void InitializeObjects() {
   CircleButton10.Radius          = 12;
   CircleButton10.Pen_Width       = 1;
   CircleButton10.Pen_Color       = 0x0000;
-  CircleButton10.Visible         = 0;
-  CircleButton10.Active          = 0;
+  CircleButton10.Visible         = 1;
+  CircleButton10.Active          = 1;
   CircleButton10.Transparent     = 1;
   CircleButton10.Caption         = CircleButton10_Caption;
   CircleButton10.TextAlign       = _taCenter;
@@ -15504,7 +15470,7 @@ static void InitializeObjects() {
   Next_b6.Pen_Width       = 1;
   Next_b6.Pen_Color       = 0xC618;
   Next_b6.Visible         = 1;
-  Next_b6.Active          = 0;
+  Next_b6.Active          = 1;
   Next_b6.Transparent     = 1;
   Next_b6.Caption         = Next_b6_Caption;
   Next_b6.TextAlign       = _taCenter;
@@ -18676,7 +18642,7 @@ static void InitializeObjects() {
   One_Compressors.Picture_Ratio   = 1;
   One_Compressors.Picture_Name    = Compressor1_jpg;
   One_Compressors.Visible         = 1;
-  One_Compressors.Active          = 0;
+  One_Compressors.Active          = 1;
   One_Compressors.OnUpPtr         = 0;
   One_Compressors.OnDownPtr       = 0;
   One_Compressors.OnClickPtr      = One_CompressorsOnClick;
@@ -18739,7 +18705,7 @@ static void InitializeObjects() {
   Flow_Source__Heat2_ON.Picture_Type    = 1;
   Flow_Source__Heat2_ON.Picture_Ratio   = 1;
   Flow_Source__Heat2_ON.Picture_Name    = but_ON_jpg;
-  Flow_Source__Heat2_ON.Visible         = 0;
+  Flow_Source__Heat2_ON.Visible         = 1;
   Flow_Source__Heat2_ON.Active          = 1;
   Flow_Source__Heat2_ON.OnUpPtr         = 0;
   Flow_Source__Heat2_ON.OnDownPtr       = 0;

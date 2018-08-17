@@ -1,6 +1,6 @@
-#line 1 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/modbus.c"
-#line 1 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
+#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -21,11 +21,11 @@ extern float ReadLowPressure (int low_press);
 extern void main_page();
 extern void sensor_1(unsigned char num_page);
 extern void data_eeprom();
-extern void HP_display();
-extern void LP_display();
+extern void HP_display(int pressure);
+extern void LP_display(int pressure);
 extern void find_errors();
-extern void count_steps();
-extern void working_time();
+extern void count_steps(unsigned char num_page);
+extern void working_time(unsigned char num_page);
 extern void void startPage();
 extern void schema1_page();
 
@@ -64,125 +64,116 @@ extern void schema1_page();
 }Packet;
 
 enum _system {
-FUNCTION,
-VOLT_A=410,
-VOLT_B=420,
-VOLT_C=430,
-CURR_A,
-CURR_B,
-CURR_C,
+
 ELECT_HEAT,
 PROG_REL,
 TIME_REL,
-DHW_TEMP,
-BAC_TEMP,
-ERRORS_1,
-THREE_STATE_MAIN,
-SOURC_OUT_1,
-SOURC_IN_1,
-HEAT_OUT_1,
-HEAT_IN_1,
-EXAUST_TEMP_1,
-SUCT_TEMP_1,
-HIGH_PRESS_1,
-LOW_PRESS_1,
-CONDENS_TEMP_1,
-S_HEAT_1,
-S_COOL_1,
-TRV_STEPS_1,
 TRV_CORRECT_1,
-TIM_P_HEAT_1,
-TIM_P_SOURS_1,
-TIM_REV_1,
-TIM_COM_1,
-TIM_THREE_1,
+TRV_CORRECT_2,
 NUM_P_HEAT_1,
 NUM_P_SOURS_1,
 NUM_REV_1,
 NUM_COM_1,
-NUM_THREE_1,
-COM_STATE_1,
-PUMP_HEAT_STATE_1,
-PUMP_SOURS_STATE_1,
-REV_STATE_1,
-THREE_STATE_1,
-HEAT_OUT_2,
-HEAT_IN_2,
-SOURC_OUT_2,
-SOURC_IN_2,
-EXAUST_TEMP_2,
-SUCT_TEMP_2,
-HIGH_PRESS_2,
-LOW_PRESS_2,
-COMP_TEMP_2,
-ERRORS_2,
-S_HEAT_2,
-S_COOL_2,
-TRV_STEPS_2,
-TRV_CORRECT_2,
-TIM_P_HEAT_2,
-TIM_P_SOURS_2,
-TIM_REV_2,
-TIM_COM_2,
-TIM_THREE_2,
 NUM_P_HEAT_2,
 NUM_P_SOURS_2,
 NUM_REV_2,
 NUM_COM_2,
-NUM_THREE_2,
-COM_STATE_2,
-PUMP_HEAT_STATE_2,
-PUMP_SOURS_STATE_2,
-REV_STATE_2,
-THREE_STATE_2,
-COMP_DEL,
-SOURS_DEL,
-REVERS_DEL,
-HEAT_DEL,
-THREE_WAY_DEL,
-TRV_DEL,
-DEL_DHW_MAX,
-DEL_DHW_MIN,
-HEAT_MAX,
-HEAT_MIN,
-SOURS_MAX,
-SOURS_MIN,
-COOL_MAX,
-COOL_MIN,
-EXAUST_MAX,
-S_HEAT_MIN,
-S_HEAT_MAX,
-S_COOL_MIN,
-S_COOL_MAX,
-HP_MIN,
-HP_MAX,
-LP_MIN,
-LP_MAX,
-DEL_HEAT_MAX,
-DEL_HEAT_MIN,
-DEL_SOURS_MAX,
-DEL_SOURS_MIN,
-SET_HEAT,
-SET_COOL,
-SET_DHW,
-DIFF_HEAT,
-DIFF_COOL,
-DIFF_DHW,
-POWER,
-HEATWATER,
-HEAT,
-COOL,
-REVERS_MOD,
+
 K_FLOW_HEAT,
 K_FLOW_SOURS,
 TOTAL_ERRORS,
-AIRE_TO_WATER,
-TIME_DEFROST,
-TEMP_DEFROST,
-TEMP_OUT,
-TEMP_STOP_DEFROST,
-NOMBER_OF_REG
+
+
+VOLT_A=470,
+VOLT_B=480,
+VOLT_C=490,
+CURR_A=500,
+CURR_B=510,
+CURR_C=520,
+
+TRV_STEPS_1=61, TRV_STEPS_2=62,
+BAC_TEMP=71,
+DHW_TEMP=81,
+CONDENS_TEMP_1=91,CONDENS_TEMP_2=92,
+SUCT_TEMP_1=101, SUCT_TEMP_2=102,
+S_COOL_1=111,S_COOL_2=112,
+S_HEAT_1=121,S_HEAT_2=122,
+HEAT_IN_1=131,HEAT_IN_2=132,
+HEAT_OUT_1=141,HEAT_OUT_2=142,
+SOURC_IN_1=151, SOURC_IN_2=152,
+SOURC_OUT_1=161,SOURC_OUT_2=162,
+HIGH_PRESS_1=171, HIGH_PRESS_2 =172,
+LOW_PRESS_1=181,LOW_PRESS_2=182,
+ERRORS_1=191,ERRORS_2=192,
+EXAUST_TEMP_1=201,EXAUST_TEMP_2=202,
+
+
+
+
+
+
+TIM_COM_1=341,TIM_COM_2=342,
+TIM_P_HEAT_1=351, TIM_P_HEAT_2=352,
+TIM_P_SOURS_1=371,TIM_P_SOURS_2=372,
+TIM_REV_1=381, TIM_REV_2=382,
+
+
+
+COM_STATE_1=11, COM_STATE_2=12,
+PUMP_SOURS_STATE_1=21, PUMP_SOURS_STATE_2=22,
+PUMP_HEAT_STATE_1=31, PUMP_HEAT_STATE_2=32,
+REV_STATE_1=41,REV_STATE_2=42,
+THREE_STATE=51,
+
+COMP_DEL=10,
+HEAT_DEL=20,
+SOURS_DEL=30,
+REVERS_DEL=40,
+THREE_WAY_DEL=50,
+COOL_MAX=60,
+COOL_MIN=70,
+HEAT_MAX=80,
+HEAT_MIN=90,
+DEL_HEAT_MAX=100,
+DEL_HEAT_MIN=110,
+DEL_SOURS_MAX=120,
+DEL_SOURS_MIN=130,
+DIFF_COOL=140,
+DIFF_DHW=150,
+DIFF_HEAT=160,
+AIRE_TO_WATER=170,
+EXAUST_MAX=180,
+COOL=190,
+HEAT=200,
+HEATWATER=210,
+HP_MAX=220,
+LP_MAX=230,
+HP_MIN=240,
+LP_MIN=250,
+S_COOL_MAX=260,
+S_COOL_MIN=270,
+S_HEAT_MAX=280,
+S_HEAT_MIN=290,
+NUM_THREE =300,
+POWER=310,
+SET_COOL=320,
+SET_DHW=330,
+SET_HEAT=340,
+TEMP_DEFROST=350,
+TIME_DEFROST=360,
+TEMP_OUT=370,
+TEMP_STOP_DEFROST=380,
+TIM_THREE=390,
+NOMB_COMPRESSORS=400,
+REVERS_MOD=410,
+TRV_DEL=420,
+SOURS_MAX=430,
+SOURS_MIN=440,
+DEL_DHW_MAX=450,
+DEL_DHW_MIN=460
 };
+
+
  typedef enum _system regAdress;
  extern void (*ptr)(regAdress , unsigned char );
  extern regAdress adressReg;
@@ -1943,6 +1934,7 @@ extern TCircleButton * const code Screen37_CircleButtons[1];
 
 
 
+
 void BackToHome();
 void goToBack();
 void nextPage();
@@ -1992,7 +1984,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2023 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2015 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -3636,7 +3628,7 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/systick.h"
+#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
 #line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
 
 
@@ -3686,7 +3678,7 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 25 "c:/users/user/desktop/display_2_compressor/altal_tft/controller_code/mikroc pro for arm/systick.h"
+#line 25 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
  void InitSysTick();
  uint32_t millis();
 #line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
@@ -3696,7 +3688,7 @@ typedef unsigned long long uintmax_t;
 
  typedef char _Bool;
 #line 1 "e:/mikroc/mikroc pro for arm/include/built_in.h"
-#line 8 "C:/Users/User/Desktop/Display_2_compressor/ALTAL_TFT/Controller_Code/mikroC PRO for ARM/modbus.c"
+#line 8 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
 extern  _Bool  sendMessage;
 extern volatile  _Bool  end_packet;
 extern volatile unsigned char sizeOfBuffer;
@@ -3714,8 +3706,10 @@ volatile uint8_t frame[ 128 ];
 unsigned int time_out, polling;
 unsigned long previousTimeout, previousPolling;
 unsigned int total_no_of_packets;
-int system_reg[NOMBER_OF_REG]={0};
+int system_reg[600]={0};
 Packet bus_data;
+
+
 
 
 void modbus_configure(unsigned int _time_out, unsigned int _polling,unsigned char _retry_count);
@@ -3850,13 +3844,14 @@ void constructPacket()
 
 
 
- for (i = 0; i < no_of_registers; i++)
+ for (i = 0; i < no_of_registers;)
  {
  temp = bus_data.register_array[i+bus_data.address];
  frame[index] =  ((char *)&temp)[1] ;
  index++;
  frame[index] =  ((char *)&temp)[0] ;
  index++;
+ i+=10;
  }
  crc16 = calculateCRC(frameSize - 2);
  frame[frameSize - 2] =  ((char *)&crc16)[1] ;
@@ -3932,7 +3927,7 @@ if (messageErrFlag && pollingFinished)
 
 void check_F3_data(unsigned char buffer)
 {
- unsigned char no_of_registers = bus_data.no_of_registers;
+ unsigned char no_of_registers = bus_data.no_of_registers ;
  unsigned char no_of_bytes = no_of_registers * 2;
  if (frame[2] == no_of_bytes)
  {
@@ -3941,19 +3936,22 @@ void check_F3_data(unsigned char buffer)
  unsigned int recieved_crc = ((frame[buffer - 2] << 8) | frame[buffer - 1]);
  unsigned int calculated_crc = calculateCRC(buffer - 2);
 
- IntToStr(calculated_crc,txt);
- Ltrim(txt);
- UART2_Write_Text(txt);
+
+
+
  if (calculated_crc == recieved_crc)
  {
  unsigned char index = 3;
  unsigned char i = 0;
+ int incAdr=0;
 
  for (i = 0; i < no_of_registers; i++)
  {
 
- bus_data.register_array[bus_data.address + i] = (frame[index] << 8) | frame[index + 1];
+ bus_data.register_array[bus_data.address + incAdr] = (frame[index] << 8) | frame[index + 1];
+#line 272 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
  index += 2;
+ incAdr+=10;
  }
  messageOkFlag = 1;
  }

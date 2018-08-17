@@ -6,7 +6,7 @@ Value=0
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=Controller_objects.h
+Value=modbus.c
 [USE_EEPROM]
 Value=0
 [EEPROM_DEFINITION]
@@ -34,7 +34,7 @@ Count=0
 Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
-Count=7
+Count=8
 File0=Controller_main.c
 File1=Controller_events_code.c
 File2=modbus.c
@@ -42,6 +42,7 @@ File3=Controller_objects.h
 File4=Pages.c
 File5=Gauge.c
 File6=Errors.c
+File7=Controller_resources.h
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -49,16 +50,18 @@ Count=0
 [OTHER_FILES]
 Count=0
 [SEARCH_PATH]
-Count=5
+Count=6
 Path0=E:\mikroC\mikroC PRO for ARM\Defs\
 Path1=E:\mikroC\mikroC PRO for ARM\Uses\
-Path2=C:\Users\User\Desktop\Display_2_compressor\ALTAL_TFT\Controller_Code\mikroC PRO for ARM\
-Path3=C:\Users\User\Desktop\GIT_ALTAL\ALTAL_TFT\Controller_Code\mikroC PRO for ARM\
-Path4=E:\mikroC\mikroC PRO for ARM\Uses\ST M4\
+Path2=C:\Users\User\Desktop\alta_2_compressor_display\Controller_Code\mikroC PRO for ARM\
+Path3=C:\Users\User\Desktop\Display_2_compressor\ALTAL_TFT\Controller_Code\mikroC PRO for ARM\
+Path4=C:\Users\User\Desktop\GIT_ALTAL\ALTAL_TFT\Controller_Code\mikroC PRO for ARM\
+Path5=E:\mikroC\mikroC PRO for ARM\Uses\ST M4\
 [HEADER_PATH]
-Count=2
+Count=3
 Path0=C:\Users\User\Desktop\GIT_ALTAL\ALTAL_TFT\Controller_Code\mikroC PRO for ARM\
 Path1=C:\Users\User\Desktop\Display_2_compressor\ALTAL_TFT\Controller_Code\mikroC PRO for ARM\
+Path2=C:\Users\User\Desktop\alta_2_compressor_display\Controller_Code\mikroC PRO for ARM\
 [HEADERS]
 Count=3
 File0=Controller_objects.h

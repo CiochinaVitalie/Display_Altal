@@ -250,30 +250,30 @@ BL	_InitSysTick+0
 BL	_USART_init+0
 ;Controller_main.c,117 :: 		InitTimer2();
 BL	_InitTimer2+0
-;Controller_main.c,151 :: 		modbus_configure(1000,200,10);
+;Controller_main.c,152 :: 		modbus_configure(1000,200,10);
 MOVS	R2, #10
 MOVS	R1, #200
 MOVW	R0, #1000
 BL	_modbus_configure+0
-;Controller_main.c,152 :: 		Start_TP();
+;Controller_main.c,153 :: 		Start_TP();
 BL	_Start_TP+0
-;Controller_main.c,153 :: 		EnableInterrupts();
+;Controller_main.c,154 :: 		EnableInterrupts();
 BL	_EnableInterrupts+0
-;Controller_main.c,154 :: 		DrawRoundBox (&Messages_Box);
+;Controller_main.c,155 :: 		DrawRoundBox (&Messages_Box);
 MOVW	R0, #lo_addr(_Messages_Box+0)
 MOVT	R0, #hi_addr(_Messages_Box+0)
 BL	_DrawRoundBox+0
-;Controller_main.c,155 :: 		Messages_Label.Caption = "UPDATE_DIS";
+;Controller_main.c,156 :: 		Messages_Label.Caption = "UPDATE_DIS";
 MOVW	R1, #lo_addr(?lstr1_Controller_main+0)
 MOVT	R1, #hi_addr(?lstr1_Controller_main+0)
 MOVW	R0, #lo_addr(_Messages_Label+16)
 MOVT	R0, #hi_addr(_Messages_Label+16)
 STR	R1, [R0, #0]
-;Controller_main.c,156 :: 		DrawLabel (&Messages_Label);
+;Controller_main.c,157 :: 		DrawLabel (&Messages_Label);
 MOVW	R0, #lo_addr(_Messages_Label+0)
 MOVT	R0, #hi_addr(_Messages_Label+0)
 BL	_DrawLabel+0
-;Controller_main.c,157 :: 		while(end_packet==false){
+;Controller_main.c,158 :: 		while(end_packet==false){
 L_main4:
 MOVW	R0, #lo_addr(_end_packet+0)
 MOVT	R0, #hi_addr(_end_packet+0)
@@ -281,12 +281,12 @@ LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
 BNE	L_main5
-;Controller_main.c,158 :: 		reciev_data_packet(COMP_DEL,37);
-MOVS	R1, #37
-MOVW	R0, #498
+;Controller_main.c,159 :: 		reciev_data_packet(COMP_DEL,46);
+MOVS	R1, #46
+MOVW	R0, #10
 SXTH	R0, R0
 BL	_reciev_data_packet+0
-;Controller_main.c,159 :: 		Delay_ms(1000);
+;Controller_main.c,160 :: 		Delay_ms(1000);
 MOVW	R7, #23038
 MOVT	R7, #610
 NOP
@@ -297,48 +297,48 @@ BNE	L_main6
 NOP
 NOP
 NOP
-;Controller_main.c,161 :: 		}
+;Controller_main.c,162 :: 		}
 IT	AL
 BAL	L_main4
 L_main5:
-;Controller_main.c,162 :: 		end_packet=false;
+;Controller_main.c,163 :: 		end_packet=false;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_end_packet+0)
 MOVT	R0, #hi_addr(_end_packet+0)
 STRB	R1, [R0, #0]
-;Controller_main.c,163 :: 		checkResponse();
+;Controller_main.c,164 :: 		checkResponse();
 BL	_checkResponse+0
-;Controller_main.c,164 :: 		check_packet_status();
+;Controller_main.c,165 :: 		check_packet_status();
 BL	_check_packet_status+0
-;Controller_main.c,165 :: 		DrawRoundBox (&Messages_Box);
+;Controller_main.c,166 :: 		DrawRoundBox (&Messages_Box);
 MOVW	R0, #lo_addr(_Messages_Box+0)
 MOVT	R0, #hi_addr(_Messages_Box+0)
 BL	_DrawRoundBox+0
-;Controller_main.c,166 :: 		Messages_Label.Caption = "DIS_UPDATE";
+;Controller_main.c,167 :: 		Messages_Label.Caption = "DIS_UPDATE";
 MOVW	R1, #lo_addr(?lstr2_Controller_main+0)
 MOVT	R1, #hi_addr(?lstr2_Controller_main+0)
 MOVW	R0, #lo_addr(_Messages_Label+16)
 MOVT	R0, #hi_addr(_Messages_Label+16)
 STR	R1, [R0, #0]
-;Controller_main.c,167 :: 		DrawLabel (&Messages_Label);
+;Controller_main.c,168 :: 		DrawLabel (&Messages_Label);
 MOVW	R0, #lo_addr(_Messages_Label+0)
 MOVT	R0, #hi_addr(_Messages_Label+0)
 BL	_DrawLabel+0
-;Controller_main.c,168 :: 		DisableInterrupts();
+;Controller_main.c,169 :: 		DisableInterrupts();
 BL	_DisableInterrupts+0
-;Controller_main.c,169 :: 		data_eeprom();
+;Controller_main.c,170 :: 		data_eeprom();
 BL	_data_eeprom+0
-;Controller_main.c,170 :: 		startPage();
+;Controller_main.c,171 :: 		startPage();
 BL	_startPage+0
-;Controller_main.c,171 :: 		ptr= send_data_packet;
+;Controller_main.c,172 :: 		ptr= send_data_packet;
 MOVW	R1, #lo_addr(_send_data_packet+0)
 MOVT	R1, #hi_addr(_send_data_packet+0)
 MOVW	R0, #lo_addr(_ptr+0)
 MOVT	R0, #hi_addr(_ptr+0)
 STR	R1, [R0, #0]
-;Controller_main.c,172 :: 		while (1) {
+;Controller_main.c,173 :: 		while (1) {
 L_main8:
-;Controller_main.c,173 :: 		if(pushButton) {ptr(adressReg,nomReg);Delay_ms(500);}
+;Controller_main.c,174 :: 		if(pushButton) {ptr(adressReg,nomReg);}
 MOVW	R0, #lo_addr(_pushButton+0)
 MOVT	R0, #hi_addr(_pushButton+0)
 LDRB	R0, [R0, #0]
@@ -356,108 +356,98 @@ MOVW	R4, #lo_addr(_ptr+0)
 MOVT	R4, #hi_addr(_ptr+0)
 LDR	R4, [R4, #0]
 BLX	R4
-MOVW	R7, #11518
-MOVT	R7, #305
-NOP
-NOP
-L_main11:
-SUBS	R7, R7, #1
-BNE	L_main11
-NOP
-NOP
-NOP
 L_main10:
-;Controller_main.c,174 :: 		if(end_packet){
+;Controller_main.c,175 :: 		if(end_packet){
 MOVW	R0, #lo_addr(_end_packet+0)
 MOVT	R0, #hi_addr(_end_packet+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	EQ
-BEQ	L_main13
-;Controller_main.c,175 :: 		end_packet=false;
+BEQ	L_main11
+;Controller_main.c,176 :: 		end_packet=false;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_end_packet+0)
 MOVT	R0, #hi_addr(_end_packet+0)
 STRB	R1, [R0, #0]
-;Controller_main.c,176 :: 		checkResponse();
+;Controller_main.c,177 :: 		checkResponse();
 BL	_checkResponse+0
-;Controller_main.c,177 :: 		check_packet_status();
+;Controller_main.c,178 :: 		check_packet_status();
 BL	_check_packet_status+0
-;Controller_main.c,178 :: 		if(system_reg[ERRORS_1]!=er){
+;Controller_main.c,179 :: 		if(system_reg[ERRORS_1]!=er){
 MOVW	R0, #lo_addr(_er+0)
 MOVT	R0, #hi_addr(_er+0)
 LDRSH	R1, [R0, #0]
-MOVW	R0, #lo_addr(_system_reg+878)
-MOVT	R0, #hi_addr(_system_reg+878)
+MOVW	R0, #lo_addr(_system_reg+382)
+MOVT	R0, #hi_addr(_system_reg+382)
 LDRSH	R0, [R0, #0]
 CMP	R0, R1
 IT	EQ
-BEQ	L_main14
-;Controller_main.c,179 :: 		er=system_reg[ERRORS_1];
-MOVW	R2, #lo_addr(_system_reg+878)
-MOVT	R2, #hi_addr(_system_reg+878)
+BEQ	L_main12
+;Controller_main.c,180 :: 		er=system_reg[ERRORS_1];
+MOVW	R2, #lo_addr(_system_reg+382)
+MOVT	R2, #hi_addr(_system_reg+382)
 LDRSH	R1, [R2, #0]
 MOVW	R0, #lo_addr(_er+0)
 MOVT	R0, #hi_addr(_er+0)
 STRH	R1, [R0, #0]
-;Controller_main.c,180 :: 		if(er>0){
+;Controller_main.c,181 :: 		if(er>0){
 MOV	R0, R2
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LE
-BLE	L_main15
-;Controller_main.c,181 :: 		Messages_Label.Font_Color= 0xF800;
+BLE	L_main13
+;Controller_main.c,182 :: 		Messages_Label.Font_Color= 0xF800;
 MOVW	R1, #63488
 MOVW	R0, #lo_addr(_Messages_Label+24)
 MOVT	R0, #hi_addr(_Messages_Label+24)
 STRH	R1, [R0, #0]
-;Controller_main.c,182 :: 		DrawRoundBox (&Messages_Box);
+;Controller_main.c,183 :: 		DrawRoundBox (&Messages_Box);
 MOVW	R0, #lo_addr(_Messages_Box+0)
 MOVT	R0, #hi_addr(_Messages_Box+0)
 BL	_DrawRoundBox+0
-;Controller_main.c,183 :: 		Messages_Label.Caption = "FIND_ERROR";
+;Controller_main.c,184 :: 		Messages_Label.Caption = "FIND_ERROR";
 MOVW	R1, #lo_addr(?lstr3_Controller_main+0)
 MOVT	R1, #hi_addr(?lstr3_Controller_main+0)
 MOVW	R0, #lo_addr(_Messages_Label+16)
 MOVT	R0, #hi_addr(_Messages_Label+16)
 STR	R1, [R0, #0]
-;Controller_main.c,184 :: 		DrawLabel (&Messages_Label);
+;Controller_main.c,185 :: 		DrawLabel (&Messages_Label);
 MOVW	R0, #lo_addr(_Messages_Label+0)
 MOVT	R0, #hi_addr(_Messages_Label+0)
 BL	_DrawLabel+0
-;Controller_main.c,185 :: 		find_errors();}
+;Controller_main.c,186 :: 		find_errors();}
 BL	_find_errors+0
 IT	AL
-BAL	L_main16
-L_main15:
-;Controller_main.c,187 :: 		Messages_Label.Font_Color= 0x07E0;
+BAL	L_main14
+L_main13:
+;Controller_main.c,188 :: 		Messages_Label.Font_Color= 0x07E0;
 MOVW	R1, #2016
 MOVW	R0, #lo_addr(_Messages_Label+24)
 MOVT	R0, #hi_addr(_Messages_Label+24)
 STRH	R1, [R0, #0]
-;Controller_main.c,188 :: 		DrawRoundBox (&Messages_Box);
+;Controller_main.c,189 :: 		DrawRoundBox (&Messages_Box);
 MOVW	R0, #lo_addr(_Messages_Box+0)
 MOVT	R0, #hi_addr(_Messages_Box+0)
 BL	_DrawRoundBox+0
-;Controller_main.c,189 :: 		Messages_Label.Caption = "SYSTEM_OK";
+;Controller_main.c,190 :: 		Messages_Label.Caption = "SYSTEM_OK";
 MOVW	R1, #lo_addr(?lstr4_Controller_main+0)
 MOVT	R1, #hi_addr(?lstr4_Controller_main+0)
 MOVW	R0, #lo_addr(_Messages_Label+16)
 MOVT	R0, #hi_addr(_Messages_Label+16)
 STR	R1, [R0, #0]
-;Controller_main.c,190 :: 		DrawLabel (&Messages_Label);
+;Controller_main.c,191 :: 		DrawLabel (&Messages_Label);
 MOVW	R0, #lo_addr(_Messages_Label+0)
 MOVT	R0, #hi_addr(_Messages_Label+0)
 BL	_DrawLabel+0
-;Controller_main.c,192 :: 		}
-L_main16:
 ;Controller_main.c,193 :: 		}
 L_main14:
-;Controller_main.c,196 :: 		}
-L_main13:
-;Controller_main.c,197 :: 		DisableInterrupts();
+;Controller_main.c,194 :: 		}
+L_main12:
+;Controller_main.c,197 :: 		}
+L_main11:
+;Controller_main.c,198 :: 		DisableInterrupts();
 BL	_DisableInterrupts+0
-;Controller_main.c,198 :: 		if(millis() - old_time_count > 3000)//
+;Controller_main.c,199 :: 		if(millis() - old_time_count > 3000)//
 BL	_millis+0
 MOVW	R1, #lo_addr(_old_time_count+0)
 MOVT	R1, #hi_addr(_old_time_count+0)
@@ -466,31 +456,31 @@ SUB	R1, R0, R1
 MOVW	R0, #3000
 CMP	R1, R0
 IT	LS
-BLS	L_main17
-;Controller_main.c,199 :: 		{     old_time_count = millis();
+BLS	L_main15
+;Controller_main.c,200 :: 		{     old_time_count = millis();
 BL	_millis+0
 MOVW	R1, #lo_addr(_old_time_count+0)
 MOVT	R1, #hi_addr(_old_time_count+0)
 STR	R0, [R1, #0]
-;Controller_main.c,201 :: 		if(!pushButton)selectPage();
+;Controller_main.c,202 :: 		if(!pushButton)selectPage();
 MOVW	R0, #lo_addr(_pushButton+0)
 MOVT	R0, #hi_addr(_pushButton+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L_main18
+BNE	L_main16
 BL	_selectPage+0
-L_main18:
-;Controller_main.c,203 :: 		}
-L_main17:
-;Controller_main.c,205 :: 		Check_TP();
+L_main16:
+;Controller_main.c,204 :: 		}
+L_main15:
+;Controller_main.c,206 :: 		Check_TP();
 BL	_Check_TP+0
-;Controller_main.c,206 :: 		EnableInterrupts();
+;Controller_main.c,207 :: 		EnableInterrupts();
 BL	_EnableInterrupts+0
-;Controller_main.c,208 :: 		}
+;Controller_main.c,209 :: 		}
 IT	AL
 BAL	L_main8
-;Controller_main.c,210 :: 		}
+;Controller_main.c,211 :: 		}
 L_end_main:
 L__main_end_loop:
 B	L__main_end_loop

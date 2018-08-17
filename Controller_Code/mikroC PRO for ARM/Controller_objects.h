@@ -44,11 +44,11 @@ extern float  ReadLowPressure (int low_press);
 extern void main_page();
 extern void sensor_1(unsigned char num_page);
 extern void data_eeprom();
-extern void HP_display();
-extern void LP_display();
+extern void HP_display(int pressure);
+extern void LP_display(int pressure);
 extern void find_errors();
-extern void count_steps();
-extern  void working_time();
+extern void count_steps(unsigned char num_page);
+extern  void working_time(unsigned char num_page);
 extern void void startPage();
 extern  void schema1_page();
  //---------------------------------------------------------------------mode_bus
@@ -87,7 +87,7 @@ extern  void schema1_page();
 }Packet;
 //-------------------------------------------------------------------------------
 enum _system {
-FUNCTION,
+//FUNCTION,
 ELECT_HEAT,
 PROG_REL,
 TIME_REL,
@@ -101,40 +101,50 @@ NUM_P_HEAT_2,
 NUM_P_SOURS_2,
 NUM_REV_2,
 NUM_COM_2,
-NUM_THREE_2,
-NUM_THREE_1,
 
-VOLT_A=410,
-VOLT_B=420,
-VOLT_C=430,
-CURR_A=440,
-CURR_B=450,
-CURR_C=460,
-DHW_TEMP=81,
+K_FLOW_HEAT,
+K_FLOW_SOURS,
+TOTAL_ERRORS,
+
+
+VOLT_A=470,
+VOLT_B=480,
+VOLT_C=490,
+CURR_A=500,
+CURR_B=510,
+CURR_C=520,
+
+TRV_STEPS_1=61, TRV_STEPS_2=62,
 BAC_TEMP=71,
-ERRORS_1=191,ERRORS_2=192,
-//THREE_STATE_MAIN =51,
-SOURC_OUT_1=161,SOURC_OUT_2=162,
-SOURC_IN_1=151, SOURC_IN_2=152,
-HEAT_OUT_1=141,HEAT_OUT_2=142,
-HEAT_IN_1=131,HEAT_IN_2=132,
-EXAUST_TEMP_1=201,EXAUST_TEMP_2=202,
+DHW_TEMP=81,
+CONDENS_TEMP_1=91,CONDENS_TEMP_2=92,
 SUCT_TEMP_1=101, SUCT_TEMP_2=102,
+S_COOL_1=111,S_COOL_2=112,
+S_HEAT_1=121,S_HEAT_2=122,
+HEAT_IN_1=131,HEAT_IN_2=132,
+HEAT_OUT_1=141,HEAT_OUT_2=142,
+SOURC_IN_1=151, SOURC_IN_2=152,
+SOURC_OUT_1=161,SOURC_OUT_2=162,
 HIGH_PRESS_1=171, HIGH_PRESS_2 =172,
 LOW_PRESS_1=181,LOW_PRESS_2=182,
-CONDENS_TEMP_1=91,CONDENS_TEMP_2=92,
-S_HEAT_1=121,S_HEAT_2=122,
-S_COOL_1=111,S_COOL_2=112,
-TRV_STEPS_1=61, TRV_STEPS_2=62,
+ERRORS_1=191,ERRORS_2=192,
+EXAUST_TEMP_1=201,EXAUST_TEMP_2=202,
+
+
+
+
+
+
+TIM_COM_1=341,TIM_COM_2=342,
 TIM_P_HEAT_1=351, TIM_P_HEAT_2=352,
 TIM_P_SOURS_1=371,TIM_P_SOURS_2=372,
 TIM_REV_1=381, TIM_REV_2=382,
-TIM_COM_1=341,TIM_COM_2=342,
-TIM_THREE=390,
+
+
 
 COM_STATE_1=11, COM_STATE_2=12,
-PUMP_HEAT_STATE_1=31,  PUMP_HEAT_STATE_2=32,
 PUMP_SOURS_STATE_1=21, PUMP_SOURS_STATE_2=22,
+PUMP_HEAT_STATE_1=31,  PUMP_HEAT_STATE_2=32,
 REV_STATE_1=41,REV_STATE_2=42,
 THREE_STATE=51,
 
@@ -143,49 +153,51 @@ HEAT_DEL=20,
 SOURS_DEL=30,
 REVERS_DEL=40,
 THREE_WAY_DEL=50,
-TRV_DEL=410,
-HEAT_MAX=80,
-HEAT_MIN=90,
-SOURS_MAX=420,
-SOURS_MIN=430,
 COOL_MAX=60,
 COOL_MIN=70,
-EXAUST_MAX=180,
-S_HEAT_MIN=290,
-S_HEAT_MAX=280,
-S_COOL_MIN=270,
-S_COOL_MAX=260,
-
-HP_MAX=220,
-LP_MAX=230,
-HP_MIN=240,
-LP_MIN=250,
+HEAT_MAX=80,
+HEAT_MIN=90,
 DEL_HEAT_MAX=100,
 DEL_HEAT_MIN=110,
 DEL_SOURS_MAX=120,
 DEL_SOURS_MIN=130,
+DIFF_COOL=140,
+DIFF_DHW=150,
+DIFF_HEAT=160,
+AIRE_TO_WATER=170,
+EXAUST_MAX=180,
+COOL=190,
+HEAT=200,
+HEATWATER=210,
+HP_MAX=220,
+LP_MAX=230,
+HP_MIN=240,
+LP_MIN=250,
+S_COOL_MAX=260,
+S_COOL_MIN=270,
+S_HEAT_MAX=280,
+S_HEAT_MIN=290,
+NUM_THREE =300,
+POWER=310,
 SET_COOL=320,
 SET_DHW=330,
 SET_HEAT=340,
-DIFF_HEAT,
-DIFF_COOL,
-DIFF_DHW,
-POWER,
-HEATWATER,
-HEAT,
-COOL,
-REVERS_MOD,
-K_FLOW_HEAT,
-K_FLOW_SOURS,
-TOTAL_ERRORS,
-AIRE_TO_WATER,
-TIME_DEFROST,
-TEMP_DEFROST,
-TEMP_OUT,
-TEMP_STOP_DEFROST,
-NOMBER_OF_REG
+TEMP_DEFROST=350,
+TIME_DEFROST=360,
+TEMP_OUT=370,
+TEMP_STOP_DEFROST=380,
+TIM_THREE=390,
+NOMB_COMPRESSORS=400,
+REVERS_MOD=410,
+TRV_DEL=420,
+SOURS_MAX=430,
+SOURS_MIN=440,
+DEL_DHW_MAX=450,
+DEL_DHW_MIN=460
 };
-  typedef enum _system regAdress;
+
+//--------------------------------------------------------------------
+ typedef enum _system regAdress;
  extern void (*ptr)(regAdress , unsigned char );
  extern regAdress adressReg;
  extern unsigned char nomReg;
@@ -1944,6 +1956,7 @@ extern   TImage                 * const code Screen37_Images[37];
 extern   TCircleButton          * const code Screen37_CircleButtons[1];
 
 
+/////////////////////////
 // Events Code Declarations
 void BackToHome();
 void goToBack();
@@ -2427,7 +2440,7 @@ void Set_14_OnUp();
 void Set_13_OnUp();
 void Set_13_OnDown();
 /////////////////////////
-/////////////////////////////////
+/////////////////////////
 
 /////////////////////////////////
 // Caption variables Declarations

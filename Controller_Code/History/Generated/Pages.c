@@ -5,7 +5,7 @@
   #include <stdint.h>
   #include "built_in.h"
 
-  extern int system_reg[NOMBER_OF_REG];
+  extern int system_reg[600];
  // extern float press;
   void main_page(){
        int convert_temp;
@@ -50,7 +50,7 @@
             DrawLabel (&sourse_temp_input_main);
             }
 
-         if(system_reg[THREE_STATE_MAIN ]==1){
+         if(system_reg[THREE_STATE]==1){
           dhw_led.Gradient_Start_Color = 0xFFFF;
           dhw_led.Gradient_End_Color = 0xF800;
           dhw_led.Color           = 0xF800;
@@ -91,29 +91,15 @@
              char txt[7];
   if(num_page==0)
   { 
-//convert_temp =  calc_temperature(system_reg[SOURC_IN_1]);
-    IntToStr(system_reg[SOURC_IN_1], txt);Ltrim(txt);//
-    //if(convert_temp==1250)strcpy(txt,"00");
+     IntToStr(system_reg[SOURC_IN_1], txt);Ltrim(txt);//
     if(strncmp(txt,S_Brine_Inlet_1.Caption,2)!=0){strncpy(S_Brine_Inlet_1.Caption, txt, 2);DrawRoundButton(&S_Brine_Inlet_1);}
-    
-//convert_temp =  calc_temperature(system_reg[SOURC_OUT_1]);
-    IntToStr(system_reg[SOURC_OUT_1], txt);Ltrim(txt);//
-    // if(convert_temp==1250)strcpy(txt,"00");
+     IntToStr(system_reg[SOURC_OUT_1], txt);Ltrim(txt);//
     if(strncmp(txt,S_Brine_Outlet_1.Caption,2)!=0){strncpy(S_Brine_Outlet_1.Caption, txt, 2);DrawRoundButton(&S_Brine_Outlet_1);}
-
-//convert_temp =  calc_temperature(system_reg[HEAT_IN_1]);
-   IntToStr(system_reg[HEAT_IN_1], txt);Ltrim(txt);//
-    //if(convert_temp==1250)strcpy(txt,"00");
+     IntToStr(system_reg[HEAT_IN_1], txt);Ltrim(txt);//
     if(strncmp(txt,S_Heat_Inlet_1.Caption,2)!=0){strncpy(S_Heat_Inlet_1.Caption, txt, 2);DrawRoundButton(&S_Heat_Inlet_1);}
-
-//convert_temp =  calc_temperature(system_reg[HEAT_OUT_1]);
-   IntToStr(system_reg[HEAT_OUT_1], txt);Ltrim(txt);//
-    //if(convert_temp==1250)strcpy(txt,"00");
+     IntToStr(system_reg[HEAT_OUT_1], txt);Ltrim(txt);//
     if(strncmp(txt,S_Heat_Outlet_1.Caption,2)!=0){strncpy(S_Heat_Outlet_1.Caption, txt, 2);DrawRoundButton(&S_Heat_Outlet_1);}
-    
-//convert_temp =  calc_temperature(system_reg[EXAUST_TEMP_1]);
-   IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);//
-   //if(convert_temp==1250)strcpy(txt,"000");
+     IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);//
    if(system_reg[EXAUST_TEMP_1]<100){
     if(strncmp(txt,S_Compressor_1.Caption,2)!=0){strncpy(S_Compressor_1.Caption, txt, 2);
       S_Compressor_1.Caption[2]=S_Compressor_1.Caption[1];S_Compressor_1.Caption[1]=S_Compressor_1.Caption[0];S_Compressor_1.Caption[0]='0';
@@ -122,50 +108,27 @@
       }
       }
     else{if(strncmp(txt,S_Compressor_1.Caption,3)!=0){strncpy(S_Compressor_1.Caption, txt, 3);DrawRoundButton(&S_Compressor_1);} }
-    
-//convert_temp = system_reg[S_HEAT_1];
-    IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);//
-    //if(convert_temp==0)strcpy(txt,"00");
+     IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);//
     if(strncmp(txt,S_Superheat_1.Caption,2)!=0){strncpy(S_Superheat_1.Caption, txt, 2);DrawRoundButton(&S_Superheat_1);}
-    
-//convert_temp =  system_reg[S_COOL_1];
-    IntToStr(system_reg[S_COOL_1], txt);Ltrim(txt);//
-    //if(convert_temp==0)strcpy(txt,"00");
+     IntToStr(system_reg[S_COOL_1], txt);Ltrim(txt);//
     if(strncmp(txt,S_Subcool_1.Caption,2)!=0){strncpy(S_Subcool_1.Caption, txt, 2);DrawRoundButton(&S_Subcool_1);}
-    
-  //flow sourse
-  //heat flow
-//convert_temp =  calc_temperature(system_reg[DHW_TEMP]);
-   IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);//
-    //if(convert_temp==1250)strcpy(txt,"00");
+     IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);//
     if(strncmp(txt,S_DHW.Caption,2)!=0){strncpy(S_DHW.Caption, txt, 2);DrawRoundButton(&S_DHW);}
-
-//convert_temp =  calc_temperature(system_reg[BAC_TEMP]);
-   IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);//
-  // if(convert_temp==1250)strcpy(txt,"00");
+     IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);//
     if(strncmp(txt,SS_tank.Caption,2)!=0){strncpy(SS_tank.Caption, txt, 2);DrawRoundButton(&SS_tank);}
-
-convert_temp =  calc_temperature(system_reg[CONDENS_TEMP_1]);
-    IntToStr(convert_temp, txt);Ltrim(txt);//
-    if(convert_temp==1250)strcpy(txt,"00");
+     IntToStr(system_reg[CONDENS_TEMP_1], txt);Ltrim(txt);//
     if(strncmp(txt,S_condenser_1.Caption,2)!=0){strncpy(S_condenser_1.Caption, txt, 2);DrawRoundButton(&S_condenser_1);}
-
-//convert_temp =  calc_temperature(system_reg[SUCT_TEMP_1]);
-    IntToStr(system_reg[SUCT_TEMP_1], txt);Ltrim(txt);//
-    //if(convert_temp==1250)strcpy(txt,"00");
+     IntToStr(system_reg[SUCT_TEMP_1], txt);Ltrim(txt);//
     if(strncmp(txt,S_suction_1.Caption,2)!=0){strncpy(S_suction_1.Caption, txt, 2);DrawRoundButton(&S_suction_1);}
-    
-//convert_temp =  ReadHighPressure(system_reg[HIGH_PRESS_1]);
-    IntToStr(system_reg[HIGH_PRESS_1], txt);Ltrim(txt);//
-    //if(convert_temp==1250)strcpy(txt,"00");
+     IntToStr(system_reg[HIGH_PRESS_1], txt);Ltrim(txt);//
     if(strncmp(txt,S_High_Pressure_1.Caption,2)!=0){strncpy(S_High_Pressure_1.Caption, txt, 2);DrawRoundButton(&S_High_Pressure_1);}
-
-//convert_temp =  ReadLowPressure(system_reg[LOW_PRESS_1]);
-    IntToStr(system_reg[LOW_PRESS_1], txt);Ltrim(txt);//
-    //if(convert_temp==1250)strcpy(txt,"00");
+     IntToStr(system_reg[LOW_PRESS_1], txt);Ltrim(txt);//
     if(strncmp(txt,S_Low_Pressure_1.Caption,2)!=0){strncpy(S_Low_Pressure_1.Caption, txt, 2);DrawRoundButton(&S_Low_Pressure_1);}
-
   }
+  else if(num_page==1)
+     {
+
+     }
   }
  void data_eeprom(){
      char txt[7];
@@ -234,8 +197,6 @@ convert_temp =  calc_temperature(system_reg[CONDENS_TEMP_1]);
  IntToStr(system_reg[DIFF_DHW], txt);Ltrim(txt);
   strncpy(Hysteresis_DHW.Caption, txt, 2);
   //--------------------------eev
-  IntToStr(system_reg[TRV_CORRECT_1], txt);Ltrim(txt);
-  strncpy(ButtonRound2.Caption, txt, 4);
   //  main
    if(system_reg[POWER]==1){
       DrawImage(&Main_ON);
@@ -275,37 +236,60 @@ convert_temp =  calc_temperature(system_reg[CONDENS_TEMP_1]);
        DrawRoundButton(&ON_OFF_DHW);
                                 }
  }
- void count_steps(){
+ void count_steps(unsigned char num_page){
   char txt[7];
- /*static int prev_steps;
-  if (prev_steps!=system_reg[TRV_STEPS_1]){prev_steps=system_reg[TRV_STEPS_1];Red_bar.Position= system_reg[TRV_STEPS_1];
-   DrawProgressBar(&Red_bar);}*/
-
-  IntToStr(system_reg[TRV_STEPS_1], txt);Ltrim(txt);
- if(system_reg[TRV_STEPS_1]<100){
-    if(strncmp(txt,EEV1_value.Caption,2)!=0){strncpy(EEV1_value.Caption, txt, 2);
-      EEV1_value.Caption[2]=EEV1_value.Caption[1];EEV1_value.Caption[1]=EEV1_value.Caption[0];EEV1_value.Caption[0]='0';
-      DrawRoundButton(&EEV1_value);
-      strncpy(EEV1_value.Caption, txt, 3);
-      }}
-  else{if(strncmp(txt,EEV1_value.Caption,3)!=0){strncpy(EEV1_value.Caption, txt, 3);DrawRoundButton(&EEV1_value);} }
-  
-  //if(strncmp(txt,EEV1_value.Caption,3)!=0){strncpy(EEV1_value.Caption, txt, 3);DrawRoundButton(&EEV1_value);}
-   IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);//
-    if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
- 
+  if(num_page==0)
+  {
+      IntToStr(system_reg[TRV_STEPS_1], txt);Ltrim(txt);
+     if(system_reg[TRV_STEPS_1]<100){
+        if(strncmp(txt,EEV1_value.Caption,2)!=0){strncpy(EEV1_value.Caption, txt, 2);
+          EEV1_value.Caption[2]=EEV1_value.Caption[1];EEV1_value.Caption[1]=EEV1_value.Caption[0];EEV1_value.Caption[0]='0';
+          DrawRoundButton(&EEV1_value);
+          strncpy(EEV1_value.Caption, txt, 3);
+          }}
+      else{if(strncmp(txt,EEV1_value.Caption,3)!=0){strncpy(EEV1_value.Caption, txt, 3);DrawRoundButton(&EEV1_value);} }
+       IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);//
+        if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
+   }
+   else
+   {
+         IntToStr(system_reg[TRV_STEPS_2], txt);Ltrim(txt);
+     if(system_reg[TRV_STEPS_2]<100){
+        if(strncmp(txt,EEV1_value.Caption,2)!=0){strncpy(EEV1_value.Caption, txt, 2);
+          EEV1_value.Caption[2]=EEV1_value.Caption[1];EEV1_value.Caption[1]=EEV1_value.Caption[0];EEV1_value.Caption[0]='0';
+          DrawRoundButton(&EEV1_value);
+          strncpy(EEV1_value.Caption, txt, 3);
+          }}
+      else{if(strncmp(txt,EEV1_value.Caption,3)!=0){strncpy(EEV1_value.Caption, txt, 3);DrawRoundButton(&EEV1_value);} }
+       IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);//
+        if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
+   }
  }
  //-----------------------------------------------------------------------------
- void working_time(){
+ void working_time(unsigned char num_page){
     char txt[7];
-  IntToStr(system_reg[TIM_COM_1], txt);Ltrim(txt);//
-    if(strncmp(txt,Time_compressor1.Caption,7)!=0){strcpy(Time_compressor1.Caption, txt);DrawRoundButton(&Time_compressor1);}
-  IntToStr(system_reg[TIM_REV_1], txt);Ltrim(txt);//
-    if(strncmp(txt,Time_reversing1.Caption,7)!=0){strcpy(Time_reversing1.Caption, txt);DrawRoundButton(&Time_reversing1);}
-  IntToStr(system_reg[TIM_P_SOURS_1], txt);Ltrim(txt);//
-    if(strncmp(txt,Time_source1.Caption,7)!=0){strcpy(Time_source1.Caption, txt);DrawRoundButton(&Time_source1);}
-  IntToStr(system_reg[TIM_P_HEAT_1], txt);Ltrim(txt);//
-    if(strncmp(txt,Time_heat1.Caption,7)!=0){strcpy(Time_heat1.Caption, txt);DrawRoundButton(&Time_heat1);}
+ if(num_page==0)
+  {
+      IntToStr(system_reg[TIM_COM_1], txt);Ltrim(txt);//
+        if(strncmp(txt,Time_compressor1.Caption,7)!=0){strcpy(Time_compressor1.Caption, txt);DrawRoundButton(&Time_compressor1);}
+      IntToStr(system_reg[TIM_REV_1], txt);Ltrim(txt);//
+        if(strncmp(txt,Time_reversing1.Caption,7)!=0){strcpy(Time_reversing1.Caption, txt);DrawRoundButton(&Time_reversing1);}
+      IntToStr(system_reg[TIM_P_SOURS_1], txt);Ltrim(txt);//
+        if(strncmp(txt,Time_source1.Caption,7)!=0){strcpy(Time_source1.Caption, txt);DrawRoundButton(&Time_source1);}
+      IntToStr(system_reg[TIM_P_HEAT_1], txt);Ltrim(txt);//
+        if(strncmp(txt,Time_heat1.Caption,7)!=0){strcpy(Time_heat1.Caption, txt);DrawRoundButton(&Time_heat1);}
+   }
+   else
+   {
+       IntToStr(system_reg[TIM_COM_2], txt);Ltrim(txt);//
+        if(strncmp(txt,Time_compressor1.Caption,7)!=0){strcpy(Time_compressor1.Caption, txt);DrawRoundButton(&Time_compressor1);}
+      IntToStr(system_reg[TIM_REV_2], txt);Ltrim(txt);//
+        if(strncmp(txt,Time_reversing1.Caption,7)!=0){strcpy(Time_reversing1.Caption, txt);DrawRoundButton(&Time_reversing1);}
+      IntToStr(system_reg[TIM_P_SOURS_2], txt);Ltrim(txt);//
+        if(strncmp(txt,Time_source1.Caption,7)!=0){strcpy(Time_source1.Caption, txt);DrawRoundButton(&Time_source1);}
+      IntToStr(system_reg[TIM_P_HEAT_2], txt);Ltrim(txt);//
+        if(strncmp(txt,Time_heat1.Caption,7)!=0){strcpy(Time_heat1.Caption, txt);DrawRoundButton(&Time_heat1);}
+   }
  }
  //-----------------------------------------------------------------------------
  void schema1_page(){
@@ -319,31 +303,17 @@ convert_temp =  calc_temperature(system_reg[CONDENS_TEMP_1]);
   else DrawImage(&Image117);
   if(system_reg[REV_STATE_1]==1) DrawImage(&Image73);
   else DrawImage(&Image118);
-   if(system_reg[THREE_STATE_1]==1) DrawImage(&Image77);
+   if(system_reg[THREE_STATE]==1) DrawImage(&Image77);
   else DrawImage(&Image120);
- //convert_temp =  calc_temperature(system_reg[SOURC_IN_1]);
     IntToStr(system_reg[SOURC_IN_1], txt);Ltrim(txt);//
-    //if(convert_temp==1250)strcpy(txt,"00");
     if(strncmp(txt,S_Brine_In_1.Caption,2)!=0){strncpy(S_Brine_In_1.Caption, txt, 2);DrawButton(&S_Brine_In_1);}
-
-//convert_temp =  calc_temperature(system_reg[SOURC_OUT_1]);
     IntToStr(system_reg[SOURC_OUT_1], txt);Ltrim(txt);//
-    //if(convert_temp==1250)strcpy(txt,"00");
     if(strncmp(txt,S_Brine_Out_1.Caption,2)!=0){strncpy(S_Brine_Out_1.Caption, txt, 2);DrawButton(&S_Brine_Out_1);}
-
-//convert_temp =  calc_temperature(system_reg[HEAT_IN_1]);
    IntToStr(system_reg[HEAT_IN_1], txt);Ltrim(txt);//
-   //if(convert_temp==1250)strcpy(txt,"00");
     if(strncmp(txt,S_Heat_In_1.Caption,2)!=0){strncpy(S_Heat_In_1.Caption, txt, 2);DrawButton(&S_Heat_In_1);}
-
-//convert_temp =  calc_temperature(system_reg[HEAT_OUT_1]);
    IntToStr(system_reg[HEAT_OUT_1], txt);Ltrim(txt);//
-   //if(convert_temp==1250)strcpy(txt,"00");
     if(strncmp(txt,S_Heat_Out_1.Caption,2)!=0){strncpy(S_Heat_Out_1.Caption, txt, 2);DrawButton(&S_Heat_Out_1);}
-
-//convert_temp =  calc_temperature(system_reg[EXAUST_TEMP_1]);
    IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);//
-   //if(convert_temp==1250)strcpy(txt,"000");
   if(system_reg[HEAT_OUT_1]<100){
     if(strncmp(txt,S_ComprEx_1.Caption,2)!=0){strncpy(S_ComprEx_1.Caption, txt, 2);
       S_ComprEx_1.Caption[2]=S_ComprEx_1.Caption[1];S_ComprEx_1.Caption[1]=S_ComprEx_1.Caption[0];S_ComprEx_1.Caption[0]='0';
@@ -352,30 +322,17 @@ convert_temp =  calc_temperature(system_reg[CONDENS_TEMP_1]);
       }
       }
     else{if(strncmp(txt,S_ComprEx_1.Caption,3)!=0){strncpy(S_ComprEx_1.Caption, txt, 3);DrawButton(&S_ComprEx_1);} }
-//convert_temp = system_reg[S_HEAT_1];
     IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);//
-    //if(convert_temp==0)strcpy(txt,"00");
     if(strncmp(txt,S_SH_1.Caption,2)!=0){strncpy(S_SH_1.Caption, txt, 2);DrawButton(&S_SH_1);}
 
   //flow sourse
   //heat flow
-//convert_temp =  calc_temperature(system_reg[DHW_TEMP]);
    IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);//
-    //if(convert_temp==1250)strcpy(txt,"00");
     if(strncmp(txt,Sens_DHW.Caption,2)!=0){strncpy(Sens_DHW.Caption, txt, 2);DrawButton(&Sens_DHW);}
-
-//convert_temp =  calc_temperature(system_reg[BAC_TEMP]);
    IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);//
-   //if(convert_temp==1250)strcpy(txt,"00");
     if(strncmp(txt,S_tank.Caption,2)!=0){strncpy(S_tank.Caption, txt, 2);DrawButton(&S_tank);}
-
-//convert_temp =  ReadHighPressure(system_reg[HIGH_PRESS_1]);
     IntToStr(system_reg[HIGH_PRESS_1], txt);Ltrim(txt);//
-    //if(convert_temp==1250)strcpy(txt,"00");
     if(strncmp(txt,S_High_Press_1.Caption,2)!=0){strncpy(S_High_Press_1.Caption, txt, 2);DrawButton(&S_High_Press_1);}
-
-//convert_temp = ReadLowPressure(system_reg[LOW_PRESS_1]);
     IntToStr(system_reg[LOW_PRESS_1], txt);Ltrim(txt);//
-    //if(convert_temp==1250)strcpy(txt,"00");
     if(strncmp(txt,S_Low_Press_1.Caption,2)!=0){strncpy(S_Low_Press_1.Caption, txt, 2);DrawButton(&S_Low_Press_1);}
  }

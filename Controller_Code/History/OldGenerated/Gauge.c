@@ -17,7 +17,7 @@
 #define X_CENTER_LP     344.0f
 #define Y_CENTER     128.0f
 #define PI           3.14159265f
- extern  int system_reg[NOMBER_OF_REG];
+ extern  int system_reg[600];
  
 typedef struct
 {
@@ -32,13 +32,13 @@ line_t current_line;
 float old_HP_pressure;
 float old_LP_pressure;
 
-void HP_display()
+void HP_display(int pressure)
 {
   float HP_pressure;
   float convert_press;
   
   //convert_press = ReadHighPressure(system_reg[HIGH_PRESS_1]);
-  HP_pressure = system_reg[HIGH_PRESS_1]*10.0 + 5;
+  HP_pressure = pressure*10.0 + 5;
  if(old_HP_pressure !=HP_pressure){ old_HP_pressure= HP_pressure;}
  else return;
 
@@ -84,14 +84,14 @@ void HP_display()
     TFT_Line( current_line.x1, current_line.y1, current_line.x2, current_line.y2 );
 }
 
-void LP_display()
+void LP_display(int pressure)
 {
 
     //line_t current_line;
    float  LP_pressure;
    float convert_press;
    //convert_press = ReadLowPressure(system_reg[LOW_PRESS_1]);
-   LP_pressure = system_reg[LOW_PRESS_1] * 33.3 + 42;
+   LP_pressure = pressure * 33.3 + 42;
    if( old_LP_pressure != LP_pressure){ old_LP_pressure= LP_pressure;}
      else return;
 
