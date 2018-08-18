@@ -175,9 +175,9 @@ DEL_DHW_MIN=460
 
 
  typedef enum _system regAdress;
- extern void (*ptr)(regAdress , unsigned char );
- extern regAdress adressReg;
- extern unsigned char nomReg;
+ extern regAdress adressRegSend,adressRegReciev;
+ extern unsigned char nomRegSend,nomRegReciev;
+ extern unsigned char countPacket;
 
 extern void send_data_packet(enum _system adress,unsigned char no_reg);
 extern void reciev_data_packet(enum _system adress,unsigned char no_reg);
@@ -3696,7 +3696,7 @@ volatile  _Bool  uartRX_flag;
 
 
 int er;
-volatile  _Bool  pushButton;
+ _Bool  pushButton;
 volatile unsigned int rx_wr_index=0;
 volatile  _Bool  end_packet= 0 ;
 volatile unsigned char sizeOfBuffer=0;
@@ -3706,7 +3706,10 @@ extern int system_reg[600];
 extern volatile uint8_t frame[ 128 ];
 extern unsigned char transmission_ready_Flag;
 void (*send_data_again)() = 0;
-#line 59 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+volatile char myBuf[15];
+ _Bool  dataEEprom= 0 ;
+ _Bool  msgOk= 0 ;
+#line 62 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
 void InitTimer2(){
  RCC_APB1ENR.TIM2EN = 1;
  TIM2_CR1.CEN = 0;
@@ -3721,6 +3724,7 @@ void Timer2_interrupt() iv IVT_INT_TIM2 {
  TIM2_SR.UIF = 0;
  rx_time++;
  if(rx_time-rx_time_previos>3645 ){
+
  sizeOfBuffer=rx_wr_index;
  uartRX_flag= 0 ;
  end_packet= 1 ;
@@ -3728,6 +3732,7 @@ void Timer2_interrupt() iv IVT_INT_TIM2 {
  rx_time_previos=0;
  rx_wr_index=0;
  TIM2_CR1.CEN = 0;
+#line 93 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  }
 
 }
@@ -3751,6 +3756,7 @@ void USARTINTERRUPT() iv IVT_INT_USART2 ics ICS_AUTO{
  rx_time_previos = rx_time;
  uartRX_flag= 1 ;
  frame[rx_wr_index]=(uint8_t)(UART2_Read() & 0xFF);
+#line 120 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  rx_wr_index++;
  if (rx_wr_index ==  128 ) rx_wr_index=0;
 
@@ -3766,58 +3772,41 @@ void main() {
  InitSysTick();
  USART_init();
  InitTimer2();
-#line 152 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 171 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  modbus_configure(1000,200,10);
  Start_TP();
  EnableInterrupts();
  DrawRoundBox (&Messages_Box);
  Messages_Label.Caption = "UPDATE_DIS";
  DrawLabel (&Messages_Label);
- while(end_packet== 0 ){
- reciev_data_packet(COMP_DEL,46);
- Delay_ms(1000);
-
- }
- end_packet= 0 ;
- checkResponse();
- check_packet_status();
+#line 188 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  DrawRoundBox (&Messages_Box);
  Messages_Label.Caption = "DIS_UPDATE";
  DrawLabel (&Messages_Label);
  DisableInterrupts();
- data_eeprom();
- startPage();
- ptr= send_data_packet;
+ countPacket=1;
+
+
  while (1) {
- if(pushButton) {ptr(adressReg,nomReg);}
- if(end_packet){
+
+ if(end_packet )
+ {
  end_packet= 0 ;
  checkResponse();
- check_packet_status();
- if(system_reg[ERRORS_1]!=er){
- er=system_reg[ERRORS_1];
- if(er>0){
- Messages_Label.Font_Color= 0xF800;
- DrawRoundBox (&Messages_Box);
- Messages_Label.Caption = "FIND_ERROR";
- DrawLabel (&Messages_Label);
- find_errors();}
- else {
- Messages_Label.Font_Color= 0x07E0;
- DrawRoundBox (&Messages_Box);
- Messages_Label.Caption = "SYSTEM_OK";
- DrawLabel (&Messages_Label);
-
- }
- }
+ if(!dataEEprom && msgOk){dataEEprom= 1 ;data_eeprom();startPage();msgOk= 0 ;}
+ if(msgOk){countPacket++; UART2_Write_Text("privet");msgOk=0;}
 
 
  }
+
+ if(pushButton) {send_data_packet(adressRegSend,adressRegReciev);Delay_ms(3000);}
+#line 228 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  DisableInterrupts();
- if(millis() - old_time_count > 3000)
+ if(millis() - old_time_count > 5000 && !pushButton)
  { old_time_count = millis();
 
- if(!pushButton)selectPage();
+ if(dataEEprom)selectPage();
+ else reciev_data_packet(COMP_DEL,46);
 
  }
 

@@ -175,9 +175,9 @@ DEL_DHW_MIN=460
 
 
  typedef enum _system regAdress;
- extern void (*ptr)(regAdress , unsigned char );
- extern regAdress adressReg;
- extern unsigned char nomReg;
+ extern regAdress adressRegSend,adressRegReciev;
+ extern unsigned char nomRegSend,nomRegReciev;
+ extern unsigned char countPacket;
 
 extern void send_data_packet(enum _system adress,unsigned char no_reg);
 extern void reciev_data_packet(enum _system adress,unsigned char no_reg);
@@ -3694,7 +3694,8 @@ extern volatile  _Bool  end_packet;
 extern volatile unsigned char sizeOfBuffer;
 
 extern void (*send_data_again)();
-extern volatile  _Bool  pushButton;
+extern  _Bool  pushButton,msgOk;
+
 
 
 unsigned char messageOkFlag, messageErrFlag;
@@ -3729,6 +3730,9 @@ void reciev_data_packet(enum _system adress,unsigned char no_reg);
  bus_data.function =  16 ;
  bus_data.address = (unsigned int)adress;
  bus_data.no_of_registers = no_reg ;
+ adressRegSend = adress;
+ nomRegSend = no_reg;
+ pushButton= 1 ;
  constructPacket();
  }
  void reciev_data_packet(enum _system adress,unsigned char no_reg){
@@ -3736,71 +3740,31 @@ void reciev_data_packet(enum _system adress,unsigned char no_reg);
  bus_data.function =  3 ;
  bus_data.address = (unsigned int)adress;
  bus_data.no_of_registers = no_reg ;
+ adressRegReciev = adress;
+ nomRegReciev = no_reg;
+ msgOk= 0 ;
  constructPacket();
 
  }
 
  void checkResponse()
 {
-if (!messageOkFlag && !messageErrFlag)
- {
- if (sizeOfBuffer > 0 && sizeOfBuffer < 5 )
- {
- sizeOfBuffer = 0;
- bus_data.buffer_errors++;
- messageErrFlag = 1;
- previousPolling = millis();
- }
 
-
- if (sizeOfBuffer > 0)
- {
  if (frame[0] == bus_data.id)
- {
-
-
- if ((frame[1] & 0x80) == 0x80)
- {
-
- switch (frame[2])
- {
- case  1 : bus_data.illegal_function++; break;
- case  2 : bus_data.illegal_data_address++; break;
- case  3 : bus_data.illegal_data_value++; break;
- default: bus_data.misc_exceptions++;
- }
- messageErrFlag = 1;
- previousPolling = millis();
- }
- else
  {
  if (frame[1] == bus_data.function)
  {
 
- if (bus_data.function ==  16 )
- check_F16_data();
- else
- check_F3_data(sizeOfBuffer);
+ if (bus_data.function ==  16 ) check_F16_data();
+
+ else check_F3_data(sizeOfBuffer);
  }
- else
- {
- bus_data.incorrect_function_returned++;
- messageErrFlag = 1;
- previousPolling = millis();
+
  }
- }
- }
- else
- {
- bus_data.incorrect_id_returned++;
- messageErrFlag = 1;
- previousPolling = millis();
- }
- }
- }
+
+
+
 }
-
-
 
 
  void modbus_configure(unsigned int _time_out, unsigned int _polling,unsigned char _retry_count)
@@ -3868,63 +3832,6 @@ else
 }
 
 
-
-unsigned long check_packet_status()
-{
- unsigned char pollingFinished = (millis() - previousPolling) > polling;
-
-if (messageOkFlag && pollingFinished)
- {
- messageOkFlag = 0;
- bus_data.successful_requests++;
- bus_data.retries = 0;
-
-
- }
-
-
-if (messageErrFlag && pollingFinished)
- {
- messageErrFlag = 0;
- bus_data.retries++;
-
-
-
- }
-
-
- if ((millis() - previousTimeout) > time_out)
- {
-
- bus_data._timeout++;
- bus_data.retries++;
-
- }
-
-
-
- if (retry_count==bus_data.retries){
- bus_data.connection = 0;
- bus_data.retries = 0;
-
- }
-
-
-
-
- bus_data.total_errors = bus_data._timeout +
- bus_data.incorrect_id_returned +
- bus_data.incorrect_function_returned +
- bus_data.incorrect_bytes_returned +
- bus_data.checksum_failed +
- bus_data.buffer_errors +
- bus_data.illegal_function +
- bus_data.illegal_data_address +
- bus_data.illegal_data_value;
-
- return bus_data.total_errors;
-}
-
 void check_F3_data(unsigned char buffer)
 {
  unsigned char no_of_registers = bus_data.no_of_registers ;
@@ -3944,32 +3851,18 @@ void check_F3_data(unsigned char buffer)
  unsigned char index = 3;
  unsigned char i = 0;
  int incAdr=0;
+ char txt[15];
 
  for (i = 0; i < no_of_registers; i++)
  {
 
- bus_data.register_array[bus_data.address + incAdr] = (frame[index] << 8) | frame[index + 1];
-#line 272 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
+ system_reg[bus_data.address + incAdr] = (frame[index] << 8) | frame[index + 1];
+#line 180 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
  index += 2;
  incAdr+=10;
  }
- messageOkFlag = 1;
+ msgOk =  1 ;
  }
- else
- {
- bus_data.checksum_failed++;
- messageErrFlag = 1;
- }
-
-
- previousPolling = millis();
- }
- else
- {
- bus_data.incorrect_bytes_returned++;
- messageErrFlag = 1;
-
- previousPolling = millis();
  }
 }
 
@@ -3986,33 +3879,14 @@ void check_F16_data()
  recieved_crc == calculated_crc){
  messageOkFlag = 1;
  pushButton =  0 ; }
- else
- {
- bus_data.checksum_failed++;
- messageErrFlag = 1;
 
- }
-
- previousPolling = millis();
 }
-
-
-unsigned char getData()
-{ char txt[4];
- unsigned char buffer = 0;
- unsigned char overflowFlag = 0;
-
- return buffer;
- }
-
 
 
  void sendbus_data(unsigned char bufferSize)
 {
  unsigned char i=0;
  for (i = 0; i < bufferSize; i++)UART2_Write(frame[i]);
-
-
  Delay_us(3645);
  previousTimeout = millis();
 }

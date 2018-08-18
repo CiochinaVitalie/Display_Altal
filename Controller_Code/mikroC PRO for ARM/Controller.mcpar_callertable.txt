@@ -839,22 +839,11 @@ main
 					TFT_Write_Text
 	DrawRoundBox
 	DrawLabel
-	reciev_data_packet
-		constructPacket
-			calculateCRC
-			sendbus_data
-				UART2_Write
-				millis
 	checkResponse
-		millis
 		check_F16_data
 			calculateCRC
-			millis
 		check_F3_data
 			calculateCRC
-			millis
-	check_packet_status
-		millis
 	data_eeprom
 		IntToStr
 			WordToStr
@@ -865,9 +854,15 @@ main
 	startPage
 		DrawImage
 		DrawRoundButton
-	find_errors
-		memset
-		strcpy
+	UART2_Write_Text
+		UARTx_Write_Text
+			UARTx_Write
+	send_data_packet
+		constructPacket
+			calculateCRC
+			sendbus_data
+				UART2_Write
+				millis
 	millis
 	selectPage
 		main_page
@@ -879,6 +874,7 @@ main
 			DrawLabel
 			DrawCircle
 		reciev_data_packet
+			constructPacket
 		sensor_1
 			IntToStr
 			Ltrim
@@ -923,6 +919,7 @@ main
 			strncpy
 			DrawButton
 			DrawRoundButton
+	reciev_data_packet
 	Check_TP
 		STMPE610_PressDetect
 			STMPE610_ReadReg
@@ -987,8 +984,6 @@ main
 				DrawImage
 				DrawRoundBox
 				DrawLabel
-				send_data_packet
-					constructPacket
 			DHW_SetingOnClick
 				IntToStr
 				Ltrim
@@ -2995,7 +2990,6 @@ main
 			Down_14_OnPress
 			Down_13_OnUp
 			Down_13_OnPress
-	send_data_packet
 SysTick_interrupt
 USARTINTERRUPT
 	UART2_Read

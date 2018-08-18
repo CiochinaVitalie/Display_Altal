@@ -2380,7 +2380,8 @@ adon
 adon_adc2_cr2_bit
 adon_adc3_cr2_bit
 adon_bit
-adressreg
+adressregreciev
+adressregsend
 adtochg
 adtochg
 adtochg
@@ -9684,7 +9685,6 @@ chdis_otg_hs_hcchar8_bit
 chdis_otg_hs_hcchar9_bit
 check_f16_data
 check_f3_data
-check_packet_status
 check_tp
 checkresponse
 checksum_failed
@@ -12126,6 +12126,7 @@ count_steps
 countflag
 countflag
 countflag_bit
+countpacket
 cpha
 cpha
 cpha
@@ -14002,6 +14003,7 @@ datacount8
 datacount8_bit
 datacount9
 datacount9_bit
+dataeeprom
 dataend
 dataend
 dataend_bit
@@ -28526,7 +28528,6 @@ gencall_i2c2_sr2_bit
 get_fosc_khz
 get_object
 getcolorfromgradientrange
-getdata
 ginakeff
 ginakeff
 ginakeff
@@ -42697,6 +42698,7 @@ mr9
 mr9
 mr9_bit
 mr9_exti_emr_bit
+msgok
 msize
 msize
 msize
@@ -42874,6 +42876,7 @@ mwid1_fsmc_bcr3_bit
 mwid1_fsmc_bcr4_bit
 my_date
 my_time
+mybuf
 nack
 nack
 nack
@@ -43370,7 +43373,8 @@ nmipendset
 nmipendset
 nmipendset_bit
 no_of_registers
-nomreg
+nomregreciev
+nomregsend
 nonisothren
 nonisothren
 nonisothren_bit
@@ -59187,7 +59191,6 @@ ptctl2_otg_hs_hprt_bit
 ptctl3
 ptctl3_bit
 ptctl3_otg_hs_hprt_bit
-ptr
 ptxfd
 ptxfd0
 ptxfd0_bit

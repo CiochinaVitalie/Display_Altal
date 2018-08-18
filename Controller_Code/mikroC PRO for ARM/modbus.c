@@ -10,7 +10,8 @@ extern volatile bool end_packet;
 extern volatile  unsigned char sizeOfBuffer;
 //------------------------------------------------------------------------------
 extern   void (*send_data_again)();
-extern volatile bool pushButton;
+extern bool pushButton,msgOk;
+
 //------------------------------------------------------------------------------
 
 unsigned char messageOkFlag, messageErrFlag;
@@ -45,6 +46,9 @@ void reciev_data_packet(enum _system adress,unsigned char no_reg);
           bus_data.function = PRESET_MULTIPLE_REGISTERS;
           bus_data.address = (unsigned int)adress;
           bus_data.no_of_registers = no_reg ;
+          adressRegSend = adress;
+          nomRegSend = no_reg;
+          pushButton=true;
           constructPacket();
  }
  void reciev_data_packet(enum _system adress,unsigned char no_reg){
@@ -52,71 +56,31 @@ void reciev_data_packet(enum _system adress,unsigned char no_reg);
           bus_data.function = READ_HOLDING_REGISTERS;
           bus_data.address = (unsigned int)adress;
           bus_data.no_of_registers = no_reg ;
+          adressRegReciev = adress;
+          nomRegReciev =  no_reg;
+          msgOk=false;
           constructPacket();
- 
+
  }
 
  void checkResponse()
 {
-if (!messageOkFlag && !messageErrFlag) // check for response
-  {
-     if (sizeOfBuffer > 0 && sizeOfBuffer < 5 )
-        {
-          sizeOfBuffer = 0;
-          bus_data.buffer_errors++;
-          messageErrFlag = 1; // set an error
-          previousPolling = millis(); // start the polling delay
-        }
 
-
-    if (sizeOfBuffer > 0) // if there's something in the buffer continue
-    {  //UART2_Write_Text("L1");
       if (frame[0] == bus_data.id) // check id returned
-      {   //UART2_Write_Text("L2");
-                                // to indicate an exception response a slave will 'OR'
-        // the requested function with 0x80
-                                if ((frame[1] & 0x80) == 0x80) // exctract 0x80
-                                {   //UART2_Write_Text("L3");
-                                        // the third byte in the exception response packet is the actual exception
-                                        switch (frame[2])
-                                        {
-                                                case ILLEGAL_FUNCTION: bus_data.illegal_function++; break;
-                                                case ILLEGAL_DATA_ADDRESS: bus_data.illegal_data_address++; break;
-                                                case ILLEGAL_DATA_VALUE: bus_data.illegal_data_value++; break;
-                                                default: bus_data.misc_exceptions++;
-                                        }
-                                        messageErrFlag = 1; // set an error
-                                        previousPolling = millis(); // start the polling delay
-                                }
-                                else // the response is valid
-                                {  //UART2_Write_Text("L4");
+      {
                                         if (frame[1] == bus_data.function) // check function number returned
                                         {   //UART2_Write_Text("L5");
                                                 // receive the frame according to the modbus function
-                                                if (bus_data.function == PRESET_MULTIPLE_REGISTERS)
-                                                        check_F16_data();
-                                                else // READ_HOLDING_REGISTERS is assumed
-                                                        check_F3_data(sizeOfBuffer);
+                                                if (bus_data.function == PRESET_MULTIPLE_REGISTERS) check_F16_data();
+
+                                                else  check_F3_data(sizeOfBuffer);
                                         }
-                                        else // incorrect function number returned
-                                        {       //UART2_Write_Text("L6");
-                                                bus_data.incorrect_function_returned++;
-                                                messageErrFlag = 1; // set an error
-                                                previousPolling = millis(); // start the polling delay
-                                        }
-                                } // check exception response
-                        }
-                        else // incorrect id returned
-                        {       //UART2_Write_Text("L7");
-                                bus_data.incorrect_id_returned++;
-                                messageErrFlag = 1; // set an error
-                                previousPolling = millis(); // start the polling delay
-                        }
-                } // check buffer
-        } // check message booleans
+
+        }
+
+
+
 }
-
-
 
 //------------------------------------------------------------------------------
  void modbus_configure(unsigned int _time_out, unsigned int _polling,unsigned char _retry_count)
@@ -183,64 +147,7 @@ else // READ_HOLDING_REGISTERS is assumed
         }
 }
 //------------------------------------------------------------------------------
- // checks the time out and polling delay and if a message has been recieved succesfully
 
-unsigned long check_packet_status()
-{
-   unsigned char pollingFinished = (millis() - previousPolling) > polling;
-
-if (messageOkFlag && pollingFinished) // if a valid message was recieved and the polling delay has expired clear the flag
-  {
-    messageOkFlag = 0;
-    bus_data.successful_requests++; // transaction sent successfully
-    bus_data.retries = 0; // if a request was successful reset the retry counter
-    //transmission_ready_Flag = 1;
-    //UART2_Write_Text("L14");
-  }
-
-  // if an error message was recieved and the polling delay has expired clear the flag
-if (messageErrFlag && pollingFinished)
-  {
-    messageErrFlag = 0; // clear error flag
-    bus_data.retries++;
-    //transmission_ready_Flag = 1;
-    //UART2_Write_Text("L15");
-
-  }
-
-  // if the timeout delay has past clear the slot number for next request
-  if ((millis() - previousTimeout) > time_out)
-  {
-    //transmission_ready_Flag = 1;
-    bus_data._timeout++;
-    bus_data.retries++;
-    //UART2_Write_Text("L16");
-  }
-
-  // if the number of retries have reached the max number of retries
-  // allowable, stop requesting the specific packet
-  if (retry_count==bus_data.retries){ //
-                                   bus_data.connection = 0;
-                                   bus_data.retries = 0;
-                                   //UART2_Write_Text("L17");
-                                  }
-
-  // update the total_errors atribute of the //
-  // packet before requesting a new one //
-  //if (transmission_ready_Flag==1)
-        bus_data.total_errors = bus_data._timeout +
-                                bus_data.incorrect_id_returned +
-                                bus_data.incorrect_function_returned +
-                                bus_data.incorrect_bytes_returned +
-                                bus_data.checksum_failed +
-                                bus_data.buffer_errors +
-                                bus_data.illegal_function +
-                                bus_data.illegal_data_address +
-                                bus_data.illegal_data_value;
-                                //UART2_Write_Text("L18");
-  return  bus_data.total_errors;
-}
-//------------------------------------------------------------------------------
 void check_F3_data(unsigned char buffer)
 {  /*char txt[7];*/
   unsigned char no_of_registers = bus_data.no_of_registers ;
@@ -251,7 +158,7 @@ void check_F3_data(unsigned char buffer)
     char txt[7];
     unsigned int recieved_crc = ((frame[buffer - 2] << 8) | frame[buffer - 1]);
     unsigned int calculated_crc = calculateCRC(buffer - 2);
-    //UART2_Write_Text("L10;");
+    //UART2_Write_Text("L10");
     // IntToStr(calculated_crc,txt);
     //Ltrim(txt);
     //UART2_Write_Text(txt);
@@ -260,36 +167,22 @@ void check_F3_data(unsigned char buffer)
       unsigned char index = 3;
       unsigned char i = 0;
       int incAdr=0;
+      char txt[15];
       //UART2_Write_Text("L11");
     for (i = 0; i < no_of_registers; i++)
       {
         // start at the 4th element in the recieveFrame and combine the Lo byte
-        bus_data.register_array[bus_data.address + incAdr] = (frame[index] << 8) | frame[index + 1];
-        /*UART2_Write(bus_data.address + i);
-        UART2_Write_Text("\n");
-        UART2_Write(bus_data.register_array[bus_data.address + i]);
-        UART2_Write_Text("\n");*/
+        system_reg[bus_data.address + incAdr] = (frame[index] << 8) | frame[index + 1];
+        /*IntToStr(bus_data.register_array[bus_data.address + incAdr], txt);Ltrim(txt);
+         UART2_Write_Text("bus_data=");
+         UART2_Write_Text(txt);
+         UART2_Write_Text("\n");*/
         index += 2;
         incAdr+=10;
       }
-      messageOkFlag = 1; // message successful
+      msgOk = true; // message successful
     }
-    else // checksum failed
-    {
-      bus_data.checksum_failed++;
-      messageErrFlag = 1; // set an error
     }
-
-    // start the polling delay for messageOkFlag & messageErrFlag
-    previousPolling = millis();
-  }
-  else // incorrect number of bytes returned
-  {  //UART2_Write_Text("L13");
-    bus_data.incorrect_bytes_returned++;
-    messageErrFlag = 1; // set an error
-    //UART2_Write_Text("L13");
-    previousPolling = millis(); // start the polling delay
-  }
 }
 //------------------------------------------------------------------------------
 void check_F16_data()
@@ -305,33 +198,14 @@ void check_F16_data()
       recieved_crc == calculated_crc){
       messageOkFlag = 1; // message successful
       pushButton = false; }
-  else
-  {
-    bus_data.checksum_failed++;
-    messageErrFlag = 1;
 
-  }
-  // start the polling delay for messageOkFlag & messageErrFlag
-  previousPolling = millis();
 }
 //------------------------------------------------------------------------------
- // get the serial data from the buffer
-unsigned char getData()
-{        char txt[4];
-        unsigned char buffer = 0;
-        unsigned char overflowFlag = 0;
 
-  return buffer;
- }
-
-
-//------------------------------------------------------------------------------
  void sendbus_data(unsigned char bufferSize)
 {
          unsigned char i=0;
         for (i = 0; i < bufferSize; i++)UART2_Write(frame[i]);
-        //UART2_Write('\r');
-// allow a frame delay to indicate end of transmission
          Delay_us(3645);
          previousTimeout = millis(); // initialize timeout delay
 }

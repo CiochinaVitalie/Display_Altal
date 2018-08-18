@@ -30,7 +30,7 @@ volatile bool uartRX_flag;
 //bit update_time;
 //volatile uint8_t rx_buffer[BUFFER_SIZE];
 int er;
-volatile bool pushButton;
+bool pushButton;
 volatile unsigned int rx_wr_index=0;
 volatile bool end_packet=false;
 volatile  unsigned char sizeOfBuffer=0;
@@ -40,6 +40,9 @@ extern  int system_reg[600];
 extern volatile uint8_t frame[BUFFER_SIZE];
 extern unsigned char transmission_ready_Flag;
 void (*send_data_again)() = 0;
+volatile char myBuf[15];
+bool dataEEprom=false;
+bool msgOk=false;
 //extern float press;
 //------------------------------------------------------------------------------
 //Timer2 Prescaler :0; Preload = 119; Actual Interrupt Time = 1 us
@@ -70,6 +73,7 @@ void Timer2_interrupt() iv IVT_INT_TIM2 {
   TIM2_SR.UIF = 0;
   rx_time++;
   if(rx_time-rx_time_previos>3645 ){
+       //USART2_CR1bits.RXNEIE = 0;
        sizeOfBuffer=rx_wr_index;
        uartRX_flag=false;
        end_packet=true;
@@ -77,6 +81,15 @@ void Timer2_interrupt() iv IVT_INT_TIM2 {
        rx_time_previos=0;
        rx_wr_index=0;
        TIM2_CR1.CEN = 0;
+       /*IntToStr(frame[9], myBuf);Ltrim(myBuf);
+       UART2_Write_Text("buffer_9 = ");
+       UART2_Write_Text(myBuf);
+       UART2_Write_Text("\n");
+        IntToStr(frame[10], myBuf);Ltrim(myBuf);
+       UART2_Write_Text("buffer_10 = ");
+       UART2_Write_Text(myBuf);
+       UART2_Write_Text("\n");*/
+
        }
   //Enter your code here
 }
@@ -100,6 +113,10 @@ void USARTINTERRUPT() iv IVT_INT_USART2 ics ICS_AUTO{
            rx_time_previos = rx_time;
            uartRX_flag=true;
            frame[rx_wr_index]=(uint8_t)(UART2_Read() & 0xFF);
+            /*IntToStr(frame[rx_wr_index], myBuf);Ltrim(myBuf);
+           UART2_Write_Text("rx_data=");
+           UART2_Write_Text(myBuf);
+           UART2_Write_Text("\n");*/
            rx_wr_index++;
            if (rx_wr_index == BUFFER_SIZE) rx_wr_index=0;
 
@@ -149,33 +166,46 @@ void main() {
 
     // Set the Date.
     RTC_SetDate(&My_Date);*/
+   //ptr= send_data_packet;
+  //rec=reciev_data_packet;
   modbus_configure(1000,200,10);
   Start_TP();
   EnableInterrupts();
   DrawRoundBox (&Messages_Box);
   Messages_Label.Caption = "UPDATE_DIS";
   DrawLabel (&Messages_Label);
- while(end_packet==false){
+/*while(end_packet==false){
   reciev_data_packet(COMP_DEL,46);
   Delay_ms(1000);
 
-  }
-  end_packet=false;
+  }*/
+ //end_packet=false;
+ //data_eeprom();startPage();
+ /*end_packet=false;
   checkResponse();
-  check_packet_status();
+  check_packet_status();*/
+
   DrawRoundBox (&Messages_Box);
   Messages_Label.Caption = "DIS_UPDATE";
   DrawLabel (&Messages_Label);
   DisableInterrupts();
-  data_eeprom();
-  startPage();
-  ptr= send_data_packet;
+  countPacket=1;
+  //ptr= send_data_packet;
+  //rec=reciev_data_packet;
   while (1) {
-    if(pushButton) {ptr(adressReg,nomReg);}
-   if(end_packet){
+
+   if(end_packet )
+   {
      end_packet=false;
      checkResponse();
-     check_packet_status();
+     if(!dataEEprom && msgOk){dataEEprom=true;data_eeprom();startPage();msgOk=false;}
+     if(msgOk){countPacket++;  UART2_Write_Text("privet");msgOk=0;}
+     //USART2_CR1bits.RXNEIE = 1;
+     //UART2_Write_Text("privet");
+   }
+  //if(!msgOk){reciev_data_packet(adressRegReciev,nomRegReciev);Delay_ms(3000);}
+  if(pushButton) {send_data_packet(adressRegSend,adressRegReciev);Delay_ms(3000);}
+    /* check_packet_status();
      if(system_reg[ERRORS_1]!=er){
                                 er=system_reg[ERRORS_1];
                                 if(er>0){
@@ -189,17 +219,18 @@ void main() {
                                   DrawRoundBox (&Messages_Box);
                                   Messages_Label.Caption = "SYSTEM_OK";
                                   DrawLabel (&Messages_Label);
-                                
-                                }
-                                }
-                                
 
-   }
+                                }
+                                }
+
+
+   }*/
    DisableInterrupts();
-   if(millis() - old_time_count > 3000)//
+   if(millis() - old_time_count > 5000 && !pushButton)//
        {     old_time_count = millis();
 
-           if(!pushButton)selectPage();
+           if(dataEEprom)selectPage();
+           else reciev_data_packet(COMP_DEL,46);
 
         }
 
