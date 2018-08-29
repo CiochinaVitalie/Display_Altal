@@ -1,6 +1,6 @@
-#line 1 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
-#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 1 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -1984,7 +1984,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2015 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2015 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -3628,7 +3628,7 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/users/vitalii/documents/mikroelektronika/mikroc pro for arm/include/stdint.h"
 
 
 
@@ -3677,7 +3677,7 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 31 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 31 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void Message (char arg[])
 {
  UART2_Write(13);
@@ -3686,7 +3686,7 @@ void Message (char arg[])
  UART2_Write(13);
  UART2_Write(10);
 }
-#line 50 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 50 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 short RTC_Init (unsigned PREDIV_Sync, unsigned short PREDIV_Async, int HR_Format)
 {
  unsigned short RTC_Wait_ctr = 0;
@@ -3752,10 +3752,10 @@ short RTC_Init (unsigned PREDIV_Sync, unsigned short PREDIV_Async, int HR_Format
 
 
  RTC_WPR = 0xFF;
-#line 118 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 118 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
  return 1;
 }
-#line 140 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 140 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void Calibrate_RTC_Crystal (int Cal_Value)
 {
  unsigned long recalpfcount = 0;
@@ -3786,13 +3786,13 @@ void Calibrate_RTC_Crystal (int Cal_Value)
  }
 
 }
-#line 179 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 179 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 short RTC_SetTime (RTC_TimeTypeDef *RTC_TimeStruct, int Calibration_Value)
 {
  short Func_Status;
  unsigned short RTC_Wait_ctr = 0;
  unsigned long Temp_Time_Reg = 0;
-#line 191 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 191 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
  Temp_Time_Reg = (((unsigned long) (RTC_TimeStruct->RTC_H12) << 22) | ((unsigned long) (RTC_TimeStruct->RTC_Hour_Tens) << 20) | ((unsigned long) (RTC_TimeStruct->RTC_Hour_Units) << 16) | ((unsigned long) (RTC_TimeStruct->RTC_Min_Tens) << 12) | ((unsigned long) (RTC_TimeStruct->RTC_Min_Units) << 8) | ((unsigned long) (RTC_TimeStruct->RTC_Sec_Tens) << 4) | ((unsigned long) (RTC_TimeStruct->RTC_Sec_Units)));
 
 
@@ -3834,13 +3834,13 @@ short RTC_SetTime (RTC_TimeTypeDef *RTC_TimeStruct, int Calibration_Value)
 
  return Func_Status;
 }
-#line 240 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 240 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 short RTC_SetDate(RTC_DateTypeDef *RTC_DateStruct)
 {
  short Func_Status;
  unsigned short RTC_Wait_ctr = 0;
  unsigned long Temp_Date_Reg = 0;
-#line 252 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 252 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
  Temp_Date_Reg = (((unsigned long) (RTC_DateStruct->RTC_Year_Tens) << 20) | ((unsigned long) (RTC_DateStruct->RTC_Year_Units) << 16) | ((unsigned long) (RTC_DateStruct->RTC_DayofWeek) << 13) | ((unsigned long) (RTC_DateStruct->RTC_Month_Tens) << 12) | ((unsigned long) (RTC_DateStruct->RTC_Month_Units) << 8) | ((unsigned long) (RTC_DateStruct->RTC_Date_Tens) << 4) | ((unsigned long) (RTC_DateStruct->RTC_Date_Units)));
 
  Temp_Date_Reg = Temp_Date_Reg & 0x00FFFFFF;
@@ -3881,7 +3881,7 @@ short RTC_SetDate(RTC_DateTypeDef *RTC_DateStruct)
  RTC_WPR = 0xFF;
 
 }
-#line 301 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 301 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 unsigned RTC_GetSubSeconds (void)
 {
  unsigned long Temp_RTC_SSR;
@@ -3898,7 +3898,7 @@ unsigned RTC_GetSubSeconds (void)
 
  return (unsigned) Temp_float;
 }
-#line 324 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 324 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void RTC_GetTime(RTC_TimeTypeDef *RTC_TimeStruct)
 {
 
@@ -3910,7 +3910,7 @@ void RTC_GetTime(RTC_TimeTypeDef *RTC_TimeStruct)
  RTC_TimeStruct->RTC_Sec_Tens = (unsigned short) RTC_TRbits.ST;
  RTC_TimeStruct->RTC_Sec_Units = (unsigned short) RTC_TRbits.SU;
 }
-#line 343 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 343 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void RTC_GetDate(RTC_DateTypeDef *RTC_DateStruct)
 {
 
@@ -3922,7 +3922,7 @@ void RTC_GetDate(RTC_DateTypeDef *RTC_DateStruct)
  RTC_DateStruct->RTC_Year_Tens = (unsigned short) RTC_DRbits.YT;
  RTC_DateStruct->RTC_Year_Units = (unsigned short) RTC_DRbits.YU;
 }
-#line 362 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 362 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void RTC_PrintTime(RTC_TimeTypeDef *RTC_TimeStruct)
 {
  char txt[4];
@@ -3957,7 +3957,7 @@ void RTC_PrintTime(RTC_TimeTypeDef *RTC_TimeStruct)
  UART2_Write(13);
  UART2_Write(10);
 }
-#line 404 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 404 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void RTC_PrintDate(RTC_DateTypeDef *RTC_DateStruct)
 {
  char txt[4];
@@ -4001,7 +4001,7 @@ void RTC_PrintDate(RTC_DateTypeDef *RTC_DateStruct)
  UART2_Write(13);
  UART2_Write(10);
 }
-#line 455 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 455 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void Print_Sub_Secs (unsigned Value)
 {
  char txt[6];

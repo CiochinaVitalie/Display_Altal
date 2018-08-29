@@ -104,12 +104,14 @@ void nextPage(){
     else if (CurrentScreen==&LIMITS3){DrawScreen(&LIMITS4);}
       else if (CurrentScreen==&LIMITS4){DrawScreen(&LIMITS5);}
         else if (CurrentScreen==&MODE){DrawScreen(&MODE2);}
-        BLED_Fade_In();
+         BLED_Fade_In();
 }
 void selectPage(){
        static int lastDataDhw;
+       static TScreen* lastScreen=0;
        int convert_temp;
        char txt[15];
+       if (lastScreen!=CurrentScreen) {countPacket=1; lastScreen=CurrentScreen;  }
 if (CurrentScreen==&HOME)
         { 
 
@@ -125,16 +127,23 @@ if (CurrentScreen==&HOME)
 else if(CurrentScreen==&SENSOR1) 
      {  
         sensor_1(num_page);
-        reciev_data_packet(BAC_TEMP,2);
-        //Delay_ms(500);
+
         if(num_page==0)
-        {
-        reciev_data_packet(CONDENS_TEMP_1,12);
+        { 
+           switch(countPacket)
+          {
+          case 1: reciev_data_packet(BAC_TEMP,2);break;
+          case 2: reciev_data_packet(CONDENS_TEMP_1,12);break;
+          case 3:  countPacket=1;break;
+          }
         if(strcmp(CircleButton10.Caption,"1")!=0){CircleButton10.Caption="1";DrawCircleButton(&CircleButton10);  }
         }
          else 
-         {reciev_data_packet(CONDENS_TEMP_2,12);
-             if(strcmp(CircleButton10.Caption,"2")!=0) {CircleButton10.Caption="2";DrawCircleButton(&CircleButton10);}
+         {
+          case 1: reciev_data_packet(BAC_TEMP,2);break;
+          case 2: reciev_data_packet(CONDENS_TEMP_2,12);break;
+          case 3:  countPacket=1;break;
+         if(strcmp(CircleButton10.Caption,"2")!=0) {CircleButton10.Caption="2";DrawCircleButton(&CircleButton10);}
          }
      }
 
@@ -152,9 +161,38 @@ else if(CurrentScreen==&GAUGE1)
         if(strcmp(CircleButton8.Caption,"2")!=0){CircleButton8.Caption="2";DrawCircleButton(&CircleButton8);Next_b2.Caption="BACK";DrawRoundButton(&Next_b2);Next_b2.OnClickPtr=goToBack;}
       }
 }
-else if(CurrentScreen==&EEV){ count_steps(num_page); reciev_data_packet(S_HEAT_1,3);}
-else if(CurrentScreen==&SYSTEM_EVENTS){working_time(num_page);reciev_data_packet(TIM_P_HEAT_1,5);}
+else if(CurrentScreen==&EEV)
+    {
+      count_steps(num_page);
+    if(num_page==0)
+    {
+          switch(countPacket)
+          {
+           case 1:reciev_data_packet(TRV_STEPS_1,1); break;
+           case 2:reciev_data_packet(S_HEAT_1,1); break;
+           case 3:  countPacket=1;break;
+          }
+    }
+    else
+    {
+          switch(countPacket)
+          {
+           case 1:reciev_data_packet(TRV_STEPS_2,1); break;
+           case 2:reciev_data_packet(S_HEAT_2,1); break;
+           case 3:  countPacket=1;break;
+          }
+    }
+    }
+    
+else if(CurrentScreen==&SYSTEM_EVENTS)
+{
+             working_time(num_page);break;
+        if(num_page==0) reciev_data_packet(TIM_P_HEAT_1,4);
+         else  reciev_data_packet(TIM_P_HEAT_2,4);
+
+}
 else if(CurrentScreen==&Schema1){schema1_page();reciev_data_packet(DHW_TEMP,32);}
+
 }
 //--------------------------------Main_event
 

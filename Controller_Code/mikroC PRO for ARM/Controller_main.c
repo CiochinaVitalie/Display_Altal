@@ -113,10 +113,6 @@ void USARTINTERRUPT() iv IVT_INT_USART2 ics ICS_AUTO{
            rx_time_previos = rx_time;
            uartRX_flag=true;
            frame[rx_wr_index]=(uint8_t)(UART2_Read() & 0xFF);
-            /*IntToStr(frame[rx_wr_index], myBuf);Ltrim(myBuf);
-           UART2_Write_Text("rx_data=");
-           UART2_Write_Text(myBuf);
-           UART2_Write_Text("\n");*/
            rx_wr_index++;
            if (rx_wr_index == BUFFER_SIZE) rx_wr_index=0;
 

@@ -1,6 +1,6 @@
-#line 1 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
-#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 1 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -1984,7 +1984,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2015 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2015 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -3628,13 +3628,13 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "e:/mikroc/mikroc pro for arm/include/stdbool.h"
+#line 1 "c:/users/vitalii/documents/mikroelektronika/mikroc pro for arm/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
-#line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
+#line 1 "c:/users/vitalii/documents/mikroelektronika/mikroc pro for arm/include/stdint.h"
 
 
 
@@ -3683,12 +3683,12 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 25 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
+#line 25 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
  void InitSysTick();
  uint32_t millis();
-#line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
-#line 1 "e:/mikroc/mikroc pro for arm/include/built_in.h"
-#line 26 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 1 "c:/users/vitalii/documents/mikroelektronika/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/users/vitalii/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
+#line 26 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
 uint32_t old_time_count;
  _Bool  Send_data,sendMessage;
 
@@ -3709,7 +3709,7 @@ void (*send_data_again)() = 0;
 volatile char myBuf[15];
  _Bool  dataEEprom= 0 ;
  _Bool  msgOk= 0 ;
-#line 62 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 62 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
 void InitTimer2(){
  RCC_APB1ENR.TIM2EN = 1;
  TIM2_CR1.CEN = 0;
@@ -3732,7 +3732,7 @@ void Timer2_interrupt() iv IVT_INT_TIM2 {
  rx_time_previos=0;
  rx_wr_index=0;
  TIM2_CR1.CEN = 0;
-#line 93 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 93 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  }
 
 }
@@ -3756,7 +3756,6 @@ void USARTINTERRUPT() iv IVT_INT_USART2 ics ICS_AUTO{
  rx_time_previos = rx_time;
  uartRX_flag= 1 ;
  frame[rx_wr_index]=(uint8_t)(UART2_Read() & 0xFF);
-#line 120 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  rx_wr_index++;
  if (rx_wr_index ==  128 ) rx_wr_index=0;
 
@@ -3772,14 +3771,14 @@ void main() {
  InitSysTick();
  USART_init();
  InitTimer2();
-#line 171 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 167 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  modbus_configure(1000,200,10);
  Start_TP();
  EnableInterrupts();
  DrawRoundBox (&Messages_Box);
  Messages_Label.Caption = "UPDATE_DIS";
  DrawLabel (&Messages_Label);
-#line 188 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 184 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  DrawRoundBox (&Messages_Box);
  Messages_Label.Caption = "DIS_UPDATE";
  DrawLabel (&Messages_Label);
@@ -3800,7 +3799,7 @@ void main() {
  }
 
  if(pushButton) {send_data_packet(adressRegSend,adressRegReciev);Delay_ms(3000);}
-#line 228 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 224 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  DisableInterrupts();
  if(millis() - old_time_count > 5000 && !pushButton)
  { old_time_count = millis();

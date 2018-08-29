@@ -1,4 +1,4 @@
-#line 1 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_resources.c"
+#line 1 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_resources.c"
 const unsigned long __Malgun_Gothic27x37_Bold = 0x00001670;
 const unsigned long Arial_Narrow13x16_Bold = 0x00003E9A;
 const unsigned long Arial_Narrow16x19_Bold = 0x00005242;
