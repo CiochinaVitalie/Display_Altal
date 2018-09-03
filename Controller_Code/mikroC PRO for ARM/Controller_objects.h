@@ -51,6 +51,7 @@ extern void count_steps(unsigned char num_page);
 extern  void working_time(unsigned char num_page);
 extern void void startPage();
 extern  void schema1_page();
+extern void schema2_page();
  //---------------------------------------------------------------------mode_bus
 
  //-----------------------------------------------------------------------------

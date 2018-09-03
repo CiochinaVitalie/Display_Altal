@@ -34,14 +34,14 @@ MOVT	R0, #hi_addr(_system_reg+162)
 LDRSH	R0, [R0, #0]
 CMP	R0, #10
 IT	GE
-BGE	L__main_page115
+BGE	L__main_page140
 MOVW	R0, #lo_addr(_system_reg+162)
 MOVT	R0, #hi_addr(_system_reg+162)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LT
-BLT	L__main_page114
-L__main_page113:
+BLT	L__main_page139
+L__main_page138:
 MOVW	R2, #lo_addr(_dhw_temp_main+16)
 MOVT	R2, #hi_addr(_dhw_temp_main+16)
 LDR	R0, [R2, #0]
@@ -54,8 +54,8 @@ MOVS	R1, #48
 MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
-L__main_page115:
-L__main_page114:
+L__main_page140:
+L__main_page139:
 ;Pages.c,22 :: 		DrawRoundBox(&BoxRound2);
 MOVW	R0, #lo_addr(_BoxRound2+0)
 MOVT	R0, #hi_addr(_BoxRound2+0)
@@ -98,14 +98,14 @@ MOVT	R0, #hi_addr(_system_reg+142)
 LDRSH	R0, [R0, #0]
 CMP	R0, #10
 IT	GE
-BGE	L__main_page117
+BGE	L__main_page142
 MOVW	R0, #lo_addr(_system_reg+142)
 MOVT	R0, #hi_addr(_system_reg+142)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LT
-BLT	L__main_page116
-L__main_page112:
+BLT	L__main_page141
+L__main_page137:
 MOVW	R2, #lo_addr(_heat_temp_main+16)
 MOVT	R2, #hi_addr(_heat_temp_main+16)
 LDR	R0, [R2, #0]
@@ -118,8 +118,8 @@ MOVS	R1, #48
 MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
-L__main_page117:
-L__main_page116:
+L__main_page142:
+L__main_page141:
 ;Pages.c,31 :: 		DrawRoundBox(&heatBox);
 MOVW	R0, #lo_addr(_heatBox+0)
 MOVT	R0, #hi_addr(_heatBox+0)
@@ -162,14 +162,14 @@ MOVT	R0, #hi_addr(_system_reg+322)
 LDRSH	R0, [R0, #0]
 CMP	R0, #10
 IT	GE
-BGE	L__main_page119
+BGE	L__main_page144
 MOVW	R0, #lo_addr(_system_reg+322)
 MOVT	R0, #hi_addr(_system_reg+322)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LT
-BLT	L__main_page118
-L__main_page111:
+BLT	L__main_page143
+L__main_page136:
 MOVW	R2, #lo_addr(_sourse_temp_output_main+16)
 MOVT	R2, #hi_addr(_sourse_temp_output_main+16)
 LDR	R0, [R2, #0]
@@ -182,8 +182,8 @@ MOVS	R1, #48
 MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
-L__main_page119:
-L__main_page118:
+L__main_page144:
+L__main_page143:
 ;Pages.c,40 :: 		DrawRoundBox(&BoxRound4);
 MOVW	R0, #lo_addr(_BoxRound4+0)
 MOVT	R0, #hi_addr(_BoxRound4+0)
@@ -226,14 +226,14 @@ MOVT	R0, #hi_addr(_system_reg+302)
 LDRSH	R0, [R0, #0]
 CMP	R0, #10
 IT	GE
-BGE	L__main_page121
+BGE	L__main_page146
 MOVW	R0, #lo_addr(_system_reg+302)
 MOVT	R0, #hi_addr(_system_reg+302)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LT
-BLT	L__main_page120
-L__main_page110:
+BLT	L__main_page145
+L__main_page135:
 MOVW	R2, #lo_addr(_sourse_temp_input_main+16)
 MOVT	R2, #hi_addr(_sourse_temp_input_main+16)
 LDR	R0, [R2, #0]
@@ -246,8 +246,8 @@ MOVS	R1, #48
 MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
-L__main_page121:
-L__main_page120:
+L__main_page146:
+L__main_page145:
 ;Pages.c,49 :: 		DrawRoundBox(&BoxRound3);
 MOVW	R0, #lo_addr(_BoxRound3+0)
 MOVT	R0, #hi_addr(_BoxRound3+0)
@@ -393,14 +393,14 @@ MOVT	R0, #hi_addr(_system_reg+400)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__startPage126
+BNE	L__startPage151
 MOVW	R0, #lo_addr(_system_reg+380)
 MOVT	R0, #hi_addr(_system_reg+380)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L__startPage125
-L__startPage124:
+BNE	L__startPage150
+L__startPage149:
 MOVW	R1, #lo_addr(?lstr1_Pages+0)
 MOVT	R1, #hi_addr(?lstr1_Pages+0)
 MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+24)
@@ -417,22 +417,22 @@ BL	_DrawRoundButton+0
 MOVW	R0, #lo_addr(_cool_icon+0)
 MOVT	R0, #hi_addr(_cool_icon+0)
 BL	_DrawImage+0
-L__startPage126:
-L__startPage125:
+L__startPage151:
+L__startPage150:
 ;Pages.c,79 :: 		if(system_reg[HEAT]==1 && system_reg[COOL]==0) {ON_OFF_Heat_Cool.Caption = "ON"; bar_heating.Caption = "HEATING";DrawRoundButton(&bar_heating);DrawImage(&heat_icon);}
 MOVW	R0, #lo_addr(_system_reg+400)
 MOVT	R0, #hi_addr(_system_reg+400)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L__startPage128
+BNE	L__startPage153
 MOVW	R0, #lo_addr(_system_reg+380)
 MOVT	R0, #hi_addr(_system_reg+380)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__startPage127
-L__startPage123:
+BNE	L__startPage152
+L__startPage148:
 MOVW	R1, #lo_addr(?lstr3_Pages+0)
 MOVT	R1, #hi_addr(?lstr3_Pages+0)
 MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+24)
@@ -449,29 +449,29 @@ BL	_DrawRoundButton+0
 MOVW	R0, #lo_addr(_heat_icon+0)
 MOVT	R0, #hi_addr(_heat_icon+0)
 BL	_DrawImage+0
-L__startPage128:
-L__startPage127:
+L__startPage153:
+L__startPage152:
 ;Pages.c,80 :: 		if(system_reg[HEAT]==0 && system_reg[COOL]==0) ON_OFF_Heat_Cool.Caption = "OFF";
 MOVW	R0, #lo_addr(_system_reg+400)
 MOVT	R0, #hi_addr(_system_reg+400)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__startPage130
+BNE	L__startPage155
 MOVW	R0, #lo_addr(_system_reg+380)
 MOVT	R0, #hi_addr(_system_reg+380)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__startPage129
-L__startPage122:
+BNE	L__startPage154
+L__startPage147:
 MOVW	R1, #lo_addr(?lstr5_Pages+0)
 MOVT	R1, #hi_addr(?lstr5_Pages+0)
 MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+24)
 MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+24)
 STR	R1, [R0, #0]
-L__startPage130:
-L__startPage129:
+L__startPage155:
+L__startPage154:
 ;Pages.c,81 :: 		if(system_reg[HEATWATER]==0)ON_OFF_DHW.Caption = "OFF";
 MOVW	R0, #lo_addr(_system_reg+420)
 MOVT	R0, #hi_addr(_system_reg+420)
@@ -1611,17 +1611,17 @@ MOVT	R0, #hi_addr(_system_reg+400)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	EQ
-BEQ	L__data_eeprom134
+BEQ	L__data_eeprom159
 MOVW	R0, #lo_addr(_system_reg+380)
 MOVT	R0, #hi_addr(_system_reg+380)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	EQ
-BEQ	L__data_eeprom133
+BEQ	L__data_eeprom158
 IT	AL
 BAL	L_data_eeprom57
-L__data_eeprom134:
-L__data_eeprom133:
+L__data_eeprom159:
+L__data_eeprom158:
 ;Pages.c,222 :: 		ON_OFF_Heat_Cool.Caption = "ON";
 MOVW	R1, #lo_addr(?lstr10_Pages+0)
 MOVT	R1, #hi_addr(?lstr10_Pages+0)
@@ -1642,14 +1642,14 @@ MOVT	R0, #hi_addr(_system_reg+400)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__data_eeprom136
+BNE	L__data_eeprom161
 MOVW	R0, #lo_addr(_system_reg+380)
 MOVT	R0, #hi_addr(_system_reg+380)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__data_eeprom135
-L__data_eeprom131:
+BNE	L__data_eeprom160
+L__data_eeprom156:
 ;Pages.c,226 :: 		ON_OFF_Heat_Cool.Caption = "OFF";
 MOVW	R1, #lo_addr(?lstr11_Pages+0)
 MOVT	R1, #hi_addr(?lstr11_Pages+0)
@@ -1661,8 +1661,8 @@ MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+0)
 MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+0)
 BL	_DrawRoundButton+0
 ;Pages.c,225 :: 		else if(system_reg[HEAT]==0 && system_reg[COOL]==0){
-L__data_eeprom136:
-L__data_eeprom135:
+L__data_eeprom161:
+L__data_eeprom160:
 ;Pages.c,228 :: 		}
 L_data_eeprom58:
 ;Pages.c,230 :: 		if(system_reg[HEATWATER]==0){
@@ -2774,3 +2774,477 @@ LDR	LR, [SP, #0]
 ADD	SP, SP, #16
 BX	LR
 ; end of _schema1_page
+_schema2_page:
+;Pages.c,340 :: 		void schema2_page(){
+SUB	SP, SP, #16
+STR	LR, [SP, #0]
+;Pages.c,343 :: 		if(system_reg[COM_STATE_1]==1) DrawImage(&Image166);
+MOVW	R0, #lo_addr(_system_reg+22)
+MOVT	R0, #hi_addr(_system_reg+22)
+LDRSH	R0, [R0, #0]
+CMP	R0, #1
+IT	NE
+BNE	L_schema2_page110
+MOVW	R0, #lo_addr(_Image166+0)
+MOVT	R0, #hi_addr(_Image166+0)
+BL	_DrawImage+0
+IT	AL
+BAL	L_schema2_page111
+L_schema2_page110:
+;Pages.c,344 :: 		else DrawImage(&Image181);
+MOVW	R0, #lo_addr(_Image181+0)
+MOVT	R0, #hi_addr(_Image181+0)
+BL	_DrawImage+0
+L_schema2_page111:
+;Pages.c,345 :: 		if(system_reg[COM_STATE_2]==1) DrawImage(&Image276);
+MOVW	R0, #lo_addr(_system_reg+24)
+MOVT	R0, #hi_addr(_system_reg+24)
+LDRSH	R0, [R0, #0]
+CMP	R0, #1
+IT	NE
+BNE	L_schema2_page112
+MOVW	R0, #lo_addr(_Image276+0)
+MOVT	R0, #hi_addr(_Image276+0)
+BL	_DrawImage+0
+IT	AL
+BAL	L_schema2_page113
+L_schema2_page112:
+;Pages.c,346 :: 		else DrawImage(&Image275);
+MOVW	R0, #lo_addr(_Image275+0)
+MOVT	R0, #hi_addr(_Image275+0)
+BL	_DrawImage+0
+L_schema2_page113:
+;Pages.c,347 :: 		if(system_reg[PUMP_HEAT_STATE_1]==1) DrawImage(&Image75);
+MOVW	R0, #lo_addr(_system_reg+62)
+MOVT	R0, #hi_addr(_system_reg+62)
+LDRSH	R0, [R0, #0]
+CMP	R0, #1
+IT	NE
+BNE	L_schema2_page114
+MOVW	R0, #lo_addr(_Image75+0)
+MOVT	R0, #hi_addr(_Image75+0)
+BL	_DrawImage+0
+IT	AL
+BAL	L_schema2_page115
+L_schema2_page114:
+;Pages.c,348 :: 		else DrawImage(&Image124);
+MOVW	R0, #lo_addr(_Image124+0)
+MOVT	R0, #hi_addr(_Image124+0)
+BL	_DrawImage+0
+L_schema2_page115:
+;Pages.c,349 :: 		if(system_reg[PUMP_SOURS_STATE_1]==1) DrawImage(&Image74);
+MOVW	R0, #lo_addr(_system_reg+42)
+MOVT	R0, #hi_addr(_system_reg+42)
+LDRSH	R0, [R0, #0]
+CMP	R0, #1
+IT	NE
+BNE	L_schema2_page116
+MOVW	R0, #lo_addr(_Image74+0)
+MOVT	R0, #hi_addr(_Image74+0)
+BL	_DrawImage+0
+IT	AL
+BAL	L_schema2_page117
+L_schema2_page116:
+;Pages.c,350 :: 		else DrawImage(&Image117);
+MOVW	R0, #lo_addr(_Image117+0)
+MOVT	R0, #hi_addr(_Image117+0)
+BL	_DrawImage+0
+L_schema2_page117:
+;Pages.c,351 :: 		if(system_reg[REV_STATE_1]==1) DrawImage(&Image73);
+MOVW	R0, #lo_addr(_system_reg+82)
+MOVT	R0, #hi_addr(_system_reg+82)
+LDRSH	R0, [R0, #0]
+CMP	R0, #1
+IT	NE
+BNE	L_schema2_page118
+MOVW	R0, #lo_addr(_Image73+0)
+MOVT	R0, #hi_addr(_Image73+0)
+BL	_DrawImage+0
+IT	AL
+BAL	L_schema2_page119
+L_schema2_page118:
+;Pages.c,352 :: 		else DrawImage(&Image118);
+MOVW	R0, #lo_addr(_Image118+0)
+MOVT	R0, #hi_addr(_Image118+0)
+BL	_DrawImage+0
+L_schema2_page119:
+;Pages.c,353 :: 		if(system_reg[THREE_STATE]==1) DrawImage(&Image77);
+MOVW	R0, #lo_addr(_system_reg+102)
+MOVT	R0, #hi_addr(_system_reg+102)
+LDRSH	R0, [R0, #0]
+CMP	R0, #1
+IT	NE
+BNE	L_schema2_page120
+MOVW	R0, #lo_addr(_Image77+0)
+MOVT	R0, #hi_addr(_Image77+0)
+BL	_DrawImage+0
+IT	AL
+BAL	L_schema2_page121
+L_schema2_page120:
+;Pages.c,354 :: 		else DrawImage(&Image120);
+MOVW	R0, #lo_addr(_Image120+0)
+MOVT	R0, #hi_addr(_Image120+0)
+BL	_DrawImage+0
+L_schema2_page121:
+;Pages.c,355 :: 		IntToStr(system_reg[SOURC_IN_1], txt);Ltrim(txt);//
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_system_reg+302)
+MOVT	R0, #hi_addr(_system_reg+302)
+LDRSH	R0, [R0, #0]
+BL	_IntToStr+0
+ADD	R0, SP, #4
+BL	_Ltrim+0
+;Pages.c,356 :: 		if(strncmp(txt,S_Brine_In_1.Caption,2)!=0){strncpy(S_Brine_In_1.Caption, txt, 2);DrawButton(&S_Brine_In_1);}
+MOVW	R0, #lo_addr(_S_Brine_In_1+24)
+MOVT	R0, #hi_addr(_S_Brine_In_1+24)
+LDR	R1, [R0, #0]
+ADD	R0, SP, #4
+MOVS	R2, #2
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_schema2_page122
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_S_Brine_In_1+24)
+MOVT	R0, #hi_addr(_S_Brine_In_1+24)
+LDR	R0, [R0, #0]
+MOVS	R2, #2
+SXTH	R2, R2
+BL	_strncpy+0
+MOVW	R0, #lo_addr(_S_Brine_In_1+0)
+MOVT	R0, #hi_addr(_S_Brine_In_1+0)
+BL	_DrawButton+0
+L_schema2_page122:
+;Pages.c,357 :: 		IntToStr(system_reg[SOURC_OUT_1], txt);Ltrim(txt);//
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_system_reg+322)
+MOVT	R0, #hi_addr(_system_reg+322)
+LDRSH	R0, [R0, #0]
+BL	_IntToStr+0
+ADD	R0, SP, #4
+BL	_Ltrim+0
+;Pages.c,358 :: 		if(strncmp(txt,S_Brine_Out_1.Caption,2)!=0){strncpy(S_Brine_Out_1.Caption, txt, 2);DrawButton(&S_Brine_Out_1);}
+MOVW	R0, #lo_addr(_S_Brine_Out_1+24)
+MOVT	R0, #hi_addr(_S_Brine_Out_1+24)
+LDR	R1, [R0, #0]
+ADD	R0, SP, #4
+MOVS	R2, #2
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_schema2_page123
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_S_Brine_Out_1+24)
+MOVT	R0, #hi_addr(_S_Brine_Out_1+24)
+LDR	R0, [R0, #0]
+MOVS	R2, #2
+SXTH	R2, R2
+BL	_strncpy+0
+MOVW	R0, #lo_addr(_S_Brine_Out_1+0)
+MOVT	R0, #hi_addr(_S_Brine_Out_1+0)
+BL	_DrawButton+0
+L_schema2_page123:
+;Pages.c,359 :: 		IntToStr(system_reg[HEAT_IN_1], txt);Ltrim(txt);//
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_system_reg+262)
+MOVT	R0, #hi_addr(_system_reg+262)
+LDRSH	R0, [R0, #0]
+BL	_IntToStr+0
+ADD	R0, SP, #4
+BL	_Ltrim+0
+;Pages.c,360 :: 		if(strncmp(txt,S_Heat_In_1.Caption,2)!=0){strncpy(S_Heat_In_1.Caption, txt, 2);DrawButton(&S_Heat_In_1);}
+MOVW	R0, #lo_addr(_S_Heat_In_1+24)
+MOVT	R0, #hi_addr(_S_Heat_In_1+24)
+LDR	R1, [R0, #0]
+ADD	R0, SP, #4
+MOVS	R2, #2
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_schema2_page124
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_S_Heat_In_1+24)
+MOVT	R0, #hi_addr(_S_Heat_In_1+24)
+LDR	R0, [R0, #0]
+MOVS	R2, #2
+SXTH	R2, R2
+BL	_strncpy+0
+MOVW	R0, #lo_addr(_S_Heat_In_1+0)
+MOVT	R0, #hi_addr(_S_Heat_In_1+0)
+BL	_DrawButton+0
+L_schema2_page124:
+;Pages.c,361 :: 		IntToStr(system_reg[HEAT_OUT_1], txt);Ltrim(txt);//
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_system_reg+282)
+MOVT	R0, #hi_addr(_system_reg+282)
+LDRSH	R0, [R0, #0]
+BL	_IntToStr+0
+ADD	R0, SP, #4
+BL	_Ltrim+0
+;Pages.c,362 :: 		if(strncmp(txt,S_Heat_Out_1.Caption,2)!=0){strncpy(S_Heat_Out_1.Caption, txt, 2);DrawButton(&S_Heat_Out_1);}
+MOVW	R0, #lo_addr(_S_Heat_Out_1+24)
+MOVT	R0, #hi_addr(_S_Heat_Out_1+24)
+LDR	R1, [R0, #0]
+ADD	R0, SP, #4
+MOVS	R2, #2
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_schema2_page125
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_S_Heat_Out_1+24)
+MOVT	R0, #hi_addr(_S_Heat_Out_1+24)
+LDR	R0, [R0, #0]
+MOVS	R2, #2
+SXTH	R2, R2
+BL	_strncpy+0
+MOVW	R0, #lo_addr(_S_Heat_Out_1+0)
+MOVT	R0, #hi_addr(_S_Heat_Out_1+0)
+BL	_DrawButton+0
+L_schema2_page125:
+;Pages.c,363 :: 		IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);//
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_system_reg+402)
+MOVT	R0, #hi_addr(_system_reg+402)
+LDRSH	R0, [R0, #0]
+BL	_IntToStr+0
+ADD	R0, SP, #4
+BL	_Ltrim+0
+;Pages.c,364 :: 		if(system_reg[HEAT_OUT_1]<100){
+MOVW	R0, #lo_addr(_system_reg+282)
+MOVT	R0, #hi_addr(_system_reg+282)
+LDRSH	R0, [R0, #0]
+CMP	R0, #100
+IT	GE
+BGE	L_schema2_page126
+;Pages.c,365 :: 		if(strncmp(txt,S_ComprEx_1.Caption,2)!=0){strncpy(S_ComprEx_1.Caption, txt, 2);
+MOVW	R0, #lo_addr(_S_ComprEx_1+24)
+MOVT	R0, #hi_addr(_S_ComprEx_1+24)
+LDR	R1, [R0, #0]
+ADD	R0, SP, #4
+MOVS	R2, #2
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_schema2_page127
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_S_ComprEx_1+24)
+MOVT	R0, #hi_addr(_S_ComprEx_1+24)
+STR	R0, [SP, #12]
+LDR	R0, [R0, #0]
+MOVS	R2, #2
+SXTH	R2, R2
+BL	_strncpy+0
+;Pages.c,366 :: 		S_ComprEx_1.Caption[2]=S_ComprEx_1.Caption[1];S_ComprEx_1.Caption[1]=S_ComprEx_1.Caption[0];S_ComprEx_1.Caption[0]='0';
+MOVW	R2, #lo_addr(_S_ComprEx_1+24)
+MOVT	R2, #hi_addr(_S_ComprEx_1+24)
+LDR	R0, [R2, #0]
+ADDS	R1, R0, #2
+MOV	R0, R2
+LDR	R0, [R0, #0]
+ADDS	R0, R0, #1
+LDRB	R0, [R0, #0]
+STRB	R0, [R1, #0]
+LDR	R2, [SP, #12]
+MOV	R0, R2
+LDR	R0, [R0, #0]
+ADDS	R1, R0, #1
+MOV	R0, R2
+LDR	R0, [R0, #0]
+LDRB	R0, [R0, #0]
+STRB	R0, [R1, #0]
+MOVS	R1, #48
+MOV	R0, R2
+LDR	R0, [R0, #0]
+STRB	R1, [R0, #0]
+;Pages.c,367 :: 		DrawRoundButton(&S_ComprEx_1);
+MOVW	R0, #lo_addr(_S_ComprEx_1+0)
+MOVT	R0, #hi_addr(_S_ComprEx_1+0)
+BL	_DrawRoundButton+0
+;Pages.c,368 :: 		strncpy(S_ComprEx_1.Caption, txt, 3);
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_S_ComprEx_1+24)
+MOVT	R0, #hi_addr(_S_ComprEx_1+24)
+LDR	R0, [R0, #0]
+MOVS	R2, #3
+SXTH	R2, R2
+BL	_strncpy+0
+;Pages.c,369 :: 		}
+L_schema2_page127:
+;Pages.c,370 :: 		}
+IT	AL
+BAL	L_schema2_page128
+L_schema2_page126:
+;Pages.c,371 :: 		else{if(strncmp(txt,S_ComprEx_1.Caption,3)!=0){strncpy(S_ComprEx_1.Caption, txt, 3);DrawButton(&S_ComprEx_1);} }
+MOVW	R0, #lo_addr(_S_ComprEx_1+24)
+MOVT	R0, #hi_addr(_S_ComprEx_1+24)
+LDR	R1, [R0, #0]
+ADD	R0, SP, #4
+MOVS	R2, #3
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_schema2_page129
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_S_ComprEx_1+24)
+MOVT	R0, #hi_addr(_S_ComprEx_1+24)
+LDR	R0, [R0, #0]
+MOVS	R2, #3
+SXTH	R2, R2
+BL	_strncpy+0
+MOVW	R0, #lo_addr(_S_ComprEx_1+0)
+MOVT	R0, #hi_addr(_S_ComprEx_1+0)
+BL	_DrawButton+0
+L_schema2_page129:
+L_schema2_page128:
+;Pages.c,372 :: 		IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);//
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_system_reg+242)
+MOVT	R0, #hi_addr(_system_reg+242)
+LDRSH	R0, [R0, #0]
+BL	_IntToStr+0
+ADD	R0, SP, #4
+BL	_Ltrim+0
+;Pages.c,373 :: 		if(strncmp(txt,S_SH_1.Caption,2)!=0){strncpy(S_SH_1.Caption, txt, 2);DrawButton(&S_SH_1);}
+MOVW	R0, #lo_addr(_S_SH_1+24)
+MOVT	R0, #hi_addr(_S_SH_1+24)
+LDR	R1, [R0, #0]
+ADD	R0, SP, #4
+MOVS	R2, #2
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_schema2_page130
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_S_SH_1+24)
+MOVT	R0, #hi_addr(_S_SH_1+24)
+LDR	R0, [R0, #0]
+MOVS	R2, #2
+SXTH	R2, R2
+BL	_strncpy+0
+MOVW	R0, #lo_addr(_S_SH_1+0)
+MOVT	R0, #hi_addr(_S_SH_1+0)
+BL	_DrawButton+0
+L_schema2_page130:
+;Pages.c,377 :: 		IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);//
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_system_reg+162)
+MOVT	R0, #hi_addr(_system_reg+162)
+LDRSH	R0, [R0, #0]
+BL	_IntToStr+0
+ADD	R0, SP, #4
+BL	_Ltrim+0
+;Pages.c,378 :: 		if(strncmp(txt,Sens_DHW.Caption,2)!=0){strncpy(Sens_DHW.Caption, txt, 2);DrawButton(&Sens_DHW);}
+MOVW	R0, #lo_addr(_Sens_DHW+24)
+MOVT	R0, #hi_addr(_Sens_DHW+24)
+LDR	R1, [R0, #0]
+ADD	R0, SP, #4
+MOVS	R2, #2
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_schema2_page131
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_Sens_DHW+24)
+MOVT	R0, #hi_addr(_Sens_DHW+24)
+LDR	R0, [R0, #0]
+MOVS	R2, #2
+SXTH	R2, R2
+BL	_strncpy+0
+MOVW	R0, #lo_addr(_Sens_DHW+0)
+MOVT	R0, #hi_addr(_Sens_DHW+0)
+BL	_DrawButton+0
+L_schema2_page131:
+;Pages.c,379 :: 		IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);//
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_system_reg+142)
+MOVT	R0, #hi_addr(_system_reg+142)
+LDRSH	R0, [R0, #0]
+BL	_IntToStr+0
+ADD	R0, SP, #4
+BL	_Ltrim+0
+;Pages.c,380 :: 		if(strncmp(txt,S_tank.Caption,2)!=0){strncpy(S_tank.Caption, txt, 2);DrawButton(&S_tank);}
+MOVW	R0, #lo_addr(_S_tank+24)
+MOVT	R0, #hi_addr(_S_tank+24)
+LDR	R1, [R0, #0]
+ADD	R0, SP, #4
+MOVS	R2, #2
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_schema2_page132
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_S_tank+24)
+MOVT	R0, #hi_addr(_S_tank+24)
+LDR	R0, [R0, #0]
+MOVS	R2, #2
+SXTH	R2, R2
+BL	_strncpy+0
+MOVW	R0, #lo_addr(_S_tank+0)
+MOVT	R0, #hi_addr(_S_tank+0)
+BL	_DrawButton+0
+L_schema2_page132:
+;Pages.c,381 :: 		IntToStr(system_reg[HIGH_PRESS_1], txt);Ltrim(txt);//
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_system_reg+342)
+MOVT	R0, #hi_addr(_system_reg+342)
+LDRSH	R0, [R0, #0]
+BL	_IntToStr+0
+ADD	R0, SP, #4
+BL	_Ltrim+0
+;Pages.c,382 :: 		if(strncmp(txt,S_High_Press_1.Caption,2)!=0){strncpy(S_High_Press_1.Caption, txt, 2);DrawButton(&S_High_Press_1);}
+MOVW	R0, #lo_addr(_S_High_Press_1+24)
+MOVT	R0, #hi_addr(_S_High_Press_1+24)
+LDR	R1, [R0, #0]
+ADD	R0, SP, #4
+MOVS	R2, #2
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_schema2_page133
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_S_High_Press_1+24)
+MOVT	R0, #hi_addr(_S_High_Press_1+24)
+LDR	R0, [R0, #0]
+MOVS	R2, #2
+SXTH	R2, R2
+BL	_strncpy+0
+MOVW	R0, #lo_addr(_S_High_Press_1+0)
+MOVT	R0, #hi_addr(_S_High_Press_1+0)
+BL	_DrawButton+0
+L_schema2_page133:
+;Pages.c,383 :: 		IntToStr(system_reg[LOW_PRESS_1], txt);Ltrim(txt);//
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_system_reg+362)
+MOVT	R0, #hi_addr(_system_reg+362)
+LDRSH	R0, [R0, #0]
+BL	_IntToStr+0
+ADD	R0, SP, #4
+BL	_Ltrim+0
+;Pages.c,384 :: 		if(strncmp(txt,S_Low_Press_1.Caption,2)!=0){strncpy(S_Low_Press_1.Caption, txt, 2);DrawButton(&S_Low_Press_1);}
+MOVW	R0, #lo_addr(_S_Low_Press_1+24)
+MOVT	R0, #hi_addr(_S_Low_Press_1+24)
+LDR	R1, [R0, #0]
+ADD	R0, SP, #4
+MOVS	R2, #2
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_schema2_page134
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_S_Low_Press_1+24)
+MOVT	R0, #hi_addr(_S_Low_Press_1+24)
+LDR	R0, [R0, #0]
+MOVS	R2, #2
+SXTH	R2, R2
+BL	_strncpy+0
+MOVW	R0, #lo_addr(_S_Low_Press_1+0)
+MOVT	R0, #hi_addr(_S_Low_Press_1+0)
+BL	_DrawButton+0
+L_schema2_page134:
+;Pages.c,385 :: 		}
+L_end_schema2_page:
+LDR	LR, [SP, #0]
+ADD	SP, SP, #16
+BX	LR
+; end of _schema2_page

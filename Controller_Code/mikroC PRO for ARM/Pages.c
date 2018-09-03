@@ -336,3 +336,51 @@
     IntToStr(system_reg[LOW_PRESS_1], txt);Ltrim(txt);//
     if(strncmp(txt,S_Low_Press_1.Caption,2)!=0){strncpy(S_Low_Press_1.Caption, txt, 2);DrawButton(&S_Low_Press_1);}
  }
+ //-------------------------------------------------------------------------------------------------------------------
+ void schema2_page(){
+             int convert_temp;
+             char txt[7];
+   if(system_reg[COM_STATE_1]==1) DrawImage(&Image166);
+      else DrawImage(&Image181);
+  if(system_reg[COM_STATE_2]==1) DrawImage(&Image276);
+      else DrawImage(&Image275);
+  if(system_reg[PUMP_HEAT_STATE_1]==1) DrawImage(&Image75);
+  else DrawImage(&Image124);
+  if(system_reg[PUMP_SOURS_STATE_1]==1) DrawImage(&Image74);
+  else DrawImage(&Image117);
+  if(system_reg[REV_STATE_1]==1) DrawImage(&Image73);
+  else DrawImage(&Image118);
+   if(system_reg[THREE_STATE]==1) DrawImage(&Image77);
+  else DrawImage(&Image120);
+    IntToStr(system_reg[SOURC_IN_1], txt);Ltrim(txt);//
+    if(strncmp(txt,S_Brine_In_1.Caption,2)!=0){strncpy(S_Brine_In_1.Caption, txt, 2);DrawButton(&S_Brine_In_1);}
+    IntToStr(system_reg[SOURC_OUT_1], txt);Ltrim(txt);//
+    if(strncmp(txt,S_Brine_Out_1.Caption,2)!=0){strncpy(S_Brine_Out_1.Caption, txt, 2);DrawButton(&S_Brine_Out_1);}
+   IntToStr(system_reg[HEAT_IN_1], txt);Ltrim(txt);//
+    if(strncmp(txt,S_Heat_In_1.Caption,2)!=0){strncpy(S_Heat_In_1.Caption, txt, 2);DrawButton(&S_Heat_In_1);}
+   IntToStr(system_reg[HEAT_OUT_1], txt);Ltrim(txt);//
+    if(strncmp(txt,S_Heat_Out_1.Caption,2)!=0){strncpy(S_Heat_Out_1.Caption, txt, 2);DrawButton(&S_Heat_Out_1);}
+   IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);//
+  if(system_reg[HEAT_OUT_1]<100){
+    if(strncmp(txt,S_ComprEx_1.Caption,2)!=0){strncpy(S_ComprEx_1.Caption, txt, 2);
+      S_ComprEx_1.Caption[2]=S_ComprEx_1.Caption[1];S_ComprEx_1.Caption[1]=S_ComprEx_1.Caption[0];S_ComprEx_1.Caption[0]='0';
+      DrawRoundButton(&S_ComprEx_1);
+      strncpy(S_ComprEx_1.Caption, txt, 3);
+      }
+      }
+    else{if(strncmp(txt,S_ComprEx_1.Caption,3)!=0){strncpy(S_ComprEx_1.Caption, txt, 3);DrawButton(&S_ComprEx_1);} }
+    IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);//
+    if(strncmp(txt,S_SH_1.Caption,2)!=0){strncpy(S_SH_1.Caption, txt, 2);DrawButton(&S_SH_1);}
+
+  //flow sourse
+  //heat flow
+   IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);//
+    if(strncmp(txt,Sens_DHW.Caption,2)!=0){strncpy(Sens_DHW.Caption, txt, 2);DrawButton(&Sens_DHW);}
+   IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);//
+    if(strncmp(txt,S_tank.Caption,2)!=0){strncpy(S_tank.Caption, txt, 2);DrawButton(&S_tank);}
+    IntToStr(system_reg[HIGH_PRESS_1], txt);Ltrim(txt);//
+    if(strncmp(txt,S_High_Press_1.Caption,2)!=0){strncpy(S_High_Press_1.Caption, txt, 2);DrawButton(&S_High_Press_1);}
+    IntToStr(system_reg[LOW_PRESS_1], txt);Ltrim(txt);//
+    if(strncmp(txt,S_Low_Press_1.Caption,2)!=0){strncpy(S_Low_Press_1.Caption, txt, 2);DrawButton(&S_Low_Press_1);}
+ }
+ 

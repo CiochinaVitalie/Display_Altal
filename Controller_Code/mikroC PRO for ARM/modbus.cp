@@ -1,6 +1,6 @@
-#line 1 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
-#line 1 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
+#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -28,6 +28,7 @@ extern void count_steps(unsigned char num_page);
 extern void working_time(unsigned char num_page);
 extern void void startPage();
 extern void schema1_page();
+extern void schema2_page();
 
 
 
@@ -1984,7 +1985,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2015 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2016 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -3628,8 +3629,8 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
-#line 1 "c:/users/vitalii/documents/mikroelektronika/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
+#line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
 
 
 
@@ -3678,17 +3679,17 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 25 "c:/users/vitalii/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
+#line 25 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
  void InitSysTick();
  uint32_t millis();
-#line 1 "c:/users/vitalii/documents/mikroelektronika/mikroc pro for arm/include/stdint.h"
-#line 1 "c:/users/vitalii/documents/mikroelektronika/mikroc pro for arm/include/stdbool.h"
+#line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
+#line 1 "e:/mikroc/mikroc pro for arm/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 1 "c:/users/vitalii/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
-#line 8 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
+#line 1 "e:/mikroc/mikroc pro for arm/include/built_in.h"
+#line 8 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
 extern  _Bool  sendMessage;
 extern volatile  _Bool  end_packet;
 extern volatile unsigned char sizeOfBuffer;
@@ -3833,7 +3834,7 @@ else
 
 
 void check_F3_data(unsigned char buffer)
-{
+{ char txt[7];
  unsigned char no_of_registers = bus_data.no_of_registers ;
  unsigned char no_of_bytes = no_of_registers * 2;
  if (frame[2] == no_of_bytes)
@@ -3842,12 +3843,10 @@ void check_F3_data(unsigned char buffer)
  char txt[7];
  unsigned int recieved_crc = ((frame[buffer - 2] << 8) | frame[buffer - 1]);
  unsigned int calculated_crc = calculateCRC(buffer - 2);
-
-
-
-
+#line 175 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
  if (calculated_crc == recieved_crc)
  {
+
  unsigned char index = 3;
  unsigned char i = 0;
  int incAdr=0;
@@ -3857,7 +3856,7 @@ void check_F3_data(unsigned char buffer)
  {
 
  system_reg[bus_data.address + incAdr] = (frame[index] << 8) | frame[index + 1];
-#line 180 "C:/Users/Vitalii/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
+#line 191 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
  index += 2;
  incAdr+=10;
  }
@@ -3904,7 +3903,7 @@ void check_F16_data()
  {
  flag = temp & 0x0001;
  temp >>= 1;
- if (flag) temp ^= 0xA001;
+ if (flag)temp ^= 0xA001;
 
  }
  }

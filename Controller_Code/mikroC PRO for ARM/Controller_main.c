@@ -194,13 +194,13 @@ void main() {
    {
      end_packet=false;
      checkResponse();
-     if(!dataEEprom && msgOk){dataEEprom=true;data_eeprom();startPage();msgOk=false;}
-     if(msgOk){countPacket++;  UART2_Write_Text("privet");msgOk=0;}
+     if(!dataEEprom && msgOk){dataEEprom=true;data_eeprom();startPage();msgOk=false;}//UART2_Write_Text("finisheeprom");
+     if(msgOk){countPacket++;  msgOk=false;}// UART2_Write_Text("privet");
      //USART2_CR1bits.RXNEIE = 1;
      //UART2_Write_Text("privet");
    }
   //if(!msgOk){reciev_data_packet(adressRegReciev,nomRegReciev);Delay_ms(3000);}
-  if(pushButton) {send_data_packet(adressRegSend,adressRegReciev);Delay_ms(3000);}
+
     /* check_packet_status();
      if(system_reg[ERRORS_1]!=er){
                                 er=system_reg[ERRORS_1];
@@ -222,12 +222,13 @@ void main() {
 
    }*/
    DisableInterrupts();
-   if(millis() - old_time_count > 5000 && !pushButton)//
-       {     old_time_count = millis();
+   if(millis() - old_time_count > 3000 )//
+       {     
+           old_time_count = millis();
 
-           if(dataEEprom)selectPage();
-           else reciev_data_packet(COMP_DEL,46);
-
+           if(dataEEprom && !pushButton)selectPage();
+           else if(!dataEEprom && !pushButton) reciev_data_packet(COMP_DEL,46);
+           if(pushButton) {send_data_packet(adressRegSend,nomRegSend);}
         }
 
     Check_TP();

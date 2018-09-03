@@ -67,9 +67,9 @@ void reciev_data_packet(enum _system adress,unsigned char no_reg);
 {
 
       if (frame[0] == bus_data.id) // check id returned
-      {
+      {     //UART2_Write_Text("L4,");
                                         if (frame[1] == bus_data.function) // check function number returned
-                                        {   //UART2_Write_Text("L5");
+                                        {   //UART2_Write_Text("L5,");
                                                 // receive the frame according to the modbus function
                                                 if (bus_data.function == PRESET_MULTIPLE_REGISTERS) check_F16_data();
 
@@ -149,7 +149,7 @@ else // READ_HOLDING_REGISTERS is assumed
 //------------------------------------------------------------------------------
 
 void check_F3_data(unsigned char buffer)
-{  /*char txt[7];*/
+{  char txt[7];
   unsigned char no_of_registers = bus_data.no_of_registers ;
   unsigned char no_of_bytes = no_of_registers * 2;
   if (frame[2] == no_of_bytes) // check number of bytes returned
@@ -158,17 +158,28 @@ void check_F3_data(unsigned char buffer)
     char txt[7];
     unsigned int recieved_crc = ((frame[buffer - 2] << 8) | frame[buffer - 1]);
     unsigned int calculated_crc = calculateCRC(buffer - 2);
-    //UART2_Write_Text("L10");
-    // IntToStr(calculated_crc,txt);
-    //Ltrim(txt);
+    /*UART2_Write_Text("L10,");
+    IntToStr(calculated_crc,txt);
+    Ltrim(txt);
+    UART2_Write_Text(txt);
+    UART2_Write_Text(",");
+    IntToStr(recieved_crc,txt);
+    Ltrim(txt);
+    UART2_Write_Text(txt);
+    UART2_Write_Text(",");
+    IntToStr(buffer,txt);
+    Ltrim(txt);
+    UART2_Write_Text(txt);
+    UART2_Write_Text(".");*/
     //UART2_Write_Text(txt);
     if (calculated_crc == recieved_crc) // verify checksum
-    {  //UART2_Write_Text("L11");
+    {  
+      //UART2_Write_Text("L11,");
       unsigned char index = 3;
       unsigned char i = 0;
       int incAdr=0;
       char txt[15];
-      //UART2_Write_Text("L11");
+      //UART2_Write_Text("L11,");
     for (i = 0; i < no_of_registers; i++)
       {
         // start at the 4th element in the recieveFrame and combine the Lo byte
@@ -223,7 +234,7 @@ void check_F16_data()
     {
       flag = temp & 0x0001;
       temp >>= 1;
-      if (flag)  temp ^= 0xA001;
+     if (flag)temp ^= 0xA001;
 
     }
   }

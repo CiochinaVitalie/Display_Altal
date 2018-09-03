@@ -73,38 +73,40 @@ void BackToHome(){
 }
 void goToBack(){
         Tone2();
-        BLED_Fade_Out();
+       // BLED_Fade_Out();
 
-if( num_page==0)
+if( num_page==1)  num_page=0;
+
+        if(CurrentScreen == &SYSTEM_SET)                 {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In(); }
+        else if (CurrentScreen==&ERRORS)                 {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
+        else if (CurrentScreen==&SENSOR1)                {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
+        else if (CurrentScreen==&SETTINGS)               {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
+        else if (CurrentScreen==&ENERGY)                 {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
+        else if(CurrentScreen == &EEV)                   {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In();}
+        else if(CurrentScreen == &DELAY_MENU)            {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In(); }
+        else if(CurrentScreen == &LIMITS1)               {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In();}
+        else if(CurrentScreen == &SYSTEM_EVENTS)         {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In(); }
+        else if (CurrentScreen==&LIMITS2)                {BLED_Fade_Out();DrawScreen(&LIMITS1);BLED_Fade_In(); }
+        else if (CurrentScreen==&LIMITS3)                {BLED_Fade_Out();DrawScreen(&LIMITS2);BLED_Fade_In(); }
+        else if (CurrentScreen==&LIMITS4)                {BLED_Fade_Out();DrawScreen(&LIMITS3);BLED_Fade_In();}
+        else if (CurrentScreen==&LIMITS5)                {BLED_Fade_Out();DrawScreen(&LIMITS4);BLED_Fade_In(); }
+        else if (CurrentScreen==&MODE2)                  {BLED_Fade_Out();DrawScreen(&MODE);BLED_Fade_In(); }
+
+     // BLED_Fade_In();
+
+
+}
+void nextPage()
 {
-        if(CurrentScreen == &SYSTEM_SET)DrawScreen(&USER_MENU);
-        else if (CurrentScreen==&ERRORS)  DrawScreen(&USER_MENU);
-        else if (CurrentScreen==&SENSOR1)  DrawScreen(&USER_MENU);
-        else if (CurrentScreen==&SETTINGS)  DrawScreen(&USER_MENU);
-        else if (CurrentScreen==&ENERGY)  DrawScreen(&USER_MENU);
-        else if(CurrentScreen == &EEV) DrawScreen(&SYSTEM_SET);
-        else if(CurrentScreen == &DELAY_MENU) DrawScreen(&SYSTEM_SET);
-        else if(CurrentScreen == &LIMITS1) DrawScreen(&SYSTEM_SET);
-        else if(CurrentScreen == &SYSTEM_EVENTS) DrawScreen(&SYSTEM_SET);
-        else if (CurrentScreen==&LIMITS2)  DrawScreen(&LIMITS1);
-        else if (CurrentScreen==&LIMITS3)  DrawScreen(&LIMITS2);
-        else if (CurrentScreen==&LIMITS4)  DrawScreen(&LIMITS3);
-        else if (CurrentScreen==&LIMITS5)  DrawScreen(&LIMITS4);
-        else if (CurrentScreen==&MODE2)    DrawScreen(&MODE);
-}
-else   num_page=0;
-        BLED_Fade_In();
-}
-void nextPage(){
         Tone2();
         
-        BLED_Fade_Out();
-  if (CurrentScreen==&LIMITS1){DrawScreen(&LIMITS2);}
-   else if (CurrentScreen==&LIMITS2){DrawScreen(&LIMITS3);}
-    else if (CurrentScreen==&LIMITS3){DrawScreen(&LIMITS4);}
-      else if (CurrentScreen==&LIMITS4){DrawScreen(&LIMITS5);}
-        else if (CurrentScreen==&MODE){DrawScreen(&MODE2);}
-         BLED_Fade_In();
+   if( num_page==0 && two_compressors_mode)  num_page=1;
+  if (CurrentScreen==&LIMITS1){BLED_Fade_Out();DrawScreen(&LIMITS2);BLED_Fade_In();}
+   else if (CurrentScreen==&LIMITS2){BLED_Fade_Out();DrawScreen(&LIMITS3);BLED_Fade_In();}
+    else if (CurrentScreen==&LIMITS3){BLED_Fade_Out();DrawScreen(&LIMITS4);BLED_Fade_In();}
+      else if (CurrentScreen==&LIMITS4){BLED_Fade_Out();DrawScreen(&LIMITS5);BLED_Fade_In();}
+        else if (CurrentScreen==&MODE){BLED_Fade_Out();DrawScreen(&MODE2);BLED_Fade_In();}
+
 }
 void selectPage(){
        static int lastDataDhw;
@@ -140,9 +142,12 @@ else if(CurrentScreen==&SENSOR1)
         }
          else 
          {
+         switch(countPacket)
+         {
           case 1: reciev_data_packet(BAC_TEMP,2);break;
           case 2: reciev_data_packet(CONDENS_TEMP_2,12);break;
           case 3:  countPacket=1;break;
+         }
          if(strcmp(CircleButton10.Caption,"2")!=0) {CircleButton10.Caption="2";DrawCircleButton(&CircleButton10);}
          }
      }
@@ -186,12 +191,39 @@ else if(CurrentScreen==&EEV)
     
 else if(CurrentScreen==&SYSTEM_EVENTS)
 {
-             working_time(num_page);break;
-        if(num_page==0) reciev_data_packet(TIM_P_HEAT_1,4);
-         else  reciev_data_packet(TIM_P_HEAT_2,4);
+        working_time(num_page);
+        if(num_page==0) {
+        reciev_data_packet(TIM_P_HEAT_1,4);
+        if(strcmp(CircleButton6.Caption,"1")!=0) {CircleButton6.Caption="1";DrawCircleButton(&CircleButton6);}
+        }
+        else {
+         reciev_data_packet(TIM_P_HEAT_2,4);
+         if(strcmp(CircleButton6.Caption,"2")!=0) {CircleButton6.Caption="2";DrawCircleButton(&CircleButton6);Back_b7.OnClickPtr=goToBack;}
+         }
 
 }
-else if(CurrentScreen==&Schema1){schema1_page();reciev_data_packet(DHW_TEMP,32);}
+else if(CurrentScreen==&Schema1)
+     {
+           schema1_page();
+        switch(countPacket)
+          {
+           case 1:reciev_data_packet(BAC_TEMP,2); break;
+           case 2:reciev_data_packet(CONDENS_TEMP_1,11); break;
+           case 3:reciev_data_packet(COM_STATE_1,5); break;
+           case 4:  countPacket=1;break;
+          }
+     }
+else if (CurrentScreen==&Schema2)
+       {   //schema2_page();
+        switch(countPacket)
+          {
+           case 1:reciev_data_packet(BAC_TEMP,2); break;
+           case 2:reciev_data_packet(CONDENS_TEMP_2,11); break;
+           case 3:reciev_data_packet(COM_STATE_2,5); break;
+           case 4:  countPacket=1;break;
+          }
+
+       }
 
 }
 //--------------------------------Main_event
@@ -2675,6 +2707,7 @@ void Set_23_OnUp(){
  //---------------------------------------------- mode
 
 void One_CompressorsOnClick() {
+num_page=0;
       if ((unsigned long)One_Compressors.Picture_Name == Compressor1_jpg)
   {
       One_Compressors.Picture_Name = Compressor2_jpg;
@@ -2689,6 +2722,8 @@ void One_CompressorsOnClick() {
       two_compressors_mode=false;
        }
       send_data_packet(NOMB_COMPRESSORS,1);
+
+      
     Delay_ms (300);
 }
 

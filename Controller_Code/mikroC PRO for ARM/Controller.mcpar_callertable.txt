@@ -854,15 +854,6 @@ main
 	startPage
 		DrawImage
 		DrawRoundButton
-	UART2_Write_Text
-		UARTx_Write_Text
-			UARTx_Write
-	send_data_packet
-		constructPacket
-			calculateCRC
-			sendbus_data
-				UART2_Write
-				millis
 	millis
 	selectPage
 		main_page
@@ -875,6 +866,10 @@ main
 			DrawCircle
 		reciev_data_packet
 			constructPacket
+				calculateCRC
+				sendbus_data
+					UART2_Write
+					millis
 		sensor_1
 			IntToStr
 			Ltrim
@@ -920,6 +915,8 @@ main
 			DrawButton
 			DrawRoundButton
 	reciev_data_packet
+	send_data_packet
+		constructPacket
 	Check_TP
 		STMPE610_PressDetect
 			STMPE610_ReadReg

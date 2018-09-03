@@ -310,20 +310,20 @@ MOVT	R0, #hi_addr(_end_packet+0)
 STRB	R1, [R0, #0]
 ;Controller_main.c,196 :: 		checkResponse();
 BL	_checkResponse+0
-;Controller_main.c,197 :: 		if(!dataEEprom && msgOk){dataEEprom=true;data_eeprom();startPage();msgOk=false;}
+;Controller_main.c,197 :: 		if(!dataEEprom && msgOk){dataEEprom=true;data_eeprom();startPage();msgOk=false;}//UART2_Write_Text("finisheeprom");
 MOVW	R0, #lo_addr(_dataEEprom+0)
 MOVT	R0, #hi_addr(_dataEEprom+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__main22
+BNE	L__main24
 MOVW	R0, #lo_addr(_msgOk+0)
 MOVT	R0, #hi_addr(_msgOk+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	EQ
-BEQ	L__main21
-L__main20:
+BEQ	L__main23
+L__main22:
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_dataEEprom+0)
 MOVT	R0, #hi_addr(_dataEEprom+0)
@@ -334,9 +334,9 @@ MOVS	R1, #0
 MOVW	R0, #lo_addr(_msgOk+0)
 MOVT	R0, #hi_addr(_msgOk+0)
 STRB	R1, [R0, #0]
-L__main22:
-L__main21:
-;Controller_main.c,198 :: 		if(msgOk){countPacket++;  UART2_Write_Text("privet");msgOk=0;}
+L__main24:
+L__main23:
+;Controller_main.c,198 :: 		if(msgOk){countPacket++;  msgOk=false;}// UART2_Write_Text("privet");
 MOVW	R0, #lo_addr(_msgOk+0)
 MOVT	R0, #hi_addr(_msgOk+0)
 LDRB	R0, [R0, #0]
@@ -348,9 +348,6 @@ MOVT	R1, #hi_addr(_countPacket+0)
 LDRB	R0, [R1, #0]
 ADDS	R0, R0, #1
 STRB	R0, [R1, #0]
-MOVW	R0, #lo_addr(?lstr3_Controller_main+0)
-MOVT	R0, #hi_addr(?lstr3_Controller_main+0)
-BL	_UART2_Write_Text+0
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_msgOk+0)
 MOVT	R0, #hi_addr(_msgOk+0)
@@ -358,75 +355,80 @@ STRB	R1, [R0, #0]
 L_main10:
 ;Controller_main.c,201 :: 		}
 L_main6:
-;Controller_main.c,203 :: 		if(pushButton) {send_data_packet(adressRegSend,adressRegReciev);Delay_ms(3000);}
-MOVW	R0, #lo_addr(_pushButton+0)
-MOVT	R0, #hi_addr(_pushButton+0)
-LDRB	R0, [R0, #0]
-CMP	R0, #0
-IT	EQ
-BEQ	L_main11
-MOVW	R0, #lo_addr(_adressRegReciev+0)
-MOVT	R0, #hi_addr(_adressRegReciev+0)
-LDRSH	R1, [R0, #0]
-MOVW	R0, #lo_addr(_adressRegSend+0)
-MOVT	R0, #hi_addr(_adressRegSend+0)
-LDRSH	R0, [R0, #0]
-BL	_send_data_packet+0
-MOVW	R7, #3582
-MOVT	R7, #1831
-NOP
-NOP
-L_main12:
-SUBS	R7, R7, #1
-BNE	L_main12
-NOP
-NOP
-NOP
-L_main11:
 ;Controller_main.c,224 :: 		DisableInterrupts();
 BL	_DisableInterrupts+0
-;Controller_main.c,225 :: 		if(millis() - old_time_count > 5000 && !pushButton)//
+;Controller_main.c,225 :: 		if(millis() - old_time_count > 3000 )//
 BL	_millis+0
 MOVW	R1, #lo_addr(_old_time_count+0)
 MOVT	R1, #hi_addr(_old_time_count+0)
 LDR	R1, [R1, #0]
 SUB	R1, R0, R1
-MOVW	R0, #5000
+MOVW	R0, #3000
 CMP	R1, R0
 IT	LS
-BLS	L__main24
-MOVW	R0, #lo_addr(_pushButton+0)
-MOVT	R0, #hi_addr(_pushButton+0)
-LDRB	R0, [R0, #0]
-CMP	R0, #0
-IT	NE
-BNE	L__main23
-L__main19:
+BLS	L_main11
 ;Controller_main.c,226 :: 		{     old_time_count = millis();
 BL	_millis+0
 MOVW	R1, #lo_addr(_old_time_count+0)
 MOVT	R1, #hi_addr(_old_time_count+0)
 STR	R0, [R1, #0]
-;Controller_main.c,228 :: 		if(dataEEprom)selectPage();
+;Controller_main.c,228 :: 		if(dataEEprom && !pushButton)selectPage();
 MOVW	R0, #lo_addr(_dataEEprom+0)
 MOVT	R0, #hi_addr(_dataEEprom+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	EQ
-BEQ	L_main17
+BEQ	L__main26
+MOVW	R0, #lo_addr(_pushButton+0)
+MOVT	R0, #hi_addr(_pushButton+0)
+LDRB	R0, [R0, #0]
+CMP	R0, #0
+IT	NE
+BNE	L__main25
+L__main21:
 BL	_selectPage+0
 IT	AL
-BAL	L_main18
-L_main17:
-;Controller_main.c,229 :: 		else reciev_data_packet(COMP_DEL,46);
+BAL	L_main15
+L__main26:
+L__main25:
+;Controller_main.c,229 :: 		else if(!dataEEprom && !pushButton) reciev_data_packet(COMP_DEL,46);
+MOVW	R0, #lo_addr(_dataEEprom+0)
+MOVT	R0, #hi_addr(_dataEEprom+0)
+LDRB	R0, [R0, #0]
+CMP	R0, #0
+IT	NE
+BNE	L__main28
+MOVW	R0, #lo_addr(_pushButton+0)
+MOVT	R0, #hi_addr(_pushButton+0)
+LDRB	R0, [R0, #0]
+CMP	R0, #0
+IT	NE
+BNE	L__main27
+L__main20:
 MOVS	R1, #46
 MOVW	R0, #10
 SXTH	R0, R0
 BL	_reciev_data_packet+0
-L_main18:
-;Controller_main.c,225 :: 		if(millis() - old_time_count > 5000 && !pushButton)//
-L__main24:
-L__main23:
+L__main28:
+L__main27:
+L_main15:
+;Controller_main.c,230 :: 		if(pushButton) {send_data_packet(adressRegSend,nomRegSend);}
+MOVW	R0, #lo_addr(_pushButton+0)
+MOVT	R0, #hi_addr(_pushButton+0)
+LDRB	R0, [R0, #0]
+CMP	R0, #0
+IT	EQ
+BEQ	L_main19
+MOVW	R0, #lo_addr(_nomRegSend+0)
+MOVT	R0, #hi_addr(_nomRegSend+0)
+LDRB	R1, [R0, #0]
+MOVW	R0, #lo_addr(_adressRegSend+0)
+MOVT	R0, #hi_addr(_adressRegSend+0)
+LDRSH	R0, [R0, #0]
+BL	_send_data_packet+0
+L_main19:
+;Controller_main.c,231 :: 		}
+L_main11:
 ;Controller_main.c,233 :: 		Check_TP();
 BL	_Check_TP+0
 ;Controller_main.c,234 :: 		EnableInterrupts();
