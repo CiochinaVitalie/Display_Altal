@@ -2380,8 +2380,7 @@ adon
 adon_adc2_cr2_bit
 adon_adc3_cr2_bit
 adon_bit
-adressregreciev
-adressregsend
+adressreg
 adtochg
 adtochg
 adtochg
@@ -43373,8 +43372,7 @@ nmipendset
 nmipendset
 nmipendset_bit
 no_of_registers
-nomregreciev
-nomregsend
+nomreg
 nonisothren
 nonisothren
 nonisothren_bit

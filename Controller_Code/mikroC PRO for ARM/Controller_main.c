@@ -81,14 +81,7 @@ void Timer2_interrupt() iv IVT_INT_TIM2 {
        rx_time_previos=0;
        rx_wr_index=0;
        TIM2_CR1.CEN = 0;
-       /*IntToStr(frame[9], myBuf);Ltrim(myBuf);
-       UART2_Write_Text("buffer_9 = ");
-       UART2_Write_Text(myBuf);
-       UART2_Write_Text("\n");
-        IntToStr(frame[10], myBuf);Ltrim(myBuf);
-       UART2_Write_Text("buffer_10 = ");
-       UART2_Write_Text(myBuf);
-       UART2_Write_Text("\n");*/
+       checkResponse();
 
        }
   //Enter your code here
@@ -186,19 +179,18 @@ void main() {
   DrawLabel (&Messages_Label);
   DisableInterrupts();
   countPacket=1;
-  //ptr= send_data_packet;
-  //rec=reciev_data_packet;
-  while (1) {
 
-   if(end_packet )
+  while (1) {
+    if(!dataEEprom && msgOk){dataEEprom=true;data_eeprom();startPage();msgOk=false;}//UART2_Write_Text("finisheeprom");
+     if(msgOk){countPacket++;  msgOk=false;}//
+   /*if(end_packet )
    {
      end_packet=false;
      checkResponse();
      if(!dataEEprom && msgOk){dataEEprom=true;data_eeprom();startPage();msgOk=false;}//UART2_Write_Text("finisheeprom");
      if(msgOk){countPacket++;  msgOk=false;}// UART2_Write_Text("privet");
-     //USART2_CR1bits.RXNEIE = 1;
-     //UART2_Write_Text("privet");
-   }
+
+   }*/
   //if(!msgOk){reciev_data_packet(adressRegReciev,nomRegReciev);Delay_ms(3000);}
 
     /* check_packet_status();
@@ -222,14 +214,15 @@ void main() {
 
    }*/
    DisableInterrupts();
-   if(millis() - old_time_count > 3000 )//
+   if(millis() - old_time_count > 1000 )//
        {     
            old_time_count = millis();
 
            if(dataEEprom && !pushButton)selectPage();
            else if(!dataEEprom && !pushButton) reciev_data_packet(COMP_DEL,46);
-           if(pushButton) {send_data_packet(adressRegSend,nomRegSend);}
+           if(pushButton) {send_data_packet(adressReg,nomReg);}
         }
+
 
     Check_TP();
   EnableInterrupts();

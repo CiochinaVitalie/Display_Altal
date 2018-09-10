@@ -176,8 +176,8 @@ DEL_DHW_MIN=460
 
 
  typedef enum _system regAdress;
- extern regAdress adressRegSend,adressRegReciev;
- extern unsigned char nomRegSend,nomRegReciev;
+ extern regAdress adressReg;
+ extern unsigned char nomReg;
  extern unsigned char countPacket;
 
 extern void send_data_packet(enum _system adress,unsigned char no_reg);
@@ -22189,8 +22189,8 @@ static void InitializeObjects() {
  Two_Compressors.Picture_Type = 1;
  Two_Compressors.Picture_Ratio = 1;
  Two_Compressors.Picture_Name =  0x003247DC ;
- Two_Compressors.Visible = 1;
- Two_Compressors.Active = 0;
+ Two_Compressors.Visible = 0;
+ Two_Compressors.Active = 1;
  Two_Compressors.OnUpPtr = 0;
  Two_Compressors.OnDownPtr = 0;
  Two_Compressors.OnClickPtr = 0;

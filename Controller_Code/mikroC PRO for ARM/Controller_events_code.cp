@@ -176,8 +176,8 @@ DEL_DHW_MIN=460
 
 
  typedef enum _system regAdress;
- extern regAdress adressRegSend,adressRegReciev;
- extern unsigned char nomRegSend,nomRegReciev;
+ extern regAdress adressReg;
+ extern unsigned char nomReg;
  extern unsigned char countPacket;
 
 extern void send_data_packet(enum _system adress,unsigned char no_reg);
@@ -3706,8 +3706,8 @@ extern  _Bool  pushButton;
 extern  _Bool  msgOk;
 extern void (*send_data_again)();
 
-regAdress adressRegSend,adressRegReciev;
-unsigned char nomRegSend,nomRegReciev;
+regAdress adressReg;
+unsigned char nomReg;
 
 extern TScreen* CurrentScreen;
 TScreen BackScreen,NextScreen;
@@ -3756,8 +3756,8 @@ void goToBack(){
  Tone2();
 
 
-if( num_page==1) num_page=0;
-
+if( num_page==0)
+ {
  if(CurrentScreen == &SYSTEM_SET) {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In(); }
  else if (CurrentScreen==&ERRORS) {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
  else if (CurrentScreen==&SENSOR1) {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
@@ -3772,8 +3772,8 @@ if( num_page==1) num_page=0;
  else if (CurrentScreen==&LIMITS4) {BLED_Fade_Out();DrawScreen(&LIMITS3);BLED_Fade_In();}
  else if (CurrentScreen==&LIMITS5) {BLED_Fade_Out();DrawScreen(&LIMITS4);BLED_Fade_In(); }
  else if (CurrentScreen==&MODE2) {BLED_Fade_Out();DrawScreen(&MODE);BLED_Fade_In(); }
-
-
+ }
+ else num_page=0;
 
 
 }
@@ -3829,7 +3829,7 @@ else if(CurrentScreen==&SENSOR1)
  case 2: reciev_data_packet(CONDENS_TEMP_2,12);break;
  case 3: countPacket=1;break;
  }
- if(strcmp(CircleButton10.Caption,"2")!=0) {CircleButton10.Caption="2";DrawCircleButton(&CircleButton10);}
+ if(strcmp(CircleButton10.Caption,"2")!=0) {CircleButton10.Caption="2";DrawCircleButton(&CircleButton10);Back_b10.OnClickPtr=goToBack;}
  }
  }
 
@@ -3930,12 +3930,9 @@ void Main_OFFOnClick()
  DrawLabel (&Messages_Label);
  SYSTEM_ON= 0 ;
  system_reg[POWER]=0;
-
  }
 
-
-
-
+ send_data_packet(POWER,2);
 
 }
 void bar_heatingOnClick()
@@ -3951,7 +3948,7 @@ void bar_heatingOnClick()
  system_reg[HEAT]=0;
 
  }
- else if(strcmp(bar_heating.Caption,"COOLING")==0 )
+ else if(strcmp(bar_heating.Caption,"COOLING")==0)
  {
  bar_heating.Caption = "HEATING";
  DrawRoundButton(&bar_heating);
@@ -3959,12 +3956,10 @@ void bar_heatingOnClick()
 
  system_reg[HEAT]=1;
  system_reg[COOL]=0;
-
  }
 
- if (strcmp(ON_OFF_Heat_Cool.Caption,"ON")==0 ) {send_data_packet(HEAT,2);
-
-
+ if (strcmp(ON_OFF_Heat_Cool.Caption,"ON")==0 ) {
+ send_data_packet(COOL,2);
 
  }
 
@@ -4113,7 +4108,7 @@ void Heat_SettingOnClick(){
  if ( strcmp(bar_heating.Caption,"HEATING")==0 ){ DrawImage(&heat_icon);send_data_packet(SET_HEAT,1); }
  else {DrawImage(&cool_icon);send_data_packet(SET_COOL,1); }
  }
- pushButton= 1 ;
+
 
 }
 
@@ -4125,6 +4120,7 @@ void Click_HEAT()
  DrawRoundButton(&ON_OFF_Heat_Cool);
  system_reg[HEAT]=0;
  system_reg[COOL]=0;
+ UART2_Write_Text("OFF");
  }
  else
  { if(strcmp(bar_heating.Caption,"HEATING")==0 ){system_reg[HEAT]=1;system_reg[COOL]=0;}
@@ -4133,8 +4129,8 @@ void Click_HEAT()
  DrawRoundButton(&ON_OFF_Heat_Cool);
 
  }
-#line 458 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
- send_data_packet(HEAT,2);
+
+ send_data_packet(COOL,2);
 
 }
 void Click_DHW()
@@ -4152,7 +4148,7 @@ void Click_DHW()
  DrawRoundButton(&ON_OFF_DHW);
  system_reg[HEATWATER]=1;
  }
-#line 479 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+
  send_data_packet(HEATWATER,1);
 }
 void MainBut1OnUp(){
@@ -4449,7 +4445,7 @@ void user_defrostOnPress(){
  Image57.Visible = 1;
  DrawImage(&Image57);
 }
-#line 826 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 818 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
 void DEC_EEV1OnPress() {
 
  Tone1();
@@ -4475,7 +4471,7 @@ void INC_EEV1OnPress() {
 void Set_Trv() {
 
  system_reg[TRV_CORRECT_1]=Red_bar.Position - system_reg[TRV_STEPS_1];
-#line 854 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 846 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(TRV_CORRECT_1,1);
 }
 
@@ -5058,7 +5054,7 @@ void Delay_Source_SETOnUp() {
 }
 void Delay_Source_SETOnDown() {
  Tone1();
-#line 1439 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1431 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(SOURS_DEL,1);
  Delay_Source_SET.Visible = 0;
  Image344.Visible = 1;
@@ -5078,7 +5074,7 @@ void Delay_heat_pump_DOWNOnPress() {
  Image307.Visible = 1;
  Delay_heat_pump_DOWN.Visible = 0;
  DrawImage(&Image307);
-#line 1460 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1452 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[HEAT_DEL]--;
  if (system_reg[HEAT_DEL] <0) system_reg[HEAT_DEL]=0;
  IntToStr(system_reg[HEAT_DEL], txt);
@@ -5099,7 +5095,7 @@ void Delay_heat_pump_upOnPress() {
  Image313.Visible = 1;
  Delay_heat_pump_up.Visible = 0;
  DrawImage(&Image313);
-#line 1482 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1474 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[HEAT_DEL]++;
  if (system_reg[HEAT_DEL] >99)
  system_reg[HEAT_DEL] = 99;
@@ -5117,7 +5113,7 @@ void Delay_heat_pump_SETOnUp() {
 }
 void Delay_heat_pump_SETOnDown() {
  Tone1();
-#line 1502 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1494 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(HEAT_DEL,1);
  Delay_heat_pump_SET.Visible = 0;
  Image345.Visible = 1;
@@ -5136,7 +5132,7 @@ void Delay_reversing_DOWNOnPress() {
  Image308.Visible = 1;
  Delay_reversing_DOWN.Visible = 0;
  DrawImage(&Image308);
-#line 1522 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1514 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[REVERS_DEL]--;
  if (system_reg[REVERS_DEL] <0)
  system_reg[REVERS_DEL] = 0;
@@ -5158,7 +5154,7 @@ void Delay_reversing_UPOnPress() {
  Image314.Visible = 1;
  Delay_reversing_UP.Visible = 0;
  DrawImage(&Image314);
-#line 1545 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1537 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[REVERS_DEL]++;
  if (system_reg[REVERS_DEL] >99)
  system_reg[REVERS_DEL] = 99 ;
@@ -5175,7 +5171,7 @@ void Delay_reversing_SETOnUp() {
 }
 void Delay_reversing_SETOnDown() {
  Tone1();
-#line 1564 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1556 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(REVERS_DEL,1);
  Delay_reversing_SET.Visible = 0;
  Image346.Visible = 1;
@@ -5194,7 +5190,7 @@ void Delay_trv_DOWNOnPress() {
  Image309.Visible = 1;
  Delay_trv_DOWN.Visible = 0;
  DrawImage(&Image309);
-#line 1584 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1576 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[TRV_DEL]--;
  if (system_reg[TRV_DEL] < 0)
  system_reg[TRV_DEL] = 0;
@@ -5216,7 +5212,7 @@ void Delay_trv_UPOnPress(){
  Image315.Visible = 1;
  Delay_trv_up.Visible = 0;
  DrawImage(&Image315);
-#line 1607 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1599 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[TRV_DEL]++;
  if (system_reg[TRV_DEL] >99)
  system_reg[TRV_DEL] = 99;
@@ -5233,7 +5229,7 @@ void Delay_EEV_SETOnUp() {
 }
 void Delay_EEV_SETOnDown() {
  Tone1();
-#line 1626 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1618 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(TRV_DEL,1);
  Delay_EEV_SET.Visible = 0;
  Image347.Visible = 1;
@@ -5252,7 +5248,7 @@ void Delay_DHW_valve_DOWNOnPress() {
  Image310.Visible = 1;
  Delay_DHW_valve_DOWN.Visible = 0;
  DrawImage(&Image310);
-#line 1646 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1638 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[THREE_WAY_DEL]--;
  if (system_reg[THREE_WAY_DEL] < 0)
  system_reg[THREE_WAY_DEL] = 0;
@@ -5274,7 +5270,7 @@ void Delay_DHW_valve_UPOnPress() {
  Image316.Visible = 1;
  Delay_DHW_valve_UP.Visible = 0;
  DrawImage(&Image316);
-#line 1669 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1661 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[THREE_WAY_DEL]++;
  if (system_reg[THREE_WAY_DEL] >99)
  system_reg[THREE_WAY_DEL] = 99;
@@ -5291,7 +5287,7 @@ void Delay_DHW_valve_SETOnUp() {
 }
 void Delay_DHW_valve_SETOnDown() {
  Tone1();
-#line 1688 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1680 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(THREE_WAY_DEL,1);
  Delay_DHW_valve_SET.Visible = 0;
  Image348.Visible = 1;
@@ -5310,7 +5306,7 @@ void Delay_compressor_DOWNOnPress() {
  Image311.Visible = 1;
  Delay_compressor_DOWN.Visible = 0;
  DrawImage(&Image311);
-#line 1708 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1700 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[COMP_DEL]--;
  if (system_reg[COMP_DEL] < 0)
  system_reg[COMP_DEL] = 0;
@@ -5332,7 +5328,7 @@ void Delay_compressor_UPOnPress() {
  Image317.Visible = 1;
  Delay_compressor_UP.Visible = 0;
  DrawImage(&Image317);
-#line 1731 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1723 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[COMP_DEL]++;
  if (system_reg[COMP_DEL] >99)
  system_reg[COMP_DEL] = 99;
@@ -5349,7 +5345,7 @@ void Delay_compressor_SETOnUp() {
 }
 void Delay_compressor_SETOnDown() {
  Tone1();
-#line 1750 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1742 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(COMP_DEL,1);
  Delay_compressor_SET.Visible = 0;
  Image349.Visible = 1;
@@ -5607,7 +5603,7 @@ void Up_6_OnUp() {
 }
 void Set_1_OnDown() {
  Tone1();
-#line 2010 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2002 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(HEAT_MIN,1);
  Set_1_.Visible = 0;
  Image246.Visible = 1;
@@ -5620,7 +5616,7 @@ void Set_1_OnUp() {
 }
 void Set_2_OnDown() {
  Tone1();
-#line 2025 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2017 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(HEAT_MAX,1);
  Set_2_.Visible = 0;
  Image247.Visible = 1;
@@ -5634,7 +5630,7 @@ void Set_2_OnUp(){
 
 void Set_3_OnDown() {
  Tone1();
-#line 2041 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2033 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(EXAUST_MAX,1);
  Set_3_.Visible = 0;
  Image248.Visible = 1;
@@ -5647,7 +5643,7 @@ void Set_3_OnUp() {
 }
 void Set_4_OnDown() {
  Tone1();
-#line 2056 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2048 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(SOURS_MIN,1);
  Set_4_.Visible = 0;
  Image249.Visible = 1;
@@ -5662,7 +5658,7 @@ void Set_4_OnUp() {
 
 void Set_5_OnDown() {
  Tone1();
-#line 2073 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2065 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(SOURS_MAX,1);
  Set_5_.Visible = 0;
  Image250.Visible = 1;
@@ -5683,7 +5679,7 @@ void Furnance_HP_OFF_save_ondown() {
 }
 void Set_6_OnDown(){
  Tone1();
-#line 2096 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2088 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(DEL_HEAT_MIN,1);
  Set_6_.Visible = 0;
  Image251.Visible = 1;
@@ -5935,7 +5931,7 @@ void Set_7_OnUp() {
 }
 void Set_7_OnDown(){
  Tone1();
-#line 2350 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2342 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(DEL_HEAT_MAX,1);
  Set_7_.Visible = 0;
  Image252.Visible = 1;
@@ -5944,7 +5940,7 @@ void Set_7_OnDown(){
 
 void Set_8_OnDown() {
  Tone1();
-#line 2361 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2353 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(DEL_DHW_MIN,1);
  Set_8_.Visible = 0;
  Image253.Visible = 1;
@@ -5964,7 +5960,7 @@ void Set_8_OnUp() {
 }
 void Set_9_OnDown() {
  Tone1();
-#line 2383 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2375 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(DEL_DHW_MAX,1);
  Set_9_.Visible = 0;
  Image256.Visible = 1;
@@ -5972,7 +5968,7 @@ void Set_9_OnDown() {
 }
  void Set_10_OnDown() {
  Tone1();
-#line 2393 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2385 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(DEL_SOURS_MIN,1);
  Set_10_.Visible = 0;
  Image254.Visible = 1;
@@ -5986,7 +5982,7 @@ void Set_10_OnUp() {
 }
 void Set_11_OnDown() {
  Tone1();
-#line 2409 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2401 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(DEL_SOURS_MAX,1);
  Set_11_.Visible = 0;
  Image255.Visible = 1;
@@ -6214,7 +6210,7 @@ void Set_19_OnUp() {
 }
 void void Set_19_OnDown(){
  Tone1();
-#line 2639 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2631 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(S_HEAT_MAX,1);
  Set_19_.Visible = 0;
  Image264.Visible = 1;
@@ -6222,7 +6218,7 @@ void void Set_19_OnDown(){
 }
 void Set_20_OnDown() {
  Tone1();
-#line 2649 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2641 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(S_COOL_MIN,1);
  Set_20_.Visible = 0;
  Image265.Visible = 1;
@@ -6235,7 +6231,7 @@ void Set_20_OnUp() {
 }
 void Set_21_OnDown() {
  Tone1();
-#line 2664 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2656 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(S_COOL_MAX,1);
  Set_21_.Visible = 0;
  Image266.Visible = 1;
@@ -6248,7 +6244,7 @@ void Set_21_OnUp() {
 }
 void Set_22_OnDown(){
  Tone1();
-#line 2679 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2671 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(HP_MAX,1);
  Set_22_.Visible = 0;
  Image34.Visible = 1;
@@ -6263,7 +6259,7 @@ void Set_22_OnUp(){
 }
 void Set_23_OnDown(){
  Tone1();
-#line 2696 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2688 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(HP_MIN,1);
  Set_23_.Visible = 0;
  Image33.Visible = 1;
@@ -6282,12 +6278,14 @@ num_page=0;
  if ((unsigned long)One_Compressors.Picture_Name ==  0x00325F58 )
  {
  One_Compressors.Picture_Name =  0x003247DC ;
+ Two_Compressors.Visible = 1;
  DrawImage(&Two_Compressors);
  system_reg[NOMB_COMPRESSORS]=2;
  two_compressors_mode= 1 ;
  }
  else {
  One_Compressors.Picture_Name =  0x00325F58 ;
+ One_Compressors.Visible = 1;
  DrawImage(&One_Compressors);
  system_reg[NOMB_COMPRESSORS]=1;
  two_compressors_mode= 0 ;
@@ -6586,7 +6584,7 @@ void Set_heat_onup(){
 }
 void Set_heat_OnDown(){
  Tone1();
-#line 3021 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 3015 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet (DIFF_HEAT,1);
  Image135.Visible = 0;
  Image128.Visible = 1;
@@ -6600,7 +6598,7 @@ void Set_cool_OnUp(){
 }
 void Set_cool_OnDown(){
  Tone1();
-#line 3037 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 3031 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet (DIFF_COOL,1);
  Image138.Visible = 0;
  Image129.Visible = 1;
@@ -6614,7 +6612,7 @@ void Set_dhw_OnUp(){
 }
 void Set_dhw_OnDown(){
  Tone1();
-#line 3053 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 3047 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet (DIFF_DHW,1);
  Set_DHW_HY.Visible = 0;
  Image130.Visible = 1;
@@ -6762,7 +6760,7 @@ void UP_26_OnUp() {
 }
 void Set_24_OnDown(){
  Tone1();
-#line 3203 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 3197 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(LP_MAX,1);
  Image279.Visible = 0;
  Image29.Visible = 1;
@@ -6776,7 +6774,7 @@ void Set_24_OnUp(){
 }
 void Set_25_OnDown(){
 Tone1();
-#line 3219 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 3213 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(LP_MIN,1);
  Image282.Visible = 0;
  Image22.Visible = 1;

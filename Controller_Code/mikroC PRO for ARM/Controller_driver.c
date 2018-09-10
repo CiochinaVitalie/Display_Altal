@@ -18561,8 +18561,8 @@ static void InitializeObjects() {
   Two_Compressors.Picture_Type    = 1;
   Two_Compressors.Picture_Ratio   = 1;
   Two_Compressors.Picture_Name    = Compressor2_jpg;
-  Two_Compressors.Visible         = 1;
-  Two_Compressors.Active          = 0;
+  Two_Compressors.Visible         = 0;
+  Two_Compressors.Active          = 1;
   Two_Compressors.OnUpPtr         = 0;
   Two_Compressors.OnDownPtr       = 0;
   Two_Compressors.OnClickPtr      = 0;

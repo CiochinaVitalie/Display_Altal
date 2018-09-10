@@ -127,7 +127,39 @@
   }
   else if(num_page==1)
      {
-
+           IntToStr(system_reg[SOURC_IN_2], txt);Ltrim(txt);//
+    if(strncmp(txt,S_Brine_Inlet_1.Caption,2)!=0){strncpy(S_Brine_Inlet_1.Caption, txt, 2);DrawRoundButton(&S_Brine_Inlet_1);}
+     IntToStr(system_reg[SOURC_OUT_2], txt);Ltrim(txt);//
+    if(strncmp(txt,S_Brine_Outlet_1.Caption,2)!=0){strncpy(S_Brine_Outlet_1.Caption, txt, 2);DrawRoundButton(&S_Brine_Outlet_1);}
+     IntToStr(system_reg[HEAT_IN_2], txt);Ltrim(txt);//
+    if(strncmp(txt,S_Heat_Inlet_1.Caption,2)!=0){strncpy(S_Heat_Inlet_1.Caption, txt, 2);DrawRoundButton(&S_Heat_Inlet_1);}
+     IntToStr(system_reg[HEAT_OUT_2], txt);Ltrim(txt);//
+    if(strncmp(txt,S_Heat_Outlet_1.Caption,2)!=0){strncpy(S_Heat_Outlet_1.Caption, txt, 2);DrawRoundButton(&S_Heat_Outlet_1);}
+     IntToStr(system_reg[EXAUST_TEMP_2], txt);Ltrim(txt);//
+   if(system_reg[EXAUST_TEMP_2]<100){
+    if(strncmp(txt,S_Compressor_1.Caption,2)!=0){strncpy(S_Compressor_1.Caption, txt, 2);
+      S_Compressor_1.Caption[2]=S_Compressor_1.Caption[1];S_Compressor_1.Caption[1]=S_Compressor_1.Caption[0];S_Compressor_1.Caption[0]='0';
+      DrawRoundButton(&S_Compressor_1);
+      strncpy(S_Compressor_1.Caption, txt, 3);
+      }
+      }
+    else{if(strncmp(txt,S_Compressor_1.Caption,3)!=0){strncpy(S_Compressor_1.Caption, txt, 3);DrawRoundButton(&S_Compressor_1);} }
+     IntToStr(system_reg[S_HEAT_2], txt);Ltrim(txt);//
+    if(strncmp(txt,S_Superheat_1.Caption,2)!=0){strncpy(S_Superheat_1.Caption, txt, 2);DrawRoundButton(&S_Superheat_1);}
+     IntToStr(system_reg[S_COOL_2], txt);Ltrim(txt);//
+    if(strncmp(txt,S_Subcool_1.Caption,2)!=0){strncpy(S_Subcool_1.Caption, txt, 2);DrawRoundButton(&S_Subcool_1);}
+     IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);//
+    if(strncmp(txt,S_DHW.Caption,2)!=0){strncpy(S_DHW.Caption, txt, 2);DrawRoundButton(&S_DHW);}
+     IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);//
+    if(strncmp(txt,SS_tank.Caption,2)!=0){strncpy(SS_tank.Caption, txt, 2);DrawRoundButton(&SS_tank);}
+     IntToStr(system_reg[CONDENS_TEMP_2], txt);Ltrim(txt);//
+    if(strncmp(txt,S_condenser_1.Caption,2)!=0){strncpy(S_condenser_1.Caption, txt, 2);DrawRoundButton(&S_condenser_1);}
+     IntToStr(system_reg[SUCT_TEMP_2], txt);Ltrim(txt);//
+    if(strncmp(txt,S_suction_1.Caption,2)!=0){strncpy(S_suction_1.Caption, txt, 2);DrawRoundButton(&S_suction_1);}
+     IntToStr(system_reg[HIGH_PRESS_2], txt);Ltrim(txt);//
+    if(strncmp(txt,S_High_Pressure_1.Caption,2)!=0){strncpy(S_High_Pressure_1.Caption, txt, 2);DrawRoundButton(&S_High_Pressure_1);}
+     IntToStr(system_reg[LOW_PRESS_2], txt);Ltrim(txt);//
+    if(strncmp(txt,S_Low_Pressure_1.Caption,2)!=0){strncpy(S_Low_Pressure_1.Caption, txt, 2);DrawRoundButton(&S_Low_Pressure_1);}
      }
   }
  void data_eeprom(){
@@ -234,7 +266,10 @@
    else if(system_reg[HEATWATER]==1){
        ON_OFF_DHW.Caption = "ON";
        DrawRoundButton(&ON_OFF_DHW);
+
                                 }
+   if(system_reg[NOMB_COMPRESSORS]==1){ Two_Compressors.Visible= 0;One_Compressors.Visible = 1;  }
+   else  if(system_reg[NOMB_COMPRESSORS]==2)  { Two_Compressors.Visible= 1;One_Compressors.Visible = 0;  }
  }
  void count_steps(unsigned char num_page){
   char txt[7];
@@ -383,4 +418,3 @@
     IntToStr(system_reg[LOW_PRESS_1], txt);Ltrim(txt);//
     if(strncmp(txt,S_Low_Press_1.Caption,2)!=0){strncpy(S_Low_Press_1.Caption, txt, 2);DrawButton(&S_Low_Press_1);}
  }
- 

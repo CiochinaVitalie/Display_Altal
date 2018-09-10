@@ -267,8 +267,8 @@ DEL_DHW_MIN=460
 
 
  typedef enum _system regAdress;
- extern regAdress adressRegSend,adressRegReciev;
- extern unsigned char nomRegSend,nomRegReciev;
+ extern regAdress adressReg;
+ extern unsigned char nomReg;
  extern unsigned char countPacket;
 
 extern void send_data_packet(enum _system adress,unsigned char no_reg);

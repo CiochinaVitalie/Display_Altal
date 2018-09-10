@@ -25,8 +25,8 @@ extern  bool pushButton;
 extern  bool msgOk;
 extern   void (*send_data_again)();
 
-regAdress adressRegSend,adressRegReciev;
-unsigned char nomRegSend,nomRegReciev;
+regAdress adressReg;
+unsigned char nomReg;
 //------------------------------------------------------------------------------
 extern TScreen*  CurrentScreen;
 TScreen  BackScreen,NextScreen;
@@ -75,8 +75,8 @@ void goToBack(){
         Tone2();
        // BLED_Fade_Out();
 
-if( num_page==1)  num_page=0;
-
+if( num_page==0)
+           {
         if(CurrentScreen == &SYSTEM_SET)                 {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In(); }
         else if (CurrentScreen==&ERRORS)                 {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
         else if (CurrentScreen==&SENSOR1)                {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
@@ -91,8 +91,8 @@ if( num_page==1)  num_page=0;
         else if (CurrentScreen==&LIMITS4)                {BLED_Fade_Out();DrawScreen(&LIMITS3);BLED_Fade_In();}
         else if (CurrentScreen==&LIMITS5)                {BLED_Fade_Out();DrawScreen(&LIMITS4);BLED_Fade_In(); }
         else if (CurrentScreen==&MODE2)                  {BLED_Fade_Out();DrawScreen(&MODE);BLED_Fade_In(); }
-
-     // BLED_Fade_In();
+          }
+   else num_page=0;
 
 
 }
@@ -148,7 +148,7 @@ else if(CurrentScreen==&SENSOR1)
           case 2: reciev_data_packet(CONDENS_TEMP_2,12);break;
           case 3:  countPacket=1;break;
          }
-         if(strcmp(CircleButton10.Caption,"2")!=0) {CircleButton10.Caption="2";DrawCircleButton(&CircleButton10);}
+         if(strcmp(CircleButton10.Caption,"2")!=0) {CircleButton10.Caption="2";DrawCircleButton(&CircleButton10);Back_b10.OnClickPtr=goToBack;}
          }
      }
 
@@ -249,13 +249,10 @@ void Main_OFFOnClick()
       DrawLabel (&Messages_Label);
       SYSTEM_ON=false;
       system_reg[POWER]=0;
-
        }
 
-      //pushButton=true;
-      //send_data_packet(POWER,1);
-      //dressReg= POWER;
-      //nomReg =1;
+      send_data_packet(POWER,2);
+
 }
 void bar_heatingOnClick()
 {
@@ -270,7 +267,7 @@ void bar_heatingOnClick()
             system_reg[HEAT]=0;
 
      }
-     else if(strcmp(bar_heating.Caption,"COOLING")==0 )
+     else if(strcmp(bar_heating.Caption,"COOLING")==0)
      {
       bar_heating.Caption = "HEATING";
       DrawRoundButton(&bar_heating);
@@ -278,13 +275,11 @@ void bar_heatingOnClick()
 
             system_reg[HEAT]=1;
             system_reg[COOL]=0;
-
      }
 
-     if (strcmp(ON_OFF_Heat_Cool.Caption,"ON")==0 ) {send_data_packet(HEAT,2);
-      //pushButton=true;
-      //adressReg= HEAT;
-      //nomReg =2;
+     if (strcmp(ON_OFF_Heat_Cool.Caption,"ON")==0 ) {
+     send_data_packet(COOL,2);
+
      }
 
 }
@@ -432,7 +427,7 @@ void Heat_SettingOnClick(){
              if ( strcmp(bar_heating.Caption,"HEATING")==0 ){ DrawImage(&heat_icon);send_data_packet(SET_HEAT,1);/*adressReg= SET_HEAT;nomReg =1;*/}
              else  {DrawImage(&cool_icon);send_data_packet(SET_COOL,1);/*adressReg= SET_COOL;nomReg =1;*/}
              }
-             pushButton=true;
+            // pushButton=true;
 
 }
 
@@ -444,6 +439,7 @@ void Click_HEAT()
         DrawRoundButton(&ON_OFF_Heat_Cool);
         system_reg[HEAT]=0;
         system_reg[COOL]=0;
+        UART2_Write_Text("OFF");
     }
     else
     {   if(strcmp(bar_heating.Caption,"HEATING")==0 ){system_reg[HEAT]=1;system_reg[COOL]=0;}
@@ -452,10 +448,8 @@ void Click_HEAT()
         DrawRoundButton(&ON_OFF_Heat_Cool);
 
     }
-   /*pushButton=true;
-    adressReg= HEAT;
-    nomReg =2;*/
-    send_data_packet(HEAT,2);
+
+    send_data_packet(COOL,2);
 
 }
 void Click_DHW()
@@ -473,9 +467,7 @@ void Click_DHW()
         DrawRoundButton(&ON_OFF_DHW);
         system_reg[HEATWATER]=1;
     }
-    /*pushButton=true;
-    adressReg= HEATWATER;
-    nomReg =1;*/
+
     send_data_packet(HEATWATER,1);
 }
 void MainBut1OnUp(){
@@ -2711,12 +2703,14 @@ num_page=0;
       if ((unsigned long)One_Compressors.Picture_Name == Compressor1_jpg)
   {
       One_Compressors.Picture_Name = Compressor2_jpg;
+      Two_Compressors.Visible = 1;
       DrawImage(&Two_Compressors);
       system_reg[NOMB_COMPRESSORS]=2;
       two_compressors_mode=true;
   }
   else {
       One_Compressors.Picture_Name = Compressor1_jpg;
+      One_Compressors.Visible = 1;
       DrawImage(&One_Compressors);
       system_reg[NOMB_COMPRESSORS]=1;
       two_compressors_mode=false;

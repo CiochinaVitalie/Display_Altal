@@ -46,8 +46,8 @@ void reciev_data_packet(enum _system adress,unsigned char no_reg);
           bus_data.function = PRESET_MULTIPLE_REGISTERS;
           bus_data.address = (unsigned int)adress;
           bus_data.no_of_registers = no_reg ;
-          adressRegSend = adress;
-          nomRegSend = no_reg;
+          adressReg = adress;
+          nomReg = no_reg;
           pushButton=true;
           constructPacket();
  }
@@ -56,8 +56,8 @@ void reciev_data_packet(enum _system adress,unsigned char no_reg);
           bus_data.function = READ_HOLDING_REGISTERS;
           bus_data.address = (unsigned int)adress;
           bus_data.no_of_registers = no_reg ;
-          adressRegReciev = adress;
-          nomRegReciev =  no_reg;
+          adressReg = adress;
+          nomReg =  no_reg;
           msgOk=false;
           constructPacket();
 
@@ -103,6 +103,7 @@ void reciev_data_packet(enum _system adress,unsigned char no_reg);
 void constructPacket()
 {
   unsigned int crc16=0;
+  unsigned int maxData;
   //transmission_ready_Flag = 0; // disable the next transmission
   bus_data.requests++;
   frame[0] = bus_data.id;
@@ -111,28 +112,43 @@ void constructPacket()
   frame[3] = Lo(bus_data.address); // address Lo
   frame[4] = Hi(bus_data.no_of_registers); // no_of_registers Hi
   frame[5] = Lo(bus_data.no_of_registers); // no_of_registers Lo*/
+
   //
   if (bus_data.function == PRESET_MULTIPLE_REGISTERS)
   { unsigned char index = 7; // user data starts at index 7
     unsigned int temp=0;
-    unsigned char i=0;
-
+    unsigned int i=0;
+    char txt[7];
     unsigned char no_of_bytes = bus_data.no_of_registers * 2;
     unsigned char frameSize = 9 + no_of_bytes; // first 7 bytes of the array + 2 bytes CRC+ noOfBytes
     unsigned char no_of_registers = bus_data.no_of_registers;
     frame[6] = no_of_bytes; // number of bytes
+    maxData = bus_data.address + no_of_registers *10;
 
 
-
-      for (i = 0; i < no_of_registers;)
+      for (i = bus_data.address; i < maxData;)
     {
-      temp = bus_data.register_array[i+bus_data.address]; // get the data
+      temp = bus_data.register_array[i]; // get the data
       frame[index] = Hi(temp);
       index++;
       frame[index] = Lo(temp);
       index++;
-       i+=10;
+      i+=10;
     }
+      /*IntToStr(frame[7], txt);Ltrim(txt);//
+      UART2_Write_Text("frame[7]="); UART2_Write_Text(txt);
+      UART2_Write_Text("\r\n");
+       IntToStr(frame[8], txt);Ltrim(txt);//
+      UART2_Write_Text("frame[8]=");  UART2_Write_Text(txt);
+      UART2_Write_Text("\r\n");
+
+      IntToStr(frame[9], txt);Ltrim(txt);//
+      UART2_Write_Text("frame[9]="); UART2_Write_Text(txt);
+      UART2_Write_Text("\r\n");
+       IntToStr(frame[10], txt);Ltrim(txt);//
+      UART2_Write_Text("frame[10]=");  UART2_Write_Text(txt);
+      UART2_Write_Text("\r\n");*/
+      
     crc16 = calculateCRC(frameSize - 2);
     frame[frameSize - 2] = Hi(crc16); // split crc into 2 bytes
     frame[frameSize - 1] = Lo(crc16);

@@ -176,8 +176,8 @@ DEL_DHW_MIN=460
 
 
  typedef enum _system regAdress;
- extern regAdress adressRegSend,adressRegReciev;
- extern unsigned char nomRegSend,nomRegReciev;
+ extern regAdress adressReg;
+ extern unsigned char nomReg;
  extern unsigned char countPacket;
 
 extern void send_data_packet(enum _system adress,unsigned char no_reg);
@@ -3733,7 +3733,8 @@ void Timer2_interrupt() iv IVT_INT_TIM2 {
  rx_time_previos=0;
  rx_wr_index=0;
  TIM2_CR1.CEN = 0;
-#line 93 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+ checkResponse();
+
  }
 
 }
@@ -3772,41 +3773,34 @@ void main() {
  InitSysTick();
  USART_init();
  InitTimer2();
-#line 167 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 160 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  modbus_configure(1000,200,10);
  Start_TP();
  EnableInterrupts();
  DrawRoundBox (&Messages_Box);
  Messages_Label.Caption = "UPDATE_DIS";
  DrawLabel (&Messages_Label);
-#line 184 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 177 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  DrawRoundBox (&Messages_Box);
  Messages_Label.Caption = "DIS_UPDATE";
  DrawLabel (&Messages_Label);
  DisableInterrupts();
  countPacket=1;
 
-
  while (1) {
-
- if(end_packet )
- {
- end_packet= 0 ;
- checkResponse();
  if(!dataEEprom && msgOk){dataEEprom= 1 ;data_eeprom();startPage();msgOk= 0 ;}
  if(msgOk){countPacket++; msgOk= 0 ;}
-
-
- }
-#line 224 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 216 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  DisableInterrupts();
- if(millis() - old_time_count > 3000 )
- { old_time_count = millis();
+ if(millis() - old_time_count > 1000 )
+ {
+ old_time_count = millis();
 
  if(dataEEprom && !pushButton)selectPage();
  else if(!dataEEprom && !pushButton) reciev_data_packet(COMP_DEL,46);
- if(pushButton) {send_data_packet(adressRegSend,nomRegSend);}
+ if(pushButton) {send_data_packet(adressReg,nomReg);}
  }
+
 
  Check_TP();
  EnableInterrupts();

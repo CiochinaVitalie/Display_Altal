@@ -839,11 +839,6 @@ main
 					TFT_Write_Text
 	DrawRoundBox
 	DrawLabel
-	checkResponse
-		check_F16_data
-			calculateCRC
-		check_F3_data
-			calculateCRC
 	data_eeprom
 		IntToStr
 			WordToStr
@@ -962,7 +957,7 @@ main
 		Process_TP_Press
 			Get_Object
 				IsInsideObject
-			nextPage
+			goToBack
 				Tone2
 					Sound_Play
 						Get_Fosc_kHz
@@ -972,7 +967,7 @@ main
 				DrawScreen
 				BLED_Fade_In
 					TFT_Set_DBC_SSD1963
-			goToBack
+			nextPage
 				Tone2
 				BLED_Fade_Out
 				DrawScreen
@@ -981,6 +976,7 @@ main
 				DrawImage
 				DrawRoundBox
 				DrawLabel
+				send_data_packet
 			DHW_SetingOnClick
 				IntToStr
 				Ltrim
@@ -1054,6 +1050,9 @@ main
 			Click_HEAT
 				strcmp
 				DrawRoundButton
+				UART2_Write_Text
+					UARTx_Write_Text
+						UARTx_Write
 				send_data_packet
 			Click_DHW
 				strcmp
@@ -2133,8 +2132,8 @@ main
 			DrawCircleButton
 			DrawBox
 			DrawRoundBox
-			nextPage
 			goToBack
+			nextPage
 			Main_OFFOnClick
 			DHW_SetingOnClick
 			Heat_SettingOnClick
@@ -2564,8 +2563,8 @@ main
 			DrawBox
 			DrawRoundBox
 			Get_Object
-			nextPage
 			goToBack
+			nextPage
 			Main_OFFOnClick
 			DHW_SetingOnClick
 			Heat_SettingOnClick
@@ -2991,3 +2990,8 @@ SysTick_interrupt
 USARTINTERRUPT
 	UART2_Read
 Timer2_interrupt
+	checkResponse
+		check_F16_data
+			calculateCRC
+		check_F3_data
+			calculateCRC

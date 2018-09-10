@@ -176,8 +176,8 @@ DEL_DHW_MIN=460
 
 
  typedef enum _system regAdress;
- extern regAdress adressRegSend,adressRegReciev;
- extern unsigned char nomRegSend,nomRegReciev;
+ extern regAdress adressReg;
+ extern unsigned char nomReg;
  extern unsigned char countPacket;
 
 extern void send_data_packet(enum _system adress,unsigned char no_reg);
@@ -3731,8 +3731,8 @@ void reciev_data_packet(enum _system adress,unsigned char no_reg);
  bus_data.function =  16 ;
  bus_data.address = (unsigned int)adress;
  bus_data.no_of_registers = no_reg ;
- adressRegSend = adress;
- nomRegSend = no_reg;
+ adressReg = adress;
+ nomReg = no_reg;
  pushButton= 1 ;
  constructPacket();
  }
@@ -3741,8 +3741,8 @@ void reciev_data_packet(enum _system adress,unsigned char no_reg);
  bus_data.function =  3 ;
  bus_data.address = (unsigned int)adress;
  bus_data.no_of_registers = no_reg ;
- adressRegReciev = adress;
- nomRegReciev = no_reg;
+ adressReg = adress;
+ nomReg = no_reg;
  msgOk= 0 ;
  constructPacket();
 
@@ -3788,6 +3788,7 @@ void reciev_data_packet(enum _system adress,unsigned char no_reg);
 void constructPacket()
 {
  unsigned int crc16=0;
+ unsigned int maxData;
 
  bus_data.requests++;
  frame[0] = bus_data.id;
@@ -3797,27 +3798,29 @@ void constructPacket()
  frame[4] =  ((char *)&bus_data.no_of_registers)[1] ;
  frame[5] =  ((char *)&bus_data.no_of_registers)[0] ;
 
+
  if (bus_data.function ==  16 )
  { unsigned char index = 7;
  unsigned int temp=0;
- unsigned char i=0;
-
+ unsigned int i=0;
+ char txt[7];
  unsigned char no_of_bytes = bus_data.no_of_registers * 2;
  unsigned char frameSize = 9 + no_of_bytes;
  unsigned char no_of_registers = bus_data.no_of_registers;
  frame[6] = no_of_bytes;
+ maxData = bus_data.address + no_of_registers *10;
 
 
-
- for (i = 0; i < no_of_registers;)
+ for (i = bus_data.address; i < maxData;)
  {
- temp = bus_data.register_array[i+bus_data.address];
+ temp = bus_data.register_array[i];
  frame[index] =  ((char *)&temp)[1] ;
  index++;
  frame[index] =  ((char *)&temp)[0] ;
  index++;
  i+=10;
  }
+#line 152 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
  crc16 = calculateCRC(frameSize - 2);
  frame[frameSize - 2] =  ((char *)&crc16)[1] ;
  frame[frameSize - 1] =  ((char *)&crc16)[0] ;
@@ -3843,7 +3846,7 @@ void check_F3_data(unsigned char buffer)
  char txt[7];
  unsigned int recieved_crc = ((frame[buffer - 2] << 8) | frame[buffer - 1]);
  unsigned int calculated_crc = calculateCRC(buffer - 2);
-#line 175 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
+#line 191 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
  if (calculated_crc == recieved_crc)
  {
 
@@ -3856,7 +3859,7 @@ void check_F3_data(unsigned char buffer)
  {
 
  system_reg[bus_data.address + incAdr] = (frame[index] << 8) | frame[index + 1];
-#line 191 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
+#line 207 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
  index += 2;
  incAdr+=10;
  }
