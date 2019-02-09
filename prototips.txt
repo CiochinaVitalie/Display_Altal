@@ -480,5 +480,30 @@ void Set_14_OnDown();
 void Set_14_OnUp();
 void Set_13_OnUp();
 void Set_13_OnDown();
-/////////////////////////
+
+
+
+
+void dec_def();
+void time_def_dec();
+void temp_on_dec();
+void temp_off_dec();
+void hum_dec();
+//-------------------------------------------------------------------------------
+void inc_def();
+void time_def_inc();
+void temp_on_inc();
+void temp_off_inc();
+void hum_inc();
+void temp_off_set();
+void temp_on_set();
+void hum_set();
+void SetUPttimDef();
+void SetdownttimDef();
+void Setdownintdef();
+void Setupintdef();
+void Setuptempdef();
+void Setdowntempdef();
+void  Mode_ground_onOnClick ();
+void pushDEF();
 /////////////////////////////////

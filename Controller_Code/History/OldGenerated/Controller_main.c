@@ -29,8 +29,8 @@ bool Send_data,sendMessage;
 volatile bool uartRX_flag;
 //bit update_time;
 //volatile uint8_t rx_buffer[BUFFER_SIZE];
-int er;
-volatile bool pushButton;
+int er_1,er_2;
+bool pushButton;
 volatile unsigned int rx_wr_index=0;
 volatile bool end_packet=false;
 volatile  unsigned char sizeOfBuffer=0;
@@ -40,12 +40,16 @@ extern  int system_reg[600];
 extern volatile uint8_t frame[BUFFER_SIZE];
 extern unsigned char transmission_ready_Flag;
 void (*send_data_again)() = 0;
+volatile char myBuf[15];
+bool dataEEprom=false;
+bool msgOk=false;
 //extern float press;
 //------------------------------------------------------------------------------
 //Timer2 Prescaler :0; Preload = 119; Actual Interrupt Time = 1 us
 
 //Place/Copy this part in declaration section
-/*void RTC_ISR()iv IVT_INT_RTC_Alarm ics ICS_AUTO
+/*
+void RTC_ISR()iv IVT_INT_RTC_Alarm ics ICS_AUTO
 {
     if(get_RTC_second_flag_state() == true)
     {
@@ -55,7 +59,7 @@ void (*send_data_again)() = 0;
 
     clear_RTC_overflow_flag();
     while(get_RTC_operation_state() == false);
-}*/
+}    */
 void InitTimer2(){
   RCC_APB1ENR.TIM2EN = 1;
   TIM2_CR1.CEN = 0;
@@ -70,6 +74,7 @@ void Timer2_interrupt() iv IVT_INT_TIM2 {
   TIM2_SR.UIF = 0;
   rx_time++;
   if(rx_time-rx_time_previos>3645 ){
+       //USART2_CR1bits.RXNEIE = 0;
        sizeOfBuffer=rx_wr_index;
        uartRX_flag=false;
        end_packet=true;
@@ -77,6 +82,8 @@ void Timer2_interrupt() iv IVT_INT_TIM2 {
        rx_time_previos=0;
        rx_wr_index=0;
        TIM2_CR1.CEN = 0;
+       checkResponse();
+
        }
   //Enter your code here
 }
@@ -84,13 +91,13 @@ void Timer2_interrupt() iv IVT_INT_TIM2 {
 //------------------------------------------------------------------------------
 void USART_init(){
     UART2_Init_Advanced(9600 , _UART_8_BIT_DATA, _UART_NOPARITY, _UART_ONE_STOPBIT, &_GPIO_MODULE_USART2_PA23);
-    USART2_BRR = 0xC35;                               //Set value for required baud rate
+    //USART2_BRR = 0xC35;                               //Set value for required baud rate
     USART2_CR1bits.RXNEIE = 1;       // enable uart rx interrupt
     USART2_CR1bits.TXEIE = 0;
     USART2_CR1bits.UE = 1;
-    NVIC_IntEnable(IVT_INT_USART2);  // enable interrupt vector
     USART2_CR1bits.TE=1;
     USART2_CR1bits.RE=1;
+    NVIC_IntEnable(IVT_INT_USART2);  // enable interrupt vector
 }
 
 void USARTINTERRUPT() iv IVT_INT_USART2 ics ICS_AUTO{
@@ -105,18 +112,53 @@ void USARTINTERRUPT() iv IVT_INT_USART2 ics ICS_AUTO{
 
      }
    }
+  //---------------------------------------------------------------------------
+void printTime(RTC_TimeTypeDef *RTC_TimeStruct,RTC_DateTypeDef *RTC_DateStruct)
+ {
+      char txt[4];
+      unsigned char mon;
+      mon = RTC_DateStruct->RTC_Month_Tens*10 +  RTC_DateStruct->RTC_Month_Units;
+      ByteToStr(RTC_TimeStruct->RTC_Hour_Tens,txt);
+
+      strcpy(DateTime.Caption,txt);
+      ByteToStr(RTC_TimeStruct->RTC_Hour_Units,txt);
+      strcat(DateTime.Caption,txt);
+      strcat(DateTime.Caption,":");
+      ByteToStr(RTC_TimeStruct->RTC_Min_Tens,txt);
+      strcat(DateTime.Caption,txt);
+      ByteToStr(RTC_TimeStruct->RTC_Min_Units,txt);
+      strcat(DateTime.Caption,txt);
+      strcat(DateTime.Caption," ");
+      ByteToStr(RTC_DateStruct->RTC_Date_Tens,txt);
+      strcat(DateTime.Caption,txt);
+      ByteToStr(RTC_DateStruct->RTC_Date_Units,txt);
+      strcat(DateTime.Caption,txt);
+
+      switch (mon)  //
+      {
+           case 1 :   strcat(DateTime.Caption,"JAN");break;
+           case 2 :   strcat(DateTime.Caption,"FAB");break;
+           case 3 :   strcat(DateTime.Caption,"MAR");break;
+           case 4 :   strcat(DateTime.Caption,"APR");break;
+           case 5 :   strcat(DateTime.Caption,"MAY");break;
+           case 6 :   strcat(DateTime.Caption,"JUN");break;
+           case 7 :   strcat(DateTime.Caption,"JUL");break;
+           case 8 :   strcat(DateTime.Caption,"AUG");break;
+           case 9 :   strcat(DateTime.Caption,"SEP");break;
+           case 10 :  strcat(DateTime.Caption,"OCT");break;
+           case 11 :  strcat(DateTime.Caption,"NOV");break;
+           case 12 :  strcat(DateTime.Caption,"DEC");break;
+      }
+
+ }
+
+//------------------------------------------------------------------------------
+void main() {
     RTC_TimeTypeDef      My_Time;
     RTC_TimeTypeDef      Read_Time;
     RTC_DateTypeDef      My_Date;
     RTC_DateTypeDef      Read_Date;
-//------------------------------------------------------------------------------
-void main() {
-
-  InitSysTick();
-  USART_init();
-  InitTimer2();
-
-   /*// Mon 31/12/2015
+    // init date
     My_Date.RTC_DayofWeek     = 5;
     My_Date.RTC_Date_Tens     = 3;
     My_Date.RTC_Date_Units    = 1;
@@ -134,78 +176,93 @@ void main() {
     My_Time.RTC_Sec_Tens      = 3;
     My_Time.RTC_Sec_Units     = 0;
     My_Time.RTC_H12           = 1;
-    if (RTC_Init(255, 127, 1))
-         Message("RTC Initialise SUCCESS...");
+    
+     if (RTC_Init(255, 127, 1))
+         My_Time.RTC_Hour_Tens     = 1;
     else
-         Message("RTC Initialise FAILED...");
-    Delay_ms(2000);
+        My_Time.RTC_Hour_Tens     = 0;
 
-    // Set the Time.
-    if (RTC_SetTime(&My_Time, -37))
-         Message("Time Set SUCCESS...");
+    Delay_ms(2000);
+     if (RTC_SetTime(&My_Time, -37))
+          My_Time.RTC_Hour_Units    = 1;
     else
-         Message("Time Set FAILED...");
+          My_Time.RTC_Hour_Units    = 0;
     Delay_ms(2000);
-
-    // Set the Date.
-    RTC_SetDate(&My_Date);*/
+     // Set the Date.
+    RTC_SetDate(&My_Date);
+  //---------------
+  InitSysTick();
+  USART_init();
+  InitTimer2();
   modbus_configure(1000,200,10);
   Start_TP();
   EnableInterrupts();
+  /*
   DrawRoundBox (&Messages_Box);
   Messages_Label.Caption = "UPDATE_DIS";
   DrawLabel (&Messages_Label);
- while(end_packet==false){
-  reciev_data_packet(COMP_DEL,46);
-  Delay_ms(1000);
 
-  }
-  end_packet=false;
-  checkResponse();
-  check_packet_status();
+
   DrawRoundBox (&Messages_Box);
   Messages_Label.Caption = "DIS_UPDATE";
   DrawLabel (&Messages_Label);
+  */
   DisableInterrupts();
-  data_eeprom();
-  startPage();
-  ptr= send_data_packet;
+  countPacket=1;
+
   while (1) {
-    if(pushButton) {ptr(adressReg,nomReg);Delay_ms(500);}
-   if(end_packet){
-     end_packet=false;
-     checkResponse();
-     check_packet_status();
-     if(system_reg[ERRORS_1]!=er){
-                                er=system_reg[ERRORS_1];
-                                if(er>0){
-                                  Messages_Label.Font_Color= 0xF800;
+    if(!dataEEprom && msgOk){dataEEprom=true;data_eeprom();startPage();msgOk=false;}//UART2_Write_Text("finisheeprom");
+    if(msgOk){countPacket++;  msgOk=false;}//
+
+     if(system_reg[ERRORS_1]!=er_1 ||system_reg[ERRORS_2]!=er_2 ){
+
+                                 if(system_reg[ERRORS_1]!=er_1)er_1=system_reg[ERRORS_1];
+                                 else  er_2=system_reg[ERRORS_2];
+                                if(er_1>0 || er_2>0 ){
+                                  DateTime.Font_Color= 0xF800;
                                   DrawRoundBox (&Messages_Box);
-                                  Messages_Label.Caption = "FIND_ERROR";
-                                  DrawLabel (&Messages_Label);
+                                  DateTime.Caption = "ERROR";
+                                  DrawLabel (&DateTime);
                                   find_errors();}
-                                else {
-                                  Messages_Label.Font_Color= 0x07E0;
+                                else if(er_1==0 && er_2==0) {
+                                  DateTime.Font_Color= 0x07E0;
                                   DrawRoundBox (&Messages_Box);
-                                  Messages_Label.Caption = "SYSTEM_OK";
-                                  DrawLabel (&Messages_Label);
-                                
-                                }
-                                }
-                                
+                                  DateTime.Caption = "_OK";
+                                  DrawLabel (&DateTime);
 
-   }
+                                }
+                                }
+
+   //}
    DisableInterrupts();
-   if(millis() - old_time_count > 3000)//
-       {     old_time_count = millis();
+   if(millis() - old_time_count >1000 )//
+       {    
 
-           if(!pushButton)selectPage();
+            static unsigned char n=0;
+            n++;
+            if(n>60){
+            n=0;
+            RTC_GetDate(&Read_Date);
+            //RTC_PrintDate(&Read_Date);
 
+            RTC_GetTime(&Read_Time);
+           // RTC_PrintTime(&Read_Time);
+            printTime(&Read_Time,&Read_Date);
+            DrawRoundBox (&Messages_Box);DrawLabel (&DateTime);}
+
+
+           old_time_count = millis();
+          /*if(dataEEprom && !pushButton)selectPage();
+          else if(!dataEEprom && !pushButton) reciev_data_packet(COMP_DEL,48);
+          if(pushButton) {send_data_packet(adressReg,nomReg);}*/
         }
 
+
     Check_TP();
+    
   EnableInterrupts();
 
-    }
 
+
+}
 }

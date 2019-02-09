@@ -144,6 +144,7 @@ static void InitializeTouchPanel() {
   TScreen*  CurrentScreen;
 
   TScreen                HOME;
+  TBox_Round             BoxRound8;
   TBox                   Set_Heat_Box;
   TBox                   Set_Dhw_Box;
   TImage               background;
@@ -216,9 +217,6 @@ char Label25_Caption[2] = "C";
 
   TImage               cool_icon;
   TImage               Image28;
-  TLabel                 DateTime;
-char DateTime_Caption[15] = "12:23 15 Jan";
-
   TLabel                 dhw_celc;
 char dhw_celc_Caption[2] = "C";
 
@@ -269,22 +267,6 @@ char ON_OFF_DHW_Caption[4] = "OFF";
   TImage               MainBut1;
   TImage               MainBut2;
   TImage               MainBut5;
-  TBox_Round             heatBox;
-  TLabel                 heat_temp_main;
-char heat_temp_main_Caption[3] = "00";
-
-  TBox_Round             BoxRound2;
-  TLabel                 dhw_temp_main;
-char dhw_temp_main_Caption[3] = "00";
-
-  TBox_Round             BoxRound3;
-  TLabel                 sourse_temp_input_main;
-char sourse_temp_input_main_Caption[3] = "00";
-
-  TBox_Round             BoxRound4;
-  TLabel                 sourse_temp_output_main;
-char sourse_temp_output_main_Caption[3] = "00";
-
   TBox_Round             BoxRound5;
   TLabel                 weather_temp_main;
 char weather_temp_main_Caption[3] = "00";
@@ -297,11 +279,41 @@ char humedity_main_Caption[3] = "69";
   TLabel                 prassure_main;
 char prassure_main_Caption[5] = "0777";
 
-  TBox_Round             Messages_Box;
-  TLabel                 Messages_Label;
-char Messages_Label_Caption[11] = "SYSTEM_OFF";
+  TButton_Round          dhw_T;
+char dhw_T_Caption[3] = "00";
 
-  TButton_Round          * const code Screen1_Buttons_Round[12]=
+  TButton_Round          heat_T;
+char heat_T_Caption[3] = "00";
+
+  TButton_Round          sourc_out_TEMP;
+char sourc_out_TEMP_Caption[3] = "25";
+
+  TButton_Round          sign_OUT;
+char sign_OUT_Caption[5] = "+";
+
+  TButton_Round          sourc_in_T;
+char sourc_in_T_Caption[3] = "25";
+
+  TButton_Round          sign_IN;
+char sign_IN_Caption[5] = "+";
+
+  TButton_Round          dhw_dec;
+char dhw_dec_Caption[2] = "0";
+
+  TButton_Round          heat_dec;
+char heat_dec_Caption[2] = "0";
+
+  TButton_Round          sourc_in_dec;
+char sourc_in_dec_Caption[2] = "0";
+
+  TButton_Round          source_out_dec;
+char source_out_dec_Caption[2] = "0";
+
+  TBox_Round             Messages_Box;
+  TLabel                 DateTime;
+char DateTime_Caption[15] = "12:23 15 Jan";
+
+  TButton_Round          * const code Screen1_Buttons_Round[22]=
          {
          &DHW_Seting,          
          &Heat_Setting,        
@@ -314,9 +326,19 @@ char Messages_Label_Caption[11] = "SYSTEM_OFF";
          &HEAT_Down,           
          &HEAT_UP,             
          &ON_OFF_Heat_Cool,    
-         &ON_OFF_DHW           
+         &ON_OFF_DHW,          
+         &dhw_T,               
+         &heat_T,              
+         &sourc_out_TEMP,      
+         &sign_OUT,            
+         &sourc_in_T,          
+         &sign_IN,             
+         &dhw_dec,             
+         &heat_dec,            
+         &sourc_in_dec,        
+         &source_out_dec       
          };
-  TLabel                 * const code Screen1_Labels[23]=
+  TLabel                 * const code Screen1_Labels[18]=
          {
          &Label53,             
          &Label38,             
@@ -326,21 +348,16 @@ char Messages_Label_Caption[11] = "SYSTEM_OFF";
          &Label140,            
          &Label141,            
          &Label25,             
-         &DateTime,            
          &dhw_celc,            
          &dhw_point,           
          &heat_point,          
          &heat_celc,           
          &TEMP_Setting_value,  
          &DHW_Setting_value,   
-         &heat_temp_main,      
-         &dhw_temp_main,       
-         &sourse_temp_input_main,
-         &sourse_temp_output_main,
          &weather_temp_main,   
          &humedity_main,       
          &prassure_main,       
-         &Messages_Label       
+         &DateTime             
          };
   TImage                 * const code Screen1_Images[30]=
          {
@@ -389,16 +406,13 @@ char Messages_Label_Caption[11] = "SYSTEM_OFF";
          &HEAT_button_redraw,  
          &DHW_button_redraw    
          };
-  TBox_Round             * const code Screen1_Boxes_Round[12]=
+  TBox_Round             * const code Screen1_Boxes_Round[9]=
          {
+         &BoxRound8,           
          &Heat_Windows,        
          &DWN_Windows,         
          &Brine_Windows,       
          &Wheater_Windows,     
-         &heatBox,             
-         &BoxRound2,           
-         &BoxRound3,           
-         &BoxRound4,           
          &BoxRound5,           
          &BoxRound6,           
          &BoxRound7,           
@@ -541,7 +555,7 @@ char DEC_EEV1_Caption[2] = "-";
 char INC_EEV1_Caption[2] = "+";
 
   TProgressBar                 Red_bar;
-char Red_bar_Caption[6] = "240";
+char Red_bar_Caption[6] = "120";
 
   TLabel                 EEV1_set_step_label;
 char EEV1_set_step_label_Caption[9] = "EEV Step";
@@ -820,17 +834,11 @@ char Ten_minutesUp_Caption[1] = "";
   TButton               Ten_minutesDwn;
 char Ten_minutesDwn_Caption[1] = "";
 
-  TLabel                 Ten_minutes;
-char Ten_minutes_Caption[5] = "1";
-
   TButton               Unit_minutesUp;
 char Unit_minutesUp_Caption[1] = "";
 
   TButton               Unit_minutesDwn;
 char Unit_minutesDwn_Caption[1] = "";
-
-  TLabel                 Unit_minutes;
-char Unit_minutes_Caption[5] = "1";
 
   TButton               SetDateAndTime;
 char SetDateAndTime_Caption[4] = "SET";
@@ -862,12 +870,6 @@ char Unit_hoursUp_Caption[1] = "";
   TButton               Unit_hoursDwn;
 char Unit_hoursDwn_Caption[1] = "";
 
-  TLabel                 Unit_hours;
-char Unit_hours_Caption[5] = "3";
-
-  TLabel                 Day_unit;
-char Day_unit_Caption[5] = "1";
-
   TButton               OneDayUp;
 char OneDayUp_Caption[1] = "";
 
@@ -881,20 +883,11 @@ char TenDayUp_Caption[1] = "";
   TButton               TenDayDwn;
 char TenDayDwn_Caption[1] = "";
 
-  TLabel                 TenDay;
-char TenDay_Caption[5] = "1";
-
-  TLabel                 OneDay;
-char OneDay_Caption[5] = "5";
-
   TButton               MonthDateUp;
 char MonthDateUp_Caption[1] = "";
 
   TButton               MonthDateDwn;
 char MonthDateDwn_Caption[1] = "";
-
-  TLabel                 MonthDate;
-char MonthDate_Caption[5] = "JAN";
 
   TButton               TenYearUp;
 char TenYearUp_Caption[1] = "";
@@ -908,15 +901,6 @@ char OneYearUp_Caption[1] = "";
   TButton               OneYearDwn;
 char OneYearDwn_Caption[1] = "";
 
-  TLabel                 OneYear;
-char OneYear_Caption[5] = "1";
-
-  TLabel                 TenYear;
-char TenYear_Caption[5] = "1";
-
-  TButton               DayOfWeek;
-char DayOfWeek_Caption[21] = "MONDAY";
-
   TLabel                 Time_setting_label;
 char Time_setting_label_Caption[13] = "TIME SETTING";
 
@@ -926,7 +910,34 @@ char home_b4_Caption[5] = "HOME";
   TButton_Round          Back_b3;
 char Back_b3_Caption[5] = "BACK";
 
-  TButton                * const code Screen5_Buttons[20]=
+  TButton               Button1;
+char Button1_Caption[2] = "0";
+
+  TButton               Button3;
+char Button3_Caption[2] = "0";
+
+  TButton               Button4;
+char Button4_Caption[4] = "JAN";
+
+  TButton               Button8;
+char Button8_Caption[2] = "0";
+
+  TButton               Button12;
+char Button12_Caption[2] = "0";
+
+  TButton               Button21;
+char Button21_Caption[2] = "0";
+
+  TButton               Button24;
+char Button24_Caption[2] = "0";
+
+  TButton               Button40;
+char Button40_Caption[2] = "0";
+
+  TButton               Button43;
+char Button43_Caption[2] = "0";
+
+  TButton                * const code Screen5_Buttons[28]=
          {
          &Ten_minutesUp,       
          &Ten_minutesDwn,      
@@ -947,29 +958,28 @@ char Back_b3_Caption[5] = "BACK";
          &TenYearDwn,          
          &OneYearUp,           
          &OneYearDwn,          
-         &DayOfWeek            
+         &Button1,             
+         &Button3,             
+         &Button4,             
+         &Button8,             
+         &Button12,            
+         &Button21,            
+         &Button24,            
+         &Button40,            
+         &Button43             
          };
   TButton_Round          * const code Screen5_Buttons_Round[2]=
          {
          &home_b4,             
          &Back_b3              
          };
-  TLabel                 * const code Screen5_Labels[15]=
+  TLabel                 * const code Screen5_Labels[6]=
          {
-         &Ten_minutes,         
-         &Unit_minutes,        
          &Year_word,           
          &Month_Word,          
          &Day_word,            
          &Hour_word,           
          &Min_word,            
-         &Unit_hours,          
-         &Day_unit,            
-         &TenDay,              
-         &OneDay,              
-         &MonthDate,           
-         &OneYear,             
-         &TenYear,             
          &Time_setting_label   
          };
   TImage                 * const code Screen5_Images[1]=
@@ -1684,28 +1694,28 @@ char Label293_Caption[13] = "Superheating";
 char Label294_Caption[11] = "Subcooling";
 
   TButton_Round          S_Brine_Inlet_1;
-char S_Brine_Inlet_1_Caption[4] = "12";
+char S_Brine_Inlet_1_Caption[5] = "12.5";
 
   TButton_Round          S_Brine_Outlet_1;
-char S_Brine_Outlet_1_Caption[4] = "09";
+char S_Brine_Outlet_1_Caption[5] = "09.5";
 
   TButton_Round          S_Heat_Inlet_1;
-char S_Heat_Inlet_1_Caption[3] = "51";
+char S_Heat_Inlet_1_Caption[5] = "51.3";
 
   TButton_Round          S_Heat_Outlet_1;
-char S_Heat_Outlet_1_Caption[3] = "59";
+char S_Heat_Outlet_1_Caption[5] = "59.6";
 
   TButton_Round          S_Compressor_1;
 char S_Compressor_1_Caption[4] = "086";
 
   TButton_Round          S_DHW;
-char S_DHW_Caption[3] = "59";
+char S_DHW_Caption[5] = "59.8";
 
   TButton_Round          S_Superheat_1;
-char S_Superheat_1_Caption[3] = "07";
+char S_Superheat_1_Caption[5] = "07.3";
 
   TButton_Round          S_Subcool_1;
-char S_Subcool_1_Caption[3] = "04";
+char S_Subcool_1_Caption[6] = "05.5";
 
   TLabel                 Label297;
 char Label297_Caption[2] = "C";
@@ -1774,7 +1784,7 @@ char Label321_Caption[4] = "l/h";
 char Label322_Caption[4] = "l/h";
 
   TButton_Round          SS_tank;
-char SS_tank_Caption[3] = "59";
+char SS_tank_Caption[5] = "59.6";
 
   TLabel                 Label12;
 char Label12_Caption[5] = "Tank";
@@ -1786,10 +1796,10 @@ char Label13_Caption[2] = "C";
 char Label14_Caption[2] = "°";
 
   TButton_Round          S_condenser_1;
-char S_condenser_1_Caption[3] = "44";
+char S_condenser_1_Caption[5] = "44.6";
 
   TButton_Round          S_suction_1;
-char S_suction_1_Caption[3] = "14";
+char S_suction_1_Caption[5] = "14.5";
 
   TLabel                 Label15;
 char Label15_Caption[2] = "°";
@@ -1819,10 +1829,10 @@ char Back_b10_Caption[5] = "BACK";
 char CircleButton10_Caption[2] = "1";
 
   TButton_Round          S_Low_Pressure_1;
-char S_Low_Pressure_1_Caption[3] = "04";
+char S_Low_Pressure_1_Caption[5] = "04.5";
 
   TButton_Round          S_High_Pressure_1;
-char S_High_Pressure_1_Caption[3] = "24";
+char S_High_Pressure_1_Caption[5] = "24.3";
 
   TLabel                 Label70;
 char Label70_Caption[3] = "HP";
@@ -1839,7 +1849,22 @@ char Label27_Caption[4] = "bar";
   TLabel                 Label35;
 char Label35_Caption[4] = "bar";
 
-  TButton_Round          * const code Screen14_Buttons_Round[18]=
+  TButton_Round          BrineIN_sign;
+char BrineIN_sign_Caption[5] = "+";
+
+  TButton_Round          BrineOUT_sign;
+char BrineOUT_sign_Caption[5] = "+";
+
+  TButton_Round          Super_sign;
+char Super_sign_Caption[5] = "+";
+
+  TButton_Round          Cond_sign;
+char Cond_sign_Caption[5] = "+";
+
+  TButton_Round          Cool_sign;
+char Cool_sign_Caption[5] = "+";
+
+  TButton_Round          * const code Screen14_Buttons_Round[23]=
          {
          &S_Brine_Inlet_1,     
          &S_Brine_Outlet_1,    
@@ -1858,7 +1883,12 @@ char Label35_Caption[4] = "bar";
          &Back_b10,            
          &S_Low_Pressure_1,    
          &S_High_Pressure_1,   
-         &Next_b6              
+         &Next_b6,             
+         &BrineIN_sign,        
+         &BrineOUT_sign,       
+         &Super_sign,          
+         &Cond_sign,           
+         &Cool_sign            
          };
   TLabel                 * const code Screen14_Labels[42]=
          {
@@ -3927,7 +3957,10 @@ char Label51_Caption[11] = "DEFROSTING";
   TImage               humidity_down;
   TImage               humidity_up;
   TImage               humidity_set;
-  TButton_Round          * const code Screen33_Buttons_Round[7]=
+  TButton_Round          ButtonRound2;
+char ButtonRound2_Caption[8] = "DEFROST";
+
+  TButton_Round          * const code Screen33_Buttons_Round[8]=
          {
          &Defrost_on_time,     
          &Defrost_off_time,    
@@ -3935,7 +3968,8 @@ char Label51_Caption[11] = "DEFROSTING";
          &Defrost_off_temperature,
          &Home_b29,            
          &Back_b25,            
-         &Defrost_on_humidity  
+         &Defrost_on_humidity, 
+         &ButtonRound2         
          };
   TLabel                 * const code Screen33_Labels[1]=
          {
@@ -4258,9 +4292,9 @@ static void InitializeObjects() {
   HOME.Width                     = 480;
   HOME.Height                    = 272;
   HOME.ButtonsCount              = 0;
-  HOME.Buttons_RoundCount        = 12;
+  HOME.Buttons_RoundCount        = 22;
   HOME.Buttons_Round             = Screen1_Buttons_Round;
-  HOME.LabelsCount               = 23;
+  HOME.LabelsCount               = 18;
   HOME.Labels                    = Screen1_Labels;
   HOME.ImagesCount               = 30;
   HOME.Images                    = Screen1_Images;
@@ -4270,12 +4304,12 @@ static void InitializeObjects() {
   HOME.CircleButtonsCount        = 0;
   HOME.BoxesCount                = 4;
   HOME.Boxes                     = Screen1_Boxes;
-  HOME.Boxes_RoundCount          = 12;
+  HOME.Boxes_RoundCount          = 9;
   HOME.Boxes_Round               = Screen1_Boxes_Round;
   HOME.LinesCount                = 2;
   HOME.Lines                     = Screen1_Lines;
   HOME.ProgressBarsCount         = 0;
-  HOME.ObjectsCount              = 87;
+  HOME.ObjectsCount              = 89;
 
   USER_MENU.Color                     = 0x0008;
   USER_MENU.Width                     = 480;
@@ -4340,11 +4374,11 @@ static void InitializeObjects() {
   SetRTC.Color                     = 0x0008;
   SetRTC.Width                     = 480;
   SetRTC.Height                    = 272;
-  SetRTC.ButtonsCount              = 20;
+  SetRTC.ButtonsCount              = 28;
   SetRTC.Buttons                   = Screen5_Buttons;
   SetRTC.Buttons_RoundCount        = 2;
   SetRTC.Buttons_Round             = Screen5_Buttons_Round;
-  SetRTC.LabelsCount               = 15;
+  SetRTC.LabelsCount               = 6;
   SetRTC.Labels                    = Screen5_Labels;
   SetRTC.ImagesCount               = 1;
   SetRTC.Images                    = Screen5_Images;
@@ -4356,7 +4390,7 @@ static void InitializeObjects() {
   SetRTC.LinesCount                = 1;
   SetRTC.Lines                     = Screen5_Lines;
   SetRTC.ProgressBarsCount         = 0;
-  SetRTC.ObjectsCount              = 39;
+  SetRTC.ObjectsCount              = 38;
 
   ERRORS.Color                     = 0x0008;
   ERRORS.Width                     = 480;
@@ -4521,7 +4555,7 @@ static void InitializeObjects() {
   SENSOR1.Width                     = 480;
   SENSOR1.Height                    = 272;
   SENSOR1.ButtonsCount              = 0;
-  SENSOR1.Buttons_RoundCount        = 18;
+  SENSOR1.Buttons_RoundCount        = 23;
   SENSOR1.Buttons_Round             = Screen14_Buttons_Round;
   SENSOR1.LabelsCount               = 42;
   SENSOR1.Labels                    = Screen14_Labels;
@@ -4535,7 +4569,7 @@ static void InitializeObjects() {
   SENSOR1.Boxes_RoundCount          = 0;
   SENSOR1.LinesCount                = 0;
   SENSOR1.ProgressBarsCount         = 0;
-  SENSOR1.ObjectsCount              = 62;
+  SENSOR1.ObjectsCount              = 67;
 
   LIMITS4.Color                     = 0x5AEB;
   LIMITS4.Width                     = 480;
@@ -4899,7 +4933,7 @@ static void InitializeObjects() {
   DEFROST.Width                     = 480;
   DEFROST.Height                    = 272;
   DEFROST.ButtonsCount              = 0;
-  DEFROST.Buttons_RoundCount        = 7;
+  DEFROST.Buttons_RoundCount        = 8;
   DEFROST.Buttons_Round             = Screen33_Buttons_Round;
   DEFROST.LabelsCount               = 1;
   DEFROST.Labels                    = Screen33_Labels;
@@ -4912,7 +4946,7 @@ static void InitializeObjects() {
   DEFROST.Boxes_RoundCount          = 0;
   DEFROST.LinesCount                = 0;
   DEFROST.ProgressBarsCount         = 0;
-  DEFROST.ObjectsCount              = 39;
+  DEFROST.ObjectsCount              = 40;
 
   EVENTS.Color                     = 0x5AEB;
   EVENTS.Width                     = 480;
@@ -4994,8 +5028,32 @@ static void InitializeObjects() {
   LIMITS3.ObjectsCount              = 48;
 
 
+  BoxRound8.OwnerScreen     = &HOME;
+  BoxRound8.Order           = 0;
+  BoxRound8.Left            = 117;
+  BoxRound8.Top             = 120;
+  BoxRound8.Width           = 37;
+  BoxRound8.Height          = 43;
+  BoxRound8.Pen_Width       = 1;
+  BoxRound8.Pen_Color       = 0x0294;
+  BoxRound8.Visible         = 1;
+  BoxRound8.Active          = 0;
+  BoxRound8.Transparent     = 1;
+  BoxRound8.Gradient        = 0;
+  BoxRound8.Gradient_Orientation = 0;
+  BoxRound8.Gradient_Start_Color = 0x0339;
+  BoxRound8.Gradient_End_Color = 0x0294;
+  BoxRound8.Color           = 0x0294;
+  BoxRound8.PressColEnabled = 0;
+  BoxRound8.Press_Color     = 0xE71C;
+  BoxRound8.Corner_Radius   = 6;
+  BoxRound8.OnUpPtr         = 0;
+  BoxRound8.OnDownPtr       = 0;
+  BoxRound8.OnClickPtr      = 0;
+  BoxRound8.OnPressPtr      = 0;
+
   Set_Heat_Box.OwnerScreen     = &HOME;
-  Set_Heat_Box.Order           = 0;
+  Set_Heat_Box.Order           = 1;
   Set_Heat_Box.Left            = 176;
   Set_Heat_Box.Top             = 93;
   Set_Heat_Box.Width           = 94;
@@ -5018,7 +5076,7 @@ static void InitializeObjects() {
   Set_Heat_Box.OnPressPtr      = 0;
 
   Set_Dhw_Box.OwnerScreen     = &HOME;
-  Set_Dhw_Box.Order           = 1;
+  Set_Dhw_Box.Order           = 2;
   Set_Dhw_Box.Left            = 14;
   Set_Dhw_Box.Top             = 91;
   Set_Dhw_Box.Width           = 97;
@@ -5041,7 +5099,7 @@ static void InitializeObjects() {
   Set_Dhw_Box.OnPressPtr      = 0;
 
   background.OwnerScreen     = &HOME;
-  background.Order           = 2;
+  background.Order           = 3;
   background.Left            = 0;
   background.Top             = 0;
   background.Width           = 480;
@@ -5057,9 +5115,9 @@ static void InitializeObjects() {
   background.OnPressPtr      = 0;
 
   Heat_Windows.OwnerScreen     = &HOME;
-  Heat_Windows.Order           = 3;
+  Heat_Windows.Order           = 4;
   Heat_Windows.Left            = 166;
-  Heat_Windows.Top             = 36;
+  Heat_Windows.Top             = 35;
   Heat_Windows.Width           = 155;
   Heat_Windows.Height          = 180;
   Heat_Windows.Pen_Width       = 1;
@@ -5081,7 +5139,7 @@ static void InitializeObjects() {
   Heat_Windows.OnPressPtr      = 0;
 
   HEAT_button_redraw.OwnerScreen     = &HOME;
-  HEAT_button_redraw.Order           = 4;
+  HEAT_button_redraw.Order           = 5;
   HEAT_button_redraw.Left            = 272;
   HEAT_button_redraw.Top             = 75;
   HEAT_button_redraw.Width           = 38;
@@ -5104,7 +5162,7 @@ static void InitializeObjects() {
   HEAT_button_redraw.OnPressPtr      = 0;
 
   DHW_button_redraw.OwnerScreen     = &HOME;
-  DHW_button_redraw.Order           = 5;
+  DHW_button_redraw.Order           = 6;
   DHW_button_redraw.Left            = 113;
   DHW_button_redraw.Top             = 75;
   DHW_button_redraw.Width           = 38;
@@ -5127,8 +5185,8 @@ static void InitializeObjects() {
   DHW_button_redraw.OnPressPtr      = 0;
 
   DWN_Windows.OwnerScreen     = &HOME;
-  DWN_Windows.Order           = 6;
-  DWN_Windows.Left            = 8;
+  DWN_Windows.Order           = 7;
+  DWN_Windows.Left            = 7;
   DWN_Windows.Top             = 35;
   DWN_Windows.Width           = 155;
   DWN_Windows.Height          = 180;
@@ -5151,9 +5209,9 @@ static void InitializeObjects() {
   DWN_Windows.OnPressPtr      = 0;
 
   Brine_Windows.OwnerScreen     = &HOME;
-  Brine_Windows.Order           = 7;
+  Brine_Windows.Order           = 8;
   Brine_Windows.Left            = 326;
-  Brine_Windows.Top             = 131;
+  Brine_Windows.Top             = 133;
   Brine_Windows.Width           = 145;
   Brine_Windows.Height          = 85;
   Brine_Windows.Pen_Width       = 1;
@@ -5175,7 +5233,7 @@ static void InitializeObjects() {
   Brine_Windows.OnPressPtr      = 0;
 
   Image20.OwnerScreen     = &HOME;
-  Image20.Order           = 8;
+  Image20.Order           = 9;
   Image20.Left            = 13;
   Image20.Top             = 275;
   Image20.Width           = 33;
@@ -5191,7 +5249,7 @@ static void InitializeObjects() {
   Image20.OnPressPtr      = 0;
 
   Wheater_Windows.OwnerScreen     = &HOME;
-  Wheater_Windows.Order           = 9;
+  Wheater_Windows.Order           = 10;
   Wheater_Windows.Left            = 326;
   Wheater_Windows.Top             = 36;
   Wheater_Windows.Width           = 145;
@@ -5215,7 +5273,7 @@ static void InitializeObjects() {
   Wheater_Windows.OnPressPtr      = 0;
 
   Image44.OwnerScreen     = &HOME;
-  Image44.Order           = 10;
+  Image44.Order           = 11;
   Image44.Left            = 268;
   Image44.Top             = 222;
   Image44.Width           = 69;
@@ -5231,7 +5289,7 @@ static void InitializeObjects() {
   Image44.OnPressPtr      = 0;
 
   Image61.OwnerScreen     = &HOME;
-  Image61.Order           = 11;
+  Image61.Order           = 12;
   Image61.Left            = 336;
   Image61.Top             = 222;
   Image61.Width           = 67;
@@ -5247,7 +5305,7 @@ static void InitializeObjects() {
   Image61.OnPressPtr      = 0;
 
   Main_ON.OwnerScreen     = &HOME;
-  Main_ON.Order           = 12;
+  Main_ON.Order           = 13;
   Main_ON.Left            = 12;
   Main_ON.Top             = 222;
   Main_ON.Width           = 106;
@@ -5263,7 +5321,7 @@ static void InitializeObjects() {
   Main_ON.OnPressPtr      = 0;
 
   Main_OFF.OwnerScreen     = &HOME;
-  Main_OFF.Order           = 13;
+  Main_OFF.Order           = 14;
   Main_OFF.Left            = 10;
   Main_OFF.Top             = 221;
   Main_OFF.Width           = 104;
@@ -5279,7 +5337,7 @@ static void InitializeObjects() {
   Main_OFF.OnPressPtr      = 0;
 
   DHW_Seting.OwnerScreen     = &HOME;
-  DHW_Seting.Order           = 14;
+  DHW_Seting.Order           = 15;
   DHW_Seting.Left            = 70;
   DHW_Seting.Top             = 183;
   DHW_Seting.Width           = 90;
@@ -5292,7 +5350,7 @@ static void InitializeObjects() {
   DHW_Seting.Caption         = DHW_Seting_Caption;
   DHW_Seting.TextAlign       = _taCenter;
   DHW_Seting.TextAlignVertical= _tavMiddle;
-  DHW_Seting.FontName        = Arial_Narrow16x19_Bold;
+  DHW_Seting.FontName        = Arial_Narrow13x20_Bold;
   DHW_Seting.PressColEnabled = 1;
   DHW_Seting.Font_Color      = 0xB596;
   DHW_Seting.VerticalText    = 0;
@@ -5309,7 +5367,7 @@ static void InitializeObjects() {
   DHW_Seting.OnPressPtr      = 0;
 
   Label53.OwnerScreen     = &HOME;
-  Label53.Order           = 15;
+  Label53.Order           = 16;
   Label53.Left            = 379;
   Label53.Top             = 70;
   Label53.Width           = 7;
@@ -5317,7 +5375,7 @@ static void InitializeObjects() {
   Label53.Visible         = 1;
   Label53.Active          = 0;
   Label53.Caption         = Label53_Caption;
-  Label53.FontName        = Arial_Narrow16x19_Bold;
+  Label53.FontName        = Arial_Narrow13x20_Bold;
   Label53.Font_Color      = 0xC618;
   Label53.VerticalText    = 0;
   Label53.OnUpPtr         = 0;
@@ -5326,15 +5384,15 @@ static void InitializeObjects() {
   Label53.OnPressPtr      = 0;
 
   Label38.OwnerScreen     = &HOME;
-  Label38.Order           = 16;
+  Label38.Order           = 17;
   Label38.Left            = 386;
   Label38.Top             = 167;
-  Label38.Width           = 12;
+  Label38.Width           = 10;
   Label38.Height          = 20;
   Label38.Visible         = 1;
   Label38.Active          = 0;
   Label38.Caption         = Label38_Caption;
-  Label38.FontName        = Arial_Narrow16x19_Bold;
+  Label38.FontName        = Arial_Narrow13x20_Bold;
   Label38.Font_Color      = 0xFBA0;
   Label38.VerticalText    = 0;
   Label38.OnUpPtr         = 0;
@@ -5343,7 +5401,7 @@ static void InitializeObjects() {
   Label38.OnPressPtr      = 0;
 
   Label39.OwnerScreen     = &HOME;
-  Label39.Order           = 17;
+  Label39.Order           = 18;
   Label39.Left            = 380;
   Label39.Top             = 166;
   Label39.Width           = 7;
@@ -5351,7 +5409,7 @@ static void InitializeObjects() {
   Label39.Visible         = 1;
   Label39.Active          = 0;
   Label39.Caption         = Label39_Caption;
-  Label39.FontName        = Arial_Narrow16x19_Bold;
+  Label39.FontName        = Arial_Narrow13x20_Bold;
   Label39.Font_Color      = 0xFBA0;
   Label39.VerticalText    = 0;
   Label39.OnUpPtr         = 0;
@@ -5360,15 +5418,15 @@ static void InitializeObjects() {
   Label39.OnPressPtr      = 0;
 
   Label4.OwnerScreen     = &HOME;
-  Label4.Order           = 18;
+  Label4.Order           = 19;
   Label4.Left            = 457;
   Label4.Top             = 167;
-  Label4.Width           = 12;
+  Label4.Width           = 10;
   Label4.Height          = 20;
   Label4.Visible         = 1;
   Label4.Active          = 0;
   Label4.Caption         = Label4_Caption;
-  Label4.FontName        = Arial_Narrow16x19_Bold;
+  Label4.FontName        = Arial_Narrow13x20_Bold;
   Label4.Font_Color      = 0x87FF;
   Label4.VerticalText    = 0;
   Label4.OnUpPtr         = 0;
@@ -5377,7 +5435,7 @@ static void InitializeObjects() {
   Label4.OnPressPtr      = 0;
 
   Label20.OwnerScreen     = &HOME;
-  Label20.Order           = 19;
+  Label20.Order           = 20;
   Label20.Left            = 450;
   Label20.Top             = 166;
   Label20.Width           = 7;
@@ -5385,7 +5443,7 @@ static void InitializeObjects() {
   Label20.Visible         = 1;
   Label20.Active          = 0;
   Label20.Caption         = Label20_Caption;
-  Label20.FontName        = Arial_Narrow16x19_Bold;
+  Label20.FontName        = Arial_Narrow13x20_Bold;
   Label20.Font_Color      = 0x87FF;
   Label20.VerticalText    = 0;
   Label20.OnUpPtr         = 0;
@@ -5394,7 +5452,7 @@ static void InitializeObjects() {
   Label20.OnPressPtr      = 0;
 
   Brine_Line.OwnerScreen     = &HOME;
-  Brine_Line.Order           = 20;
+  Brine_Line.Order           = 21;
   Brine_Line.First_Point_X   = 401;
   Brine_Line.First_Point_Y   = 165;
   Brine_Line.Second_Point_X  = 401;
@@ -5404,7 +5462,7 @@ static void InitializeObjects() {
   Brine_Line.Color           = 0x0451;
 
   Heat_Setting.OwnerScreen     = &HOME;
-  Heat_Setting.Order           = 21;
+  Heat_Setting.Order           = 22;
   Heat_Setting.Left            = 229;
   Heat_Setting.Top             = 183;
   Heat_Setting.Width           = 90;
@@ -5417,7 +5475,7 @@ static void InitializeObjects() {
   Heat_Setting.Caption         = Heat_Setting_Caption;
   Heat_Setting.TextAlign       = _taCenter;
   Heat_Setting.TextAlignVertical= _tavMiddle;
-  Heat_Setting.FontName        = Arial_Narrow16x19_Bold;
+  Heat_Setting.FontName        = Arial_Narrow13x20_Bold;
   Heat_Setting.PressColEnabled = 1;
   Heat_Setting.Font_Color      = 0xB596;
   Heat_Setting.VerticalText    = 0;
@@ -5434,7 +5492,7 @@ static void InitializeObjects() {
   Heat_Setting.OnPressPtr      = 0;
 
   alarm_led.OwnerScreen     = &HOME;
-  alarm_led.Order           = 22;
+  alarm_led.Order           = 23;
   alarm_led.Left            = 359;
   alarm_led.Top             = 9;
   alarm_led.Radius          = 5;
@@ -5456,7 +5514,7 @@ static void InitializeObjects() {
   alarm_led.OnPressPtr      = 0;
 
   radio_led.OwnerScreen     = &HOME;
-  radio_led.Order           = 23;
+  radio_led.Order           = 24;
   radio_led.Left            = 358;
   radio_led.Top             = 9;
   radio_led.Radius          = 5;
@@ -5478,7 +5536,7 @@ static void InitializeObjects() {
   radio_led.OnPressPtr      = 0;
 
   bar_heating.OwnerScreen     = &HOME;
-  bar_heating.Order           = 24;
+  bar_heating.Order           = 25;
   bar_heating.Left            = 207;
   bar_heating.Top             = 38;
   bar_heating.Width           = 112;
@@ -5491,7 +5549,7 @@ static void InitializeObjects() {
   bar_heating.Caption         = bar_heating_Caption;
   bar_heating.TextAlign       = _taCenter;
   bar_heating.TextAlignVertical= _tavMiddle;
-  bar_heating.FontName        = Arial_Narrow16x19_Bold;
+  bar_heating.FontName        = Arial_Narrow13x20_Bold;
   bar_heating.PressColEnabled = 1;
   bar_heating.Font_Color      = 0xEEC2;
   bar_heating.VerticalText    = 0;
@@ -5508,7 +5566,7 @@ static void InitializeObjects() {
   bar_heating.OnPressPtr      = 0;
 
   bar_DHW.OwnerScreen     = &HOME;
-  bar_DHW.Order           = 25;
+  bar_DHW.Order           = 26;
   bar_DHW.Left            = 47;
   bar_DHW.Top             = 38;
   bar_DHW.Width           = 112;
@@ -5521,7 +5579,7 @@ static void InitializeObjects() {
   bar_DHW.Caption         = bar_DHW_Caption;
   bar_DHW.TextAlign       = _taCenter;
   bar_DHW.TextAlignVertical= _tavMiddle;
-  bar_DHW.FontName        = Arial_Narrow16x19_Bold;
+  bar_DHW.FontName        = Arial_Narrow13x20_Bold;
   bar_DHW.PressColEnabled = 1;
   bar_DHW.Font_Color      = 0xEBA0;
   bar_DHW.VerticalText    = 0;
@@ -5538,7 +5596,7 @@ static void InitializeObjects() {
   bar_DHW.OnPressPtr      = 0;
 
   dhw_led.OwnerScreen     = &HOME;
-  dhw_led.Order           = 26;
+  dhw_led.Order           = 27;
   dhw_led.Left            = 19;
   dhw_led.Top             = 75;
   dhw_led.Radius          = 5;
@@ -5560,7 +5618,7 @@ static void InitializeObjects() {
   dhw_led.OnPressPtr      = 0;
 
   heat_led.OwnerScreen     = &HOME;
-  heat_led.Order           = 27;
+  heat_led.Order           = 28;
   heat_led.Left            = 174;
   heat_led.Top             = 74;
   heat_led.Radius          = 5;
@@ -5582,7 +5640,7 @@ static void InitializeObjects() {
   heat_led.OnPressPtr      = 0;
 
   Line16.OwnerScreen     = &HOME;
-  Line16.Order           = 28;
+  Line16.Order           = 29;
   Line16.First_Point_X   = 400;
   Line16.First_Point_Y   = 75;
   Line16.Second_Point_X  = 400;
@@ -5592,15 +5650,15 @@ static void InitializeObjects() {
   Line16.Color           = 0x0418;
 
   Label140.OwnerScreen     = &HOME;
-  Label140.Order           = 29;
+  Label140.Order           = 30;
   Label140.Left            = 448;
   Label140.Top             = 97;
-  Label140.Width           = 12;
+  Label140.Width           = 10;
   Label140.Height          = 16;
   Label140.Visible         = 1;
   Label140.Active          = 0;
   Label140.Caption         = Label140_Caption;
-  Label140.FontName        = Arial_Narrow13x16_Bold;
+  Label140.FontName        = Arial_Narrow11x16_Bold;
   Label140.Font_Color      = 0xC618;
   Label140.VerticalText    = 0;
   Label140.OnUpPtr         = 0;
@@ -5609,15 +5667,15 @@ static void InitializeObjects() {
   Label140.OnPressPtr      = 0;
 
   Label141.OwnerScreen     = &HOME;
-  Label141.Order           = 30;
+  Label141.Order           = 31;
   Label141.Left            = 445;
   Label141.Top             = 76;
-  Label141.Width           = 24;
+  Label141.Width           = 20;
   Label141.Height          = 16;
   Label141.Visible         = 1;
   Label141.Active          = 0;
   Label141.Caption         = Label141_Caption;
-  Label141.FontName        = Arial_Narrow13x16_Bold;
+  Label141.FontName        = Arial_Narrow11x16_Bold;
   Label141.Font_Color      = 0xC618;
   Label141.VerticalText    = 0;
   Label141.OnUpPtr         = 0;
@@ -5626,7 +5684,7 @@ static void InitializeObjects() {
   Label141.OnPressPtr      = 0;
 
   bar_weather.OwnerScreen     = &HOME;
-  bar_weather.Order           = 31;
+  bar_weather.Order           = 32;
   bar_weather.Left            = 362;
   bar_weather.Top             = 38;
   bar_weather.Width           = 107;
@@ -5639,7 +5697,7 @@ static void InitializeObjects() {
   bar_weather.Caption         = bar_weather_Caption;
   bar_weather.TextAlign       = _taCenter;
   bar_weather.TextAlignVertical= _tavMiddle;
-  bar_weather.FontName        = Arial_Narrow16x19_Bold;
+  bar_weather.FontName        = Arial_Narrow13x20_Bold;
   bar_weather.PressColEnabled = 0;
   bar_weather.Font_Color      = 0x0596;
   bar_weather.VerticalText    = 0;
@@ -5656,7 +5714,7 @@ static void InitializeObjects() {
   bar_weather.OnPressPtr      = 0;
 
   Weather_Icon.OwnerScreen     = &HOME;
-  Weather_Icon.Order           = 32;
+  Weather_Icon.Order           = 33;
   Weather_Icon.Left            = 328;
   Weather_Icon.Top             = 38;
   Weather_Icon.Width           = 33;
@@ -5672,7 +5730,7 @@ static void InitializeObjects() {
   Weather_Icon.OnPressPtr      = 0;
 
   bar_brine.OwnerScreen     = &HOME;
-  bar_brine.Order           = 33;
+  bar_brine.Order           = 34;
   bar_brine.Left            = 362;
   bar_brine.Top             = 133;
   bar_brine.Width           = 107;
@@ -5685,7 +5743,7 @@ static void InitializeObjects() {
   bar_brine.Caption         = bar_brine_Caption;
   bar_brine.TextAlign       = _taCenter;
   bar_brine.TextAlignVertical= _tavMiddle;
-  bar_brine.FontName        = Arial_Narrow16x19_Bold;
+  bar_brine.FontName        = Arial_Narrow13x20_Bold;
   bar_brine.PressColEnabled = 0;
   bar_brine.Font_Color      = 0x841F;
   bar_brine.VerticalText    = 0;
@@ -5702,7 +5760,7 @@ static void InitializeObjects() {
   bar_brine.OnPressPtr      = 0;
 
   Brine_Icon.OwnerScreen     = &HOME;
-  Brine_Icon.Order           = 34;
+  Brine_Icon.Order           = 35;
   Brine_Icon.Left            = 328;
   Brine_Icon.Top             = 133;
   Brine_Icon.Width           = 33;
@@ -5718,7 +5776,7 @@ static void InitializeObjects() {
   Brine_Icon.OnPressPtr      = 0;
 
   MainBut3.OwnerScreen     = &HOME;
-  MainBut3.Order           = 35;
+  MainBut3.Order           = 36;
   MainBut3.Left            = 267;
   MainBut3.Top             = 222;
   MainBut3.Width           = 68;
@@ -5734,7 +5792,7 @@ static void InitializeObjects() {
   MainBut3.OnPressPtr      = MainBut3OnPress;
 
   MainBut4.OwnerScreen     = &HOME;
-  MainBut4.Order           = 36;
+  MainBut4.Order           = 37;
   MainBut4.Left            = 336;
   MainBut4.Top             = 222;
   MainBut4.Width           = 67;
@@ -5750,7 +5808,7 @@ static void InitializeObjects() {
   MainBut4.OnPressPtr      = MainBut4OnPress;
 
   clock_icon.OwnerScreen     = &HOME;
-  clock_icon.Order           = 37;
+  clock_icon.Order           = 38;
   clock_icon.Left            = 0;
   clock_icon.Top             = 0;
   clock_icon.Width           = 30;
@@ -5766,7 +5824,7 @@ static void InitializeObjects() {
   clock_icon.OnPressPtr      = 0;
 
   microSD_icon.OwnerScreen     = &HOME;
-  microSD_icon.Order           = 38;
+  microSD_icon.Order           = 39;
   microSD_icon.Left            = 378;
   microSD_icon.Top             = 0;
   microSD_icon.Width           = 19;
@@ -5782,7 +5840,7 @@ static void InitializeObjects() {
   microSD_icon.OnPressPtr      = 0;
 
   radio_icon.OwnerScreen     = &HOME;
-  radio_icon.Order           = 39;
+  radio_icon.Order           = 40;
   radio_icon.Left            = 401;
   radio_icon.Top             = 0;
   radio_icon.Width           = 30;
@@ -5798,7 +5856,7 @@ static void InitializeObjects() {
   radio_icon.OnPressPtr      = 0;
 
   dhw_icon.OwnerScreen     = &HOME;
-  dhw_icon.Order           = 40;
+  dhw_icon.Order           = 41;
   dhw_icon.Left            = 10;
   dhw_icon.Top             = 38;
   dhw_icon.Width           = 33;
@@ -5814,15 +5872,15 @@ static void InitializeObjects() {
   dhw_icon.OnPressPtr      = 0;
 
   Label25.OwnerScreen     = &HOME;
-  Label25.Order           = 41;
+  Label25.Order           = 42;
   Label25.Left            = 386;
   Label25.Top             = 71;
-  Label25.Width           = 12;
+  Label25.Width           = 10;
   Label25.Height          = 20;
   Label25.Visible         = 1;
   Label25.Active          = 0;
   Label25.Caption         = Label25_Caption;
-  Label25.FontName        = Arial_Narrow16x19_Bold;
+  Label25.FontName        = Arial_Narrow13x20_Bold;
   Label25.Font_Color      = 0xC618;
   Label25.VerticalText    = 0;
   Label25.OnUpPtr         = 0;
@@ -5831,7 +5889,7 @@ static void InitializeObjects() {
   Label25.OnPressPtr      = 0;
 
   cool_icon.OwnerScreen     = &HOME;
-  cool_icon.Order           = 42;
+  cool_icon.Order           = 43;
   cool_icon.Left            = 170;
   cool_icon.Top             = 38;
   cool_icon.Width           = 33;
@@ -5847,7 +5905,7 @@ static void InitializeObjects() {
   cool_icon.OnPressPtr      = 0;
 
   Image28.OwnerScreen     = &HOME;
-  Image28.Order           = 43;
+  Image28.Order           = 44;
   Image28.Left            = 32;
   Image28.Top             = 0;
   Image28.Width           = 110;
@@ -5861,23 +5919,6 @@ static void InitializeObjects() {
   Image28.OnDownPtr       = 0;
   Image28.OnClickPtr      = 0;
   Image28.OnPressPtr      = 0;
-
-  DateTime.OwnerScreen     = &HOME;
-  DateTime.Order           = 44;
-  DateTime.Left            = 37;
-  DateTime.Top             = 5;
-  DateTime.Width           = 98;
-  DateTime.Height          = 20;
-  DateTime.Visible         = 1;
-  DateTime.Active          = 0;
-  DateTime.Caption         = DateTime_Caption;
-  DateTime.FontName        = Arial_Narrow16x19_Bold;
-  DateTime.Font_Color      = 0xEF7D;
-  DateTime.VerticalText    = 0;
-  DateTime.OnUpPtr         = 0;
-  DateTime.OnDownPtr       = 0;
-  DateTime.OnClickPtr      = 0;
-  DateTime.OnPressPtr      = 0;
 
   dhw_celc.OwnerScreen     = &HOME;
   dhw_celc.Order           = 45;
@@ -5905,7 +5946,7 @@ static void InitializeObjects() {
   dhw_point.Visible         = 1;
   dhw_point.Active          = 0;
   dhw_point.Caption         = dhw_point_Caption;
-  dhw_point.FontName        = Arial_Narrow16x19_Bold;
+  dhw_point.FontName        = Arial_Narrow13x20_Bold;
   dhw_point.Font_Color      = 0xEBA0;
   dhw_point.VerticalText    = 0;
   dhw_point.OnUpPtr         = 0;
@@ -5922,7 +5963,7 @@ static void InitializeObjects() {
   heat_point.Visible         = 1;
   heat_point.Active          = 0;
   heat_point.Caption         = heat_point_Caption;
-  heat_point.FontName        = Arial_Narrow16x19_Bold;
+  heat_point.FontName        = Arial_Narrow13x20_Bold;
   heat_point.Font_Color      = 0xEEC2;
   heat_point.VerticalText    = 0;
   heat_point.OnUpPtr         = 0;
@@ -5951,12 +5992,12 @@ static void InitializeObjects() {
   TEMP_Setting_value.Order           = 49;
   TEMP_Setting_value.Left            = 177;
   TEMP_Setting_value.Top             = 84;
-  TEMP_Setting_value.Width           = 92;
+  TEMP_Setting_value.Width           = 75;
   TEMP_Setting_value.Height          = 101;
   TEMP_Setting_value.Visible         = 0;
   TEMP_Setting_value.Active          = 0;
   TEMP_Setting_value.Caption         = TEMP_Setting_value_Caption;
-  TEMP_Setting_value.FontName        = Arial_Narrow81x89_Regular;
+  TEMP_Setting_value.FontName        = Arial_Narrow67x94_Regular;
   TEMP_Setting_value.Font_Color      = 0xEF5D;
   TEMP_Setting_value.VerticalText    = 0;
   TEMP_Setting_value.OnUpPtr         = 0;
@@ -5968,12 +6009,12 @@ static void InitializeObjects() {
   DHW_Setting_value.Order           = 50;
   DHW_Setting_value.Left            = 20;
   DHW_Setting_value.Top             = 84;
-  DHW_Setting_value.Width           = 92;
+  DHW_Setting_value.Width           = 75;
   DHW_Setting_value.Height          = 101;
   DHW_Setting_value.Visible         = 0;
   DHW_Setting_value.Active          = 0;
   DHW_Setting_value.Caption         = DHW_Setting_value_Caption;
-  DHW_Setting_value.FontName        = Arial_Narrow81x89_Regular;
+  DHW_Setting_value.FontName        = Arial_Narrow67x94_Regular;
   DHW_Setting_value.Font_Color      = 0xEF5D;
   DHW_Setting_value.VerticalText    = 0;
   DHW_Setting_value.OnUpPtr         = 0;
@@ -6227,7 +6268,7 @@ static void InitializeObjects() {
   ON_OFF_Heat_Cool.Caption         = ON_OFF_Heat_Cool_Caption;
   ON_OFF_Heat_Cool.TextAlign       = _taCenter;
   ON_OFF_Heat_Cool.TextAlignVertical= _tavMiddle;
-  ON_OFF_Heat_Cool.FontName        = Arial_Narrow16x19_Bold;
+  ON_OFF_Heat_Cool.FontName        = Arial_Narrow13x20_Bold;
   ON_OFF_Heat_Cool.PressColEnabled = 1;
   ON_OFF_Heat_Cool.Font_Color      = 0xB596;
   ON_OFF_Heat_Cool.VerticalText    = 0;
@@ -6257,7 +6298,7 @@ static void InitializeObjects() {
   ON_OFF_DHW.Caption         = ON_OFF_DHW_Caption;
   ON_OFF_DHW.TextAlign       = _taCenter;
   ON_OFF_DHW.TextAlignVertical= _tavMiddle;
-  ON_OFF_DHW.FontName        = Arial_Narrow16x19_Bold;
+  ON_OFF_DHW.FontName        = Arial_Narrow13x20_Bold;
   ON_OFF_DHW.PressColEnabled = 1;
   ON_OFF_DHW.Font_Color      = 0xB596;
   ON_OFF_DHW.VerticalText    = 0;
@@ -6385,172 +6426,8 @@ static void InitializeObjects() {
   MainBut5.OnClickPtr      = 0;
   MainBut5.OnPressPtr      = MainBut5OnPress;
 
-  heatBox.OwnerScreen     = &HOME;
-  heatBox.Order           = 71;
-  heatBox.Left            = 191;
-  heatBox.Top             = 96;
-  heatBox.Width           = 101;
-  heatBox.Height          = 71;
-  heatBox.Pen_Width       = 1;
-  heatBox.Pen_Color       = 0x0294;
-  heatBox.Visible         = 1;
-  heatBox.Active          = 0;
-  heatBox.Transparent     = 1;
-  heatBox.Gradient        = 0;
-  heatBox.Gradient_Orientation = 0;
-  heatBox.Gradient_Start_Color = 0x0339;
-  heatBox.Gradient_End_Color = 0x0294;
-  heatBox.Color           = 0x0294;
-  heatBox.PressColEnabled = 0;
-  heatBox.Press_Color     = 0xE71C;
-  heatBox.Corner_Radius   = 6;
-  heatBox.OnUpPtr         = 0;
-  heatBox.OnDownPtr       = 0;
-  heatBox.OnClickPtr      = 0;
-  heatBox.OnPressPtr      = 0;
-
-  heat_temp_main.OwnerScreen     = &HOME;
-  heat_temp_main.Order           = 72;
-  heat_temp_main.Left            = 195;
-  heat_temp_main.Top             = 85;
-  heat_temp_main.Width           = 97;
-  heat_temp_main.Height          = 106;
-  heat_temp_main.Visible         = 1;
-  heat_temp_main.Active          = 1;
-  heat_temp_main.Caption         = heat_temp_main_Caption;
-  heat_temp_main.FontName        = Arial86x96_Regular;
-  heat_temp_main.Font_Color      = 0xEEC2;
-  heat_temp_main.VerticalText    = 0;
-  heat_temp_main.OnUpPtr         = 0;
-  heat_temp_main.OnDownPtr       = 0;
-  heat_temp_main.OnClickPtr      = 0;
-  heat_temp_main.OnPressPtr      = 0;
-
-  BoxRound2.OwnerScreen     = &HOME;
-  BoxRound2.Order           = 73;
-  BoxRound2.Left            = 31;
-  BoxRound2.Top             = 96;
-  BoxRound2.Width           = 106;
-  BoxRound2.Height          = 71;
-  BoxRound2.Pen_Width       = 1;
-  BoxRound2.Pen_Color       = 0x0294;
-  BoxRound2.Visible         = 1;
-  BoxRound2.Active          = 0;
-  BoxRound2.Transparent     = 1;
-  BoxRound2.Gradient        = 0;
-  BoxRound2.Gradient_Orientation = 0;
-  BoxRound2.Gradient_Start_Color = 0x0339;
-  BoxRound2.Gradient_End_Color = 0x0294;
-  BoxRound2.Color           = 0x0294;
-  BoxRound2.PressColEnabled = 0;
-  BoxRound2.Press_Color     = 0xE71C;
-  BoxRound2.Corner_Radius   = 6;
-  BoxRound2.OnUpPtr         = 0;
-  BoxRound2.OnDownPtr       = 0;
-  BoxRound2.OnClickPtr      = 0;
-  BoxRound2.OnPressPtr      = 0;
-
-  dhw_temp_main.OwnerScreen     = &HOME;
-  dhw_temp_main.Order           = 74;
-  dhw_temp_main.Left            = 35;
-  dhw_temp_main.Top             = 85;
-  dhw_temp_main.Width           = 97;
-  dhw_temp_main.Height          = 106;
-  dhw_temp_main.Visible         = 1;
-  dhw_temp_main.Active          = 1;
-  dhw_temp_main.Caption         = dhw_temp_main_Caption;
-  dhw_temp_main.FontName        = Arial86x96_Regular;
-  dhw_temp_main.Font_Color      = 0xEBA0;
-  dhw_temp_main.VerticalText    = 0;
-  dhw_temp_main.OnUpPtr         = 0;
-  dhw_temp_main.OnDownPtr       = 0;
-  dhw_temp_main.OnClickPtr      = 0;
-  dhw_temp_main.OnPressPtr      = 0;
-
-  BoxRound3.OwnerScreen     = &HOME;
-  BoxRound3.Order           = 75;
-  BoxRound3.Left            = 338;
-  BoxRound3.Top             = 179;
-  BoxRound3.Width           = 45;
-  BoxRound3.Height          = 29;
-  BoxRound3.Pen_Width       = 1;
-  BoxRound3.Pen_Color       = 0x0294;
-  BoxRound3.Visible         = 1;
-  BoxRound3.Active          = 0;
-  BoxRound3.Transparent     = 1;
-  BoxRound3.Gradient        = 0;
-  BoxRound3.Gradient_Orientation = 0;
-  BoxRound3.Gradient_Start_Color = 0x0339;
-  BoxRound3.Gradient_End_Color = 0x0294;
-  BoxRound3.Color           = 0x0294;
-  BoxRound3.PressColEnabled = 0;
-  BoxRound3.Press_Color     = 0xE71C;
-  BoxRound3.Corner_Radius   = 6;
-  BoxRound3.OnUpPtr         = 0;
-  BoxRound3.OnDownPtr       = 0;
-  BoxRound3.OnClickPtr      = 0;
-  BoxRound3.OnPressPtr      = 0;
-
-  sourse_temp_input_main.OwnerScreen     = &HOME;
-  sourse_temp_input_main.Order           = 76;
-  sourse_temp_input_main.Left            = 345;
-  sourse_temp_input_main.Top             = 177;
-  sourse_temp_input_main.Width           = 33;
-  sourse_temp_input_main.Height          = 36;
-  sourse_temp_input_main.Visible         = 1;
-  sourse_temp_input_main.Active          = 1;
-  sourse_temp_input_main.Caption         = sourse_temp_input_main_Caption;
-  sourse_temp_input_main.FontName        = Arial30x33_Regular;
-  sourse_temp_input_main.Font_Color      = 0xFBA0;
-  sourse_temp_input_main.VerticalText    = 0;
-  sourse_temp_input_main.OnUpPtr         = 0;
-  sourse_temp_input_main.OnDownPtr       = 0;
-  sourse_temp_input_main.OnClickPtr      = 0;
-  sourse_temp_input_main.OnPressPtr      = 0;
-
-  BoxRound4.OwnerScreen     = &HOME;
-  BoxRound4.Order           = 77;
-  BoxRound4.Left            = 410;
-  BoxRound4.Top             = 180;
-  BoxRound4.Width           = 45;
-  BoxRound4.Height          = 26;
-  BoxRound4.Pen_Width       = 1;
-  BoxRound4.Pen_Color       = 0x0294;
-  BoxRound4.Visible         = 1;
-  BoxRound4.Active          = 0;
-  BoxRound4.Transparent     = 1;
-  BoxRound4.Gradient        = 0;
-  BoxRound4.Gradient_Orientation = 0;
-  BoxRound4.Gradient_Start_Color = 0x0339;
-  BoxRound4.Gradient_End_Color = 0x0294;
-  BoxRound4.Color           = 0x0294;
-  BoxRound4.PressColEnabled = 0;
-  BoxRound4.Press_Color     = 0xE71C;
-  BoxRound4.Corner_Radius   = 6;
-  BoxRound4.OnUpPtr         = 0;
-  BoxRound4.OnDownPtr       = 0;
-  BoxRound4.OnClickPtr      = 0;
-  BoxRound4.OnPressPtr      = 0;
-
-  sourse_temp_output_main.OwnerScreen     = &HOME;
-  sourse_temp_output_main.Order           = 78;
-  sourse_temp_output_main.Left            = 414;
-  sourse_temp_output_main.Top             = 177;
-  sourse_temp_output_main.Width           = 33;
-  sourse_temp_output_main.Height          = 36;
-  sourse_temp_output_main.Visible         = 1;
-  sourse_temp_output_main.Active          = 1;
-  sourse_temp_output_main.Caption         = sourse_temp_output_main_Caption;
-  sourse_temp_output_main.FontName        = Arial30x33_Regular;
-  sourse_temp_output_main.Font_Color      = 0x87FF;
-  sourse_temp_output_main.VerticalText    = 0;
-  sourse_temp_output_main.OnUpPtr         = 0;
-  sourse_temp_output_main.OnDownPtr       = 0;
-  sourse_temp_output_main.OnClickPtr      = 0;
-  sourse_temp_output_main.OnPressPtr      = 0;
-
   BoxRound5.OwnerScreen     = &HOME;
-  BoxRound5.Order           = 79;
+  BoxRound5.Order           = 71;
   BoxRound5.Left            = 344;
   BoxRound5.Top             = 85;
   BoxRound5.Width           = 37;
@@ -6574,7 +6451,7 @@ static void InitializeObjects() {
   BoxRound5.OnPressPtr      = 0;
 
   weather_temp_main.OwnerScreen     = &HOME;
-  weather_temp_main.Order           = 80;
+  weather_temp_main.Order           = 72;
   weather_temp_main.Left            = 347;
   weather_temp_main.Top             = 83;
   weather_temp_main.Width           = 33;
@@ -6591,7 +6468,7 @@ static void InitializeObjects() {
   weather_temp_main.OnPressPtr      = 0;
 
   BoxRound6.OwnerScreen     = &HOME;
-  BoxRound6.Order           = 81;
+  BoxRound6.Order           = 73;
   BoxRound6.Left            = 409;
   BoxRound6.Top             = 93;
   BoxRound6.Width           = 31;
@@ -6615,7 +6492,7 @@ static void InitializeObjects() {
   BoxRound6.OnPressPtr      = 0;
 
   humedity_main.OwnerScreen     = &HOME;
-  humedity_main.Order           = 82;
+  humedity_main.Order           = 74;
   humedity_main.Left            = 416;
   humedity_main.Top             = 95;
   humedity_main.Width           = 22;
@@ -6632,7 +6509,7 @@ static void InitializeObjects() {
   humedity_main.OnPressPtr      = 0;
 
   BoxRound7.OwnerScreen     = &HOME;
-  BoxRound7.Order           = 83;
+  BoxRound7.Order           = 75;
   BoxRound7.Left            = 405;
   BoxRound7.Top             = 72;
   BoxRound7.Width           = 39;
@@ -6656,7 +6533,7 @@ static void InitializeObjects() {
   BoxRound7.OnPressPtr      = 0;
 
   prassure_main.OwnerScreen     = &HOME;
-  prassure_main.Order           = 84;
+  prassure_main.Order           = 76;
   prassure_main.Left            = 408;
   prassure_main.Top             = 73;
   prassure_main.Width           = 37;
@@ -6672,10 +6549,310 @@ static void InitializeObjects() {
   prassure_main.OnClickPtr      = 0;
   prassure_main.OnPressPtr      = 0;
 
+  dhw_T.OwnerScreen     = &HOME;
+  dhw_T.Order           = 77;
+  dhw_T.Left            = 33;
+  dhw_T.Top             = 89;
+  dhw_T.Width           = 79;
+  dhw_T.Height          = 91;
+  dhw_T.Pen_Width       = 0;
+  dhw_T.Pen_Color       = 0x0294;
+  dhw_T.Visible         = 1;
+  dhw_T.Active          = 0;
+  dhw_T.Transparent     = 1;
+  dhw_T.Caption         = dhw_T_Caption;
+  dhw_T.TextAlign       = _taCenter;
+  dhw_T.TextAlignVertical= _tavMiddle;
+  dhw_T.FontName        = Tahoma65x81_Regular;
+  dhw_T.PressColEnabled = 0;
+  dhw_T.Font_Color      = 0xEBA0;
+  dhw_T.VerticalText    = 0;
+  dhw_T.Gradient        = 0;
+  dhw_T.Gradient_Orientation = 0;
+  dhw_T.Gradient_Start_Color = 0xFFFF;
+  dhw_T.Gradient_End_Color = 0xC618;
+  dhw_T.Color           = 0x0294;
+  dhw_T.Press_Color     = 0xE71C;
+  dhw_T.Corner_Radius   = 3;
+  dhw_T.OnUpPtr         = 0;
+  dhw_T.OnDownPtr       = 0;
+  dhw_T.OnClickPtr      = 0;
+  dhw_T.OnPressPtr      = 0;
+
+  heat_T.OwnerScreen     = &HOME;
+  heat_T.Order           = 78;
+  heat_T.Left            = 191;
+  heat_T.Top             = 89;
+  heat_T.Width           = 79;
+  heat_T.Height          = 91;
+  heat_T.Pen_Width       = 0;
+  heat_T.Pen_Color       = 0x0294;
+  heat_T.Visible         = 1;
+  heat_T.Active          = 0;
+  heat_T.Transparent     = 1;
+  heat_T.Caption         = heat_T_Caption;
+  heat_T.TextAlign       = _taCenter;
+  heat_T.TextAlignVertical= _tavMiddle;
+  heat_T.FontName        = Tahoma65x81_Regular;
+  heat_T.PressColEnabled = 0;
+  heat_T.Font_Color      = 0xEEC2;
+  heat_T.VerticalText    = 0;
+  heat_T.Gradient        = 0;
+  heat_T.Gradient_Orientation = 0;
+  heat_T.Gradient_Start_Color = 0xFFFF;
+  heat_T.Gradient_End_Color = 0xC618;
+  heat_T.Color           = 0x0294;
+  heat_T.Press_Color     = 0xE71C;
+  heat_T.Corner_Radius   = 3;
+  heat_T.OnUpPtr         = 0;
+  heat_T.OnDownPtr       = 0;
+  heat_T.OnClickPtr      = 0;
+  heat_T.OnPressPtr      = 0;
+
+  sourc_out_TEMP.OwnerScreen     = &HOME;
+  sourc_out_TEMP.Order           = 79;
+  sourc_out_TEMP.Left            = 423;
+  sourc_out_TEMP.Top             = 180;
+  sourc_out_TEMP.Width           = 26;
+  sourc_out_TEMP.Height          = 29;
+  sourc_out_TEMP.Pen_Width       = 0;
+  sourc_out_TEMP.Pen_Color       = 0x0000;
+  sourc_out_TEMP.Visible         = 1;
+  sourc_out_TEMP.Active          = 0;
+  sourc_out_TEMP.Transparent     = 1;
+  sourc_out_TEMP.Caption         = sourc_out_TEMP_Caption;
+  sourc_out_TEMP.TextAlign       = _taLeft;
+  sourc_out_TEMP.TextAlignVertical= _tavMiddle;
+  sourc_out_TEMP.FontName        = Tahoma20x24_Regular;
+  sourc_out_TEMP.PressColEnabled = 0;
+  sourc_out_TEMP.Font_Color      = 0x87FF;
+  sourc_out_TEMP.VerticalText    = 0;
+  sourc_out_TEMP.Gradient        = 0;
+  sourc_out_TEMP.Gradient_Orientation = 0;
+  sourc_out_TEMP.Gradient_Start_Color = 0xFFFF;
+  sourc_out_TEMP.Gradient_End_Color = 0xC618;
+  sourc_out_TEMP.Color           = 0x0294;
+  sourc_out_TEMP.Press_Color     = 0xE71C;
+  sourc_out_TEMP.Corner_Radius   = 3;
+  sourc_out_TEMP.OnUpPtr         = 0;
+  sourc_out_TEMP.OnDownPtr       = 0;
+  sourc_out_TEMP.OnClickPtr      = 0;
+  sourc_out_TEMP.OnPressPtr      = 0;
+
+  sign_OUT.OwnerScreen     = &HOME;
+  sign_OUT.Order           = 80;
+  sign_OUT.Left            = 403;
+  sign_OUT.Top             = 181;
+  sign_OUT.Width           = 17;
+  sign_OUT.Height          = 25;
+  sign_OUT.Pen_Width       = 0;
+  sign_OUT.Pen_Color       = 0x0000;
+  sign_OUT.Visible         = 1;
+  sign_OUT.Active          = 0;
+  sign_OUT.Transparent     = 1;
+  sign_OUT.Caption         = sign_OUT_Caption;
+  sign_OUT.TextAlign       = _taRight;
+  sign_OUT.TextAlignVertical= _tavMiddle;
+  sign_OUT.FontName        = Tahoma16x19_Regular;
+  sign_OUT.PressColEnabled = 0;
+  sign_OUT.Font_Color      = 0x87FF;
+  sign_OUT.VerticalText    = 0;
+  sign_OUT.Gradient        = 0;
+  sign_OUT.Gradient_Orientation = 0;
+  sign_OUT.Gradient_Start_Color = 0xFFFF;
+  sign_OUT.Gradient_End_Color = 0xC618;
+  sign_OUT.Color           = 0x0294;
+  sign_OUT.Press_Color     = 0xE71C;
+  sign_OUT.Corner_Radius   = 3;
+  sign_OUT.OnUpPtr         = 0;
+  sign_OUT.OnDownPtr       = 0;
+  sign_OUT.OnClickPtr      = 0;
+  sign_OUT.OnPressPtr      = 0;
+
+  sourc_in_T.OwnerScreen     = &HOME;
+  sourc_in_T.Order           = 81;
+  sourc_in_T.Left            = 353;
+  sourc_in_T.Top             = 180;
+  sourc_in_T.Width           = 26;
+  sourc_in_T.Height          = 29;
+  sourc_in_T.Pen_Width       = 0;
+  sourc_in_T.Pen_Color       = 0x0000;
+  sourc_in_T.Visible         = 1;
+  sourc_in_T.Active          = 0;
+  sourc_in_T.Transparent     = 1;
+  sourc_in_T.Caption         = sourc_in_T_Caption;
+  sourc_in_T.TextAlign       = _taLeft;
+  sourc_in_T.TextAlignVertical= _tavMiddle;
+  sourc_in_T.FontName        = Tahoma20x24_Regular;
+  sourc_in_T.PressColEnabled = 0;
+  sourc_in_T.Font_Color      = 0xFBA0;
+  sourc_in_T.VerticalText    = 0;
+  sourc_in_T.Gradient        = 0;
+  sourc_in_T.Gradient_Orientation = 0;
+  sourc_in_T.Gradient_Start_Color = 0xFFFF;
+  sourc_in_T.Gradient_End_Color = 0xC618;
+  sourc_in_T.Color           = 0x0294;
+  sourc_in_T.Press_Color     = 0xE71C;
+  sourc_in_T.Corner_Radius   = 3;
+  sourc_in_T.OnUpPtr         = 0;
+  sourc_in_T.OnDownPtr       = 0;
+  sourc_in_T.OnClickPtr      = 0;
+  sourc_in_T.OnPressPtr      = 0;
+
+  sign_IN.OwnerScreen     = &HOME;
+  sign_IN.Order           = 82;
+  sign_IN.Left            = 332;
+  sign_IN.Top             = 181;
+  sign_IN.Width           = 17;
+  sign_IN.Height          = 25;
+  sign_IN.Pen_Width       = 0;
+  sign_IN.Pen_Color       = 0x0000;
+  sign_IN.Visible         = 1;
+  sign_IN.Active          = 0;
+  sign_IN.Transparent     = 1;
+  sign_IN.Caption         = sign_IN_Caption;
+  sign_IN.TextAlign       = _taRight;
+  sign_IN.TextAlignVertical= _tavMiddle;
+  sign_IN.FontName        = Tahoma16x19_Regular;
+  sign_IN.PressColEnabled = 0;
+  sign_IN.Font_Color      = 0xFBA0;
+  sign_IN.VerticalText    = 0;
+  sign_IN.Gradient        = 0;
+  sign_IN.Gradient_Orientation = 0;
+  sign_IN.Gradient_Start_Color = 0xFFFF;
+  sign_IN.Gradient_End_Color = 0xC618;
+  sign_IN.Color           = 0x0294;
+  sign_IN.Press_Color     = 0xE71C;
+  sign_IN.Corner_Radius   = 3;
+  sign_IN.OnUpPtr         = 0;
+  sign_IN.OnDownPtr       = 0;
+  sign_IN.OnClickPtr      = 0;
+  sign_IN.OnPressPtr      = 0;
+
+  dhw_dec.OwnerScreen     = &HOME;
+  dhw_dec.Order           = 83;
+  dhw_dec.Left            = 120;
+  dhw_dec.Top             = 120;
+  dhw_dec.Width           = 27;
+  dhw_dec.Height          = 51;
+  dhw_dec.Pen_Width       = 0;
+  dhw_dec.Pen_Color       = 0x0000;
+  dhw_dec.Visible         = 1;
+  dhw_dec.Active          = 0;
+  dhw_dec.Transparent     = 1;
+  dhw_dec.Caption         = dhw_dec_Caption;
+  dhw_dec.TextAlign       = _taCenter;
+  dhw_dec.TextAlignVertical= _tavMiddle;
+  dhw_dec.FontName        = Tahoma36x45_Regular;
+  dhw_dec.PressColEnabled = 0;
+  dhw_dec.Font_Color      = 0xFBA0;
+  dhw_dec.VerticalText    = 0;
+  dhw_dec.Gradient        = 0;
+  dhw_dec.Gradient_Orientation = 0;
+  dhw_dec.Gradient_Start_Color = 0xFFFF;
+  dhw_dec.Gradient_End_Color = 0xC618;
+  dhw_dec.Color           = 0x0294;
+  dhw_dec.Press_Color     = 0xE71C;
+  dhw_dec.Corner_Radius   = 3;
+  dhw_dec.OnUpPtr         = 0;
+  dhw_dec.OnDownPtr       = 0;
+  dhw_dec.OnClickPtr      = 0;
+  dhw_dec.OnPressPtr      = 0;
+
+  heat_dec.OwnerScreen     = &HOME;
+  heat_dec.Order           = 84;
+  heat_dec.Left            = 280;
+  heat_dec.Top             = 120;
+  heat_dec.Width           = 26;
+  heat_dec.Height          = 51;
+  heat_dec.Pen_Width       = 0;
+  heat_dec.Pen_Color       = 0x0000;
+  heat_dec.Visible         = 1;
+  heat_dec.Active          = 0;
+  heat_dec.Transparent     = 1;
+  heat_dec.Caption         = heat_dec_Caption;
+  heat_dec.TextAlign       = _taCenter;
+  heat_dec.TextAlignVertical= _tavMiddle;
+  heat_dec.FontName        = Tahoma36x45_Regular;
+  heat_dec.PressColEnabled = 0;
+  heat_dec.Font_Color      = 0xEEC2;
+  heat_dec.VerticalText    = 0;
+  heat_dec.Gradient        = 0;
+  heat_dec.Gradient_Orientation = 0;
+  heat_dec.Gradient_Start_Color = 0xFFFF;
+  heat_dec.Gradient_End_Color = 0xC618;
+  heat_dec.Color           = 0x0294;
+  heat_dec.Press_Color     = 0xE71C;
+  heat_dec.Corner_Radius   = 3;
+  heat_dec.OnUpPtr         = 0;
+  heat_dec.OnDownPtr       = 0;
+  heat_dec.OnClickPtr      = 0;
+  heat_dec.OnPressPtr      = 0;
+
+  sourc_in_dec.OwnerScreen     = &HOME;
+  sourc_in_dec.Order           = 85;
+  sourc_in_dec.Left            = 382;
+  sourc_in_dec.Top             = 185;
+  sourc_in_dec.Width           = 15;
+  sourc_in_dec.Height          = 23;
+  sourc_in_dec.Pen_Width       = 0;
+  sourc_in_dec.Pen_Color       = 0x0000;
+  sourc_in_dec.Visible         = 1;
+  sourc_in_dec.Active          = 0;
+  sourc_in_dec.Transparent     = 1;
+  sourc_in_dec.Caption         = sourc_in_dec_Caption;
+  sourc_in_dec.TextAlign       = _taLeft;
+  sourc_in_dec.TextAlignVertical= _tavMiddle;
+  sourc_in_dec.FontName        = Tahoma16x19_Regular;
+  sourc_in_dec.PressColEnabled = 0;
+  sourc_in_dec.Font_Color      = 0xFBA0;
+  sourc_in_dec.VerticalText    = 0;
+  sourc_in_dec.Gradient        = 0;
+  sourc_in_dec.Gradient_Orientation = 0;
+  sourc_in_dec.Gradient_Start_Color = 0xFFFF;
+  sourc_in_dec.Gradient_End_Color = 0xC618;
+  sourc_in_dec.Color           = 0x0294;
+  sourc_in_dec.Press_Color     = 0xE71C;
+  sourc_in_dec.Corner_Radius   = 3;
+  sourc_in_dec.OnUpPtr         = 0;
+  sourc_in_dec.OnDownPtr       = 0;
+  sourc_in_dec.OnClickPtr      = 0;
+  sourc_in_dec.OnPressPtr      = 0;
+
+  source_out_dec.OwnerScreen     = &HOME;
+  source_out_dec.Order           = 86;
+  source_out_dec.Left            = 451;
+  source_out_dec.Top             = 185;
+  source_out_dec.Width           = 13;
+  source_out_dec.Height          = 23;
+  source_out_dec.Pen_Width       = 0;
+  source_out_dec.Pen_Color       = 0x0000;
+  source_out_dec.Visible         = 1;
+  source_out_dec.Active          = 0;
+  source_out_dec.Transparent     = 1;
+  source_out_dec.Caption         = source_out_dec_Caption;
+  source_out_dec.TextAlign       = _taLeft;
+  source_out_dec.TextAlignVertical= _tavMiddle;
+  source_out_dec.FontName        = Tahoma16x19_Regular;
+  source_out_dec.PressColEnabled = 0;
+  source_out_dec.Font_Color      = 0x87FF;
+  source_out_dec.VerticalText    = 0;
+  source_out_dec.Gradient        = 0;
+  source_out_dec.Gradient_Orientation = 0;
+  source_out_dec.Gradient_Start_Color = 0xFFFF;
+  source_out_dec.Gradient_End_Color = 0xC618;
+  source_out_dec.Color           = 0x0294;
+  source_out_dec.Press_Color     = 0xE71C;
+  source_out_dec.Corner_Radius   = 3;
+  source_out_dec.OnUpPtr         = 0;
+  source_out_dec.OnDownPtr       = 0;
+  source_out_dec.OnClickPtr      = 0;
+  source_out_dec.OnPressPtr      = 0;
+
   Messages_Box.OwnerScreen     = &HOME;
-  Messages_Box.Order           = 85;
-  Messages_Box.Left            = 177;
-  Messages_Box.Top             = 2;
+  Messages_Box.Order           = 87;
+  Messages_Box.Left            = 175;
+  Messages_Box.Top             = 1;
   Messages_Box.Width           = 128;
   Messages_Box.Height          = 25;
   Messages_Box.Pen_Width       = 1;
@@ -6696,22 +6873,22 @@ static void InitializeObjects() {
   Messages_Box.OnClickPtr      = 0;
   Messages_Box.OnPressPtr      = 0;
 
-  Messages_Label.OwnerScreen     = &HOME;
-  Messages_Label.Order           = 86;
-  Messages_Label.Left            = 184;
-  Messages_Label.Top             = 4;
-  Messages_Label.Width           = 115;
-  Messages_Label.Height          = 25;
-  Messages_Label.Visible         = 1;
-  Messages_Label.Active          = 1;
-  Messages_Label.Caption         = Messages_Label_Caption;
-  Messages_Label.FontName        = Tahoma19x23_Regular;
-  Messages_Label.Font_Color      = 0x07E0;
-  Messages_Label.VerticalText    = 0;
-  Messages_Label.OnUpPtr         = 0;
-  Messages_Label.OnDownPtr       = 0;
-  Messages_Label.OnClickPtr      = 0;
-  Messages_Label.OnPressPtr      = 0;
+  DateTime.OwnerScreen     = &HOME;
+  DateTime.Order           = 88;
+  DateTime.Left            = 200;
+  DateTime.Top             = 4;
+  DateTime.Width           = 80;
+  DateTime.Height          = 20;
+  DateTime.Visible         = 1;
+  DateTime.Active          = 0;
+  DateTime.Caption         = DateTime_Caption;
+  DateTime.FontName        = Arial_Narrow13x20_Bold;
+  DateTime.Font_Color      = 0x07C0;
+  DateTime.VerticalText    = 0;
+  DateTime.OnUpPtr         = 0;
+  DateTime.OnDownPtr       = 0;
+  DateTime.OnClickPtr      = 0;
+  DateTime.OnPressPtr      = 0;
 
   Image30.OwnerScreen     = &USER_MENU;
   Image30.Order           = 0;
@@ -6909,12 +7086,12 @@ static void InitializeObjects() {
   User_menu_label.Order           = 12;
   User_menu_label.Left            = 199;
   User_menu_label.Top             = 5;
-  User_menu_label.Width           = 101;
+  User_menu_label.Width           = 81;
   User_menu_label.Height          = 20;
   User_menu_label.Visible         = 1;
   User_menu_label.Active          = 0;
   User_menu_label.Caption         = User_menu_label_Caption;
-  User_menu_label.FontName        = Arial_Narrow16x19_Bold;
+  User_menu_label.FontName        = Arial_Narrow13x20_Bold;
   User_menu_label.Font_Color      = 0xE7FC;
   User_menu_label.VerticalText    = 0;
   User_menu_label.OnUpPtr         = 0;
@@ -6926,12 +7103,12 @@ static void InitializeObjects() {
   User_time_label.Order           = 13;
   User_time_label.Left            = 29;
   User_time_label.Top             = 105;
-  User_time_label.Width           = 31;
+  User_time_label.Width           = 26;
   User_time_label.Height          = 16;
   User_time_label.Visible         = 1;
   User_time_label.Active          = 0;
   User_time_label.Caption         = User_time_label_Caption;
-  User_time_label.FontName        = Arial_Narrow13x16_Bold;
+  User_time_label.FontName        = Arial_Narrow11x16_Bold;
   User_time_label.Font_Color      = 0xFFFF;
   User_time_label.VerticalText    = 0;
   User_time_label.OnUpPtr         = 0;
@@ -6943,12 +7120,12 @@ static void InitializeObjects() {
   User_c_label.Order           = 14;
   User_c_label.Left            = 118;
   User_c_label.Top             = 105;
-  User_c_label.Width           = 10;
+  User_c_label.Width           = 8;
   User_c_label.Height          = 16;
   User_c_label.Visible         = 1;
   User_c_label.Active          = 0;
   User_c_label.Caption         = User_c_label_Caption;
-  User_c_label.FontName        = Arial_Narrow13x16_Bold;
+  User_c_label.FontName        = Arial_Narrow11x16_Bold;
   User_c_label.Font_Color      = 0xFFFF;
   User_c_label.VerticalText    = 0;
   User_c_label.OnUpPtr         = 0;
@@ -6960,12 +7137,12 @@ static void InitializeObjects() {
   User_lan_label.Order           = 15;
   User_lan_label.Left            = 173;
   User_lan_label.Top             = 105;
-  User_lan_label.Width           = 53;
+  User_lan_label.Width           = 45;
   User_lan_label.Height          = 16;
   User_lan_label.Visible         = 1;
   User_lan_label.Active          = 0;
   User_lan_label.Caption         = User_lan_label_Caption;
-  User_lan_label.FontName        = Arial_Narrow13x16_Bold;
+  User_lan_label.FontName        = Arial_Narrow11x16_Bold;
   User_lan_label.Font_Color      = 0xFFFF;
   User_lan_label.VerticalText    = 0;
   User_lan_label.OnUpPtr         = 0;
@@ -6977,12 +7154,12 @@ static void InitializeObjects() {
   User_errors_label.Order           = 16;
   User_errors_label.Left            = 259;
   User_errors_label.Top             = 105;
-  User_errors_label.Width           = 38;
+  User_errors_label.Width           = 33;
   User_errors_label.Height          = 16;
   User_errors_label.Visible         = 1;
   User_errors_label.Active          = 0;
   User_errors_label.Caption         = User_errors_label_Caption;
-  User_errors_label.FontName        = Arial_Narrow13x16_Bold;
+  User_errors_label.FontName        = Arial_Narrow11x16_Bold;
   User_errors_label.Font_Color      = 0xFFFF;
   User_errors_label.VerticalText    = 0;
   User_errors_label.OnUpPtr         = 0;
@@ -6994,12 +7171,12 @@ static void InitializeObjects() {
   User_timers_label.Order           = 17;
   User_timers_label.Left            = 335;
   User_timers_label.Top             = 105;
-  User_timers_label.Width           = 43;
+  User_timers_label.Width           = 36;
   User_timers_label.Height          = 16;
   User_timers_label.Visible         = 1;
   User_timers_label.Active          = 0;
   User_timers_label.Caption         = User_timers_label_Caption;
-  User_timers_label.FontName        = Arial_Narrow13x16_Bold;
+  User_timers_label.FontName        = Arial_Narrow11x16_Bold;
   User_timers_label.Font_Color      = 0xFFFF;
   User_timers_label.VerticalText    = 0;
   User_timers_label.OnUpPtr         = 0;
@@ -7011,12 +7188,12 @@ static void InitializeObjects() {
   User_events_label.Order           = 18;
   User_events_label.Left            = 22;
   User_events_label.Top             = 203;
-  User_events_label.Width           = 43;
+  User_events_label.Width           = 36;
   User_events_label.Height          = 16;
   User_events_label.Visible         = 1;
   User_events_label.Active          = 0;
   User_events_label.Caption         = User_events_label_Caption;
-  User_events_label.FontName        = Arial_Narrow13x16_Bold;
+  User_events_label.FontName        = Arial_Narrow11x16_Bold;
   User_events_label.Font_Color      = 0xFFFF;
   User_events_label.VerticalText    = 0;
   User_events_label.OnUpPtr         = 0;
@@ -7028,12 +7205,12 @@ static void InitializeObjects() {
   User_energy_label.Order           = 19;
   User_energy_label.Left            = 178;
   User_energy_label.Top             = 203;
-  User_energy_label.Width           = 44;
+  User_energy_label.Width           = 37;
   User_energy_label.Height          = 16;
   User_energy_label.Visible         = 1;
   User_energy_label.Active          = 0;
   User_energy_label.Caption         = User_energy_label_Caption;
-  User_energy_label.FontName        = Arial_Narrow13x16_Bold;
+  User_energy_label.FontName        = Arial_Narrow11x16_Bold;
   User_energy_label.Font_Color      = 0xFFFF;
   User_energy_label.VerticalText    = 0;
   User_energy_label.OnUpPtr         = 0;
@@ -7045,12 +7222,12 @@ static void InitializeObjects() {
   User_furnance_label.Order           = 20;
   User_furnance_label.Left            = 92;
   User_furnance_label.Top             = 203;
-  User_furnance_label.Width           = 59;
+  User_furnance_label.Width           = 49;
   User_furnance_label.Height          = 16;
   User_furnance_label.Visible         = 1;
   User_furnance_label.Active          = 0;
   User_furnance_label.Caption         = User_furnance_label_Caption;
-  User_furnance_label.FontName        = Arial_Narrow13x16_Bold;
+  User_furnance_label.FontName        = Arial_Narrow11x16_Bold;
   User_furnance_label.Font_Color      = 0xFFFF;
   User_furnance_label.VerticalText    = 0;
   User_furnance_label.OnUpPtr         = 0;
@@ -7062,12 +7239,12 @@ static void InitializeObjects() {
   User_defrost_label.Order           = 21;
   User_defrost_label.Left            = 412;
   User_defrost_label.Top             = 203;
-  User_defrost_label.Width           = 45;
+  User_defrost_label.Width           = 38;
   User_defrost_label.Height          = 16;
   User_defrost_label.Visible         = 1;
   User_defrost_label.Active          = 0;
   User_defrost_label.Caption         = User_defrost_label_Caption;
-  User_defrost_label.FontName        = Arial_Narrow13x16_Bold;
+  User_defrost_label.FontName        = Arial_Narrow11x16_Bold;
   User_defrost_label.Font_Color      = 0xFFFF;
   User_defrost_label.VerticalText    = 0;
   User_defrost_label.OnUpPtr         = 0;
@@ -7079,12 +7256,12 @@ static void InitializeObjects() {
   Label77.Order           = 22;
   Label77.Left            = 109;
   Label77.Top             = 106;
-  Label77.Width           = 6;
+  Label77.Width           = 5;
   Label77.Height          = 16;
   Label77.Visible         = 1;
   Label77.Active          = 0;
   Label77.Caption         = Label77_Caption;
-  Label77.FontName        = Arial_Narrow13x16_Bold;
+  Label77.FontName        = Arial_Narrow11x16_Bold;
   Label77.Font_Color      = 0xFFFF;
   Label77.VerticalText    = 0;
   Label77.OnUpPtr         = 0;
@@ -7102,7 +7279,7 @@ static void InitializeObjects() {
   user_set_time.Picture_Ratio   = 1;
   user_set_time.Picture_Name    = user_set_on_1_jpg;
   user_set_time.Visible         = 1;
-  user_set_time.Active          = 0;
+  user_set_time.Active          = 1;
   user_set_time.OnUpPtr         = user_set_timeOnUp;
   user_set_time.OnDownPtr       = 0;
   user_set_time.OnClickPtr      = 0;
@@ -7262,7 +7439,7 @@ static void InitializeObjects() {
   user_defrost.Picture_Ratio   = 1;
   user_defrost.Picture_Name    = user_set_on_defrost_jpg;
   user_defrost.Visible         = 1;
-  user_defrost.Active          = 0;
+  user_defrost.Active          = 1;
   user_defrost.OnUpPtr         = user_defrostOnUp;
   user_defrost.OnDownPtr       = 0;
   user_defrost.OnClickPtr      = 0;
@@ -7282,7 +7459,7 @@ static void InitializeObjects() {
   Home_b1.Caption         = Home_b1_Caption;
   Home_b1.TextAlign       = _taCenter;
   Home_b1.TextAlignVertical= _tavMiddle;
-  Home_b1.FontName        = Arial_Narrow16x19_Bold;
+  Home_b1.FontName        = Arial_Narrow13x20_Bold;
   Home_b1.PressColEnabled = 1;
   Home_b1.Font_Color      = 0xD6BA;
   Home_b1.VerticalText    = 0;
@@ -7334,12 +7511,12 @@ static void InitializeObjects() {
   User_operational_label.Order           = 37;
   User_operational_label.Left            = 252;
   User_operational_label.Top             = 203;
-  User_operational_label.Width           = 52;
+  User_operational_label.Width           = 44;
   User_operational_label.Height          = 16;
   User_operational_label.Visible         = 1;
   User_operational_label.Active          = 0;
   User_operational_label.Caption         = User_operational_label_Caption;
-  User_operational_label.FontName        = Arial_Narrow13x16_Bold;
+  User_operational_label.FontName        = Arial_Narrow11x16_Bold;
   User_operational_label.Font_Color      = 0xFFFF;
   User_operational_label.VerticalText    = 0;
   User_operational_label.OnUpPtr         = 0;
@@ -7351,12 +7528,12 @@ static void InitializeObjects() {
   User_hysterezis_label.Order           = 38;
   User_hysterezis_label.Left            = 409;
   User_hysterezis_label.Top             = 105;
-  User_hysterezis_label.Width           = 51;
+  User_hysterezis_label.Width           = 43;
   User_hysterezis_label.Height          = 16;
   User_hysterezis_label.Visible         = 1;
   User_hysterezis_label.Active          = 0;
   User_hysterezis_label.Caption         = User_hysterezis_label_Caption;
-  User_hysterezis_label.FontName        = Arial_Narrow13x16_Bold;
+  User_hysterezis_label.FontName        = Arial_Narrow11x16_Bold;
   User_hysterezis_label.Font_Color      = 0xFFFF;
   User_hysterezis_label.VerticalText    = 0;
   User_hysterezis_label.OnUpPtr         = 0;
@@ -7368,12 +7545,12 @@ static void InitializeObjects() {
   User_system_label.Order           = 39;
   User_system_label.Left            = 334;
   User_system_label.Top             = 203;
-  User_system_label.Width           = 46;
+  User_system_label.Width           = 39;
   User_system_label.Height          = 16;
   User_system_label.Visible         = 1;
   User_system_label.Active          = 0;
   User_system_label.Caption         = User_system_label_Caption;
-  User_system_label.FontName        = Arial_Narrow13x16_Bold;
+  User_system_label.FontName        = Arial_Narrow11x16_Bold;
   User_system_label.Font_Color      = 0xFFFF;
   User_system_label.VerticalText    = 0;
   User_system_label.OnUpPtr         = 0;
@@ -7427,7 +7604,7 @@ static void InitializeObjects() {
   DEC_EEV1.Caption         = DEC_EEV1_Caption;
   DEC_EEV1.TextAlign       = _taCenter;
   DEC_EEV1.TextAlignVertical= _tavMiddle;
-  DEC_EEV1.FontName        = Arial_Narrow16x19_Bold;
+  DEC_EEV1.FontName        = Arial_Narrow13x20_Bold;
   DEC_EEV1.PressColEnabled = 1;
   DEC_EEV1.Font_Color      = 0xFFFF;
   DEC_EEV1.VerticalText    = 0;
@@ -7457,7 +7634,7 @@ static void InitializeObjects() {
   INC_EEV1.Caption         = INC_EEV1_Caption;
   INC_EEV1.TextAlign       = _taCenter;
   INC_EEV1.TextAlignVertical= _tavMiddle;
-  INC_EEV1.FontName        = Arial_Narrow16x19_Bold;
+  INC_EEV1.FontName        = Arial_Narrow13x20_Bold;
   INC_EEV1.PressColEnabled = 1;
   INC_EEV1.Font_Color      = 0xFFFF;
   INC_EEV1.VerticalText    = 0;
@@ -7484,7 +7661,7 @@ static void InitializeObjects() {
   Red_bar.Visible         = 1;
   Red_bar.Transparent     = 1;
   Red_bar.Caption         = Red_bar_Caption;
-  Red_bar.FontName        = Arial_Narrow16x19_Bold;
+  Red_bar.FontName        = Arial_Narrow13x20_Bold;
   Red_bar.Font_Color      = 0x0000;
   Red_bar.Gradient        = 1;
   Red_bar.Gradient_Orientation = 0;
@@ -7493,9 +7670,9 @@ static void InitializeObjects() {
   Red_bar.Color           = 0xA65E;
   Red_bar.Background_Color = 0x8410;
   Red_bar.Min             = 0;
-  Red_bar.Max             = 480;
-  Red_bar.Position        = 240;
-  Red_bar.Prev_Position   = 240;
+  Red_bar.Max             = 240;
+  Red_bar.Position        = 120;
+  Red_bar.Prev_Position   = 120;
   Red_bar.Show_Position   = 1;
   Red_bar.Show_Percentage = 0;
   Red_bar.Smooth          = 0;
@@ -7506,12 +7683,12 @@ static void InitializeObjects() {
   EEV1_set_step_label.Order           = 5;
   EEV1_set_step_label.Left            = 210;
   EEV1_set_step_label.Top             = 113;
-  EEV1_set_step_label.Width           = 74;
+  EEV1_set_step_label.Width           = 60;
   EEV1_set_step_label.Height          = 20;
   EEV1_set_step_label.Visible         = 1;
   EEV1_set_step_label.Active          = 0;
   EEV1_set_step_label.Caption         = EEV1_set_step_label_Caption;
-  EEV1_set_step_label.FontName        = Arial_Narrow16x19_Bold;
+  EEV1_set_step_label.FontName        = Arial_Narrow13x20_Bold;
   EEV1_set_step_label.Font_Color      = 0xFFFF;
   EEV1_set_step_label.VerticalText    = 0;
   EEV1_set_step_label.OnUpPtr         = 0;
@@ -7523,12 +7700,12 @@ static void InitializeObjects() {
   EEV1_label.Order           = 6;
   EEV1_label.Left            = 195;
   EEV1_label.Top             = 5;
-  EEV1_label.Width           = 112;
+  EEV1_label.Width           = 89;
   EEV1_label.Height          = 20;
   EEV1_label.Visible         = 1;
   EEV1_label.Active          = 0;
   EEV1_label.Caption         = EEV1_label_Caption;
-  EEV1_label.FontName        = Arial_Narrow16x19_Bold;
+  EEV1_label.FontName        = Arial_Narrow13x20_Bold;
   EEV1_label.Font_Color      = 0xE7FC;
   EEV1_label.VerticalText    = 0;
   EEV1_label.OnUpPtr         = 0;
@@ -7550,7 +7727,7 @@ static void InitializeObjects() {
   Home_b2.Caption         = Home_b2_Caption;
   Home_b2.TextAlign       = _taCenter;
   Home_b2.TextAlignVertical= _tavMiddle;
-  Home_b2.FontName        = Arial_Narrow16x19_Bold;
+  Home_b2.FontName        = Arial_Narrow13x20_Bold;
   Home_b2.PressColEnabled = 1;
   Home_b2.Font_Color      = 0xD6BA;
   Home_b2.VerticalText    = 0;
@@ -7580,7 +7757,7 @@ static void InitializeObjects() {
   Back_b2.Caption         = Back_b2_Caption;
   Back_b2.TextAlign       = _taCenter;
   Back_b2.TextAlignVertical= _tavMiddle;
-  Back_b2.FontName        = Arial_Narrow16x19_Bold;
+  Back_b2.FontName        = Arial_Narrow13x20_Bold;
   Back_b2.PressColEnabled = 1;
   Back_b2.Font_Color      = 0xD6BA;
   Back_b2.VerticalText    = 0;
@@ -7605,12 +7782,12 @@ static void InitializeObjects() {
   Next_b1.Pen_Width       = 1;
   Next_b1.Pen_Color       = 0xC618;
   Next_b1.Visible         = 1;
-  Next_b1.Active          = 0;
+  Next_b1.Active          = 1;
   Next_b1.Transparent     = 1;
   Next_b1.Caption         = Next_b1_Caption;
   Next_b1.TextAlign       = _taCenter;
   Next_b1.TextAlignVertical= _tavMiddle;
-  Next_b1.FontName        = Arial_Narrow16x19_Bold;
+  Next_b1.FontName        = Arial_Narrow13x20_Bold;
   Next_b1.PressColEnabled = 1;
   Next_b1.Font_Color      = 0xD6BA;
   Next_b1.VerticalText    = 0;
@@ -7640,7 +7817,7 @@ static void InitializeObjects() {
   EEV1_superheat.Caption         = EEV1_superheat_Caption;
   EEV1_superheat.TextAlign       = _taCenter;
   EEV1_superheat.TextAlignVertical= _tavMiddle;
-  EEV1_superheat.FontName        = Arial_Narrow16x19_Bold;
+  EEV1_superheat.FontName        = Arial_Narrow13x20_Bold;
   EEV1_superheat.PressColEnabled = 1;
   EEV1_superheat.Font_Color      = 0xF800;
   EEV1_superheat.VerticalText    = 0;
@@ -7670,7 +7847,7 @@ static void InitializeObjects() {
   EEV1_value.Caption         = EEV1_value_Caption;
   EEV1_value.TextAlign       = _taCenter;
   EEV1_value.TextAlignVertical= _tavMiddle;
-  EEV1_value.FontName        = Arial_Narrow16x19_Bold;
+  EEV1_value.FontName        = Arial_Narrow13x20_Bold;
   EEV1_value.PressColEnabled = 1;
   EEV1_value.Font_Color      = 0xF800;
   EEV1_value.VerticalText    = 0;
@@ -7693,13 +7870,13 @@ static void InitializeObjects() {
   CircleButton9.Radius          = 12;
   CircleButton9.Pen_Width       = 1;
   CircleButton9.Pen_Color       = 0x0000;
-  CircleButton9.Visible         = 0;
-  CircleButton9.Active          = 0;
+  CircleButton9.Visible         = 1;
+  CircleButton9.Active          = 1;
   CircleButton9.Transparent     = 1;
   CircleButton9.Caption         = CircleButton9_Caption;
   CircleButton9.TextAlign       = _taCenter;
   CircleButton9.TextAlignVertical= _tavMiddle;
-  CircleButton9.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton9.FontName        = Arial_Narrow13x20_Bold;
   CircleButton9.PressColEnabled = 1;
   CircleButton9.Font_Color      = 0x0000;
   CircleButton9.VerticalText    = 0;
@@ -7774,7 +7951,7 @@ static void InitializeObjects() {
   _1.Caption         = _1_Caption;
   _1.TextAlign       = _taCenter;
   _1.TextAlignVertical= _tavMiddle;
-  _1.FontName        = Arial_Narrow16x19_Bold;
+  _1.FontName        = Arial_Narrow13x20_Bold;
   _1.PressColEnabled = 1;
   _1.Font_Color      = 0xFFFF;
   _1.VerticalText    = 0;
@@ -7804,7 +7981,7 @@ static void InitializeObjects() {
   _2.Caption         = _2_Caption;
   _2.TextAlign       = _taCenter;
   _2.TextAlignVertical= _tavMiddle;
-  _2.FontName        = Arial_Narrow16x19_Bold;
+  _2.FontName        = Arial_Narrow13x20_Bold;
   _2.PressColEnabled = 1;
   _2.Font_Color      = 0xFFFF;
   _2.VerticalText    = 0;
@@ -7834,7 +8011,7 @@ static void InitializeObjects() {
   _3.Caption         = _3_Caption;
   _3.TextAlign       = _taCenter;
   _3.TextAlignVertical= _tavMiddle;
-  _3.FontName        = Arial_Narrow16x19_Bold;
+  _3.FontName        = Arial_Narrow13x20_Bold;
   _3.PressColEnabled = 1;
   _3.Font_Color      = 0xFFFF;
   _3.VerticalText    = 0;
@@ -7864,7 +8041,7 @@ static void InitializeObjects() {
   _4.Caption         = _4_Caption;
   _4.TextAlign       = _taCenter;
   _4.TextAlignVertical= _tavMiddle;
-  _4.FontName        = Arial_Narrow16x19_Bold;
+  _4.FontName        = Arial_Narrow13x20_Bold;
   _4.PressColEnabled = 1;
   _4.Font_Color      = 0xFFFF;
   _4.VerticalText    = 0;
@@ -7894,7 +8071,7 @@ static void InitializeObjects() {
   _5.Caption         = _5_Caption;
   _5.TextAlign       = _taCenter;
   _5.TextAlignVertical= _tavMiddle;
-  _5.FontName        = Arial_Narrow16x19_Bold;
+  _5.FontName        = Arial_Narrow13x20_Bold;
   _5.PressColEnabled = 1;
   _5.Font_Color      = 0xFFFF;
   _5.VerticalText    = 0;
@@ -7924,7 +8101,7 @@ static void InitializeObjects() {
   _6.Caption         = _6_Caption;
   _6.TextAlign       = _taCenter;
   _6.TextAlignVertical= _tavMiddle;
-  _6.FontName        = Arial_Narrow16x19_Bold;
+  _6.FontName        = Arial_Narrow13x20_Bold;
   _6.PressColEnabled = 1;
   _6.Font_Color      = 0xFFFF;
   _6.VerticalText    = 0;
@@ -7954,7 +8131,7 @@ static void InitializeObjects() {
   _7.Caption         = _7_Caption;
   _7.TextAlign       = _taCenter;
   _7.TextAlignVertical= _tavMiddle;
-  _7.FontName        = Arial_Narrow16x19_Bold;
+  _7.FontName        = Arial_Narrow13x20_Bold;
   _7.PressColEnabled = 1;
   _7.Font_Color      = 0xFFFF;
   _7.VerticalText    = 0;
@@ -7984,7 +8161,7 @@ static void InitializeObjects() {
   _8.Caption         = _8_Caption;
   _8.TextAlign       = _taCenter;
   _8.TextAlignVertical= _tavMiddle;
-  _8.FontName        = Arial_Narrow16x19_Bold;
+  _8.FontName        = Arial_Narrow13x20_Bold;
   _8.PressColEnabled = 1;
   _8.Font_Color      = 0xFFFF;
   _8.VerticalText    = 0;
@@ -8014,7 +8191,7 @@ static void InitializeObjects() {
   _9.Caption         = _9_Caption;
   _9.TextAlign       = _taCenter;
   _9.TextAlignVertical= _tavMiddle;
-  _9.FontName        = Arial_Narrow16x19_Bold;
+  _9.FontName        = Arial_Narrow13x20_Bold;
   _9.PressColEnabled = 1;
   _9.Font_Color      = 0xFFFF;
   _9.VerticalText    = 0;
@@ -8044,7 +8221,7 @@ static void InitializeObjects() {
   _0.Caption         = _0_Caption;
   _0.TextAlign       = _taCenter;
   _0.TextAlignVertical= _tavMiddle;
-  _0.FontName        = Arial_Narrow16x19_Bold;
+  _0.FontName        = Arial_Narrow13x20_Bold;
   _0.PressColEnabled = 1;
   _0.Font_Color      = 0xFFFF;
   _0.VerticalText    = 0;
@@ -8074,7 +8251,7 @@ static void InitializeObjects() {
   _Q.Caption         = _Q_Caption;
   _Q.TextAlign       = _taCenter;
   _Q.TextAlignVertical= _tavMiddle;
-  _Q.FontName        = Arial_Narrow16x19_Bold;
+  _Q.FontName        = Arial_Narrow13x20_Bold;
   _Q.PressColEnabled = 1;
   _Q.Font_Color      = 0xFFFF;
   _Q.VerticalText    = 0;
@@ -8104,7 +8281,7 @@ static void InitializeObjects() {
   _W.Caption         = _W_Caption;
   _W.TextAlign       = _taCenter;
   _W.TextAlignVertical= _tavMiddle;
-  _W.FontName        = Arial_Narrow16x19_Bold;
+  _W.FontName        = Arial_Narrow13x20_Bold;
   _W.PressColEnabled = 1;
   _W.Font_Color      = 0xFFFF;
   _W.VerticalText    = 0;
@@ -8134,7 +8311,7 @@ static void InitializeObjects() {
   _E.Caption         = _E_Caption;
   _E.TextAlign       = _taCenter;
   _E.TextAlignVertical= _tavMiddle;
-  _E.FontName        = Arial_Narrow16x19_Bold;
+  _E.FontName        = Arial_Narrow13x20_Bold;
   _E.PressColEnabled = 1;
   _E.Font_Color      = 0xFFFF;
   _E.VerticalText    = 0;
@@ -8164,7 +8341,7 @@ static void InitializeObjects() {
   _R.Caption         = _R_Caption;
   _R.TextAlign       = _taCenter;
   _R.TextAlignVertical= _tavMiddle;
-  _R.FontName        = Arial_Narrow16x19_Bold;
+  _R.FontName        = Arial_Narrow13x20_Bold;
   _R.PressColEnabled = 1;
   _R.Font_Color      = 0xFFFF;
   _R.VerticalText    = 0;
@@ -8194,7 +8371,7 @@ static void InitializeObjects() {
   _T.Caption         = _T_Caption;
   _T.TextAlign       = _taCenter;
   _T.TextAlignVertical= _tavMiddle;
-  _T.FontName        = Arial_Narrow16x19_Bold;
+  _T.FontName        = Arial_Narrow13x20_Bold;
   _T.PressColEnabled = 1;
   _T.Font_Color      = 0xFFFF;
   _T.VerticalText    = 0;
@@ -8224,7 +8401,7 @@ static void InitializeObjects() {
   _Y.Caption         = _Y_Caption;
   _Y.TextAlign       = _taCenter;
   _Y.TextAlignVertical= _tavMiddle;
-  _Y.FontName        = Arial_Narrow16x19_Bold;
+  _Y.FontName        = Arial_Narrow13x20_Bold;
   _Y.PressColEnabled = 1;
   _Y.Font_Color      = 0xFFFF;
   _Y.VerticalText    = 0;
@@ -8254,7 +8431,7 @@ static void InitializeObjects() {
   _U.Caption         = _U_Caption;
   _U.TextAlign       = _taCenter;
   _U.TextAlignVertical= _tavMiddle;
-  _U.FontName        = Arial_Narrow16x19_Bold;
+  _U.FontName        = Arial_Narrow13x20_Bold;
   _U.PressColEnabled = 1;
   _U.Font_Color      = 0xFFFF;
   _U.VerticalText    = 0;
@@ -8284,7 +8461,7 @@ static void InitializeObjects() {
   _I.Caption         = _I_Caption;
   _I.TextAlign       = _taCenter;
   _I.TextAlignVertical= _tavMiddle;
-  _I.FontName        = Arial_Narrow16x19_Bold;
+  _I.FontName        = Arial_Narrow13x20_Bold;
   _I.PressColEnabled = 1;
   _I.Font_Color      = 0xFFFF;
   _I.VerticalText    = 0;
@@ -8314,7 +8491,7 @@ static void InitializeObjects() {
   _O.Caption         = _O_Caption;
   _O.TextAlign       = _taCenter;
   _O.TextAlignVertical= _tavMiddle;
-  _O.FontName        = Arial_Narrow16x19_Bold;
+  _O.FontName        = Arial_Narrow13x20_Bold;
   _O.PressColEnabled = 1;
   _O.Font_Color      = 0xFFFF;
   _O.VerticalText    = 0;
@@ -8344,7 +8521,7 @@ static void InitializeObjects() {
   _P.Caption         = _P_Caption;
   _P.TextAlign       = _taCenter;
   _P.TextAlignVertical= _tavMiddle;
-  _P.FontName        = Arial_Narrow16x19_Bold;
+  _P.FontName        = Arial_Narrow13x20_Bold;
   _P.PressColEnabled = 1;
   _P.Font_Color      = 0xFFFF;
   _P.VerticalText    = 0;
@@ -8374,7 +8551,7 @@ static void InitializeObjects() {
   _A.Caption         = _A_Caption;
   _A.TextAlign       = _taCenter;
   _A.TextAlignVertical= _tavMiddle;
-  _A.FontName        = Arial_Narrow16x19_Bold;
+  _A.FontName        = Arial_Narrow13x20_Bold;
   _A.PressColEnabled = 1;
   _A.Font_Color      = 0xFFFF;
   _A.VerticalText    = 0;
@@ -8404,7 +8581,7 @@ static void InitializeObjects() {
   _S.Caption         = _S_Caption;
   _S.TextAlign       = _taCenter;
   _S.TextAlignVertical= _tavMiddle;
-  _S.FontName        = Arial_Narrow16x19_Bold;
+  _S.FontName        = Arial_Narrow13x20_Bold;
   _S.PressColEnabled = 1;
   _S.Font_Color      = 0xFFFF;
   _S.VerticalText    = 0;
@@ -8434,7 +8611,7 @@ static void InitializeObjects() {
   _D.Caption         = _D_Caption;
   _D.TextAlign       = _taCenter;
   _D.TextAlignVertical= _tavMiddle;
-  _D.FontName        = Arial_Narrow16x19_Bold;
+  _D.FontName        = Arial_Narrow13x20_Bold;
   _D.PressColEnabled = 1;
   _D.Font_Color      = 0xFFFF;
   _D.VerticalText    = 0;
@@ -8464,7 +8641,7 @@ static void InitializeObjects() {
   _F.Caption         = _F_Caption;
   _F.TextAlign       = _taCenter;
   _F.TextAlignVertical= _tavMiddle;
-  _F.FontName        = Arial_Narrow16x19_Bold;
+  _F.FontName        = Arial_Narrow13x20_Bold;
   _F.PressColEnabled = 1;
   _F.Font_Color      = 0xFFFF;
   _F.VerticalText    = 0;
@@ -8494,7 +8671,7 @@ static void InitializeObjects() {
   _G.Caption         = _G_Caption;
   _G.TextAlign       = _taCenter;
   _G.TextAlignVertical= _tavMiddle;
-  _G.FontName        = Arial_Narrow16x19_Bold;
+  _G.FontName        = Arial_Narrow13x20_Bold;
   _G.PressColEnabled = 1;
   _G.Font_Color      = 0xFFFF;
   _G.VerticalText    = 0;
@@ -8524,7 +8701,7 @@ static void InitializeObjects() {
   _H.Caption         = _H_Caption;
   _H.TextAlign       = _taCenter;
   _H.TextAlignVertical= _tavMiddle;
-  _H.FontName        = Arial_Narrow16x19_Bold;
+  _H.FontName        = Arial_Narrow13x20_Bold;
   _H.PressColEnabled = 1;
   _H.Font_Color      = 0xFFFF;
   _H.VerticalText    = 0;
@@ -8554,7 +8731,7 @@ static void InitializeObjects() {
   _J.Caption         = _J_Caption;
   _J.TextAlign       = _taCenter;
   _J.TextAlignVertical= _tavMiddle;
-  _J.FontName        = Arial_Narrow16x19_Bold;
+  _J.FontName        = Arial_Narrow13x20_Bold;
   _J.PressColEnabled = 1;
   _J.Font_Color      = 0xFFFF;
   _J.VerticalText    = 0;
@@ -8584,7 +8761,7 @@ static void InitializeObjects() {
   _K.Caption         = _K_Caption;
   _K.TextAlign       = _taCenter;
   _K.TextAlignVertical= _tavMiddle;
-  _K.FontName        = Arial_Narrow16x19_Bold;
+  _K.FontName        = Arial_Narrow13x20_Bold;
   _K.PressColEnabled = 1;
   _K.Font_Color      = 0xFFFF;
   _K.VerticalText    = 0;
@@ -8614,7 +8791,7 @@ static void InitializeObjects() {
   _L.Caption         = _L_Caption;
   _L.TextAlign       = _taCenter;
   _L.TextAlignVertical= _tavMiddle;
-  _L.FontName        = Arial_Narrow16x19_Bold;
+  _L.FontName        = Arial_Narrow13x20_Bold;
   _L.PressColEnabled = 1;
   _L.Font_Color      = 0xFFFF;
   _L.VerticalText    = 0;
@@ -8644,7 +8821,7 @@ static void InitializeObjects() {
   _Z.Caption         = _Z_Caption;
   _Z.TextAlign       = _taCenter;
   _Z.TextAlignVertical= _tavMiddle;
-  _Z.FontName        = Arial_Narrow16x19_Bold;
+  _Z.FontName        = Arial_Narrow13x20_Bold;
   _Z.PressColEnabled = 1;
   _Z.Font_Color      = 0xFFFF;
   _Z.VerticalText    = 0;
@@ -8674,7 +8851,7 @@ static void InitializeObjects() {
   _X.Caption         = _X_Caption;
   _X.TextAlign       = _taCenter;
   _X.TextAlignVertical= _tavMiddle;
-  _X.FontName        = Arial_Narrow16x19_Bold;
+  _X.FontName        = Arial_Narrow13x20_Bold;
   _X.PressColEnabled = 1;
   _X.Font_Color      = 0xFFFF;
   _X.VerticalText    = 0;
@@ -8704,7 +8881,7 @@ static void InitializeObjects() {
   _C.Caption         = _C_Caption;
   _C.TextAlign       = _taCenter;
   _C.TextAlignVertical= _tavMiddle;
-  _C.FontName        = Arial_Narrow16x19_Bold;
+  _C.FontName        = Arial_Narrow13x20_Bold;
   _C.PressColEnabled = 1;
   _C.Font_Color      = 0xFFFF;
   _C.VerticalText    = 0;
@@ -8734,7 +8911,7 @@ static void InitializeObjects() {
   _V.Caption         = _V_Caption;
   _V.TextAlign       = _taCenter;
   _V.TextAlignVertical= _tavMiddle;
-  _V.FontName        = Arial_Narrow16x19_Bold;
+  _V.FontName        = Arial_Narrow13x20_Bold;
   _V.PressColEnabled = 1;
   _V.Font_Color      = 0xFFFF;
   _V.VerticalText    = 0;
@@ -8764,7 +8941,7 @@ static void InitializeObjects() {
   _B.Caption         = _B_Caption;
   _B.TextAlign       = _taCenter;
   _B.TextAlignVertical= _tavMiddle;
-  _B.FontName        = Arial_Narrow16x19_Bold;
+  _B.FontName        = Arial_Narrow13x20_Bold;
   _B.PressColEnabled = 1;
   _B.Font_Color      = 0xFFFF;
   _B.VerticalText    = 0;
@@ -8794,7 +8971,7 @@ static void InitializeObjects() {
   _N.Caption         = _N_Caption;
   _N.TextAlign       = _taCenter;
   _N.TextAlignVertical= _tavMiddle;
-  _N.FontName        = Arial_Narrow16x19_Bold;
+  _N.FontName        = Arial_Narrow13x20_Bold;
   _N.PressColEnabled = 1;
   _N.Font_Color      = 0xFFFF;
   _N.VerticalText    = 0;
@@ -8824,7 +9001,7 @@ static void InitializeObjects() {
   _M.Caption         = _M_Caption;
   _M.TextAlign       = _taCenter;
   _M.TextAlignVertical= _tavMiddle;
-  _M.FontName        = Arial_Narrow16x19_Bold;
+  _M.FontName        = Arial_Narrow13x20_Bold;
   _M.PressColEnabled = 1;
   _M.Font_Color      = 0xFFFF;
   _M.VerticalText    = 0;
@@ -8854,7 +9031,7 @@ static void InitializeObjects() {
   Clear.Caption         = Clear_Caption;
   Clear.TextAlign       = _taCenter;
   Clear.TextAlignVertical= _tavMiddle;
-  Clear.FontName        = Arial_Narrow16x19_Bold;
+  Clear.FontName        = Arial_Narrow13x20_Bold;
   Clear.PressColEnabled = 1;
   Clear.Font_Color      = 0xFFFF;
   Clear.VerticalText    = 0;
@@ -8884,7 +9061,7 @@ static void InitializeObjects() {
   CAPS_Switch.Caption         = CAPS_Switch_Caption;
   CAPS_Switch.TextAlign       = _taCenter;
   CAPS_Switch.TextAlignVertical= _tavMiddle;
-  CAPS_Switch.FontName        = Arial_Narrow16x19_Bold;
+  CAPS_Switch.FontName        = Arial_Narrow13x20_Bold;
   CAPS_Switch.PressColEnabled = 1;
   CAPS_Switch.Font_Color      = 0xFFFF;
   CAPS_Switch.VerticalText    = 0;
@@ -8914,7 +9091,7 @@ static void InitializeObjects() {
   SPACE.Caption         = SPACE_Caption;
   SPACE.TextAlign       = _taCenter;
   SPACE.TextAlignVertical= _tavMiddle;
-  SPACE.FontName        = Arial_Narrow16x19_Bold;
+  SPACE.FontName        = Arial_Narrow13x20_Bold;
   SPACE.PressColEnabled = 1;
   SPACE.Font_Color      = 0xFFFF;
   SPACE.VerticalText    = 0;
@@ -8962,7 +9139,7 @@ static void InitializeObjects() {
   Label23.Visible         = 1;
   Label23.Active          = 1;
   Label23.Caption         = Label23_Caption;
-  Label23.FontName        = Arial_Narrow16x19_Bold;
+  Label23.FontName        = Arial_Narrow13x20_Bold;
   Label23.Font_Color      = 0xFFFF;
   Label23.VerticalText    = 0;
   Label23.OnUpPtr         = 0;
@@ -8997,12 +9174,12 @@ static void InitializeObjects() {
   Label24.Order           = 43;
   Label24.Left            = 292;
   Label24.Top             = 44;
-  Label24.Width           = 158;
+  Label24.Width           = 128;
   Label24.Height          = 20;
   Label24.Visible         = 1;
   Label24.Active          = 1;
   Label24.Caption         = Label24_Caption;
-  Label24.FontName        = Arial_Narrow16x19_Bold;
+  Label24.FontName        = Arial_Narrow13x20_Bold;
   Label24.Font_Color      = 0xFFFF;
   Label24.VerticalText    = 0;
   Label24.OnUpPtr         = 0;
@@ -9014,12 +9191,12 @@ static void InitializeObjects() {
   Keyboard_label.Order           = 44;
   Keyboard_label.Left            = 201;
   Keyboard_label.Top             = 5;
-  Keyboard_label.Width           = 94;
+  Keyboard_label.Width           = 77;
   Keyboard_label.Height          = 20;
   Keyboard_label.Visible         = 1;
   Keyboard_label.Active          = 0;
   Keyboard_label.Caption         = Keyboard_label_Caption;
-  Keyboard_label.FontName        = Arial_Narrow16x19_Bold;
+  Keyboard_label.FontName        = Arial_Narrow13x20_Bold;
   Keyboard_label.Font_Color      = 0xE7FC;
   Keyboard_label.VerticalText    = 0;
   Keyboard_label.OnUpPtr         = 0;
@@ -9041,7 +9218,7 @@ static void InitializeObjects() {
   _DEL.Caption         = _DEL_Caption;
   _DEL.TextAlign       = _taCenter;
   _DEL.TextAlignVertical= _tavMiddle;
-  _DEL.FontName        = Arial_Narrow16x19_Bold;
+  _DEL.FontName        = Arial_Narrow13x20_Bold;
   _DEL.PressColEnabled = 1;
   _DEL.Font_Color      = 0xFFFF;
   _DEL.VerticalText    = 0;
@@ -9071,7 +9248,7 @@ static void InitializeObjects() {
   _Colon.Caption         = _Colon_Caption;
   _Colon.TextAlign       = _taCenter;
   _Colon.TextAlignVertical= _tavMiddle;
-  _Colon.FontName        = Arial_Narrow16x19_Bold;
+  _Colon.FontName        = Arial_Narrow13x20_Bold;
   _Colon.PressColEnabled = 1;
   _Colon.Font_Color      = 0xFFFF;
   _Colon.VerticalText    = 0;
@@ -9101,7 +9278,7 @@ static void InitializeObjects() {
   _Comma.Caption         = _Comma_Caption;
   _Comma.TextAlign       = _taCenter;
   _Comma.TextAlignVertical= _tavMiddle;
-  _Comma.FontName        = Arial_Narrow16x19_Bold;
+  _Comma.FontName        = Arial_Narrow13x20_Bold;
   _Comma.PressColEnabled = 1;
   _Comma.Font_Color      = 0xFFFF;
   _Comma.VerticalText    = 0;
@@ -9131,7 +9308,7 @@ static void InitializeObjects() {
   _Slash.Caption         = _Slash_Caption;
   _Slash.TextAlign       = _taCenter;
   _Slash.TextAlignVertical= _tavMiddle;
-  _Slash.FontName        = Arial_Narrow16x19_Bold;
+  _Slash.FontName        = Arial_Narrow13x20_Bold;
   _Slash.PressColEnabled = 1;
   _Slash.Font_Color      = 0xFFFF;
   _Slash.VerticalText    = 0;
@@ -9161,7 +9338,7 @@ static void InitializeObjects() {
   ENTER.Caption         = ENTER_Caption;
   ENTER.TextAlign       = _taCenter;
   ENTER.TextAlignVertical= _tavMiddle;
-  ENTER.FontName        = Arial_Narrow16x19_Bold;
+  ENTER.FontName        = Arial_Narrow13x20_Bold;
   ENTER.PressColEnabled = 1;
   ENTER.Font_Color      = 0xFFFF;
   ENTER.VerticalText    = 0;
@@ -9191,7 +9368,7 @@ static void InitializeObjects() {
   Home_b3.Caption         = Home_b3_Caption;
   Home_b3.TextAlign       = _taCenter;
   Home_b3.TextAlignVertical= _tavMiddle;
-  Home_b3.FontName        = Arial_Narrow16x19_Bold;
+  Home_b3.FontName        = Arial_Narrow13x20_Bold;
   Home_b3.PressColEnabled = 1;
   Home_b3.Font_Color      = 0xFFFF;
   Home_b3.VerticalText    = 0;
@@ -9225,9 +9402,9 @@ static void InitializeObjects() {
 
   Ten_minutesUp.OwnerScreen     = &SetRTC;
   Ten_minutesUp.Order           = 1;
-  Ten_minutesUp.Left            = 399;
-  Ten_minutesUp.Top             = 42;
-  Ten_minutesUp.Width           = 37;
+  Ten_minutesUp.Left            = 380;
+  Ten_minutesUp.Top             = 47;
+  Ten_minutesUp.Width           = 35;
   Ten_minutesUp.Height          = 42;
   Ten_minutesUp.Pen_Width       = 1;
   Ten_minutesUp.Pen_Color       = 0x0000;
@@ -9254,9 +9431,9 @@ static void InitializeObjects() {
 
   Ten_minutesDwn.OwnerScreen     = &SetRTC;
   Ten_minutesDwn.Order           = 2;
-  Ten_minutesDwn.Left            = 399;
-  Ten_minutesDwn.Top             = 84;
-  Ten_minutesDwn.Width           = 37;
+  Ten_minutesDwn.Left            = 380;
+  Ten_minutesDwn.Top             = 169;
+  Ten_minutesDwn.Width           = 35;
   Ten_minutesDwn.Height          = 42;
   Ten_minutesDwn.Pen_Width       = 1;
   Ten_minutesDwn.Pen_Color       = 0x0000;
@@ -9281,28 +9458,11 @@ static void InitializeObjects() {
   Ten_minutesDwn.OnClickPtr      = Ten_minutesDwnOnClick;
   Ten_minutesDwn.OnPressPtr      = Ten_minutesDwnOnPress;
 
-  Ten_minutes.OwnerScreen     = &SetRTC;
-  Ten_minutes.Order           = 3;
-  Ten_minutes.Left            = 402;
-  Ten_minutes.Top             = 48;
-  Ten_minutes.Width           = 32;
-  Ten_minutes.Height          = 75;
-  Ten_minutes.Visible         = 1;
-  Ten_minutes.Active          = 0;
-  Ten_minutes.Caption         = Ten_minutes_Caption;
-  Ten_minutes.FontName        = Tahoma55x68_Regular;
-  Ten_minutes.Font_Color      = 0x738E;
-  Ten_minutes.VerticalText    = 0;
-  Ten_minutes.OnUpPtr         = 0;
-  Ten_minutes.OnDownPtr       = 0;
-  Ten_minutes.OnClickPtr      = 0;
-  Ten_minutes.OnPressPtr      = 0;
-
   Unit_minutesUp.OwnerScreen     = &SetRTC;
-  Unit_minutesUp.Order           = 4;
-  Unit_minutesUp.Left            = 435;
-  Unit_minutesUp.Top             = 42;
-  Unit_minutesUp.Width           = 37;
+  Unit_minutesUp.Order           = 3;
+  Unit_minutesUp.Left            = 415;
+  Unit_minutesUp.Top             = 47;
+  Unit_minutesUp.Width           = 35;
   Unit_minutesUp.Height          = 42;
   Unit_minutesUp.Pen_Width       = 1;
   Unit_minutesUp.Pen_Color       = 0x0000;
@@ -9328,10 +9488,10 @@ static void InitializeObjects() {
   Unit_minutesUp.OnPressPtr      = Unit_minutesUpOnPress;
 
   Unit_minutesDwn.OwnerScreen     = &SetRTC;
-  Unit_minutesDwn.Order           = 5;
-  Unit_minutesDwn.Left            = 435;
-  Unit_minutesDwn.Top             = 84;
-  Unit_minutesDwn.Width           = 37;
+  Unit_minutesDwn.Order           = 4;
+  Unit_minutesDwn.Left            = 415;
+  Unit_minutesDwn.Top             = 169;
+  Unit_minutesDwn.Width           = 35;
   Unit_minutesDwn.Height          = 42;
   Unit_minutesDwn.Pen_Width       = 1;
   Unit_minutesDwn.Pen_Color       = 0x0000;
@@ -9356,38 +9516,21 @@ static void InitializeObjects() {
   Unit_minutesDwn.OnClickPtr      = Unit_minutesDwnOnClick;
   Unit_minutesDwn.OnPressPtr      = Unit_minutesDwnOnPress;
 
-  Unit_minutes.OwnerScreen     = &SetRTC;
-  Unit_minutes.Order           = 6;
-  Unit_minutes.Left            = 438;
-  Unit_minutes.Top             = 48;
-  Unit_minutes.Width           = 32;
-  Unit_minutes.Height          = 75;
-  Unit_minutes.Visible         = 1;
-  Unit_minutes.Active          = 0;
-  Unit_minutes.Caption         = Unit_minutes_Caption;
-  Unit_minutes.FontName        = Tahoma55x68_Regular;
-  Unit_minutes.Font_Color      = 0x738E;
-  Unit_minutes.VerticalText    = 0;
-  Unit_minutes.OnUpPtr         = 0;
-  Unit_minutes.OnDownPtr       = 0;
-  Unit_minutes.OnClickPtr      = 0;
-  Unit_minutes.OnPressPtr      = 0;
-
   SetDateAndTime.OwnerScreen     = &SetRTC;
-  SetDateAndTime.Order           = 7;
-  SetDateAndTime.Left            = 295;
-  SetDateAndTime.Top             = 160;
+  SetDateAndTime.Order           = 5;
+  SetDateAndTime.Left            = 325;
+  SetDateAndTime.Top             = 215;
   SetDateAndTime.Width           = 109;
   SetDateAndTime.Height          = 42;
   SetDateAndTime.Pen_Width       = 0;
   SetDateAndTime.Pen_Color       = 0xFFFF;
   SetDateAndTime.Visible         = 1;
-  SetDateAndTime.Active          = 0;
+  SetDateAndTime.Active          = 1;
   SetDateAndTime.Transparent     = 1;
   SetDateAndTime.Caption         = SetDateAndTime_Caption;
   SetDateAndTime.TextAlign       = _taCenter;
   SetDateAndTime.TextAlignVertical= _tavMiddle;
-  SetDateAndTime.FontName        = Arial_Narrow16x19_Bold;
+  SetDateAndTime.FontName        = Arial_Narrow13x20_Bold;
   SetDateAndTime.PressColEnabled = 1;
   SetDateAndTime.Font_Color      = 0xF800;
   SetDateAndTime.VerticalText    = 0;
@@ -9403,15 +9546,15 @@ static void InitializeObjects() {
   SetDateAndTime.OnPressPtr      = 0;
 
   Year_word.OwnerScreen     = &SetRTC;
-  Year_word.Order           = 8;
-  Year_word.Left            = 27;
-  Year_word.Top             = 130;
-  Year_word.Width           = 46;
+  Year_word.Order           = 6;
+  Year_word.Left            = 32;
+  Year_word.Top             = 30;
+  Year_word.Width           = 38;
   Year_word.Height          = 20;
   Year_word.Visible         = 1;
   Year_word.Active          = 1;
   Year_word.Caption         = Year_word_Caption;
-  Year_word.FontName        = Arial_Narrow16x19_Bold;
+  Year_word.FontName        = Arial_Narrow13x20_Bold;
   Year_word.Font_Color      = 0xEF7D;
   Year_word.VerticalText    = 0;
   Year_word.OnUpPtr         = 0;
@@ -9420,15 +9563,15 @@ static void InitializeObjects() {
   Year_word.OnPressPtr      = 0;
 
   Month_Word.OwnerScreen     = &SetRTC;
-  Month_Word.Order           = 9;
-  Month_Word.Left            = 120;
-  Month_Word.Top             = 130;
-  Month_Word.Width           = 62;
+  Month_Word.Order           = 7;
+  Month_Word.Left            = 110;
+  Month_Word.Top             = 30;
+  Month_Word.Width           = 50;
   Month_Word.Height          = 20;
   Month_Word.Visible         = 1;
   Month_Word.Active          = 1;
   Month_Word.Caption         = Month_Word_Caption;
-  Month_Word.FontName        = Arial_Narrow16x19_Bold;
+  Month_Word.FontName        = Arial_Narrow13x20_Bold;
   Month_Word.Font_Color      = 0xEF7D;
   Month_Word.VerticalText    = 0;
   Month_Word.OnUpPtr         = 0;
@@ -9437,15 +9580,15 @@ static void InitializeObjects() {
   Month_Word.OnPressPtr      = 0;
 
   Day_word.OwnerScreen     = &SetRTC;
-  Day_word.Order           = 10;
-  Day_word.Left            = 231;
-  Day_word.Top             = 130;
-  Day_word.Width           = 35;
+  Day_word.Order           = 8;
+  Day_word.Left            = 216;
+  Day_word.Top             = 30;
+  Day_word.Width           = 29;
   Day_word.Height          = 20;
   Day_word.Visible         = 1;
   Day_word.Active          = 1;
   Day_word.Caption         = Day_word_Caption;
-  Day_word.FontName        = Arial_Narrow16x19_Bold;
+  Day_word.FontName        = Arial_Narrow13x20_Bold;
   Day_word.Font_Color      = 0xEF7D;
   Day_word.VerticalText    = 0;
   Day_word.OnUpPtr         = 0;
@@ -9454,15 +9597,15 @@ static void InitializeObjects() {
   Day_word.OnPressPtr      = 0;
 
   Hour_word.OwnerScreen     = &SetRTC;
-  Hour_word.Order           = 11;
-  Hour_word.Left            = 334;
-  Hour_word.Top             = 130;
-  Hour_word.Width           = 50;
+  Hour_word.Order           = 9;
+  Hour_word.Left            = 324;
+  Hour_word.Top             = 30;
+  Hour_word.Width           = 40;
   Hour_word.Height          = 20;
   Hour_word.Visible         = 1;
   Hour_word.Active          = 1;
   Hour_word.Caption         = Hour_word_Caption;
-  Hour_word.FontName        = Arial_Narrow16x19_Bold;
+  Hour_word.FontName        = Arial_Narrow13x20_Bold;
   Hour_word.Font_Color      = 0xEF7D;
   Hour_word.VerticalText    = 0;
   Hour_word.OnUpPtr         = 0;
@@ -9471,15 +9614,15 @@ static void InitializeObjects() {
   Hour_word.OnPressPtr      = 0;
 
   Min_word.OwnerScreen     = &SetRTC;
-  Min_word.Order           = 12;
-  Min_word.Left            = 425;
-  Min_word.Top             = 130;
-  Min_word.Width           = 31;
+  Min_word.Order           = 10;
+  Min_word.Left            = 400;
+  Min_word.Top             = 30;
+  Min_word.Width           = 25;
   Min_word.Height          = 20;
   Min_word.Visible         = 1;
   Min_word.Active          = 1;
   Min_word.Caption         = Min_word_Caption;
-  Min_word.FontName        = Arial_Narrow16x19_Bold;
+  Min_word.FontName        = Arial_Narrow13x20_Bold;
   Min_word.Font_Color      = 0xEF7D;
   Min_word.VerticalText    = 0;
   Min_word.OnUpPtr         = 0;
@@ -9488,10 +9631,10 @@ static void InitializeObjects() {
   Min_word.OnPressPtr      = 0;
 
   Day_unitUp.OwnerScreen     = &SetRTC;
-  Day_unitUp.Order           = 13;
-  Day_unitUp.Left            = 314;
-  Day_unitUp.Top             = 42;
-  Day_unitUp.Width           = 37;
+  Day_unitUp.Order           = 11;
+  Day_unitUp.Left            = 310;
+  Day_unitUp.Top             = 47;
+  Day_unitUp.Width           = 35;
   Day_unitUp.Height          = 42;
   Day_unitUp.Pen_Width       = 1;
   Day_unitUp.Pen_Color       = 0x0000;
@@ -9517,10 +9660,10 @@ static void InitializeObjects() {
   Day_unitUp.OnPressPtr      = Day_unitUpOnPress;
 
   Day_unitDwn.OwnerScreen     = &SetRTC;
-  Day_unitDwn.Order           = 14;
-  Day_unitDwn.Left            = 314;
-  Day_unitDwn.Top             = 84;
-  Day_unitDwn.Width           = 37;
+  Day_unitDwn.Order           = 12;
+  Day_unitDwn.Left            = 310;
+  Day_unitDwn.Top             = 169;
+  Day_unitDwn.Width           = 35;
   Day_unitDwn.Height          = 42;
   Day_unitDwn.Pen_Width       = 1;
   Day_unitDwn.Pen_Color       = 0x0000;
@@ -9546,10 +9689,10 @@ static void InitializeObjects() {
   Day_unitDwn.OnPressPtr      = Day_unitDwnOnPress;
 
   Unit_hoursUp.OwnerScreen     = &SetRTC;
-  Unit_hoursUp.Order           = 15;
-  Unit_hoursUp.Left            = 350;
-  Unit_hoursUp.Top             = 42;
-  Unit_hoursUp.Width           = 37;
+  Unit_hoursUp.Order           = 13;
+  Unit_hoursUp.Left            = 345;
+  Unit_hoursUp.Top             = 47;
+  Unit_hoursUp.Width           = 35;
   Unit_hoursUp.Height          = 42;
   Unit_hoursUp.Pen_Width       = 1;
   Unit_hoursUp.Pen_Color       = 0x0000;
@@ -9575,10 +9718,10 @@ static void InitializeObjects() {
   Unit_hoursUp.OnPressPtr      = Unit_hoursUpOnPress;
 
   Unit_hoursDwn.OwnerScreen     = &SetRTC;
-  Unit_hoursDwn.Order           = 16;
-  Unit_hoursDwn.Left            = 350;
-  Unit_hoursDwn.Top             = 84;
-  Unit_hoursDwn.Width           = 37;
+  Unit_hoursDwn.Order           = 14;
+  Unit_hoursDwn.Left            = 345;
+  Unit_hoursDwn.Top             = 169;
+  Unit_hoursDwn.Width           = 35;
   Unit_hoursDwn.Height          = 42;
   Unit_hoursDwn.Pen_Width       = 1;
   Unit_hoursDwn.Pen_Color       = 0x0000;
@@ -9603,45 +9746,11 @@ static void InitializeObjects() {
   Unit_hoursDwn.OnClickPtr      = Unit_hoursDwnOnClick;
   Unit_hoursDwn.OnPressPtr      = Unit_hoursDwnOnPress;
 
-  Unit_hours.OwnerScreen     = &SetRTC;
-  Unit_hours.Order           = 17;
-  Unit_hours.Left            = 353;
-  Unit_hours.Top             = 48;
-  Unit_hours.Width           = 32;
-  Unit_hours.Height          = 75;
-  Unit_hours.Visible         = 1;
-  Unit_hours.Active          = 0;
-  Unit_hours.Caption         = Unit_hours_Caption;
-  Unit_hours.FontName        = Tahoma55x68_Regular;
-  Unit_hours.Font_Color      = 0x738E;
-  Unit_hours.VerticalText    = 0;
-  Unit_hours.OnUpPtr         = 0;
-  Unit_hours.OnDownPtr       = 0;
-  Unit_hours.OnClickPtr      = 0;
-  Unit_hours.OnPressPtr      = 0;
-
-  Day_unit.OwnerScreen     = &SetRTC;
-  Day_unit.Order           = 18;
-  Day_unit.Left            = 318;
-  Day_unit.Top             = 48;
-  Day_unit.Width           = 32;
-  Day_unit.Height          = 75;
-  Day_unit.Visible         = 1;
-  Day_unit.Active          = 0;
-  Day_unit.Caption         = Day_unit_Caption;
-  Day_unit.FontName        = Tahoma55x68_Regular;
-  Day_unit.Font_Color      = 0x738E;
-  Day_unit.VerticalText    = 0;
-  Day_unit.OnUpPtr         = 0;
-  Day_unit.OnDownPtr       = 0;
-  Day_unit.OnClickPtr      = 0;
-  Day_unit.OnPressPtr      = 0;
-
   OneDayUp.OwnerScreen     = &SetRTC;
-  OneDayUp.Order           = 19;
-  OneDayUp.Left            = 242;
-  OneDayUp.Top             = 42;
-  OneDayUp.Width           = 37;
+  OneDayUp.Order           = 15;
+  OneDayUp.Left            = 230;
+  OneDayUp.Top             = 47;
+  OneDayUp.Width           = 35;
   OneDayUp.Height          = 42;
   OneDayUp.Pen_Width       = 1;
   OneDayUp.Pen_Color       = 0x0000;
@@ -9667,10 +9776,10 @@ static void InitializeObjects() {
   OneDayUp.OnPressPtr      = OneDayUpOnPress;
 
   OneDayDwn.OwnerScreen     = &SetRTC;
-  OneDayDwn.Order           = 20;
-  OneDayDwn.Left            = 242;
-  OneDayDwn.Top             = 84;
-  OneDayDwn.Width           = 37;
+  OneDayDwn.Order           = 16;
+  OneDayDwn.Left            = 230;
+  OneDayDwn.Top             = 169;
+  OneDayDwn.Width           = 35;
   OneDayDwn.Height          = 42;
   OneDayDwn.Pen_Width       = 1;
   OneDayDwn.Pen_Color       = 0x0000;
@@ -9696,20 +9805,20 @@ static void InitializeObjects() {
   OneDayDwn.OnPressPtr      = OneDayDwnOnPress;
 
   LineSlash.OwnerScreen     = &SetRTC;
-  LineSlash.Order           = 21;
-  LineSlash.First_Point_X   = 303;
-  LineSlash.First_Point_Y   = 57;
-  LineSlash.Second_Point_X  = 289;
-  LineSlash.Second_Point_Y  = 111;
+  LineSlash.Order           = 17;
+  LineSlash.First_Point_X   = 298;
+  LineSlash.First_Point_Y   = 102;
+  LineSlash.Second_Point_X  = 284;
+  LineSlash.Second_Point_Y  = 156;
   LineSlash.Visible         = 1;
   LineSlash.Pen_Width       = 3;
   LineSlash.Color           = 0xC618;
 
   TenDayUp.OwnerScreen     = &SetRTC;
-  TenDayUp.Order           = 22;
-  TenDayUp.Left            = 206;
-  TenDayUp.Top             = 42;
-  TenDayUp.Width           = 37;
+  TenDayUp.Order           = 18;
+  TenDayUp.Left            = 195;
+  TenDayUp.Top             = 47;
+  TenDayUp.Width           = 35;
   TenDayUp.Height          = 42;
   TenDayUp.Pen_Width       = 1;
   TenDayUp.Pen_Color       = 0x0000;
@@ -9735,10 +9844,10 @@ static void InitializeObjects() {
   TenDayUp.OnPressPtr      = TenDayUpOnPress;
 
   TenDayDwn.OwnerScreen     = &SetRTC;
-  TenDayDwn.Order           = 23;
-  TenDayDwn.Left            = 206;
-  TenDayDwn.Top             = 84;
-  TenDayDwn.Width           = 37;
+  TenDayDwn.Order           = 19;
+  TenDayDwn.Left            = 195;
+  TenDayDwn.Top             = 169;
+  TenDayDwn.Width           = 35;
   TenDayDwn.Height          = 42;
   TenDayDwn.Pen_Width       = 1;
   TenDayDwn.Pen_Color       = 0x0000;
@@ -9763,44 +9872,10 @@ static void InitializeObjects() {
   TenDayDwn.OnClickPtr      = TenDayDwnOnClick;
   TenDayDwn.OnPressPtr      = TenDayDwnOnPress;
 
-  TenDay.OwnerScreen     = &SetRTC;
-  TenDay.Order           = 24;
-  TenDay.Left            = 210;
-  TenDay.Top             = 48;
-  TenDay.Width           = 32;
-  TenDay.Height          = 75;
-  TenDay.Visible         = 1;
-  TenDay.Active          = 0;
-  TenDay.Caption         = TenDay_Caption;
-  TenDay.FontName        = Tahoma55x68_Regular;
-  TenDay.Font_Color      = 0x738E;
-  TenDay.VerticalText    = 0;
-  TenDay.OnUpPtr         = 0;
-  TenDay.OnDownPtr       = 0;
-  TenDay.OnClickPtr      = 0;
-  TenDay.OnPressPtr      = 0;
-
-  OneDay.OwnerScreen     = &SetRTC;
-  OneDay.Order           = 25;
-  OneDay.Left            = 245;
-  OneDay.Top             = 48;
-  OneDay.Width           = 32;
-  OneDay.Height          = 75;
-  OneDay.Visible         = 1;
-  OneDay.Active          = 0;
-  OneDay.Caption         = OneDay_Caption;
-  OneDay.FontName        = Tahoma55x68_Regular;
-  OneDay.Font_Color      = 0x738E;
-  OneDay.VerticalText    = 0;
-  OneDay.OnUpPtr         = 0;
-  OneDay.OnDownPtr       = 0;
-  OneDay.OnClickPtr      = 0;
-  OneDay.OnPressPtr      = 0;
-
   MonthDateUp.OwnerScreen     = &SetRTC;
-  MonthDateUp.Order           = 26;
-  MonthDateUp.Left            = 88;
-  MonthDateUp.Top             = 42;
+  MonthDateUp.Order           = 20;
+  MonthDateUp.Left            = 80;
+  MonthDateUp.Top             = 47;
   MonthDateUp.Width           = 115;
   MonthDateUp.Height          = 42;
   MonthDateUp.Pen_Width       = 1;
@@ -9827,9 +9902,9 @@ static void InitializeObjects() {
   MonthDateUp.OnPressPtr      = MonthDateUpOnPress;
 
   MonthDateDwn.OwnerScreen     = &SetRTC;
-  MonthDateDwn.Order           = 27;
-  MonthDateDwn.Left            = 88;
-  MonthDateDwn.Top             = 84;
+  MonthDateDwn.Order           = 21;
+  MonthDateDwn.Left            = 80;
+  MonthDateDwn.Top             = 169;
   MonthDateDwn.Width           = 115;
   MonthDateDwn.Height          = 42;
   MonthDateDwn.Pen_Width       = 1;
@@ -9855,28 +9930,11 @@ static void InitializeObjects() {
   MonthDateDwn.OnClickPtr      = MonthDateDwnOnClick;
   MonthDateDwn.OnPressPtr      = MonthDateDwnOnPress;
 
-  MonthDate.OwnerScreen     = &SetRTC;
-  MonthDate.Order           = 28;
-  MonthDate.Left            = 98;
-  MonthDate.Top             = 48;
-  MonthDate.Width           = 97;
-  MonthDate.Height          = 75;
-  MonthDate.Visible         = 1;
-  MonthDate.Active          = 0;
-  MonthDate.Caption         = MonthDate_Caption;
-  MonthDate.FontName        = Tahoma55x68_Regular;
-  MonthDate.Font_Color      = 0x738E;
-  MonthDate.VerticalText    = 0;
-  MonthDate.OnUpPtr         = 0;
-  MonthDate.OnDownPtr       = 0;
-  MonthDate.OnClickPtr      = 0;
-  MonthDate.OnPressPtr      = 0;
-
   TenYearUp.OwnerScreen     = &SetRTC;
-  TenYearUp.Order           = 29;
+  TenYearUp.Order           = 22;
   TenYearUp.Left            = 45;
-  TenYearUp.Top             = 42;
-  TenYearUp.Width           = 37;
+  TenYearUp.Top             = 47;
+  TenYearUp.Width           = 35;
   TenYearUp.Height          = 42;
   TenYearUp.Pen_Width       = 1;
   TenYearUp.Pen_Color       = 0x0000;
@@ -9902,10 +9960,10 @@ static void InitializeObjects() {
   TenYearUp.OnPressPtr      = TenYearUpOnPress;
 
   TenYearDwn.OwnerScreen     = &SetRTC;
-  TenYearDwn.Order           = 30;
+  TenYearDwn.Order           = 23;
   TenYearDwn.Left            = 45;
-  TenYearDwn.Top             = 84;
-  TenYearDwn.Width           = 37;
+  TenYearDwn.Top             = 169;
+  TenYearDwn.Width           = 35;
   TenYearDwn.Height          = 42;
   TenYearDwn.Pen_Width       = 1;
   TenYearDwn.Pen_Color       = 0x0000;
@@ -9931,10 +9989,10 @@ static void InitializeObjects() {
   TenYearDwn.OnPressPtr      = TenYearDwnOnPress;
 
   OneYearUp.OwnerScreen     = &SetRTC;
-  OneYearUp.Order           = 31;
-  OneYearUp.Left            = 9;
-  OneYearUp.Top             = 42;
-  OneYearUp.Width           = 37;
+  OneYearUp.Order           = 24;
+  OneYearUp.Left            = 10;
+  OneYearUp.Top             = 47;
+  OneYearUp.Width           = 35;
   OneYearUp.Height          = 42;
   OneYearUp.Pen_Width       = 1;
   OneYearUp.Pen_Color       = 0x0000;
@@ -9960,10 +10018,10 @@ static void InitializeObjects() {
   OneYearUp.OnPressPtr      = OneYearUpOnPress;
 
   OneYearDwn.OwnerScreen     = &SetRTC;
-  OneYearDwn.Order           = 32;
-  OneYearDwn.Left            = 9;
-  OneYearDwn.Top             = 84;
-  OneYearDwn.Width           = 37;
+  OneYearDwn.Order           = 25;
+  OneYearDwn.Left            = 10;
+  OneYearDwn.Top             = 169;
+  OneYearDwn.Width           = 35;
   OneYearDwn.Height          = 42;
   OneYearDwn.Pen_Width       = 1;
   OneYearDwn.Pen_Color       = 0x0000;
@@ -9988,79 +10046,16 @@ static void InitializeObjects() {
   OneYearDwn.OnClickPtr      = OneYearDwnOnClick;
   OneYearDwn.OnPressPtr      = OneYearDwnOnPress;
 
-  OneYear.OwnerScreen     = &SetRTC;
-  OneYear.Order           = 33;
-  OneYear.Left            = 12;
-  OneYear.Top             = 48;
-  OneYear.Width           = 32;
-  OneYear.Height          = 75;
-  OneYear.Visible         = 1;
-  OneYear.Active          = 0;
-  OneYear.Caption         = OneYear_Caption;
-  OneYear.FontName        = Tahoma55x68_Regular;
-  OneYear.Font_Color      = 0x738E;
-  OneYear.VerticalText    = 0;
-  OneYear.OnUpPtr         = 0;
-  OneYear.OnDownPtr       = 0;
-  OneYear.OnClickPtr      = 0;
-  OneYear.OnPressPtr      = 0;
-
-  TenYear.OwnerScreen     = &SetRTC;
-  TenYear.Order           = 34;
-  TenYear.Left            = 48;
-  TenYear.Top             = 48;
-  TenYear.Width           = 32;
-  TenYear.Height          = 75;
-  TenYear.Visible         = 1;
-  TenYear.Active          = 0;
-  TenYear.Caption         = TenYear_Caption;
-  TenYear.FontName        = Tahoma55x68_Regular;
-  TenYear.Font_Color      = 0x738E;
-  TenYear.VerticalText    = 0;
-  TenYear.OnUpPtr         = 0;
-  TenYear.OnDownPtr       = 0;
-  TenYear.OnClickPtr      = 0;
-  TenYear.OnPressPtr      = 0;
-
-  DayOfWeek.OwnerScreen     = &SetRTC;
-  DayOfWeek.Order           = 35;
-  DayOfWeek.Left            = 93;
-  DayOfWeek.Top             = 160;
-  DayOfWeek.Width           = 136;
-  DayOfWeek.Height          = 42;
-  DayOfWeek.Pen_Width       = 0;
-  DayOfWeek.Pen_Color       = 0xFFFF;
-  DayOfWeek.Visible         = 1;
-  DayOfWeek.Active          = 0;
-  DayOfWeek.Transparent     = 1;
-  DayOfWeek.Caption         = DayOfWeek_Caption;
-  DayOfWeek.TextAlign       = _taCenter;
-  DayOfWeek.TextAlignVertical= _tavMiddle;
-  DayOfWeek.FontName        = Arial_Narrow16x19_Bold;
-  DayOfWeek.PressColEnabled = 1;
-  DayOfWeek.Font_Color      = 0x0410;
-  DayOfWeek.VerticalText    = 0;
-  DayOfWeek.Gradient        = 0;
-  DayOfWeek.Gradient_Orientation = 0;
-  DayOfWeek.Gradient_Start_Color = 0xFFFF;
-  DayOfWeek.Gradient_End_Color = 0xC618;
-  DayOfWeek.Color           = 0xEF5D;
-  DayOfWeek.Press_Color     = 0xE71C;
-  DayOfWeek.OnUpPtr         = 0;
-  DayOfWeek.OnDownPtr       = 0;
-  DayOfWeek.OnClickPtr      = 0;
-  DayOfWeek.OnPressPtr      = 0;
-
   Time_setting_label.OwnerScreen     = &SetRTC;
-  Time_setting_label.Order           = 36;
+  Time_setting_label.Order           = 26;
   Time_setting_label.Left            = 193;
   Time_setting_label.Top             = 5;
-  Time_setting_label.Width           = 119;
+  Time_setting_label.Width           = 95;
   Time_setting_label.Height          = 20;
   Time_setting_label.Visible         = 1;
   Time_setting_label.Active          = 0;
   Time_setting_label.Caption         = Time_setting_label_Caption;
-  Time_setting_label.FontName        = Arial_Narrow16x19_Bold;
+  Time_setting_label.FontName        = Arial_Narrow13x20_Bold;
   Time_setting_label.Font_Color      = 0xE7FC;
   Time_setting_label.VerticalText    = 0;
   Time_setting_label.OnUpPtr         = 0;
@@ -10069,9 +10064,9 @@ static void InitializeObjects() {
   Time_setting_label.OnPressPtr      = 0;
 
   home_b4.OwnerScreen     = &SetRTC;
-  home_b4.Order           = 37;
-  home_b4.Left            = 252;
-  home_b4.Top             = 232;
+  home_b4.Order           = 27;
+  home_b4.Left            = 177;
+  home_b4.Top             = 227;
   home_b4.Width           = 78;
   home_b4.Height          = 35;
   home_b4.Pen_Width       = 1;
@@ -10082,7 +10077,7 @@ static void InitializeObjects() {
   home_b4.Caption         = home_b4_Caption;
   home_b4.TextAlign       = _taCenter;
   home_b4.TextAlignVertical= _tavMiddle;
-  home_b4.FontName        = Arial_Narrow16x19_Bold;
+  home_b4.FontName        = Arial_Narrow13x20_Bold;
   home_b4.PressColEnabled = 1;
   home_b4.Font_Color      = 0xD6BA;
   home_b4.VerticalText    = 0;
@@ -10099,9 +10094,9 @@ static void InitializeObjects() {
   home_b4.OnPressPtr      = 0;
 
   Back_b3.OwnerScreen     = &SetRTC;
-  Back_b3.Order           = 38;
-  Back_b3.Left            = 163;
-  Back_b3.Top             = 232;
+  Back_b3.Order           = 28;
+  Back_b3.Left            = 33;
+  Back_b3.Top             = 227;
   Back_b3.Width           = 78;
   Back_b3.Height          = 35;
   Back_b3.Pen_Width       = 1;
@@ -10112,7 +10107,7 @@ static void InitializeObjects() {
   Back_b3.Caption         = Back_b3_Caption;
   Back_b3.TextAlign       = _taCenter;
   Back_b3.TextAlignVertical= _tavMiddle;
-  Back_b3.FontName        = Arial_Narrow16x19_Bold;
+  Back_b3.FontName        = Arial_Narrow13x20_Bold;
   Back_b3.PressColEnabled = 1;
   Back_b3.Font_Color      = 0xD6BA;
   Back_b3.VerticalText    = 0;
@@ -10127,6 +10122,267 @@ static void InitializeObjects() {
   Back_b3.OnDownPtr       = 0;
   Back_b3.OnClickPtr      = goToBack;
   Back_b3.OnPressPtr      = 0;
+
+  Button1.OwnerScreen     = &SetRTC;
+  Button1.Order           = 29;
+  Button1.Left            = 10;
+  Button1.Top             = 90;
+  Button1.Width           = 35;
+  Button1.Height          = 77;
+  Button1.Pen_Width       = 1;
+  Button1.Pen_Color       = 0x0000;
+  Button1.Visible         = 1;
+  Button1.Active          = 1;
+  Button1.Transparent     = 1;
+  Button1.Caption         = Button1_Caption;
+  Button1.TextAlign       = _taCenter;
+  Button1.TextAlignVertical= _tavMiddle;
+  Button1.FontName        = Tahoma55x68_Regular;
+  Button1.PressColEnabled = 0;
+  Button1.Font_Color      = 0x738E;
+  Button1.VerticalText    = 0;
+  Button1.Gradient        = 1;
+  Button1.Gradient_Orientation = 0;
+  Button1.Gradient_Start_Color = 0xFFFF;
+  Button1.Gradient_End_Color = 0xC618;
+  Button1.Color           = 0xC618;
+  Button1.Press_Color     = 0xE71C;
+  Button1.OnUpPtr         = 0;
+  Button1.OnDownPtr       = 0;
+  Button1.OnClickPtr      = 0;
+  Button1.OnPressPtr      = 0;
+
+  Button3.OwnerScreen     = &SetRTC;
+  Button3.Order           = 30;
+  Button3.Left            = 45;
+  Button3.Top             = 90;
+  Button3.Width           = 35;
+  Button3.Height          = 77;
+  Button3.Pen_Width       = 1;
+  Button3.Pen_Color       = 0x0000;
+  Button3.Visible         = 1;
+  Button3.Active          = 1;
+  Button3.Transparent     = 1;
+  Button3.Caption         = Button3_Caption;
+  Button3.TextAlign       = _taCenter;
+  Button3.TextAlignVertical= _tavMiddle;
+  Button3.FontName        = Tahoma55x68_Regular;
+  Button3.PressColEnabled = 0;
+  Button3.Font_Color      = 0x738E;
+  Button3.VerticalText    = 0;
+  Button3.Gradient        = 1;
+  Button3.Gradient_Orientation = 0;
+  Button3.Gradient_Start_Color = 0xFFFF;
+  Button3.Gradient_End_Color = 0xC618;
+  Button3.Color           = 0xC618;
+  Button3.Press_Color     = 0xE71C;
+  Button3.OnUpPtr         = 0;
+  Button3.OnDownPtr       = 0;
+  Button3.OnClickPtr      = 0;
+  Button3.OnPressPtr      = 0;
+
+  Button4.OwnerScreen     = &SetRTC;
+  Button4.Order           = 31;
+  Button4.Left            = 80;
+  Button4.Top             = 90;
+  Button4.Width           = 115;
+  Button4.Height          = 77;
+  Button4.Pen_Width       = 1;
+  Button4.Pen_Color       = 0x0000;
+  Button4.Visible         = 1;
+  Button4.Active          = 1;
+  Button4.Transparent     = 1;
+  Button4.Caption         = Button4_Caption;
+  Button4.TextAlign       = _taCenter;
+  Button4.TextAlignVertical= _tavMiddle;
+  Button4.FontName        = Tahoma52x64_Regular;
+  Button4.PressColEnabled = 1;
+  Button4.Font_Color      = 0x738E;
+  Button4.VerticalText    = 0;
+  Button4.Gradient        = 1;
+  Button4.Gradient_Orientation = 0;
+  Button4.Gradient_Start_Color = 0xFFFF;
+  Button4.Gradient_End_Color = 0xC618;
+  Button4.Color           = 0xC618;
+  Button4.Press_Color     = 0xE71C;
+  Button4.OnUpPtr         = 0;
+  Button4.OnDownPtr       = 0;
+  Button4.OnClickPtr      = 0;
+  Button4.OnPressPtr      = 0;
+
+  Button8.OwnerScreen     = &SetRTC;
+  Button8.Order           = 32;
+  Button8.Left            = 195;
+  Button8.Top             = 90;
+  Button8.Width           = 35;
+  Button8.Height          = 77;
+  Button8.Pen_Width       = 1;
+  Button8.Pen_Color       = 0x0000;
+  Button8.Visible         = 1;
+  Button8.Active          = 1;
+  Button8.Transparent     = 1;
+  Button8.Caption         = Button8_Caption;
+  Button8.TextAlign       = _taCenter;
+  Button8.TextAlignVertical= _tavMiddle;
+  Button8.FontName        = Tahoma55x68_Regular;
+  Button8.PressColEnabled = 0;
+  Button8.Font_Color      = 0x738E;
+  Button8.VerticalText    = 0;
+  Button8.Gradient        = 1;
+  Button8.Gradient_Orientation = 0;
+  Button8.Gradient_Start_Color = 0xFFFF;
+  Button8.Gradient_End_Color = 0xC618;
+  Button8.Color           = 0xC618;
+  Button8.Press_Color     = 0xE71C;
+  Button8.OnUpPtr         = 0;
+  Button8.OnDownPtr       = 0;
+  Button8.OnClickPtr      = 0;
+  Button8.OnPressPtr      = 0;
+
+  Button12.OwnerScreen     = &SetRTC;
+  Button12.Order           = 33;
+  Button12.Left            = 230;
+  Button12.Top             = 90;
+  Button12.Width           = 35;
+  Button12.Height          = 77;
+  Button12.Pen_Width       = 1;
+  Button12.Pen_Color       = 0x0000;
+  Button12.Visible         = 1;
+  Button12.Active          = 1;
+  Button12.Transparent     = 1;
+  Button12.Caption         = Button12_Caption;
+  Button12.TextAlign       = _taCenter;
+  Button12.TextAlignVertical= _tavMiddle;
+  Button12.FontName        = Tahoma55x68_Regular;
+  Button12.PressColEnabled = 0;
+  Button12.Font_Color      = 0x738E;
+  Button12.VerticalText    = 0;
+  Button12.Gradient        = 1;
+  Button12.Gradient_Orientation = 0;
+  Button12.Gradient_Start_Color = 0xFFFF;
+  Button12.Gradient_End_Color = 0xC618;
+  Button12.Color           = 0xC618;
+  Button12.Press_Color     = 0xE71C;
+  Button12.OnUpPtr         = 0;
+  Button12.OnDownPtr       = 0;
+  Button12.OnClickPtr      = 0;
+  Button12.OnPressPtr      = 0;
+
+  Button21.OwnerScreen     = &SetRTC;
+  Button21.Order           = 34;
+  Button21.Left            = 310;
+  Button21.Top             = 90;
+  Button21.Width           = 35;
+  Button21.Height          = 77;
+  Button21.Pen_Width       = 1;
+  Button21.Pen_Color       = 0x0000;
+  Button21.Visible         = 1;
+  Button21.Active          = 1;
+  Button21.Transparent     = 1;
+  Button21.Caption         = Button21_Caption;
+  Button21.TextAlign       = _taCenter;
+  Button21.TextAlignVertical= _tavMiddle;
+  Button21.FontName        = Tahoma55x68_Regular;
+  Button21.PressColEnabled = 0;
+  Button21.Font_Color      = 0x738E;
+  Button21.VerticalText    = 0;
+  Button21.Gradient        = 1;
+  Button21.Gradient_Orientation = 0;
+  Button21.Gradient_Start_Color = 0xFFFF;
+  Button21.Gradient_End_Color = 0xC618;
+  Button21.Color           = 0xC618;
+  Button21.Press_Color     = 0xE71C;
+  Button21.OnUpPtr         = 0;
+  Button21.OnDownPtr       = 0;
+  Button21.OnClickPtr      = 0;
+  Button21.OnPressPtr      = 0;
+
+  Button24.OwnerScreen     = &SetRTC;
+  Button24.Order           = 35;
+  Button24.Left            = 345;
+  Button24.Top             = 90;
+  Button24.Width           = 35;
+  Button24.Height          = 77;
+  Button24.Pen_Width       = 1;
+  Button24.Pen_Color       = 0x0000;
+  Button24.Visible         = 1;
+  Button24.Active          = 1;
+  Button24.Transparent     = 1;
+  Button24.Caption         = Button24_Caption;
+  Button24.TextAlign       = _taCenter;
+  Button24.TextAlignVertical= _tavMiddle;
+  Button24.FontName        = Tahoma55x68_Regular;
+  Button24.PressColEnabled = 0;
+  Button24.Font_Color      = 0x738E;
+  Button24.VerticalText    = 0;
+  Button24.Gradient        = 1;
+  Button24.Gradient_Orientation = 0;
+  Button24.Gradient_Start_Color = 0xFFFF;
+  Button24.Gradient_End_Color = 0xC618;
+  Button24.Color           = 0xC618;
+  Button24.Press_Color     = 0xE71C;
+  Button24.OnUpPtr         = 0;
+  Button24.OnDownPtr       = 0;
+  Button24.OnClickPtr      = 0;
+  Button24.OnPressPtr      = 0;
+
+  Button40.OwnerScreen     = &SetRTC;
+  Button40.Order           = 36;
+  Button40.Left            = 380;
+  Button40.Top             = 90;
+  Button40.Width           = 35;
+  Button40.Height          = 77;
+  Button40.Pen_Width       = 1;
+  Button40.Pen_Color       = 0x0000;
+  Button40.Visible         = 1;
+  Button40.Active          = 1;
+  Button40.Transparent     = 1;
+  Button40.Caption         = Button40_Caption;
+  Button40.TextAlign       = _taCenter;
+  Button40.TextAlignVertical= _tavMiddle;
+  Button40.FontName        = Tahoma55x68_Regular;
+  Button40.PressColEnabled = 0;
+  Button40.Font_Color      = 0x738E;
+  Button40.VerticalText    = 0;
+  Button40.Gradient        = 1;
+  Button40.Gradient_Orientation = 0;
+  Button40.Gradient_Start_Color = 0xFFFF;
+  Button40.Gradient_End_Color = 0xC618;
+  Button40.Color           = 0xC618;
+  Button40.Press_Color     = 0xE71C;
+  Button40.OnUpPtr         = 0;
+  Button40.OnDownPtr       = 0;
+  Button40.OnClickPtr      = 0;
+  Button40.OnPressPtr      = 0;
+
+  Button43.OwnerScreen     = &SetRTC;
+  Button43.Order           = 37;
+  Button43.Left            = 415;
+  Button43.Top             = 90;
+  Button43.Width           = 35;
+  Button43.Height          = 77;
+  Button43.Pen_Width       = 1;
+  Button43.Pen_Color       = 0x0000;
+  Button43.Visible         = 1;
+  Button43.Active          = 1;
+  Button43.Transparent     = 1;
+  Button43.Caption         = Button43_Caption;
+  Button43.TextAlign       = _taCenter;
+  Button43.TextAlignVertical= _tavMiddle;
+  Button43.FontName        = Tahoma55x68_Regular;
+  Button43.PressColEnabled = 0;
+  Button43.Font_Color      = 0x738E;
+  Button43.VerticalText    = 0;
+  Button43.Gradient        = 1;
+  Button43.Gradient_Orientation = 0;
+  Button43.Gradient_Start_Color = 0xFFFF;
+  Button43.Gradient_End_Color = 0xC618;
+  Button43.Color           = 0xC618;
+  Button43.Press_Color     = 0xE71C;
+  Button43.OnUpPtr         = 0;
+  Button43.OnDownPtr       = 0;
+  Button43.OnClickPtr      = 0;
+  Button43.OnPressPtr      = 0;
 
   Image45.OwnerScreen     = &ERRORS;
   Image45.Order           = 0;
@@ -10148,12 +10404,12 @@ static void InitializeObjects() {
   Error_label.Order           = 1;
   Error_label.Left            = 176;
   Error_label.Top             = 5;
-  Error_label.Width           = 119;
+  Error_label.Width           = 98;
   Error_label.Height          = 20;
   Error_label.Visible         = 1;
   Error_label.Active          = 0;
   Error_label.Caption         = Error_label_Caption;
-  Error_label.FontName        = Arial_Narrow16x19_Bold;
+  Error_label.FontName        = Arial_Narrow13x20_Bold;
   Error_label.Font_Color      = 0xE7FC;
   Error_label.VerticalText    = 0;
   Error_label.OnUpPtr         = 0;
@@ -10170,7 +10426,7 @@ static void InitializeObjects() {
   Error_message.Visible         = 1;
   Error_message.Active          = 0;
   Error_message.Caption         = Error_message_Caption;
-  Error_message.FontName        = Arial_Narrow16x19_Bold;
+  Error_message.FontName        = Arial_Narrow13x20_Bold;
   Error_message.Font_Color      = 0xFFFF;
   Error_message.VerticalText    = 0;
   Error_message.OnUpPtr         = 0;
@@ -10182,12 +10438,12 @@ static void InitializeObjects() {
   Text_error.Order           = 3;
   Text_error.Left            = 213;
   Text_error.Top             = 35;
-  Text_error.Width           = 66;
+  Text_error.Width           = 53;
   Text_error.Height          = 20;
   Text_error.Visible         = 1;
   Text_error.Active          = 1;
   Text_error.Caption         = Text_error_Caption;
-  Text_error.FontName        = Arial_Narrow16x19_Bold;
+  Text_error.FontName        = Arial_Narrow13x20_Bold;
   Text_error.Font_Color      = 0xF800;
   Text_error.VerticalText    = 0;
   Text_error.OnUpPtr         = 0;
@@ -10199,7 +10455,7 @@ static void InitializeObjects() {
   Label2.Order           = 4;
   Label2.Left            = 60;
   Label2.Top             = 135;
-  Label2.Width           = 0;
+  Label2.Width           = 50;
   Label2.Height          = 57;
   Label2.Visible         = 1;
   Label2.Active          = 1;
@@ -10226,7 +10482,7 @@ static void InitializeObjects() {
   Home_b5.Caption         = Home_b5_Caption;
   Home_b5.TextAlign       = _taCenter;
   Home_b5.TextAlignVertical= _tavMiddle;
-  Home_b5.FontName        = Arial_Narrow16x19_Bold;
+  Home_b5.FontName        = Arial_Narrow13x20_Bold;
   Home_b5.PressColEnabled = 1;
   Home_b5.Font_Color      = 0xD6BA;
   Home_b5.VerticalText    = 0;
@@ -10256,7 +10512,7 @@ static void InitializeObjects() {
   Back_b4.Caption         = Back_b4_Caption;
   Back_b4.TextAlign       = _taCenter;
   Back_b4.TextAlignVertical= _tavMiddle;
-  Back_b4.FontName        = Arial_Narrow16x19_Bold;
+  Back_b4.FontName        = Arial_Narrow13x20_Bold;
   Back_b4.PressColEnabled = 1;
   Back_b4.Font_Color      = 0xD6BA;
   Back_b4.VerticalText    = 0;
@@ -10292,12 +10548,12 @@ static void InitializeObjects() {
   Password_label.Order           = 1;
   Password_label.Left            = 200;
   Password_label.Top             = 5;
-  Password_label.Width           = 99;
+  Password_label.Width           = 80;
   Password_label.Height          = 20;
   Password_label.Visible         = 1;
   Password_label.Active          = 0;
   Password_label.Caption         = Password_label_Caption;
-  Password_label.FontName        = Arial_Narrow16x19_Bold;
+  Password_label.FontName        = Arial_Narrow13x20_Bold;
   Password_label.Font_Color      = 0xE7FC;
   Password_label.VerticalText    = 0;
   Password_label.OnUpPtr         = 0;
@@ -10319,7 +10575,7 @@ static void InitializeObjects() {
   Admin_Set.Caption         = Admin_Set_Caption;
   Admin_Set.TextAlign       = _taCenter;
   Admin_Set.TextAlignVertical= _tavMiddle;
-  Admin_Set.FontName        = Arial_Narrow16x19_Bold;
+  Admin_Set.FontName        = Arial_Narrow13x20_Bold;
   Admin_Set.PressColEnabled = 1;
   Admin_Set.Font_Color      = 0xFFFF;
   Admin_Set.VerticalText    = 0;
@@ -10339,12 +10595,12 @@ static void InitializeObjects() {
   Admin_text.Order           = 3;
   Admin_text.Left            = 159;
   Admin_text.Top             = 95;
-  Admin_text.Width           = 163;
+  Admin_text.Width           = 132;
   Admin_text.Height          = 20;
   Admin_text.Visible         = 1;
   Admin_text.Active          = 0;
   Admin_text.Caption         = Admin_text_Caption;
-  Admin_text.FontName        = Arial_Narrow16x19_Bold;
+  Admin_text.FontName        = Arial_Narrow13x20_Bold;
   Admin_text.Font_Color      = 0x07E0;
   Admin_text.VerticalText    = 0;
   Admin_text.OnUpPtr         = 0;
@@ -10366,7 +10622,7 @@ static void InitializeObjects() {
   Home_b6.Caption         = Home_b6_Caption;
   Home_b6.TextAlign       = _taCenter;
   Home_b6.TextAlignVertical= _tavMiddle;
-  Home_b6.FontName        = Arial_Narrow16x19_Bold;
+  Home_b6.FontName        = Arial_Narrow13x20_Bold;
   Home_b6.PressColEnabled = 1;
   Home_b6.Font_Color      = 0xD6BA;
   Home_b6.VerticalText    = 0;
@@ -10396,7 +10652,7 @@ static void InitializeObjects() {
   Back_b5.Caption         = Back_b5_Caption;
   Back_b5.TextAlign       = _taCenter;
   Back_b5.TextAlignVertical= _tavMiddle;
-  Back_b5.FontName        = Arial_Narrow16x19_Bold;
+  Back_b5.FontName        = Arial_Narrow13x20_Bold;
   Back_b5.PressColEnabled = 1;
   Back_b5.Font_Color      = 0xD6BA;
   Back_b5.VerticalText    = 0;
@@ -10474,12 +10730,12 @@ static void InitializeObjects() {
   Gauge_label.Order           = 4;
   Gauge_label.Left            = 215;
   Gauge_label.Top             = 5;
-  Gauge_label.Width           = 61;
+  Gauge_label.Width           = 50;
   Gauge_label.Height          = 20;
   Gauge_label.Visible         = 1;
   Gauge_label.Active          = 0;
   Gauge_label.Caption         = Gauge_label_Caption;
-  Gauge_label.FontName        = Arial_Narrow16x19_Bold;
+  Gauge_label.FontName        = Arial_Narrow13x20_Bold;
   Gauge_label.Font_Color      = 0xE7FC;
   Gauge_label.VerticalText    = 0;
   Gauge_label.OnUpPtr         = 0;
@@ -10527,7 +10783,7 @@ static void InitializeObjects() {
   Home_b7.Caption         = Home_b7_Caption;
   Home_b7.TextAlign       = _taCenter;
   Home_b7.TextAlignVertical= _tavMiddle;
-  Home_b7.FontName        = Arial_Narrow16x19_Bold;
+  Home_b7.FontName        = Arial_Narrow13x20_Bold;
   Home_b7.PressColEnabled = 1;
   Home_b7.Font_Color      = 0xD6BA;
   Home_b7.VerticalText    = 0;
@@ -10557,7 +10813,7 @@ static void InitializeObjects() {
   Next_b2.Caption         = Next_b2_Caption;
   Next_b2.TextAlign       = _taCenter;
   Next_b2.TextAlignVertical= _tavMiddle;
-  Next_b2.FontName        = Arial_Narrow16x19_Bold;
+  Next_b2.FontName        = Arial_Narrow13x20_Bold;
   Next_b2.PressColEnabled = 1;
   Next_b2.Font_Color      = 0xD6BA;
   Next_b2.VerticalText    = 0;
@@ -10586,7 +10842,7 @@ static void InitializeObjects() {
   CircleButton8.Caption         = CircleButton8_Caption;
   CircleButton8.TextAlign       = _taCenter;
   CircleButton8.TextAlignVertical= _tavMiddle;
-  CircleButton8.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton8.FontName        = Arial_Narrow13x20_Bold;
   CircleButton8.PressColEnabled = 1;
   CircleButton8.Font_Color      = 0x0000;
   CircleButton8.VerticalText    = 0;
@@ -10637,12 +10893,12 @@ static void InitializeObjects() {
   System_setting_label.Order           = 2;
   System_setting_label.Left            = 167;
   System_setting_label.Top             = 5;
-  System_setting_label.Width           = 148;
+  System_setting_label.Width           = 118;
   System_setting_label.Height          = 20;
   System_setting_label.Visible         = 1;
   System_setting_label.Active          = 0;
   System_setting_label.Caption         = System_setting_label_Caption;
-  System_setting_label.FontName        = Arial_Narrow16x19_Bold;
+  System_setting_label.FontName        = Arial_Narrow13x20_Bold;
   System_setting_label.Font_Color      = 0xE7FC;
   System_setting_label.VerticalText    = 0;
   System_setting_label.OnUpPtr         = 0;
@@ -10654,12 +10910,12 @@ static void InitializeObjects() {
   sys_access.Order           = 3;
   sys_access.Left            = 46;
   sys_access.Top             = 112;
-  sys_access.Width           = 55;
+  sys_access.Width           = 47;
   sys_access.Height          = 20;
   sys_access.Visible         = 1;
   sys_access.Active          = 1;
   sys_access.Caption         = sys_access_Caption;
-  sys_access.FontName        = Arial_Narrow16x19_Bold;
+  sys_access.FontName        = Arial_Narrow13x20_Bold;
   sys_access.Font_Color      = 0xFFFF;
   sys_access.VerticalText    = 0;
   sys_access.OnUpPtr         = 0;
@@ -10671,12 +10927,12 @@ static void InitializeObjects() {
   Label138.Order           = 4;
   Label138.Left            = 380;
   Label138.Top             = 112;
-  Label138.Width           = 70;
+  Label138.Width           = 59;
   Label138.Height          = 20;
   Label138.Visible         = 1;
   Label138.Active          = 1;
   Label138.Caption         = Label138_Caption;
-  Label138.FontName        = Arial_Narrow16x19_Bold;
+  Label138.FontName        = Arial_Narrow13x20_Bold;
   Label138.Font_Color      = 0xFFFF;
   Label138.VerticalText    = 0;
   Label138.OnUpPtr         = 0;
@@ -10688,12 +10944,12 @@ static void InitializeObjects() {
   Label139.Order           = 5;
   Label139.Left            = 141;
   Label139.Top             = 112;
-  Label139.Width           = 34;
+  Label139.Width           = 27;
   Label139.Height          = 20;
   Label139.Visible         = 1;
   Label139.Active          = 1;
   Label139.Caption         = Label139_Caption;
-  Label139.FontName        = Arial_Narrow16x19_Bold;
+  Label139.FontName        = Arial_Narrow13x20_Bold;
   Label139.Font_Color      = 0xFFFF;
   Label139.VerticalText    = 0;
   Label139.OnUpPtr         = 0;
@@ -10705,12 +10961,12 @@ static void InitializeObjects() {
   Label142.Order           = 6;
   Label142.Left            = 220;
   Label142.Top             = 212;
-  Label142.Width           = 45;
+  Label142.Width           = 40;
   Label142.Height          = 20;
   Label142.Visible         = 1;
   Label142.Active          = 1;
   Label142.Caption         = Label142_Caption;
-  Label142.FontName        = Arial_Narrow16x19_Bold;
+  Label142.FontName        = Arial_Narrow13x20_Bold;
   Label142.Font_Color      = 0xFFFF;
   Label142.VerticalText    = 0;
   Label142.OnUpPtr         = 0;
@@ -10722,12 +10978,12 @@ static void InitializeObjects() {
   Label143.Order           = 7;
   Label143.Left            = 136;
   Label143.Top             = 212;
-  Label143.Width           = 44;
+  Label143.Width           = 36;
   Label143.Height          = 20;
   Label143.Visible         = 1;
   Label143.Active          = 1;
   Label143.Caption         = Label143_Caption;
-  Label143.FontName        = Arial_Narrow16x19_Bold;
+  Label143.FontName        = Arial_Narrow13x20_Bold;
   Label143.Font_Color      = 0xFFFF;
   Label143.VerticalText    = 0;
   Label143.OnUpPtr         = 0;
@@ -10739,12 +10995,12 @@ static void InitializeObjects() {
   Label144.Order           = 8;
   Label144.Left            = 46;
   Label144.Top             = 212;
-  Label144.Width           = 54;
+  Label144.Width           = 47;
   Label144.Height          = 20;
   Label144.Visible         = 1;
   Label144.Active          = 1;
   Label144.Caption         = Label144_Caption;
-  Label144.FontName        = Arial_Narrow16x19_Bold;
+  Label144.FontName        = Arial_Narrow13x20_Bold;
   Label144.Font_Color      = 0xFFFF;
   Label144.VerticalText    = 0;
   Label144.OnUpPtr         = 0;
@@ -10756,12 +11012,12 @@ static void InitializeObjects() {
   Label145.Order           = 9;
   Label145.Left            = 305;
   Label145.Top             = 112;
-  Label145.Width           = 47;
+  Label145.Width           = 40;
   Label145.Height          = 20;
   Label145.Visible         = 1;
   Label145.Active          = 1;
   Label145.Caption         = Label145_Caption;
-  Label145.FontName        = Arial_Narrow16x19_Bold;
+  Label145.FontName        = Arial_Narrow13x20_Bold;
   Label145.Font_Color      = 0xFFFF;
   Label145.VerticalText    = 0;
   Label145.OnUpPtr         = 0;
@@ -10837,12 +11093,12 @@ static void InitializeObjects() {
   Label238.Order           = 14;
   Label238.Left            = 222;
   Label238.Top             = 112;
-  Label238.Width           = 43;
+  Label238.Width           = 35;
   Label238.Height          = 20;
   Label238.Visible         = 1;
   Label238.Active          = 1;
   Label238.Caption         = Label238_Caption;
-  Label238.FontName        = Arial_Narrow16x19_Bold;
+  Label238.FontName        = Arial_Narrow13x20_Bold;
   Label238.Font_Color      = 0xFFFF;
   Label238.VerticalText    = 0;
   Label238.OnUpPtr         = 0;
@@ -11085,7 +11341,7 @@ static void InitializeObjects() {
   Home_b8.Caption         = Home_b8_Caption;
   Home_b8.TextAlign       = _taCenter;
   Home_b8.TextAlignVertical= _tavMiddle;
-  Home_b8.FontName        = Arial_Narrow16x19_Bold;
+  Home_b8.FontName        = Arial_Narrow13x20_Bold;
   Home_b8.PressColEnabled = 1;
   Home_b8.Font_Color      = 0xD6BA;
   Home_b8.VerticalText    = 0;
@@ -11115,7 +11371,7 @@ static void InitializeObjects() {
   Back_b30.Caption         = Back_b30_Caption;
   Back_b30.TextAlign       = _taCenter;
   Back_b30.TextAlignVertical= _tavMiddle;
-  Back_b30.FontName        = Arial_Narrow16x19_Bold;
+  Back_b30.FontName        = Arial_Narrow13x20_Bold;
   Back_b30.PressColEnabled = 1;
   Back_b30.Font_Color      = 0xD6BA;
   Back_b30.VerticalText    = 0;
@@ -11700,12 +11956,12 @@ static void InitializeObjects() {
   Delay_setting_label.Order           = 34;
   Delay_setting_label.Left            = 176;
   Delay_setting_label.Top             = 5;
-  Delay_setting_label.Width           = 134;
+  Delay_setting_label.Width           = 108;
   Delay_setting_label.Height          = 20;
   Delay_setting_label.Visible         = 1;
   Delay_setting_label.Active          = 0;
   Delay_setting_label.Caption         = Delay_setting_label_Caption;
-  Delay_setting_label.FontName        = Arial_Narrow16x19_Bold;
+  Delay_setting_label.FontName        = Arial_Narrow13x20_Bold;
   Delay_setting_label.Font_Color      = 0xE7FC;
   Delay_setting_label.VerticalText    = 0;
   Delay_setting_label.OnUpPtr         = 0;
@@ -11727,7 +11983,7 @@ static void InitializeObjects() {
   Home_b9.Caption         = Home_b9_Caption;
   Home_b9.TextAlign       = _taCenter;
   Home_b9.TextAlignVertical= _tavMiddle;
-  Home_b9.FontName        = Arial_Narrow16x19_Bold;
+  Home_b9.FontName        = Arial_Narrow13x20_Bold;
   Home_b9.PressColEnabled = 1;
   Home_b9.Font_Color      = 0xD6BA;
   Home_b9.VerticalText    = 0;
@@ -11757,7 +12013,7 @@ static void InitializeObjects() {
   Back_b6.Caption         = Back_b6_Caption;
   Back_b6.TextAlign       = _taCenter;
   Back_b6.TextAlignVertical= _tavMiddle;
-  Back_b6.FontName        = Arial_Narrow16x19_Bold;
+  Back_b6.FontName        = Arial_Narrow13x20_Bold;
   Back_b6.PressColEnabled = 1;
   Back_b6.Font_Color      = 0xD6BA;
   Back_b6.VerticalText    = 0;
@@ -11883,7 +12139,7 @@ static void InitializeObjects() {
   Delay_Source.Caption         = Delay_Source_Caption;
   Delay_Source.TextAlign       = _taCenter;
   Delay_Source.TextAlignVertical= _tavMiddle;
-  Delay_Source.FontName        = Arial_Narrow16x19_Bold;
+  Delay_Source.FontName        = Arial_Narrow13x20_Bold;
   Delay_Source.PressColEnabled = 1;
   Delay_Source.Font_Color      = 0x0000;
   Delay_Source.VerticalText    = 0;
@@ -11913,7 +12169,7 @@ static void InitializeObjects() {
   Delay_heat_pump.Caption         = Delay_heat_pump_Caption;
   Delay_heat_pump.TextAlign       = _taCenter;
   Delay_heat_pump.TextAlignVertical= _tavMiddle;
-  Delay_heat_pump.FontName        = Arial_Narrow16x19_Bold;
+  Delay_heat_pump.FontName        = Arial_Narrow13x20_Bold;
   Delay_heat_pump.PressColEnabled = 1;
   Delay_heat_pump.Font_Color      = 0x0000;
   Delay_heat_pump.VerticalText    = 0;
@@ -11943,7 +12199,7 @@ static void InitializeObjects() {
   Delay_reversing.Caption         = Delay_reversing_Caption;
   Delay_reversing.TextAlign       = _taCenter;
   Delay_reversing.TextAlignVertical= _tavMiddle;
-  Delay_reversing.FontName        = Arial_Narrow16x19_Bold;
+  Delay_reversing.FontName        = Arial_Narrow13x20_Bold;
   Delay_reversing.PressColEnabled = 1;
   Delay_reversing.Font_Color      = 0x0000;
   Delay_reversing.VerticalText    = 0;
@@ -11973,7 +12229,7 @@ static void InitializeObjects() {
   Delay_EEV.Caption         = Delay_EEV_Caption;
   Delay_EEV.TextAlign       = _taCenter;
   Delay_EEV.TextAlignVertical= _tavMiddle;
-  Delay_EEV.FontName        = Arial_Narrow16x19_Bold;
+  Delay_EEV.FontName        = Arial_Narrow13x20_Bold;
   Delay_EEV.PressColEnabled = 1;
   Delay_EEV.Font_Color      = 0x0000;
   Delay_EEV.VerticalText    = 0;
@@ -12003,7 +12259,7 @@ static void InitializeObjects() {
   Delay_DHW_valve.Caption         = Delay_DHW_valve_Caption;
   Delay_DHW_valve.TextAlign       = _taCenter;
   Delay_DHW_valve.TextAlignVertical= _tavMiddle;
-  Delay_DHW_valve.FontName        = Arial_Narrow16x19_Bold;
+  Delay_DHW_valve.FontName        = Arial_Narrow13x20_Bold;
   Delay_DHW_valve.PressColEnabled = 1;
   Delay_DHW_valve.Font_Color      = 0x0000;
   Delay_DHW_valve.VerticalText    = 0;
@@ -12033,7 +12289,7 @@ static void InitializeObjects() {
   Delay_compressor.Caption         = Delay_compressor_Caption;
   Delay_compressor.TextAlign       = _taCenter;
   Delay_compressor.TextAlignVertical= _tavMiddle;
-  Delay_compressor.FontName        = Arial_Narrow16x19_Bold;
+  Delay_compressor.FontName        = Arial_Narrow13x20_Bold;
   Delay_compressor.PressColEnabled = 1;
   Delay_compressor.Font_Color      = 0x0000;
   Delay_compressor.VerticalText    = 0;
@@ -12079,7 +12335,7 @@ static void InitializeObjects() {
   Home_b10.Caption         = Home_b10_Caption;
   Home_b10.TextAlign       = _taCenter;
   Home_b10.TextAlignVertical= _tavMiddle;
-  Home_b10.FontName        = Arial_Narrow16x19_Bold;
+  Home_b10.FontName        = Arial_Narrow13x20_Bold;
   Home_b10.PressColEnabled = 1;
   Home_b10.Font_Color      = 0xD6BA;
   Home_b10.VerticalText    = 0;
@@ -12109,7 +12365,7 @@ static void InitializeObjects() {
   Back_b7.Caption         = Back_b7_Caption;
   Back_b7.TextAlign       = _taCenter;
   Back_b7.TextAlignVertical= _tavMiddle;
-  Back_b7.FontName        = Arial_Narrow16x19_Bold;
+  Back_b7.FontName        = Arial_Narrow13x20_Bold;
   Back_b7.PressColEnabled = 1;
   Back_b7.Font_Color      = 0xD6BA;
   Back_b7.VerticalText    = 0;
@@ -12139,7 +12395,7 @@ static void InitializeObjects() {
   Next_b3.Caption         = Next_b3_Caption;
   Next_b3.TextAlign       = _taCenter;
   Next_b3.TextAlignVertical= _tavMiddle;
-  Next_b3.FontName        = Arial_Narrow16x19_Bold;
+  Next_b3.FontName        = Arial_Narrow13x20_Bold;
   Next_b3.PressColEnabled = 1;
   Next_b3.Font_Color      = 0xD6BA;
   Next_b3.VerticalText    = 0;
@@ -12169,7 +12425,7 @@ static void InitializeObjects() {
   Time_source1.Caption         = Time_source1_Caption;
   Time_source1.TextAlign       = _taCenter;
   Time_source1.TextAlignVertical= _tavMiddle;
-  Time_source1.FontName        = Arial_Narrow16x19_Bold;
+  Time_source1.FontName        = Arial_Narrow13x20_Bold;
   Time_source1.PressColEnabled = 1;
   Time_source1.Font_Color      = 0x0585;
   Time_source1.VerticalText    = 0;
@@ -12199,7 +12455,7 @@ static void InitializeObjects() {
   Time_heat1.Caption         = Time_heat1_Caption;
   Time_heat1.TextAlign       = _taCenter;
   Time_heat1.TextAlignVertical= _tavMiddle;
-  Time_heat1.FontName        = Arial_Narrow16x19_Bold;
+  Time_heat1.FontName        = Arial_Narrow13x20_Bold;
   Time_heat1.PressColEnabled = 1;
   Time_heat1.Font_Color      = 0x0585;
   Time_heat1.VerticalText    = 0;
@@ -12229,7 +12485,7 @@ static void InitializeObjects() {
   Time_Electric.Caption         = Time_Electric_Caption;
   Time_Electric.TextAlign       = _taCenter;
   Time_Electric.TextAlignVertical= _tavMiddle;
-  Time_Electric.FontName        = Arial_Narrow16x19_Bold;
+  Time_Electric.FontName        = Arial_Narrow13x20_Bold;
   Time_Electric.PressColEnabled = 1;
   Time_Electric.Font_Color      = 0x0585;
   Time_Electric.VerticalText    = 0;
@@ -12259,7 +12515,7 @@ static void InitializeObjects() {
   Time_reversing1.Caption         = Time_reversing1_Caption;
   Time_reversing1.TextAlign       = _taCenter;
   Time_reversing1.TextAlignVertical= _tavMiddle;
-  Time_reversing1.FontName        = Arial_Narrow16x19_Bold;
+  Time_reversing1.FontName        = Arial_Narrow13x20_Bold;
   Time_reversing1.PressColEnabled = 1;
   Time_reversing1.Font_Color      = 0x0585;
   Time_reversing1.VerticalText    = 0;
@@ -12289,7 +12545,7 @@ static void InitializeObjects() {
   Time_compressor1.Caption         = Time_compressor1_Caption;
   Time_compressor1.TextAlign       = _taCenter;
   Time_compressor1.TextAlignVertical= _tavMiddle;
-  Time_compressor1.FontName        = Arial_Narrow16x19_Bold;
+  Time_compressor1.FontName        = Arial_Narrow13x20_Bold;
   Time_compressor1.PressColEnabled = 1;
   Time_compressor1.Font_Color      = 0x0585;
   Time_compressor1.VerticalText    = 0;
@@ -12319,7 +12575,7 @@ static void InitializeObjects() {
   Time_furnance.Caption         = Time_furnance_Caption;
   Time_furnance.TextAlign       = _taCenter;
   Time_furnance.TextAlignVertical= _tavMiddle;
-  Time_furnance.FontName        = Arial_Narrow16x19_Bold;
+  Time_furnance.FontName        = Arial_Narrow13x20_Bold;
   Time_furnance.PressColEnabled = 1;
   Time_furnance.Font_Color      = 0x0585;
   Time_furnance.VerticalText    = 0;
@@ -12339,12 +12595,12 @@ static void InitializeObjects() {
   total_time_label.Order           = 10;
   total_time_label.Left            = 199;
   total_time_label.Top             = 5;
-  total_time_label.Width           = 100;
+  total_time_label.Width           = 81;
   total_time_label.Height          = 20;
   total_time_label.Visible         = 1;
   total_time_label.Active          = 0;
   total_time_label.Caption         = total_time_label_Caption;
-  total_time_label.FontName        = Arial_Narrow16x19_Bold;
+  total_time_label.FontName        = Arial_Narrow13x20_Bold;
   total_time_label.Font_Color      = 0xE7FC;
   total_time_label.VerticalText    = 0;
   total_time_label.OnUpPtr         = 0;
@@ -12365,7 +12621,7 @@ static void InitializeObjects() {
   CircleButton6.Caption         = CircleButton6_Caption;
   CircleButton6.TextAlign       = _taCenter;
   CircleButton6.TextAlignVertical= _tavMiddle;
-  CircleButton6.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton6.FontName        = Arial_Narrow13x20_Bold;
   CircleButton6.PressColEnabled = 1;
   CircleButton6.Font_Color      = 0x0000;
   CircleButton6.VerticalText    = 0;
@@ -12384,12 +12640,12 @@ static void InitializeObjects() {
   Label6.Order           = 12;
   Label6.Left            = 410;
   Label6.Top             = 222;
-  Label6.Width           = 46;
+  Label6.Width           = 39;
   Label6.Height          = 20;
   Label6.Visible         = 1;
   Label6.Active          = 1;
   Label6.Caption         = Label6_Caption;
-  Label6.FontName        = Arial_Narrow16x19_Bold;
+  Label6.FontName        = Arial_Narrow13x20_Bold;
   Label6.Font_Color      = 0xFFFF;
   Label6.VerticalText    = 0;
   Label6.OnUpPtr         = 0;
@@ -13003,7 +13259,7 @@ static void InitializeObjects() {
   Set_min_heating_HP.Caption         = Set_min_heating_HP_Caption;
   Set_min_heating_HP.TextAlign       = _taCenter;
   Set_min_heating_HP.TextAlignVertical= _tavMiddle;
-  Set_min_heating_HP.FontName        = Arial_Narrow16x19_Bold;
+  Set_min_heating_HP.FontName        = Arial_Narrow13x20_Bold;
   Set_min_heating_HP.PressColEnabled = 1;
   Set_min_heating_HP.Font_Color      = 0x0408;
   Set_min_heating_HP.VerticalText    = 0;
@@ -13033,7 +13289,7 @@ static void InitializeObjects() {
   Set_max_heating_HP.Caption         = Set_max_heating_HP_Caption;
   Set_max_heating_HP.TextAlign       = _taCenter;
   Set_max_heating_HP.TextAlignVertical= _tavMiddle;
-  Set_max_heating_HP.FontName        = Arial_Narrow16x19_Bold;
+  Set_max_heating_HP.FontName        = Arial_Narrow13x20_Bold;
   Set_max_heating_HP.PressColEnabled = 1;
   Set_max_heating_HP.Font_Color      = 0x0408;
   Set_max_heating_HP.VerticalText    = 0;
@@ -13063,7 +13319,7 @@ static void InitializeObjects() {
   Set_max_exhaust.Caption         = Set_max_exhaust_Caption;
   Set_max_exhaust.TextAlign       = _taCenter;
   Set_max_exhaust.TextAlignVertical= _tavMiddle;
-  Set_max_exhaust.FontName        = Arial_Narrow16x19_Bold;
+  Set_max_exhaust.FontName        = Arial_Narrow13x20_Bold;
   Set_max_exhaust.PressColEnabled = 1;
   Set_max_exhaust.Font_Color      = 0x0408;
   Set_max_exhaust.VerticalText    = 0;
@@ -13093,7 +13349,7 @@ static void InitializeObjects() {
   Set_min_source_temp.Caption         = Set_min_source_temp_Caption;
   Set_min_source_temp.TextAlign       = _taCenter;
   Set_min_source_temp.TextAlignVertical= _tavMiddle;
-  Set_min_source_temp.FontName        = Arial_Narrow16x19_Bold;
+  Set_min_source_temp.FontName        = Arial_Narrow13x20_Bold;
   Set_min_source_temp.PressColEnabled = 1;
   Set_min_source_temp.Font_Color      = 0x0408;
   Set_min_source_temp.VerticalText    = 0;
@@ -13123,7 +13379,7 @@ static void InitializeObjects() {
   Set_max_source_temp.Caption         = Set_max_source_temp_Caption;
   Set_max_source_temp.TextAlign       = _taCenter;
   Set_max_source_temp.TextAlignVertical= _tavMiddle;
-  Set_max_source_temp.FontName        = Arial_Narrow16x19_Bold;
+  Set_max_source_temp.FontName        = Arial_Narrow13x20_Bold;
   Set_max_source_temp.PressColEnabled = 1;
   Set_max_source_temp.Font_Color      = 0x0408;
   Set_max_source_temp.VerticalText    = 0;
@@ -13153,7 +13409,7 @@ static void InitializeObjects() {
   Set_min_delta_heat.Caption         = Set_min_delta_heat_Caption;
   Set_min_delta_heat.TextAlign       = _taCenter;
   Set_min_delta_heat.TextAlignVertical= _tavMiddle;
-  Set_min_delta_heat.FontName        = Arial_Narrow16x19_Bold;
+  Set_min_delta_heat.FontName        = Arial_Narrow13x20_Bold;
   Set_min_delta_heat.PressColEnabled = 1;
   Set_min_delta_heat.Font_Color      = 0x0408;
   Set_min_delta_heat.VerticalText    = 0;
@@ -13183,7 +13439,7 @@ static void InitializeObjects() {
   Home_b11.Caption         = Home_b11_Caption;
   Home_b11.TextAlign       = _taCenter;
   Home_b11.TextAlignVertical= _tavMiddle;
-  Home_b11.FontName        = Arial_Narrow16x19_Bold;
+  Home_b11.FontName        = Arial_Narrow13x20_Bold;
   Home_b11.PressColEnabled = 1;
   Home_b11.Font_Color      = 0xD6BA;
   Home_b11.VerticalText    = 0;
@@ -13213,7 +13469,7 @@ static void InitializeObjects() {
   Back_b8.Caption         = Back_b8_Caption;
   Back_b8.TextAlign       = _taCenter;
   Back_b8.TextAlignVertical= _tavMiddle;
-  Back_b8.FontName        = Arial_Narrow16x19_Bold;
+  Back_b8.FontName        = Arial_Narrow13x20_Bold;
   Back_b8.PressColEnabled = 1;
   Back_b8.Font_Color      = 0xD6BA;
   Back_b8.VerticalText    = 0;
@@ -13243,7 +13499,7 @@ static void InitializeObjects() {
   Next_b4.Caption         = Next_b4_Caption;
   Next_b4.TextAlign       = _taCenter;
   Next_b4.TextAlignVertical= _tavMiddle;
-  Next_b4.FontName        = Arial_Narrow16x19_Bold;
+  Next_b4.FontName        = Arial_Narrow13x20_Bold;
   Next_b4.PressColEnabled = 1;
   Next_b4.Font_Color      = 0xD6BA;
   Next_b4.VerticalText    = 0;
@@ -13263,12 +13519,12 @@ static void InitializeObjects() {
   Settings1_label.Order           = 46;
   Settings1_label.Left            = 206;
   Settings1_label.Top             = 4;
-  Settings1_label.Width           = 85;
+  Settings1_label.Width           = 68;
   Settings1_label.Height          = 20;
   Settings1_label.Visible         = 1;
   Settings1_label.Active          = 0;
   Settings1_label.Caption         = Settings1_label_Caption;
-  Settings1_label.FontName        = Arial_Narrow16x19_Bold;
+  Settings1_label.FontName        = Arial_Narrow13x20_Bold;
   Settings1_label.Font_Color      = 0xE7FC;
   Settings1_label.VerticalText    = 0;
   Settings1_label.OnUpPtr         = 0;
@@ -13289,7 +13545,7 @@ static void InitializeObjects() {
   CircleButton1.Caption         = CircleButton1_Caption;
   CircleButton1.TextAlign       = _taCenter;
   CircleButton1.TextAlignVertical= _tavMiddle;
-  CircleButton1.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton1.FontName        = Arial_Narrow13x20_Bold;
   CircleButton1.PressColEnabled = 1;
   CircleButton1.Font_Color      = 0x0000;
   CircleButton1.VerticalText    = 0;
@@ -13878,7 +14134,7 @@ static void InitializeObjects() {
   Set_max_delta_heat.Caption         = Set_max_delta_heat_Caption;
   Set_max_delta_heat.TextAlign       = _taCenter;
   Set_max_delta_heat.TextAlignVertical= _tavMiddle;
-  Set_max_delta_heat.FontName        = Arial_Narrow16x19_Bold;
+  Set_max_delta_heat.FontName        = Arial_Narrow13x20_Bold;
   Set_max_delta_heat.PressColEnabled = 1;
   Set_max_delta_heat.Font_Color      = 0x0408;
   Set_max_delta_heat.VerticalText    = 0;
@@ -13908,7 +14164,7 @@ static void InitializeObjects() {
   Set_min_delta_DHW.Caption         = Set_min_delta_DHW_Caption;
   Set_min_delta_DHW.TextAlign       = _taCenter;
   Set_min_delta_DHW.TextAlignVertical= _tavMiddle;
-  Set_min_delta_DHW.FontName        = Arial_Narrow16x19_Bold;
+  Set_min_delta_DHW.FontName        = Arial_Narrow13x20_Bold;
   Set_min_delta_DHW.PressColEnabled = 1;
   Set_min_delta_DHW.Font_Color      = 0x0408;
   Set_min_delta_DHW.VerticalText    = 0;
@@ -13938,7 +14194,7 @@ static void InitializeObjects() {
   Set_min_delta_source.Caption         = Set_min_delta_source_Caption;
   Set_min_delta_source.TextAlign       = _taCenter;
   Set_min_delta_source.TextAlignVertical= _tavMiddle;
-  Set_min_delta_source.FontName        = Arial_Narrow16x19_Bold;
+  Set_min_delta_source.FontName        = Arial_Narrow13x20_Bold;
   Set_min_delta_source.PressColEnabled = 1;
   Set_min_delta_source.Font_Color      = 0x0408;
   Set_min_delta_source.VerticalText    = 0;
@@ -13968,7 +14224,7 @@ static void InitializeObjects() {
   Set_max_source_delta.Caption         = Set_max_source_delta_Caption;
   Set_max_source_delta.TextAlign       = _taCenter;
   Set_max_source_delta.TextAlignVertical= _tavMiddle;
-  Set_max_source_delta.FontName        = Arial_Narrow16x19_Bold;
+  Set_max_source_delta.FontName        = Arial_Narrow13x20_Bold;
   Set_max_source_delta.PressColEnabled = 1;
   Set_max_source_delta.Font_Color      = 0x0408;
   Set_max_source_delta.VerticalText    = 0;
@@ -13998,7 +14254,7 @@ static void InitializeObjects() {
   Set_max_delta_DHW.Caption         = Set_max_delta_DHW_Caption;
   Set_max_delta_DHW.TextAlign       = _taCenter;
   Set_max_delta_DHW.TextAlignVertical= _tavMiddle;
-  Set_max_delta_DHW.FontName        = Arial_Narrow16x19_Bold;
+  Set_max_delta_DHW.FontName        = Arial_Narrow13x20_Bold;
   Set_max_delta_DHW.PressColEnabled = 1;
   Set_max_delta_DHW.Font_Color      = 0x0408;
   Set_max_delta_DHW.VerticalText    = 0;
@@ -14028,7 +14284,7 @@ static void InitializeObjects() {
   Set_preset_time_electric.Caption         = Set_preset_time_electric_Caption;
   Set_preset_time_electric.TextAlign       = _taCenter;
   Set_preset_time_electric.TextAlignVertical= _tavMiddle;
-  Set_preset_time_electric.FontName        = Arial_Narrow16x19_Bold;
+  Set_preset_time_electric.FontName        = Arial_Narrow13x20_Bold;
   Set_preset_time_electric.PressColEnabled = 1;
   Set_preset_time_electric.Font_Color      = 0x0408;
   Set_preset_time_electric.VerticalText    = 0;
@@ -14106,7 +14362,7 @@ static void InitializeObjects() {
   Home_b12.Caption         = Home_b12_Caption;
   Home_b12.TextAlign       = _taCenter;
   Home_b12.TextAlignVertical= _tavMiddle;
-  Home_b12.FontName        = Arial_Narrow16x19_Bold;
+  Home_b12.FontName        = Arial_Narrow13x20_Bold;
   Home_b12.PressColEnabled = 1;
   Home_b12.Font_Color      = 0xD6BA;
   Home_b12.VerticalText    = 0;
@@ -14136,7 +14392,7 @@ static void InitializeObjects() {
   Back_b9.Caption         = Back_b9_Caption;
   Back_b9.TextAlign       = _taCenter;
   Back_b9.TextAlignVertical= _tavMiddle;
-  Back_b9.FontName        = Arial_Narrow16x19_Bold;
+  Back_b9.FontName        = Arial_Narrow13x20_Bold;
   Back_b9.PressColEnabled = 1;
   Back_b9.Font_Color      = 0xD6BA;
   Back_b9.VerticalText    = 0;
@@ -14166,7 +14422,7 @@ static void InitializeObjects() {
   Next_b5.Caption         = Next_b5_Caption;
   Next_b5.TextAlign       = _taCenter;
   Next_b5.TextAlignVertical= _tavMiddle;
-  Next_b5.FontName        = Arial_Narrow16x19_Bold;
+  Next_b5.FontName        = Arial_Narrow13x20_Bold;
   Next_b5.PressColEnabled = 1;
   Next_b5.Font_Color      = 0xD6BA;
   Next_b5.VerticalText    = 0;
@@ -14186,12 +14442,12 @@ static void InitializeObjects() {
   Settings2_label.Order           = 47;
   Settings2_label.Left            = 206;
   Settings2_label.Top             = 5;
-  Settings2_label.Width           = 85;
+  Settings2_label.Width           = 68;
   Settings2_label.Height          = 20;
   Settings2_label.Visible         = 1;
   Settings2_label.Active          = 0;
   Settings2_label.Caption         = Settings2_label_Caption;
-  Settings2_label.FontName        = Arial_Narrow16x19_Bold;
+  Settings2_label.FontName        = Arial_Narrow13x20_Bold;
   Settings2_label.Font_Color      = 0xE7FC;
   Settings2_label.VerticalText    = 0;
   Settings2_label.OnUpPtr         = 0;
@@ -14212,7 +14468,7 @@ static void InitializeObjects() {
   CircleButton2.Caption         = CircleButton2_Caption;
   CircleButton2.TextAlign       = _taCenter;
   CircleButton2.TextAlignVertical= _tavMiddle;
-  CircleButton2.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton2.FontName        = Arial_Narrow13x20_Bold;
   CircleButton2.PressColEnabled = 1;
   CircleButton2.Font_Color      = 0x0000;
   CircleButton2.VerticalText    = 0;
@@ -14247,12 +14503,12 @@ static void InitializeObjects() {
   Sensors2_label.Order           = 1;
   Sensors2_label.Left            = 214;
   Sensors2_label.Top             = 5;
-  Sensors2_label.Width           = 56;
+  Sensors2_label.Width           = 46;
   Sensors2_label.Height          = 20;
   Sensors2_label.Visible         = 1;
   Sensors2_label.Active          = 0;
   Sensors2_label.Caption         = Sensors2_label_Caption;
-  Sensors2_label.FontName        = Arial_Narrow16x19_Bold;
+  Sensors2_label.FontName        = Arial_Narrow13x20_Bold;
   Sensors2_label.Font_Color      = 0xE7FC;
   Sensors2_label.VerticalText    = 0;
   Sensors2_label.OnUpPtr         = 0;
@@ -14264,12 +14520,12 @@ static void InitializeObjects() {
   Label285.Order           = 2;
   Label285.Left            = 28;
   Label285.Top             = 62;
-  Label285.Width           = 91;
+  Label285.Width           = 79;
   Label285.Height          = 20;
   Label285.Visible         = 1;
   Label285.Active          = 0;
   Label285.Caption         = Label285_Caption;
-  Label285.FontName        = Arial_Narrow16x19_Bold;
+  Label285.FontName        = Arial_Narrow13x20_Bold;
   Label285.Font_Color      = 0xFFFF;
   Label285.VerticalText    = 0;
   Label285.OnUpPtr         = 0;
@@ -14281,12 +14537,12 @@ static void InitializeObjects() {
   Label286.Order           = 3;
   Label286.Left            = 28;
   Label286.Top             = 36;
-  Label286.Width           = 81;
+  Label286.Width           = 70;
   Label286.Height          = 20;
   Label286.Visible         = 1;
   Label286.Active          = 0;
   Label286.Caption         = Label286_Caption;
-  Label286.FontName        = Arial_Narrow16x19_Bold;
+  Label286.FontName        = Arial_Narrow13x20_Bold;
   Label286.Font_Color      = 0xFFFF;
   Label286.VerticalText    = 0;
   Label286.OnUpPtr         = 0;
@@ -14298,12 +14554,12 @@ static void InitializeObjects() {
   Label287.Order           = 4;
   Label287.Left            = 28;
   Label287.Top             = 87;
-  Label287.Width           = 100;
+  Label287.Width           = 85;
   Label287.Height          = 20;
   Label287.Visible         = 1;
   Label287.Active          = 0;
   Label287.Caption         = Label287_Caption;
-  Label287.FontName        = Arial_Narrow16x19_Bold;
+  Label287.FontName        = Arial_Narrow13x20_Bold;
   Label287.Font_Color      = 0xFFFF;
   Label287.VerticalText    = 0;
   Label287.OnUpPtr         = 0;
@@ -14315,12 +14571,12 @@ static void InitializeObjects() {
   Label288.Order           = 5;
   Label288.Left            = 28;
   Label288.Top             = 113;
-  Label288.Width           = 110;
+  Label288.Width           = 94;
   Label288.Height          = 20;
   Label288.Visible         = 1;
   Label288.Active          = 0;
   Label288.Caption         = Label288_Caption;
-  Label288.FontName        = Arial_Narrow16x19_Bold;
+  Label288.FontName        = Arial_Narrow13x20_Bold;
   Label288.Font_Color      = 0xFFFF;
   Label288.VerticalText    = 0;
   Label288.OnUpPtr         = 0;
@@ -14332,12 +14588,12 @@ static void InitializeObjects() {
   Label289.Order           = 6;
   Label289.Left            = 29;
   Label289.Top             = 138;
-  Label289.Width           = 93;
+  Label289.Width           = 80;
   Label289.Height          = 20;
   Label289.Visible         = 1;
   Label289.Active          = 0;
   Label289.Caption         = Label289_Caption;
-  Label289.FontName        = Arial_Narrow16x19_Bold;
+  Label289.FontName        = Arial_Narrow13x20_Bold;
   Label289.Font_Color      = 0xFFFF;
   Label289.VerticalText    = 0;
   Label289.OnUpPtr         = 0;
@@ -14349,12 +14605,12 @@ static void InitializeObjects() {
   Label290.Order           = 7;
   Label290.Left            = 246;
   Label290.Top             = 88;
-  Label290.Width           = 40;
+  Label290.Width           = 32;
   Label290.Height          = 20;
   Label290.Visible         = 1;
   Label290.Active          = 0;
   Label290.Caption         = Label290_Caption;
-  Label290.FontName        = Arial_Narrow16x19_Bold;
+  Label290.FontName        = Arial_Narrow13x20_Bold;
   Label290.Font_Color      = 0xFFFF;
   Label290.VerticalText    = 0;
   Label290.OnUpPtr         = 0;
@@ -14366,12 +14622,12 @@ static void InitializeObjects() {
   Label293.Order           = 8;
   Label293.Left            = 28;
   Label293.Top             = 164;
-  Label293.Width           = 102;
+  Label293.Width           = 86;
   Label293.Height          = 20;
   Label293.Visible         = 1;
   Label293.Active          = 0;
   Label293.Caption         = Label293_Caption;
-  Label293.FontName        = Arial_Narrow16x19_Bold;
+  Label293.FontName        = Arial_Narrow13x20_Bold;
   Label293.Font_Color      = 0xFFFF;
   Label293.VerticalText    = 0;
   Label293.OnUpPtr         = 0;
@@ -14383,12 +14639,12 @@ static void InitializeObjects() {
   Label294.Order           = 9;
   Label294.Left            = 28;
   Label294.Top             = 190;
-  Label294.Width           = 85;
+  Label294.Width           = 74;
   Label294.Height          = 20;
   Label294.Visible         = 1;
   Label294.Active          = 0;
   Label294.Caption         = Label294_Caption;
-  Label294.FontName        = Arial_Narrow16x19_Bold;
+  Label294.FontName        = Arial_Narrow13x20_Bold;
   Label294.Font_Color      = 0xFFFF;
   Label294.VerticalText    = 0;
   Label294.OnUpPtr         = 0;
@@ -14398,9 +14654,9 @@ static void InitializeObjects() {
 
   S_Brine_Inlet_1.OwnerScreen     = &SENSOR1;
   S_Brine_Inlet_1.Order           = 10;
-  S_Brine_Inlet_1.Left            = 145;
+  S_Brine_Inlet_1.Left            = 159;
   S_Brine_Inlet_1.Top             = 32;
-  S_Brine_Inlet_1.Width           = 45;
+  S_Brine_Inlet_1.Width           = 31;
   S_Brine_Inlet_1.Height          = 23;
   S_Brine_Inlet_1.Pen_Width       = 1;
   S_Brine_Inlet_1.Pen_Color       = 0xC618;
@@ -14410,7 +14666,7 @@ static void InitializeObjects() {
   S_Brine_Inlet_1.Caption         = S_Brine_Inlet_1_Caption;
   S_Brine_Inlet_1.TextAlign       = _taRight;
   S_Brine_Inlet_1.TextAlignVertical= _tavMiddle;
-  S_Brine_Inlet_1.FontName        = Arial_Narrow16x19_Bold;
+  S_Brine_Inlet_1.FontName        = Arial_Narrow13x20_Bold;
   S_Brine_Inlet_1.PressColEnabled = 0;
   S_Brine_Inlet_1.Font_Color      = 0x0000;
   S_Brine_Inlet_1.VerticalText    = 0;
@@ -14428,9 +14684,9 @@ static void InitializeObjects() {
 
   S_Brine_Outlet_1.OwnerScreen     = &SENSOR1;
   S_Brine_Outlet_1.Order           = 11;
-  S_Brine_Outlet_1.Left            = 145;
+  S_Brine_Outlet_1.Left            = 159;
   S_Brine_Outlet_1.Top             = 58;
-  S_Brine_Outlet_1.Width           = 45;
+  S_Brine_Outlet_1.Width           = 31;
   S_Brine_Outlet_1.Height          = 23;
   S_Brine_Outlet_1.Pen_Width       = 1;
   S_Brine_Outlet_1.Pen_Color       = 0xC618;
@@ -14440,7 +14696,7 @@ static void InitializeObjects() {
   S_Brine_Outlet_1.Caption         = S_Brine_Outlet_1_Caption;
   S_Brine_Outlet_1.TextAlign       = _taRight;
   S_Brine_Outlet_1.TextAlignVertical= _tavMiddle;
-  S_Brine_Outlet_1.FontName        = Arial_Narrow16x19_Bold;
+  S_Brine_Outlet_1.FontName        = Arial_Narrow13x20_Bold;
   S_Brine_Outlet_1.PressColEnabled = 0;
   S_Brine_Outlet_1.Font_Color      = 0x0000;
   S_Brine_Outlet_1.VerticalText    = 0;
@@ -14470,7 +14726,7 @@ static void InitializeObjects() {
   S_Heat_Inlet_1.Caption         = S_Heat_Inlet_1_Caption;
   S_Heat_Inlet_1.TextAlign       = _taRight;
   S_Heat_Inlet_1.TextAlignVertical= _tavMiddle;
-  S_Heat_Inlet_1.FontName        = Arial_Narrow16x19_Bold;
+  S_Heat_Inlet_1.FontName        = Arial_Narrow13x20_Bold;
   S_Heat_Inlet_1.PressColEnabled = 0;
   S_Heat_Inlet_1.Font_Color      = 0x0000;
   S_Heat_Inlet_1.VerticalText    = 0;
@@ -14500,7 +14756,7 @@ static void InitializeObjects() {
   S_Heat_Outlet_1.Caption         = S_Heat_Outlet_1_Caption;
   S_Heat_Outlet_1.TextAlign       = _taRight;
   S_Heat_Outlet_1.TextAlignVertical= _tavMiddle;
-  S_Heat_Outlet_1.FontName        = Arial_Narrow16x19_Bold;
+  S_Heat_Outlet_1.FontName        = Arial_Narrow13x20_Bold;
   S_Heat_Outlet_1.PressColEnabled = 0;
   S_Heat_Outlet_1.Font_Color      = 0x0000;
   S_Heat_Outlet_1.VerticalText    = 0;
@@ -14530,7 +14786,7 @@ static void InitializeObjects() {
   S_Compressor_1.Caption         = S_Compressor_1_Caption;
   S_Compressor_1.TextAlign       = _taRight;
   S_Compressor_1.TextAlignVertical= _tavMiddle;
-  S_Compressor_1.FontName        = Arial_Narrow16x19_Bold;
+  S_Compressor_1.FontName        = Arial_Narrow13x20_Bold;
   S_Compressor_1.PressColEnabled = 0;
   S_Compressor_1.Font_Color      = 0x0000;
   S_Compressor_1.VerticalText    = 0;
@@ -14548,9 +14804,9 @@ static void InitializeObjects() {
 
   S_DHW.OwnerScreen     = &SENSOR1;
   S_DHW.Order           = 15;
-  S_DHW.Left            = 391;
+  S_DHW.Left            = 389;
   S_DHW.Top             = 84;
-  S_DHW.Width           = 45;
+  S_DHW.Width           = 47;
   S_DHW.Height          = 23;
   S_DHW.Pen_Width       = 1;
   S_DHW.Pen_Color       = 0xC618;
@@ -14560,7 +14816,7 @@ static void InitializeObjects() {
   S_DHW.Caption         = S_DHW_Caption;
   S_DHW.TextAlign       = _taRight;
   S_DHW.TextAlignVertical= _tavMiddle;
-  S_DHW.FontName        = Arial_Narrow16x19_Bold;
+  S_DHW.FontName        = Arial_Narrow13x20_Bold;
   S_DHW.PressColEnabled = 0;
   S_DHW.Font_Color      = 0x0000;
   S_DHW.VerticalText    = 0;
@@ -14578,9 +14834,9 @@ static void InitializeObjects() {
 
   S_Superheat_1.OwnerScreen     = &SENSOR1;
   S_Superheat_1.Order           = 16;
-  S_Superheat_1.Left            = 145;
+  S_Superheat_1.Left            = 160;
   S_Superheat_1.Top             = 162;
-  S_Superheat_1.Width           = 45;
+  S_Superheat_1.Width           = 30;
   S_Superheat_1.Height          = 23;
   S_Superheat_1.Pen_Width       = 1;
   S_Superheat_1.Pen_Color       = 0xC618;
@@ -14590,7 +14846,7 @@ static void InitializeObjects() {
   S_Superheat_1.Caption         = S_Superheat_1_Caption;
   S_Superheat_1.TextAlign       = _taRight;
   S_Superheat_1.TextAlignVertical= _tavMiddle;
-  S_Superheat_1.FontName        = Arial_Narrow16x19_Bold;
+  S_Superheat_1.FontName        = Arial_Narrow13x20_Bold;
   S_Superheat_1.PressColEnabled = 0;
   S_Superheat_1.Font_Color      = 0x0000;
   S_Superheat_1.VerticalText    = 0;
@@ -14608,9 +14864,9 @@ static void InitializeObjects() {
 
   S_Subcool_1.OwnerScreen     = &SENSOR1;
   S_Subcool_1.Order           = 17;
-  S_Subcool_1.Left            = 145;
+  S_Subcool_1.Left            = 159;
   S_Subcool_1.Top             = 188;
-  S_Subcool_1.Width           = 45;
+  S_Subcool_1.Width           = 31;
   S_Subcool_1.Height          = 23;
   S_Subcool_1.Pen_Width       = 1;
   S_Subcool_1.Pen_Color       = 0xC618;
@@ -14620,7 +14876,7 @@ static void InitializeObjects() {
   S_Subcool_1.Caption         = S_Subcool_1_Caption;
   S_Subcool_1.TextAlign       = _taRight;
   S_Subcool_1.TextAlignVertical= _tavMiddle;
-  S_Subcool_1.FontName        = Arial_Narrow16x19_Bold;
+  S_Subcool_1.FontName        = Arial_Narrow13x20_Bold;
   S_Subcool_1.PressColEnabled = 0;
   S_Subcool_1.Font_Color      = 0x0000;
   S_Subcool_1.VerticalText    = 0;
@@ -14640,12 +14896,12 @@ static void InitializeObjects() {
   Label297.Order           = 18;
   Label297.Left            = 200;
   Label297.Top             = 34;
-  Label297.Width           = 12;
+  Label297.Width           = 10;
   Label297.Height          = 20;
   Label297.Visible         = 1;
   Label297.Active          = 0;
   Label297.Caption         = Label297_Caption;
-  Label297.FontName        = Arial_Narrow16x19_Bold;
+  Label297.FontName        = Arial_Narrow13x20_Bold;
   Label297.Font_Color      = 0xFFFF;
   Label297.VerticalText    = 0;
   Label297.OnUpPtr         = 0;
@@ -14662,7 +14918,7 @@ static void InitializeObjects() {
   Label298.Visible         = 1;
   Label298.Active          = 0;
   Label298.Caption         = Label298_Caption;
-  Label298.FontName        = Arial_Narrow16x19_Bold;
+  Label298.FontName        = Arial_Narrow13x20_Bold;
   Label298.Font_Color      = 0xFFFF;
   Label298.VerticalText    = 0;
   Label298.OnUpPtr         = 0;
@@ -14674,12 +14930,12 @@ static void InitializeObjects() {
   Label299.Order           = 20;
   Label299.Left            = 202;
   Label299.Top             = 60;
-  Label299.Width           = 12;
+  Label299.Width           = 10;
   Label299.Height          = 20;
   Label299.Visible         = 1;
   Label299.Active          = 0;
   Label299.Caption         = Label299_Caption;
-  Label299.FontName        = Arial_Narrow16x19_Bold;
+  Label299.FontName        = Arial_Narrow13x20_Bold;
   Label299.Font_Color      = 0xFFFF;
   Label299.VerticalText    = 0;
   Label299.OnUpPtr         = 0;
@@ -14696,7 +14952,7 @@ static void InitializeObjects() {
   Label300.Visible         = 1;
   Label300.Active          = 0;
   Label300.Caption         = Label300_Caption;
-  Label300.FontName        = Arial_Narrow16x19_Bold;
+  Label300.FontName        = Arial_Narrow13x20_Bold;
   Label300.Font_Color      = 0xFFFF;
   Label300.VerticalText    = 0;
   Label300.OnUpPtr         = 0;
@@ -14708,12 +14964,12 @@ static void InitializeObjects() {
   Label301.Order           = 22;
   Label301.Left            = 202;
   Label301.Top             = 87;
-  Label301.Width           = 12;
+  Label301.Width           = 10;
   Label301.Height          = 20;
   Label301.Visible         = 1;
   Label301.Active          = 0;
   Label301.Caption         = Label301_Caption;
-  Label301.FontName        = Arial_Narrow16x19_Bold;
+  Label301.FontName        = Arial_Narrow13x20_Bold;
   Label301.Font_Color      = 0xFFFF;
   Label301.VerticalText    = 0;
   Label301.OnUpPtr         = 0;
@@ -14730,7 +14986,7 @@ static void InitializeObjects() {
   Label302.Visible         = 1;
   Label302.Active          = 0;
   Label302.Caption         = Label302_Caption;
-  Label302.FontName        = Arial_Narrow16x19_Bold;
+  Label302.FontName        = Arial_Narrow13x20_Bold;
   Label302.Font_Color      = 0xFFFF;
   Label302.VerticalText    = 0;
   Label302.OnUpPtr         = 0;
@@ -14747,7 +15003,7 @@ static void InitializeObjects() {
   Label303.Visible         = 1;
   Label303.Active          = 0;
   Label303.Caption         = Label303_Caption;
-  Label303.FontName        = Arial_Narrow16x19_Bold;
+  Label303.FontName        = Arial_Narrow13x20_Bold;
   Label303.Font_Color      = 0xFFFF;
   Label303.VerticalText    = 0;
   Label303.OnUpPtr         = 0;
@@ -14759,12 +15015,12 @@ static void InitializeObjects() {
   Label304.Order           = 25;
   Label304.Left            = 201;
   Label304.Top             = 113;
-  Label304.Width           = 12;
+  Label304.Width           = 10;
   Label304.Height          = 20;
   Label304.Visible         = 1;
   Label304.Active          = 0;
   Label304.Caption         = Label304_Caption;
-  Label304.FontName        = Arial_Narrow16x19_Bold;
+  Label304.FontName        = Arial_Narrow13x20_Bold;
   Label304.Font_Color      = 0xFFFF;
   Label304.VerticalText    = 0;
   Label304.OnUpPtr         = 0;
@@ -14781,7 +15037,7 @@ static void InitializeObjects() {
   Label305.Visible         = 1;
   Label305.Active          = 0;
   Label305.Caption         = Label305_Caption;
-  Label305.FontName        = Arial_Narrow16x19_Bold;
+  Label305.FontName        = Arial_Narrow13x20_Bold;
   Label305.Font_Color      = 0xFFFF;
   Label305.VerticalText    = 0;
   Label305.OnUpPtr         = 0;
@@ -14793,12 +15049,12 @@ static void InitializeObjects() {
   Label306.Order           = 27;
   Label306.Left            = 201;
   Label306.Top             = 139;
-  Label306.Width           = 12;
+  Label306.Width           = 10;
   Label306.Height          = 20;
   Label306.Visible         = 1;
   Label306.Active          = 0;
   Label306.Caption         = Label306_Caption;
-  Label306.FontName        = Arial_Narrow16x19_Bold;
+  Label306.FontName        = Arial_Narrow13x20_Bold;
   Label306.Font_Color      = 0xFFFF;
   Label306.VerticalText    = 0;
   Label306.OnUpPtr         = 0;
@@ -14815,7 +15071,7 @@ static void InitializeObjects() {
   Label309.Visible         = 1;
   Label309.Active          = 0;
   Label309.Caption         = Label309_Caption;
-  Label309.FontName        = Arial_Narrow16x19_Bold;
+  Label309.FontName        = Arial_Narrow13x20_Bold;
   Label309.Font_Color      = 0xFFFF;
   Label309.VerticalText    = 0;
   Label309.OnUpPtr         = 0;
@@ -14827,12 +15083,12 @@ static void InitializeObjects() {
   Label310.Order           = 29;
   Label310.Left            = 447;
   Label310.Top             = 86;
-  Label310.Width           = 12;
+  Label310.Width           = 10;
   Label310.Height          = 20;
   Label310.Visible         = 1;
   Label310.Active          = 0;
   Label310.Caption         = Label310_Caption;
-  Label310.FontName        = Arial_Narrow16x19_Bold;
+  Label310.FontName        = Arial_Narrow13x20_Bold;
   Label310.Font_Color      = 0xFFFF;
   Label310.VerticalText    = 0;
   Label310.OnUpPtr         = 0;
@@ -14844,12 +15100,12 @@ static void InitializeObjects() {
   Label315.Order           = 30;
   Label315.Left            = 201;
   Label315.Top             = 164;
-  Label315.Width           = 12;
+  Label315.Width           = 10;
   Label315.Height          = 20;
   Label315.Visible         = 1;
   Label315.Active          = 0;
   Label315.Caption         = Label315_Caption;
-  Label315.FontName        = Arial_Narrow16x19_Bold;
+  Label315.FontName        = Arial_Narrow13x20_Bold;
   Label315.Font_Color      = 0xFFFF;
   Label315.VerticalText    = 0;
   Label315.OnUpPtr         = 0;
@@ -14866,7 +15122,7 @@ static void InitializeObjects() {
   Label316.Visible         = 1;
   Label316.Active          = 0;
   Label316.Caption         = Label316_Caption;
-  Label316.FontName        = Arial_Narrow16x19_Bold;
+  Label316.FontName        = Arial_Narrow13x20_Bold;
   Label316.Font_Color      = 0xFFFF;
   Label316.VerticalText    = 0;
   Label316.OnUpPtr         = 0;
@@ -14878,12 +15134,12 @@ static void InitializeObjects() {
   Label317.Order           = 32;
   Label317.Left            = 201;
   Label317.Top             = 191;
-  Label317.Width           = 12;
+  Label317.Width           = 10;
   Label317.Height          = 20;
   Label317.Visible         = 1;
   Label317.Active          = 0;
   Label317.Caption         = Label317_Caption;
-  Label317.FontName        = Arial_Narrow16x19_Bold;
+  Label317.FontName        = Arial_Narrow13x20_Bold;
   Label317.Font_Color      = 0xFFFF;
   Label317.VerticalText    = 0;
   Label317.OnUpPtr         = 0;
@@ -14900,7 +15156,7 @@ static void InitializeObjects() {
   Label318.Visible         = 1;
   Label318.Active          = 0;
   Label318.Caption         = Label318_Caption;
-  Label318.FontName        = Arial_Narrow16x19_Bold;
+  Label318.FontName        = Arial_Narrow13x20_Bold;
   Label318.Font_Color      = 0xFFFF;
   Label318.VerticalText    = 0;
   Label318.OnUpPtr         = 0;
@@ -14912,12 +15168,12 @@ static void InitializeObjects() {
   Label319.Order           = 34;
   Label319.Left            = 246;
   Label319.Top             = 36;
-  Label319.Width           = 89;
+  Label319.Width           = 77;
   Label319.Height          = 20;
   Label319.Visible         = 1;
   Label319.Active          = 0;
   Label319.Caption         = Label319_Caption;
-  Label319.FontName        = Arial_Narrow16x19_Bold;
+  Label319.FontName        = Arial_Narrow13x20_Bold;
   Label319.Font_Color      = 0xFFFF;
   Label319.VerticalText    = 0;
   Label319.OnUpPtr         = 0;
@@ -14927,9 +15183,9 @@ static void InitializeObjects() {
 
   S_Source_Flow_1.OwnerScreen     = &SENSOR1;
   S_Source_Flow_1.Order           = 35;
-  S_Source_Flow_1.Left            = 391;
+  S_Source_Flow_1.Left            = 389;
   S_Source_Flow_1.Top             = 32;
-  S_Source_Flow_1.Width           = 51;
+  S_Source_Flow_1.Width           = 53;
   S_Source_Flow_1.Height          = 23;
   S_Source_Flow_1.Pen_Width       = 1;
   S_Source_Flow_1.Pen_Color       = 0xC618;
@@ -14939,7 +15195,7 @@ static void InitializeObjects() {
   S_Source_Flow_1.Caption         = S_Source_Flow_1_Caption;
   S_Source_Flow_1.TextAlign       = _taRight;
   S_Source_Flow_1.TextAlignVertical= _tavMiddle;
-  S_Source_Flow_1.FontName        = Arial_Narrow16x19_Bold;
+  S_Source_Flow_1.FontName        = Arial_Narrow13x20_Bold;
   S_Source_Flow_1.PressColEnabled = 0;
   S_Source_Flow_1.Font_Color      = 0x0000;
   S_Source_Flow_1.VerticalText    = 0;
@@ -14959,12 +15215,12 @@ static void InitializeObjects() {
   Label320.Order           = 36;
   Label320.Left            = 246;
   Label320.Top             = 62;
-  Label320.Width           = 71;
+  Label320.Width           = 60;
   Label320.Height          = 20;
   Label320.Visible         = 1;
   Label320.Active          = 0;
   Label320.Caption         = Label320_Caption;
-  Label320.FontName        = Arial_Narrow16x19_Bold;
+  Label320.FontName        = Arial_Narrow13x20_Bold;
   Label320.Font_Color      = 0xFFFF;
   Label320.VerticalText    = 0;
   Label320.OnUpPtr         = 0;
@@ -14974,9 +15230,9 @@ static void InitializeObjects() {
 
   S_Heat_Flow_1.OwnerScreen     = &SENSOR1;
   S_Heat_Flow_1.Order           = 37;
-  S_Heat_Flow_1.Left            = 391;
+  S_Heat_Flow_1.Left            = 389;
   S_Heat_Flow_1.Top             = 58;
-  S_Heat_Flow_1.Width           = 51;
+  S_Heat_Flow_1.Width           = 53;
   S_Heat_Flow_1.Height          = 23;
   S_Heat_Flow_1.Pen_Width       = 1;
   S_Heat_Flow_1.Pen_Color       = 0xC618;
@@ -14986,7 +15242,7 @@ static void InitializeObjects() {
   S_Heat_Flow_1.Caption         = S_Heat_Flow_1_Caption;
   S_Heat_Flow_1.TextAlign       = _taRight;
   S_Heat_Flow_1.TextAlignVertical= _tavMiddle;
-  S_Heat_Flow_1.FontName        = Arial_Narrow16x19_Bold;
+  S_Heat_Flow_1.FontName        = Arial_Narrow13x20_Bold;
   S_Heat_Flow_1.PressColEnabled = 0;
   S_Heat_Flow_1.Font_Color      = 0x0000;
   S_Heat_Flow_1.VerticalText    = 0;
@@ -15006,12 +15262,12 @@ static void InitializeObjects() {
   Label321.Order           = 38;
   Label321.Left            = 444;
   Label321.Top             = 61;
-  Label321.Width           = 18;
+  Label321.Width           = 16;
   Label321.Height          = 20;
   Label321.Visible         = 1;
   Label321.Active          = 0;
   Label321.Caption         = Label321_Caption;
-  Label321.FontName        = Arial_Narrow16x19_Bold;
+  Label321.FontName        = Arial_Narrow13x20_Bold;
   Label321.Font_Color      = 0xFFFF;
   Label321.VerticalText    = 0;
   Label321.OnUpPtr         = 0;
@@ -15023,12 +15279,12 @@ static void InitializeObjects() {
   Label322.Order           = 39;
   Label322.Left            = 444;
   Label322.Top             = 35;
-  Label322.Width           = 18;
+  Label322.Width           = 16;
   Label322.Height          = 20;
   Label322.Visible         = 1;
   Label322.Active          = 0;
   Label322.Caption         = Label322_Caption;
-  Label322.FontName        = Arial_Narrow16x19_Bold;
+  Label322.FontName        = Arial_Narrow13x20_Bold;
   Label322.Font_Color      = 0xFFFF;
   Label322.VerticalText    = 0;
   Label322.OnUpPtr         = 0;
@@ -15038,9 +15294,9 @@ static void InitializeObjects() {
 
   SS_tank.OwnerScreen     = &SENSOR1;
   SS_tank.Order           = 40;
-  SS_tank.Left            = 391;
+  SS_tank.Left            = 389;
   SS_tank.Top             = 110;
-  SS_tank.Width           = 45;
+  SS_tank.Width           = 47;
   SS_tank.Height          = 23;
   SS_tank.Pen_Width       = 1;
   SS_tank.Pen_Color       = 0xC618;
@@ -15050,7 +15306,7 @@ static void InitializeObjects() {
   SS_tank.Caption         = SS_tank_Caption;
   SS_tank.TextAlign       = _taRight;
   SS_tank.TextAlignVertical= _tavMiddle;
-  SS_tank.FontName        = Arial_Narrow16x19_Bold;
+  SS_tank.FontName        = Arial_Narrow13x20_Bold;
   SS_tank.PressColEnabled = 0;
   SS_tank.Font_Color      = 0x0000;
   SS_tank.VerticalText    = 0;
@@ -15070,12 +15326,12 @@ static void InitializeObjects() {
   Label12.Order           = 41;
   Label12.Left            = 247;
   Label12.Top             = 113;
-  Label12.Width           = 38;
+  Label12.Width           = 32;
   Label12.Height          = 20;
   Label12.Visible         = 1;
   Label12.Active          = 0;
   Label12.Caption         = Label12_Caption;
-  Label12.FontName        = Arial_Narrow16x19_Bold;
+  Label12.FontName        = Arial_Narrow13x20_Bold;
   Label12.Font_Color      = 0xFFFF;
   Label12.VerticalText    = 0;
   Label12.OnUpPtr         = 0;
@@ -15087,12 +15343,12 @@ static void InitializeObjects() {
   Label13.Order           = 42;
   Label13.Left            = 447;
   Label13.Top             = 113;
-  Label13.Width           = 12;
+  Label13.Width           = 10;
   Label13.Height          = 20;
   Label13.Visible         = 1;
   Label13.Active          = 0;
   Label13.Caption         = Label13_Caption;
-  Label13.FontName        = Arial_Narrow16x19_Bold;
+  Label13.FontName        = Arial_Narrow13x20_Bold;
   Label13.Font_Color      = 0xFFFF;
   Label13.VerticalText    = 0;
   Label13.OnUpPtr         = 0;
@@ -15109,7 +15365,7 @@ static void InitializeObjects() {
   Label14.Visible         = 1;
   Label14.Active          = 0;
   Label14.Caption         = Label14_Caption;
-  Label14.FontName        = Arial_Narrow16x19_Bold;
+  Label14.FontName        = Arial_Narrow13x20_Bold;
   Label14.Font_Color      = 0xFFFF;
   Label14.VerticalText    = 0;
   Label14.OnUpPtr         = 0;
@@ -15119,9 +15375,9 @@ static void InitializeObjects() {
 
   S_condenser_1.OwnerScreen     = &SENSOR1;
   S_condenser_1.Order           = 44;
-  S_condenser_1.Left            = 391;
+  S_condenser_1.Left            = 403;
   S_condenser_1.Top             = 136;
-  S_condenser_1.Width           = 45;
+  S_condenser_1.Width           = 33;
   S_condenser_1.Height          = 23;
   S_condenser_1.Pen_Width       = 1;
   S_condenser_1.Pen_Color       = 0xC618;
@@ -15131,7 +15387,7 @@ static void InitializeObjects() {
   S_condenser_1.Caption         = S_condenser_1_Caption;
   S_condenser_1.TextAlign       = _taRight;
   S_condenser_1.TextAlignVertical= _tavMiddle;
-  S_condenser_1.FontName        = Arial_Narrow16x19_Bold;
+  S_condenser_1.FontName        = Arial_Narrow13x20_Bold;
   S_condenser_1.PressColEnabled = 0;
   S_condenser_1.Font_Color      = 0x0000;
   S_condenser_1.VerticalText    = 0;
@@ -15149,9 +15405,9 @@ static void InitializeObjects() {
 
   S_suction_1.OwnerScreen     = &SENSOR1;
   S_suction_1.Order           = 45;
-  S_suction_1.Left            = 391;
+  S_suction_1.Left            = 389;
   S_suction_1.Top             = 162;
-  S_suction_1.Width           = 45;
+  S_suction_1.Width           = 47;
   S_suction_1.Height          = 23;
   S_suction_1.Pen_Width       = 1;
   S_suction_1.Pen_Color       = 0xC618;
@@ -15161,7 +15417,7 @@ static void InitializeObjects() {
   S_suction_1.Caption         = S_suction_1_Caption;
   S_suction_1.TextAlign       = _taRight;
   S_suction_1.TextAlignVertical= _tavMiddle;
-  S_suction_1.FontName        = Arial_Narrow16x19_Bold;
+  S_suction_1.FontName        = Arial_Narrow13x20_Bold;
   S_suction_1.PressColEnabled = 0;
   S_suction_1.Font_Color      = 0x0000;
   S_suction_1.VerticalText    = 0;
@@ -15186,7 +15442,7 @@ static void InitializeObjects() {
   Label15.Visible         = 1;
   Label15.Active          = 0;
   Label15.Caption         = Label15_Caption;
-  Label15.FontName        = Arial_Narrow16x19_Bold;
+  Label15.FontName        = Arial_Narrow13x20_Bold;
   Label15.Font_Color      = 0xFFFF;
   Label15.VerticalText    = 0;
   Label15.OnUpPtr         = 0;
@@ -15203,7 +15459,7 @@ static void InitializeObjects() {
   Label17.Visible         = 1;
   Label17.Active          = 0;
   Label17.Caption         = Label17_Caption;
-  Label17.FontName        = Arial_Narrow16x19_Bold;
+  Label17.FontName        = Arial_Narrow13x20_Bold;
   Label17.Font_Color      = 0xFFFF;
   Label17.VerticalText    = 0;
   Label17.OnUpPtr         = 0;
@@ -15215,12 +15471,12 @@ static void InitializeObjects() {
   Label18.Order           = 48;
   Label18.Left            = 447;
   Label18.Top             = 140;
-  Label18.Width           = 12;
+  Label18.Width           = 10;
   Label18.Height          = 20;
   Label18.Visible         = 1;
   Label18.Active          = 0;
   Label18.Caption         = Label18_Caption;
-  Label18.FontName        = Arial_Narrow16x19_Bold;
+  Label18.FontName        = Arial_Narrow13x20_Bold;
   Label18.Font_Color      = 0xFFFF;
   Label18.VerticalText    = 0;
   Label18.OnUpPtr         = 0;
@@ -15232,12 +15488,12 @@ static void InitializeObjects() {
   Label28.Order           = 49;
   Label28.Left            = 447;
   Label28.Top             = 167;
-  Label28.Width           = 12;
+  Label28.Width           = 10;
   Label28.Height          = 20;
   Label28.Visible         = 1;
   Label28.Active          = 0;
   Label28.Caption         = Label28_Caption;
-  Label28.FontName        = Arial_Narrow16x19_Bold;
+  Label28.FontName        = Arial_Narrow13x20_Bold;
   Label28.Font_Color      = 0xFFFF;
   Label28.VerticalText    = 0;
   Label28.OnUpPtr         = 0;
@@ -15249,12 +15505,12 @@ static void InitializeObjects() {
   Label31.Order           = 50;
   Label31.Left            = 247;
   Label31.Top             = 139;
-  Label31.Width           = 131;
+  Label31.Width           = 110;
   Label31.Height          = 20;
   Label31.Visible         = 1;
   Label31.Active          = 0;
   Label31.Caption         = Label31_Caption;
-  Label31.FontName        = Arial_Narrow16x19_Bold;
+  Label31.FontName        = Arial_Narrow13x20_Bold;
   Label31.Font_Color      = 0xFFFF;
   Label31.VerticalText    = 0;
   Label31.OnUpPtr         = 0;
@@ -15266,12 +15522,12 @@ static void InitializeObjects() {
   Label32.Order           = 51;
   Label32.Left            = 248;
   Label32.Top             = 165;
-  Label32.Width           = 105;
+  Label32.Width           = 89;
   Label32.Height          = 20;
   Label32.Visible         = 1;
   Label32.Active          = 0;
   Label32.Caption         = Label32_Caption;
-  Label32.FontName        = Arial_Narrow16x19_Bold;
+  Label32.FontName        = Arial_Narrow13x20_Bold;
   Label32.Font_Color      = 0xFFFF;
   Label32.VerticalText    = 0;
   Label32.OnUpPtr         = 0;
@@ -15293,7 +15549,7 @@ static void InitializeObjects() {
   Home_b13.Caption         = Home_b13_Caption;
   Home_b13.TextAlign       = _taCenter;
   Home_b13.TextAlignVertical= _tavMiddle;
-  Home_b13.FontName        = Arial_Narrow16x19_Bold;
+  Home_b13.FontName        = Arial_Narrow13x20_Bold;
   Home_b13.PressColEnabled = 1;
   Home_b13.Font_Color      = 0xD6BA;
   Home_b13.VerticalText    = 0;
@@ -15323,7 +15579,7 @@ static void InitializeObjects() {
   Back_b10.Caption         = Back_b10_Caption;
   Back_b10.TextAlign       = _taCenter;
   Back_b10.TextAlignVertical= _tavMiddle;
-  Back_b10.FontName        = Arial_Narrow16x19_Bold;
+  Back_b10.FontName        = Arial_Narrow13x20_Bold;
   Back_b10.PressColEnabled = 1;
   Back_b10.Font_Color      = 0xD6BA;
   Back_b10.VerticalText    = 0;
@@ -15352,7 +15608,7 @@ static void InitializeObjects() {
   CircleButton10.Caption         = CircleButton10_Caption;
   CircleButton10.TextAlign       = _taCenter;
   CircleButton10.TextAlignVertical= _tavMiddle;
-  CircleButton10.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton10.FontName        = Arial_Narrow13x20_Bold;
   CircleButton10.PressColEnabled = 1;
   CircleButton10.Font_Color      = 0x0000;
   CircleButton10.VerticalText    = 0;
@@ -15369,9 +15625,9 @@ static void InitializeObjects() {
 
   S_Low_Pressure_1.OwnerScreen     = &SENSOR1;
   S_Low_Pressure_1.Order           = 55;
-  S_Low_Pressure_1.Left            = 391;
+  S_Low_Pressure_1.Left            = 389;
   S_Low_Pressure_1.Top             = 188;
-  S_Low_Pressure_1.Width           = 45;
+  S_Low_Pressure_1.Width           = 47;
   S_Low_Pressure_1.Height          = 23;
   S_Low_Pressure_1.Pen_Width       = 1;
   S_Low_Pressure_1.Pen_Color       = 0xC618;
@@ -15381,7 +15637,7 @@ static void InitializeObjects() {
   S_Low_Pressure_1.Caption         = S_Low_Pressure_1_Caption;
   S_Low_Pressure_1.TextAlign       = _taRight;
   S_Low_Pressure_1.TextAlignVertical= _tavMiddle;
-  S_Low_Pressure_1.FontName        = Arial_Narrow16x19_Bold;
+  S_Low_Pressure_1.FontName        = Arial_Narrow13x20_Bold;
   S_Low_Pressure_1.PressColEnabled = 0;
   S_Low_Pressure_1.Font_Color      = 0x0418;
   S_Low_Pressure_1.VerticalText    = 0;
@@ -15411,7 +15667,7 @@ static void InitializeObjects() {
   S_High_Pressure_1.Caption         = S_High_Pressure_1_Caption;
   S_High_Pressure_1.TextAlign       = _taRight;
   S_High_Pressure_1.TextAlignVertical= _tavMiddle;
-  S_High_Pressure_1.FontName        = Arial_Narrow16x19_Bold;
+  S_High_Pressure_1.FontName        = Arial_Narrow13x20_Bold;
   S_High_Pressure_1.PressColEnabled = 0;
   S_High_Pressure_1.Font_Color      = 0x06A0;
   S_High_Pressure_1.VerticalText    = 0;
@@ -15431,12 +15687,12 @@ static void InitializeObjects() {
   Label70.Order           = 57;
   Label70.Left            = 248;
   Label70.Top             = 190;
-  Label70.Width           = 24;
+  Label70.Width           = 19;
   Label70.Height          = 20;
   Label70.Visible         = 1;
   Label70.Active          = 0;
   Label70.Caption         = Label70_Caption;
-  Label70.FontName        = Arial_Narrow16x19_Bold;
+  Label70.FontName        = Arial_Narrow13x20_Bold;
   Label70.Font_Color      = 0xFFFF;
   Label70.VerticalText    = 0;
   Label70.OnUpPtr         = 0;
@@ -15448,12 +15704,12 @@ static void InitializeObjects() {
   Label72.Order           = 58;
   Label72.Left            = 368;
   Label72.Top             = 190;
-  Label72.Width           = 21;
+  Label72.Width           = 17;
   Label72.Height          = 20;
   Label72.Visible         = 1;
   Label72.Active          = 0;
   Label72.Caption         = Label72_Caption;
-  Label72.FontName        = Arial_Narrow16x19_Bold;
+  Label72.FontName        = Arial_Narrow13x20_Bold;
   Label72.Font_Color      = 0xFFFF;
   Label72.VerticalText    = 0;
   Label72.OnUpPtr         = 0;
@@ -15475,7 +15731,7 @@ static void InitializeObjects() {
   Next_b6.Caption         = Next_b6_Caption;
   Next_b6.TextAlign       = _taCenter;
   Next_b6.TextAlignVertical= _tavMiddle;
-  Next_b6.FontName        = Arial_Narrow16x19_Bold;
+  Next_b6.FontName        = Arial_Narrow13x20_Bold;
   Next_b6.PressColEnabled = 1;
   Next_b6.Font_Color      = 0xD6BA;
   Next_b6.VerticalText    = 0;
@@ -15495,12 +15751,12 @@ static void InitializeObjects() {
   Label27.Order           = 60;
   Label27.Left            = 326;
   Label27.Top             = 190;
-  Label27.Width           = 25;
+  Label27.Width           = 21;
   Label27.Height          = 20;
   Label27.Visible         = 1;
   Label27.Active          = 0;
   Label27.Caption         = Label27_Caption;
-  Label27.FontName        = Arial_Narrow16x19_Bold;
+  Label27.FontName        = Arial_Narrow13x20_Bold;
   Label27.Font_Color      = 0xFFFF;
   Label27.VerticalText    = 0;
   Label27.OnUpPtr         = 0;
@@ -15512,18 +15768,168 @@ static void InitializeObjects() {
   Label35.Order           = 61;
   Label35.Left            = 444;
   Label35.Top             = 190;
-  Label35.Width           = 25;
+  Label35.Width           = 21;
   Label35.Height          = 20;
   Label35.Visible         = 1;
   Label35.Active          = 0;
   Label35.Caption         = Label35_Caption;
-  Label35.FontName        = Arial_Narrow16x19_Bold;
+  Label35.FontName        = Arial_Narrow13x20_Bold;
   Label35.Font_Color      = 0xFFFF;
   Label35.VerticalText    = 0;
   Label35.OnUpPtr         = 0;
   Label35.OnDownPtr       = 0;
   Label35.OnClickPtr      = 0;
   Label35.OnPressPtr      = 0;
+
+  BrineIN_sign.OwnerScreen     = &SENSOR1;
+  BrineIN_sign.Order           = 62;
+  BrineIN_sign.Left            = 144;
+  BrineIN_sign.Top             = 32;
+  BrineIN_sign.Width           = 14;
+  BrineIN_sign.Height          = 23;
+  BrineIN_sign.Pen_Width       = 1;
+  BrineIN_sign.Pen_Color       = 0xC618;
+  BrineIN_sign.Visible         = 1;
+  BrineIN_sign.Active          = 0;
+  BrineIN_sign.Transparent     = 1;
+  BrineIN_sign.Caption         = BrineIN_sign_Caption;
+  BrineIN_sign.TextAlign       = _taRight;
+  BrineIN_sign.TextAlignVertical= _tavMiddle;
+  BrineIN_sign.FontName        = Arial_Narrow13x20_Bold;
+  BrineIN_sign.PressColEnabled = 0;
+  BrineIN_sign.Font_Color      = 0x0000;
+  BrineIN_sign.VerticalText    = 0;
+  BrineIN_sign.Gradient        = 0;
+  BrineIN_sign.Gradient_Orientation = 0;
+  BrineIN_sign.Gradient_Start_Color = 0xFFFF;
+  BrineIN_sign.Gradient_End_Color = 0xC618;
+  BrineIN_sign.Color           = 0xFFFF;
+  BrineIN_sign.Press_Color     = 0xE71C;
+  BrineIN_sign.Corner_Radius   = 3;
+  BrineIN_sign.OnUpPtr         = 0;
+  BrineIN_sign.OnDownPtr       = 0;
+  BrineIN_sign.OnClickPtr      = 0;
+  BrineIN_sign.OnPressPtr      = 0;
+
+  BrineOUT_sign.OwnerScreen     = &SENSOR1;
+  BrineOUT_sign.Order           = 63;
+  BrineOUT_sign.Left            = 144;
+  BrineOUT_sign.Top             = 58;
+  BrineOUT_sign.Width           = 14;
+  BrineOUT_sign.Height          = 23;
+  BrineOUT_sign.Pen_Width       = 1;
+  BrineOUT_sign.Pen_Color       = 0xC618;
+  BrineOUT_sign.Visible         = 1;
+  BrineOUT_sign.Active          = 0;
+  BrineOUT_sign.Transparent     = 1;
+  BrineOUT_sign.Caption         = BrineOUT_sign_Caption;
+  BrineOUT_sign.TextAlign       = _taRight;
+  BrineOUT_sign.TextAlignVertical= _tavMiddle;
+  BrineOUT_sign.FontName        = Arial_Narrow13x20_Bold;
+  BrineOUT_sign.PressColEnabled = 0;
+  BrineOUT_sign.Font_Color      = 0x0000;
+  BrineOUT_sign.VerticalText    = 0;
+  BrineOUT_sign.Gradient        = 0;
+  BrineOUT_sign.Gradient_Orientation = 0;
+  BrineOUT_sign.Gradient_Start_Color = 0xFFFF;
+  BrineOUT_sign.Gradient_End_Color = 0xC618;
+  BrineOUT_sign.Color           = 0xFFFF;
+  BrineOUT_sign.Press_Color     = 0xE71C;
+  BrineOUT_sign.Corner_Radius   = 3;
+  BrineOUT_sign.OnUpPtr         = 0;
+  BrineOUT_sign.OnDownPtr       = 0;
+  BrineOUT_sign.OnClickPtr      = 0;
+  BrineOUT_sign.OnPressPtr      = 0;
+
+  Super_sign.OwnerScreen     = &SENSOR1;
+  Super_sign.Order           = 64;
+  Super_sign.Left            = 144;
+  Super_sign.Top             = 162;
+  Super_sign.Width           = 14;
+  Super_sign.Height          = 23;
+  Super_sign.Pen_Width       = 1;
+  Super_sign.Pen_Color       = 0xC618;
+  Super_sign.Visible         = 1;
+  Super_sign.Active          = 0;
+  Super_sign.Transparent     = 1;
+  Super_sign.Caption         = Super_sign_Caption;
+  Super_sign.TextAlign       = _taRight;
+  Super_sign.TextAlignVertical= _tavMiddle;
+  Super_sign.FontName        = Arial_Narrow13x20_Bold;
+  Super_sign.PressColEnabled = 0;
+  Super_sign.Font_Color      = 0x0000;
+  Super_sign.VerticalText    = 0;
+  Super_sign.Gradient        = 0;
+  Super_sign.Gradient_Orientation = 0;
+  Super_sign.Gradient_Start_Color = 0xFFFF;
+  Super_sign.Gradient_End_Color = 0xC618;
+  Super_sign.Color           = 0xFFFF;
+  Super_sign.Press_Color     = 0xE71C;
+  Super_sign.Corner_Radius   = 3;
+  Super_sign.OnUpPtr         = 0;
+  Super_sign.OnDownPtr       = 0;
+  Super_sign.OnClickPtr      = 0;
+  Super_sign.OnPressPtr      = 0;
+
+  Cond_sign.OwnerScreen     = &SENSOR1;
+  Cond_sign.Order           = 65;
+  Cond_sign.Left            = 388;
+  Cond_sign.Top             = 136;
+  Cond_sign.Width           = 14;
+  Cond_sign.Height          = 23;
+  Cond_sign.Pen_Width       = 1;
+  Cond_sign.Pen_Color       = 0xC618;
+  Cond_sign.Visible         = 1;
+  Cond_sign.Active          = 0;
+  Cond_sign.Transparent     = 1;
+  Cond_sign.Caption         = Cond_sign_Caption;
+  Cond_sign.TextAlign       = _taRight;
+  Cond_sign.TextAlignVertical= _tavMiddle;
+  Cond_sign.FontName        = Arial_Narrow13x20_Bold;
+  Cond_sign.PressColEnabled = 0;
+  Cond_sign.Font_Color      = 0x0000;
+  Cond_sign.VerticalText    = 0;
+  Cond_sign.Gradient        = 0;
+  Cond_sign.Gradient_Orientation = 0;
+  Cond_sign.Gradient_Start_Color = 0xFFFF;
+  Cond_sign.Gradient_End_Color = 0xC618;
+  Cond_sign.Color           = 0xFFFF;
+  Cond_sign.Press_Color     = 0xE71C;
+  Cond_sign.Corner_Radius   = 3;
+  Cond_sign.OnUpPtr         = 0;
+  Cond_sign.OnDownPtr       = 0;
+  Cond_sign.OnClickPtr      = 0;
+  Cond_sign.OnPressPtr      = 0;
+
+  Cool_sign.OwnerScreen     = &SENSOR1;
+  Cool_sign.Order           = 66;
+  Cool_sign.Left            = 144;
+  Cool_sign.Top             = 188;
+  Cool_sign.Width           = 14;
+  Cool_sign.Height          = 23;
+  Cool_sign.Pen_Width       = 1;
+  Cool_sign.Pen_Color       = 0xC618;
+  Cool_sign.Visible         = 1;
+  Cool_sign.Active          = 0;
+  Cool_sign.Transparent     = 1;
+  Cool_sign.Caption         = Cool_sign_Caption;
+  Cool_sign.TextAlign       = _taRight;
+  Cool_sign.TextAlignVertical= _tavMiddle;
+  Cool_sign.FontName        = Arial_Narrow13x20_Bold;
+  Cool_sign.PressColEnabled = 0;
+  Cool_sign.Font_Color      = 0x0000;
+  Cool_sign.VerticalText    = 0;
+  Cool_sign.Gradient        = 0;
+  Cool_sign.Gradient_Orientation = 0;
+  Cool_sign.Gradient_Start_Color = 0xFFFF;
+  Cool_sign.Gradient_End_Color = 0xC618;
+  Cool_sign.Color           = 0xFFFF;
+  Cool_sign.Press_Color     = 0xE71C;
+  Cool_sign.Corner_Radius   = 3;
+  Cool_sign.OnUpPtr         = 0;
+  Cool_sign.OnDownPtr       = 0;
+  Cool_sign.OnClickPtr      = 0;
+  Cool_sign.OnPressPtr      = 0;
 
   Image192.OwnerScreen     = &LIMITS4;
   Image192.Order           = 0;
@@ -15699,7 +16105,7 @@ static void InitializeObjects() {
   Home_b14.Caption         = Home_b14_Caption;
   Home_b14.TextAlign       = _taCenter;
   Home_b14.TextAlignVertical= _tavMiddle;
-  Home_b14.FontName        = Arial_Narrow16x19_Bold;
+  Home_b14.FontName        = Arial_Narrow13x20_Bold;
   Home_b14.PressColEnabled = 1;
   Home_b14.Font_Color      = 0xD6BA;
   Home_b14.VerticalText    = 0;
@@ -15729,7 +16135,7 @@ static void InitializeObjects() {
   Next_b7.Caption         = Next_b7_Caption;
   Next_b7.TextAlign       = _taCenter;
   Next_b7.TextAlignVertical= _tavMiddle;
-  Next_b7.FontName        = Arial_Narrow16x19_Bold;
+  Next_b7.FontName        = Arial_Narrow13x20_Bold;
   Next_b7.PressColEnabled = 1;
   Next_b7.Font_Color      = 0xD6BA;
   Next_b7.VerticalText    = 0;
@@ -15855,7 +16261,7 @@ static void InitializeObjects() {
   Set_max_superheat.Caption         = Set_max_superheat_Caption;
   Set_max_superheat.TextAlign       = _taCenter;
   Set_max_superheat.TextAlignVertical= _tavMiddle;
-  Set_max_superheat.FontName        = Arial_Narrow16x19_Bold;
+  Set_max_superheat.FontName        = Arial_Narrow13x20_Bold;
   Set_max_superheat.PressColEnabled = 1;
   Set_max_superheat.Font_Color      = 0x0408;
   Set_max_superheat.VerticalText    = 0;
@@ -15885,7 +16291,7 @@ static void InitializeObjects() {
   Set_min_subcooling.Caption         = Set_min_subcooling_Caption;
   Set_min_subcooling.TextAlign       = _taCenter;
   Set_min_subcooling.TextAlignVertical= _tavMiddle;
-  Set_min_subcooling.FontName        = Arial_Narrow16x19_Bold;
+  Set_min_subcooling.FontName        = Arial_Narrow13x20_Bold;
   Set_min_subcooling.PressColEnabled = 1;
   Set_min_subcooling.Font_Color      = 0x0408;
   Set_min_subcooling.VerticalText    = 0;
@@ -15915,7 +16321,7 @@ static void InitializeObjects() {
   Set_max_subcooling.Caption         = Set_max_subcooling_Caption;
   Set_max_subcooling.TextAlign       = _taCenter;
   Set_max_subcooling.TextAlignVertical= _tavMiddle;
-  Set_max_subcooling.FontName        = Arial_Narrow16x19_Bold;
+  Set_max_subcooling.FontName        = Arial_Narrow13x20_Bold;
   Set_max_subcooling.PressColEnabled = 1;
   Set_max_subcooling.Font_Color      = 0x0408;
   Set_max_subcooling.VerticalText    = 0;
@@ -15945,7 +16351,7 @@ static void InitializeObjects() {
   Set_max_high_pressure.Caption         = Set_max_high_pressure_Caption;
   Set_max_high_pressure.TextAlign       = _taCenter;
   Set_max_high_pressure.TextAlignVertical= _tavMiddle;
-  Set_max_high_pressure.FontName        = Arial_Narrow16x19_Bold;
+  Set_max_high_pressure.FontName        = Arial_Narrow13x20_Bold;
   Set_max_high_pressure.PressColEnabled = 1;
   Set_max_high_pressure.Font_Color      = 0x0408;
   Set_max_high_pressure.VerticalText    = 0;
@@ -15975,7 +16381,7 @@ static void InitializeObjects() {
   Set_min_lhigh_pressure.Caption         = Set_min_lhigh_pressure_Caption;
   Set_min_lhigh_pressure.TextAlign       = _taCenter;
   Set_min_lhigh_pressure.TextAlignVertical= _tavMiddle;
-  Set_min_lhigh_pressure.FontName        = Arial_Narrow16x19_Bold;
+  Set_min_lhigh_pressure.FontName        = Arial_Narrow13x20_Bold;
   Set_min_lhigh_pressure.PressColEnabled = 1;
   Set_min_lhigh_pressure.Font_Color      = 0x0408;
   Set_min_lhigh_pressure.VerticalText    = 0;
@@ -16000,7 +16406,7 @@ static void InitializeObjects() {
   Seeting4_label.Visible         = 1;
   Seeting4_label.Active          = 0;
   Seeting4_label.Caption         = Seeting4_label_Caption;
-  Seeting4_label.FontName        = Arial_Narrow16x19_Bold;
+  Seeting4_label.FontName        = Arial_Narrow13x20_Bold;
   Seeting4_label.Font_Color      = 0xE7FC;
   Seeting4_label.VerticalText    = 0;
   Seeting4_label.OnUpPtr         = 0;
@@ -16021,7 +16427,7 @@ static void InitializeObjects() {
   CircleButton4.Caption         = CircleButton4_Caption;
   CircleButton4.TextAlign       = _taCenter;
   CircleButton4.TextAlignVertical= _tavMiddle;
-  CircleButton4.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton4.FontName        = Arial_Narrow13x20_Bold;
   CircleButton4.PressColEnabled = 1;
   CircleButton4.Font_Color      = 0x0000;
   CircleButton4.VerticalText    = 0;
@@ -16050,7 +16456,7 @@ static void InitializeObjects() {
   Back_b11.Caption         = Back_b11_Caption;
   Back_b11.TextAlign       = _taCenter;
   Back_b11.TextAlignVertical= _tavMiddle;
-  Back_b11.FontName        = Arial_Narrow16x19_Bold;
+  Back_b11.FontName        = Arial_Narrow13x20_Bold;
   Back_b11.PressColEnabled = 1;
   Back_b11.Font_Color      = 0xD6BA;
   Back_b11.VerticalText    = 0;
@@ -16636,7 +17042,7 @@ static void InitializeObjects() {
   Device_label.Visible         = 1;
   Device_label.Active          = 0;
   Device_label.Caption         = Device_label_Caption;
-  Device_label.FontName        = Arial_Narrow16x19_Bold;
+  Device_label.FontName        = Arial_Narrow13x20_Bold;
   Device_label.Font_Color      = 0xE7FC;
   Device_label.VerticalText    = 0;
   Device_label.OnUpPtr         = 0;
@@ -16797,7 +17203,7 @@ static void InitializeObjects() {
   Pump1.Visible         = 1;
   Pump1.Active          = 0;
   Pump1.Caption         = Pump1_Caption;
-  Pump1.FontName        = Arial_Narrow13x16_Bold;
+  Pump1.FontName        = Arial_Narrow11x16_Bold;
   Pump1.Font_Color      = 0xFFFF;
   Pump1.VerticalText    = 0;
   Pump1.OnUpPtr         = 0;
@@ -16814,7 +17220,7 @@ static void InitializeObjects() {
   Pump2.Visible         = 1;
   Pump2.Active          = 0;
   Pump2.Caption         = Pump2_Caption;
-  Pump2.FontName        = Arial_Narrow13x16_Bold;
+  Pump2.FontName        = Arial_Narrow11x16_Bold;
   Pump2.Font_Color      = 0xFFFF;
   Pump2.VerticalText    = 0;
   Pump2.OnUpPtr         = 0;
@@ -16831,7 +17237,7 @@ static void InitializeObjects() {
   Revers1.Visible         = 1;
   Revers1.Active          = 0;
   Revers1.Caption         = Revers1_Caption;
-  Revers1.FontName        = Arial_Narrow13x16_Bold;
+  Revers1.FontName        = Arial_Narrow11x16_Bold;
   Revers1.Font_Color      = 0xFFFF;
   Revers1.VerticalText    = 0;
   Revers1.OnUpPtr         = 0;
@@ -16848,7 +17254,7 @@ static void InitializeObjects() {
   Compr_1.Visible         = 1;
   Compr_1.Active          = 0;
   Compr_1.Caption         = Compr_1_Caption;
-  Compr_1.FontName        = Arial_Narrow13x16_Bold;
+  Compr_1.FontName        = Arial_Narrow11x16_Bold;
   Compr_1.Font_Color      = 0xFFFF;
   Compr_1.VerticalText    = 0;
   Compr_1.OnUpPtr         = 0;
@@ -16865,7 +17271,7 @@ static void InitializeObjects() {
   Valve_1.Visible         = 1;
   Valve_1.Active          = 0;
   Valve_1.Caption         = Valve_1_Caption;
-  Valve_1.FontName        = Arial_Narrow13x16_Bold;
+  Valve_1.FontName        = Arial_Narrow11x16_Bold;
   Valve_1.Font_Color      = 0xFFFF;
   Valve_1.VerticalText    = 0;
   Valve_1.OnUpPtr         = 0;
@@ -16882,7 +17288,7 @@ static void InitializeObjects() {
   Label59.Visible         = 0;
   Label59.Active          = 0;
   Label59.Caption         = Label59_Caption;
-  Label59.FontName        = Arial_Narrow13x16_Bold;
+  Label59.FontName        = Arial_Narrow11x16_Bold;
   Label59.Font_Color      = 0xFFFF;
   Label59.VerticalText    = 0;
   Label59.OnUpPtr         = 0;
@@ -16899,7 +17305,7 @@ static void InitializeObjects() {
   Label62.Visible         = 0;
   Label62.Active          = 0;
   Label62.Caption         = Label62_Caption;
-  Label62.FontName        = Arial_Narrow13x16_Bold;
+  Label62.FontName        = Arial_Narrow11x16_Bold;
   Label62.Font_Color      = 0xFFFF;
   Label62.VerticalText    = 0;
   Label62.OnUpPtr         = 0;
@@ -16916,7 +17322,7 @@ static void InitializeObjects() {
   Label64.Visible         = 0;
   Label64.Active          = 0;
   Label64.Caption         = Label64_Caption;
-  Label64.FontName        = Arial_Narrow13x16_Bold;
+  Label64.FontName        = Arial_Narrow11x16_Bold;
   Label64.Font_Color      = 0xFFFF;
   Label64.VerticalText    = 0;
   Label64.OnUpPtr         = 0;
@@ -16933,7 +17339,7 @@ static void InitializeObjects() {
   Label65.Visible         = 1;
   Label65.Active          = 0;
   Label65.Caption         = Label65_Caption;
-  Label65.FontName        = Arial_Narrow13x16_Bold;
+  Label65.FontName        = Arial_Narrow11x16_Bold;
   Label65.Font_Color      = 0xFFFF;
   Label65.VerticalText    = 0;
   Label65.OnUpPtr         = 0;
@@ -16950,7 +17356,7 @@ static void InitializeObjects() {
   Label67.Visible         = 0;
   Label67.Active          = 0;
   Label67.Caption         = Label67_Caption;
-  Label67.FontName        = Arial_Narrow13x16_Bold;
+  Label67.FontName        = Arial_Narrow11x16_Bold;
   Label67.Font_Color      = 0xFFFF;
   Label67.VerticalText    = 0;
   Label67.OnUpPtr         = 0;
@@ -16967,7 +17373,7 @@ static void InitializeObjects() {
   Label68.Visible         = 0;
   Label68.Active          = 0;
   Label68.Caption         = Label68_Caption;
-  Label68.FontName        = Arial_Narrow13x16_Bold;
+  Label68.FontName        = Arial_Narrow11x16_Bold;
   Label68.Font_Color      = 0xFFFF;
   Label68.VerticalText    = 0;
   Label68.OnUpPtr         = 0;
@@ -16989,7 +17395,7 @@ static void InitializeObjects() {
   Home_b15.Caption         = Home_b15_Caption;
   Home_b15.TextAlign       = _taCenter;
   Home_b15.TextAlignVertical= _tavMiddle;
-  Home_b15.FontName        = Arial_Narrow16x19_Bold;
+  Home_b15.FontName        = Arial_Narrow13x20_Bold;
   Home_b15.PressColEnabled = 1;
   Home_b15.Font_Color      = 0xD6BA;
   Home_b15.VerticalText    = 0;
@@ -17014,7 +17420,7 @@ static void InitializeObjects() {
   Electricobject_TatDiagram.Visible         = 1;
   Electricobject_TatDiagram.Active          = 0;
   Electricobject_TatDiagram.Caption         = Electricobject_TatDiagram_Caption;
-  Electricobject_TatDiagram.FontName        = Arial_Narrow13x16_Bold;
+  Electricobject_TatDiagram.FontName        = Arial_Narrow11x16_Bold;
   Electricobject_TatDiagram.Font_Color      = 0xFFFF;
   Electricobject_TatDiagram.VerticalText    = 0;
   Electricobject_TatDiagram.OnUpPtr         = 0;
@@ -17150,7 +17556,7 @@ static void InitializeObjects() {
   graph1_pos.Visible         = 1;
   graph1_pos.Active          = 0;
   graph1_pos.Caption         = graph1_pos_Caption;
-  graph1_pos.FontName        = Arial_Narrow16x19_Bold;
+  graph1_pos.FontName        = Arial_Narrow13x20_Bold;
   graph1_pos.Font_Color      = 0xFFFF;
   graph1_pos.VerticalText    = 0;
   graph1_pos.OnUpPtr         = 0;
@@ -17167,7 +17573,7 @@ static void InitializeObjects() {
   Label83.Visible         = 1;
   Label83.Active          = 0;
   Label83.Caption         = Label83_Caption;
-  Label83.FontName        = Arial_Narrow16x19_Bold;
+  Label83.FontName        = Arial_Narrow13x20_Bold;
   Label83.Font_Color      = 0xFFFF;
   Label83.VerticalText    = 0;
   Label83.OnUpPtr         = 0;
@@ -17184,7 +17590,7 @@ static void InitializeObjects() {
   Label84.Visible         = 1;
   Label84.Active          = 0;
   Label84.Caption         = Label84_Caption;
-  Label84.FontName        = Arial_Narrow16x19_Bold;
+  Label84.FontName        = Arial_Narrow13x20_Bold;
   Label84.Font_Color      = 0xFFFF;
   Label84.VerticalText    = 0;
   Label84.OnUpPtr         = 0;
@@ -17201,7 +17607,7 @@ static void InitializeObjects() {
   Label85.Visible         = 1;
   Label85.Active          = 0;
   Label85.Caption         = Label85_Caption;
-  Label85.FontName        = Arial_Narrow16x19_Bold;
+  Label85.FontName        = Arial_Narrow13x20_Bold;
   Label85.Font_Color      = 0xFFFF;
   Label85.VerticalText    = 0;
   Label85.OnUpPtr         = 0;
@@ -17218,7 +17624,7 @@ static void InitializeObjects() {
   Label86.Visible         = 1;
   Label86.Active          = 0;
   Label86.Caption         = Label86_Caption;
-  Label86.FontName        = Arial_Narrow16x19_Bold;
+  Label86.FontName        = Arial_Narrow13x20_Bold;
   Label86.Font_Color      = 0xFFFF;
   Label86.VerticalText    = 0;
   Label86.OnUpPtr         = 0;
@@ -17235,7 +17641,7 @@ static void InitializeObjects() {
   Label87.Visible         = 1;
   Label87.Active          = 0;
   Label87.Caption         = Label87_Caption;
-  Label87.FontName        = Arial_Narrow16x19_Bold;
+  Label87.FontName        = Arial_Narrow13x20_Bold;
   Label87.Font_Color      = 0xFFFF;
   Label87.VerticalText    = 0;
   Label87.OnUpPtr         = 0;
@@ -17252,7 +17658,7 @@ static void InitializeObjects() {
   Label88.Visible         = 1;
   Label88.Active          = 0;
   Label88.Caption         = Label88_Caption;
-  Label88.FontName        = Arial_Narrow16x19_Bold;
+  Label88.FontName        = Arial_Narrow13x20_Bold;
   Label88.Font_Color      = 0xFFFF;
   Label88.VerticalText    = 0;
   Label88.OnUpPtr         = 0;
@@ -17269,7 +17675,7 @@ static void InitializeObjects() {
   Label89.Visible         = 1;
   Label89.Active          = 0;
   Label89.Caption         = Label89_Caption;
-  Label89.FontName        = Arial_Narrow16x19_Bold;
+  Label89.FontName        = Arial_Narrow13x20_Bold;
   Label89.Font_Color      = 0xFFFF;
   Label89.VerticalText    = 0;
   Label89.OnUpPtr         = 0;
@@ -17286,7 +17692,7 @@ static void InitializeObjects() {
   Label90.Visible         = 1;
   Label90.Active          = 0;
   Label90.Caption         = Label90_Caption;
-  Label90.FontName        = Arial_Narrow16x19_Bold;
+  Label90.FontName        = Arial_Narrow13x20_Bold;
   Label90.Font_Color      = 0xFFFF;
   Label90.VerticalText    = 0;
   Label90.OnUpPtr         = 0;
@@ -17303,7 +17709,7 @@ static void InitializeObjects() {
   Label91.Visible         = 1;
   Label91.Active          = 0;
   Label91.Caption         = Label91_Caption;
-  Label91.FontName        = Arial_Narrow16x19_Bold;
+  Label91.FontName        = Arial_Narrow13x20_Bold;
   Label91.Font_Color      = 0xFFFF;
   Label91.VerticalText    = 0;
   Label91.OnUpPtr         = 0;
@@ -17320,7 +17726,7 @@ static void InitializeObjects() {
   Label92.Visible         = 1;
   Label92.Active          = 0;
   Label92.Caption         = Label92_Caption;
-  Label92.FontName        = Arial_Narrow16x19_Bold;
+  Label92.FontName        = Arial_Narrow13x20_Bold;
   Label92.Font_Color      = 0xFFFF;
   Label92.VerticalText    = 0;
   Label92.OnUpPtr         = 0;
@@ -17337,7 +17743,7 @@ static void InitializeObjects() {
   Label93.Visible         = 1;
   Label93.Active          = 0;
   Label93.Caption         = Label93_Caption;
-  Label93.FontName        = Arial_Narrow16x19_Bold;
+  Label93.FontName        = Arial_Narrow13x20_Bold;
   Label93.Font_Color      = 0xFFFF;
   Label93.VerticalText    = 0;
   Label93.OnUpPtr         = 0;
@@ -17384,7 +17790,7 @@ static void InitializeObjects() {
   Label47.Visible         = 1;
   Label47.Active          = 0;
   Label47.Caption         = Label47_Caption;
-  Label47.FontName        = Arial_Narrow16x19_Bold;
+  Label47.FontName        = Arial_Narrow13x20_Bold;
   Label47.Font_Color      = 0xFFFF;
   Label47.VerticalText    = 0;
   Label47.OnUpPtr         = 0;
@@ -17401,7 +17807,7 @@ static void InitializeObjects() {
   Label94.Visible         = 1;
   Label94.Active          = 0;
   Label94.Caption         = Label94_Caption;
-  Label94.FontName        = Arial_Narrow16x19_Bold;
+  Label94.FontName        = Arial_Narrow13x20_Bold;
   Label94.Font_Color      = 0xFFFF;
   Label94.VerticalText    = 0;
   Label94.OnUpPtr         = 0;
@@ -17444,7 +17850,7 @@ static void InitializeObjects() {
   GraphTimelabel.Visible         = 1;
   GraphTimelabel.Active          = 0;
   GraphTimelabel.Caption         = GraphTimelabel_Caption;
-  GraphTimelabel.FontName        = Arial_Narrow16x19_Bold;
+  GraphTimelabel.FontName        = Arial_Narrow13x20_Bold;
   GraphTimelabel.Font_Color      = 0xFFFF;
   GraphTimelabel.VerticalText    = 0;
   GraphTimelabel.OnUpPtr         = 0;
@@ -17461,7 +17867,7 @@ static void InitializeObjects() {
   Graph_Label.Visible         = 1;
   Graph_Label.Active          = 0;
   Graph_Label.Caption         = Graph_Label_Caption;
-  Graph_Label.FontName        = Arial_Narrow16x19_Bold;
+  Graph_Label.FontName        = Arial_Narrow13x20_Bold;
   Graph_Label.Font_Color      = 0xE7FC;
   Graph_Label.VerticalText    = 0;
   Graph_Label.OnUpPtr         = 0;
@@ -17483,7 +17889,7 @@ static void InitializeObjects() {
   graph_br1_in.Caption         = graph_br1_in_Caption;
   graph_br1_in.TextAlign       = _taCenter;
   graph_br1_in.TextAlignVertical= _tavMiddle;
-  graph_br1_in.FontName        = Arial_Narrow16x19_Bold;
+  graph_br1_in.FontName        = Arial_Narrow13x20_Bold;
   graph_br1_in.PressColEnabled = 1;
   graph_br1_in.Font_Color      = 0xF800;
   graph_br1_in.VerticalText    = 0;
@@ -17513,7 +17919,7 @@ static void InitializeObjects() {
   graph_br1_out.Caption         = graph_br1_out_Caption;
   graph_br1_out.TextAlign       = _taCenter;
   graph_br1_out.TextAlignVertical= _tavMiddle;
-  graph_br1_out.FontName        = Arial_Narrow16x19_Bold;
+  graph_br1_out.FontName        = Arial_Narrow13x20_Bold;
   graph_br1_out.PressColEnabled = 1;
   graph_br1_out.Font_Color      = 0x001F;
   graph_br1_out.VerticalText    = 0;
@@ -17543,7 +17949,7 @@ static void InitializeObjects() {
   graph_heat1_in.Caption         = graph_heat1_in_Caption;
   graph_heat1_in.TextAlign       = _taCenter;
   graph_heat1_in.TextAlignVertical= _tavMiddle;
-  graph_heat1_in.FontName        = Arial_Narrow16x19_Bold;
+  graph_heat1_in.FontName        = Arial_Narrow13x20_Bold;
   graph_heat1_in.PressColEnabled = 1;
   graph_heat1_in.Font_Color      = 0x0400;
   graph_heat1_in.VerticalText    = 0;
@@ -17573,7 +17979,7 @@ static void InitializeObjects() {
   graph_heat1_out.Caption         = graph_heat1_out_Caption;
   graph_heat1_out.TextAlign       = _taCenter;
   graph_heat1_out.TextAlignVertical= _tavMiddle;
-  graph_heat1_out.FontName        = Arial_Narrow16x19_Bold;
+  graph_heat1_out.FontName        = Arial_Narrow13x20_Bold;
   graph_heat1_out.PressColEnabled = 1;
   graph_heat1_out.Font_Color      = 0x0000;
   graph_heat1_out.VerticalText    = 0;
@@ -17603,7 +18009,7 @@ static void InitializeObjects() {
   Home_b16.Caption         = Home_b16_Caption;
   Home_b16.TextAlign       = _taCenter;
   Home_b16.TextAlignVertical= _tavMiddle;
-  Home_b16.FontName        = Arial_Narrow16x19_Bold;
+  Home_b16.FontName        = Arial_Narrow13x20_Bold;
   Home_b16.PressColEnabled = 1;
   Home_b16.Font_Color      = 0xD6BA;
   Home_b16.VerticalText    = 0;
@@ -17633,7 +18039,7 @@ static void InitializeObjects() {
   Next_b8.Caption         = Next_b8_Caption;
   Next_b8.TextAlign       = _taCenter;
   Next_b8.TextAlignVertical= _tavMiddle;
-  Next_b8.FontName        = Arial_Narrow16x19_Bold;
+  Next_b8.FontName        = Arial_Narrow13x20_Bold;
   Next_b8.PressColEnabled = 1;
   Next_b8.Font_Color      = 0xD6BA;
   Next_b8.VerticalText    = 0;
@@ -17663,7 +18069,7 @@ static void InitializeObjects() {
   Back_b12.Caption         = Back_b12_Caption;
   Back_b12.TextAlign       = _taCenter;
   Back_b12.TextAlignVertical= _tavMiddle;
-  Back_b12.FontName        = Arial_Narrow16x19_Bold;
+  Back_b12.FontName        = Arial_Narrow13x20_Bold;
   Back_b12.PressColEnabled = 1;
   Back_b12.Font_Color      = 0xD6BA;
   Back_b12.VerticalText    = 0;
@@ -17692,7 +18098,7 @@ static void InitializeObjects() {
   CircleButton11.Caption         = CircleButton11_Caption;
   CircleButton11.TextAlign       = _taCenter;
   CircleButton11.TextAlignVertical= _tavMiddle;
-  CircleButton11.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton11.FontName        = Arial_Narrow13x20_Bold;
   CircleButton11.PressColEnabled = 1;
   CircleButton11.Font_Color      = 0x0000;
   CircleButton11.VerticalText    = 0;
@@ -17716,7 +18122,7 @@ static void InitializeObjects() {
   Label377.Visible         = 1;
   Label377.Active          = 0;
   Label377.Caption         = Label377_Caption;
-  Label377.FontName        = Arial_Narrow16x19_Bold;
+  Label377.FontName        = Arial_Narrow13x20_Bold;
   Label377.Font_Color      = 0xFFFF;
   Label377.VerticalText    = 0;
   Label377.OnUpPtr         = 0;
@@ -17733,7 +18139,7 @@ static void InitializeObjects() {
   Label378.Visible         = 1;
   Label378.Active          = 0;
   Label378.Caption         = Label378_Caption;
-  Label378.FontName        = Arial_Narrow16x19_Bold;
+  Label378.FontName        = Arial_Narrow13x20_Bold;
   Label378.Font_Color      = 0xFFFF;
   Label378.VerticalText    = 0;
   Label378.OnUpPtr         = 0;
@@ -17750,7 +18156,7 @@ static void InitializeObjects() {
   Label380.Visible         = 1;
   Label380.Active          = 0;
   Label380.Caption         = Label380_Caption;
-  Label380.FontName        = Arial_Narrow16x19_Bold;
+  Label380.FontName        = Arial_Narrow13x20_Bold;
   Label380.Font_Color      = 0xFFFF;
   Label380.VerticalText    = 0;
   Label380.OnUpPtr         = 0;
@@ -17767,7 +18173,7 @@ static void InitializeObjects() {
   Label381.Visible         = 1;
   Label381.Active          = 0;
   Label381.Caption         = Label381_Caption;
-  Label381.FontName        = Arial_Narrow16x19_Bold;
+  Label381.FontName        = Arial_Narrow13x20_Bold;
   Label381.Font_Color      = 0xFFFF;
   Label381.VerticalText    = 0;
   Label381.OnUpPtr         = 0;
@@ -17784,7 +18190,7 @@ static void InitializeObjects() {
   Label382.Visible         = 1;
   Label382.Active          = 0;
   Label382.Caption         = Label382_Caption;
-  Label382.FontName        = Arial_Narrow16x19_Bold;
+  Label382.FontName        = Arial_Narrow13x20_Bold;
   Label382.Font_Color      = 0xFFFF;
   Label382.VerticalText    = 0;
   Label382.OnUpPtr         = 0;
@@ -17833,7 +18239,7 @@ static void InitializeObjects() {
   Label42.Visible         = 1;
   Label42.Active          = 0;
   Label42.Caption         = Label42_Caption;
-  Label42.FontName        = Arial_Narrow16x19_Bold;
+  Label42.FontName        = Arial_Narrow13x20_Bold;
   Label42.Font_Color      = 0xE7FC;
   Label42.VerticalText    = 0;
   Label42.OnUpPtr         = 0;
@@ -17951,7 +18357,7 @@ static void InitializeObjects() {
   S_Brine_In_1.Caption         = S_Brine_In_1_Caption;
   S_Brine_In_1.TextAlign       = _taRight;
   S_Brine_In_1.TextAlignVertical= _tavMiddle;
-  S_Brine_In_1.FontName        = Arial_Narrow13x16_Bold;
+  S_Brine_In_1.FontName        = Arial_Narrow11x16_Bold;
   S_Brine_In_1.PressColEnabled = 1;
   S_Brine_In_1.Font_Color      = 0x001F;
   S_Brine_In_1.VerticalText    = 0;
@@ -17980,7 +18386,7 @@ static void InitializeObjects() {
   S_Brine_Out_1.Caption         = S_Brine_Out_1_Caption;
   S_Brine_Out_1.TextAlign       = _taRight;
   S_Brine_Out_1.TextAlignVertical= _tavMiddle;
-  S_Brine_Out_1.FontName        = Arial_Narrow13x16_Bold;
+  S_Brine_Out_1.FontName        = Arial_Narrow11x16_Bold;
   S_Brine_Out_1.PressColEnabled = 1;
   S_Brine_Out_1.Font_Color      = 0x001F;
   S_Brine_Out_1.VerticalText    = 0;
@@ -18009,7 +18415,7 @@ static void InitializeObjects() {
   S_Heat_Out_1.Caption         = S_Heat_Out_1_Caption;
   S_Heat_Out_1.TextAlign       = _taRight;
   S_Heat_Out_1.TextAlignVertical= _tavMiddle;
-  S_Heat_Out_1.FontName        = Arial_Narrow13x16_Bold;
+  S_Heat_Out_1.FontName        = Arial_Narrow11x16_Bold;
   S_Heat_Out_1.PressColEnabled = 1;
   S_Heat_Out_1.Font_Color      = 0xFC10;
   S_Heat_Out_1.VerticalText    = 0;
@@ -18038,7 +18444,7 @@ static void InitializeObjects() {
   S_Heat_In_1.Caption         = S_Heat_In_1_Caption;
   S_Heat_In_1.TextAlign       = _taRight;
   S_Heat_In_1.TextAlignVertical= _tavMiddle;
-  S_Heat_In_1.FontName        = Arial_Narrow13x16_Bold;
+  S_Heat_In_1.FontName        = Arial_Narrow11x16_Bold;
   S_Heat_In_1.PressColEnabled = 1;
   S_Heat_In_1.Font_Color      = 0xFC10;
   S_Heat_In_1.VerticalText    = 0;
@@ -18067,7 +18473,7 @@ static void InitializeObjects() {
   Sens_DHW.Caption         = Sens_DHW_Caption;
   Sens_DHW.TextAlign       = _taRight;
   Sens_DHW.TextAlignVertical= _tavMiddle;
-  Sens_DHW.FontName        = Arial_Narrow13x16_Bold;
+  Sens_DHW.FontName        = Arial_Narrow11x16_Bold;
   Sens_DHW.PressColEnabled = 1;
   Sens_DHW.Font_Color      = 0xF800;
   Sens_DHW.VerticalText    = 0;
@@ -18096,7 +18502,7 @@ static void InitializeObjects() {
   S_tank.Caption         = S_tank_Caption;
   S_tank.TextAlign       = _taRight;
   S_tank.TextAlignVertical= _tavMiddle;
-  S_tank.FontName        = Arial_Narrow13x16_Bold;
+  S_tank.FontName        = Arial_Narrow11x16_Bold;
   S_tank.PressColEnabled = 1;
   S_tank.Font_Color      = 0xFC08;
   S_tank.VerticalText    = 0;
@@ -18125,7 +18531,7 @@ static void InitializeObjects() {
   S_ComprEx_1.Caption         = S_ComprEx_1_Caption;
   S_ComprEx_1.TextAlign       = _taRight;
   S_ComprEx_1.TextAlignVertical= _tavMiddle;
-  S_ComprEx_1.FontName        = Arial_Narrow13x16_Bold;
+  S_ComprEx_1.FontName        = Arial_Narrow11x16_Bold;
   S_ComprEx_1.PressColEnabled = 1;
   S_ComprEx_1.Font_Color      = 0xF81F;
   S_ComprEx_1.VerticalText    = 0;
@@ -18154,7 +18560,7 @@ static void InitializeObjects() {
   S_High_Press_1.Caption         = S_High_Press_1_Caption;
   S_High_Press_1.TextAlign       = _taRight;
   S_High_Press_1.TextAlignVertical= _tavMiddle;
-  S_High_Press_1.FontName        = Arial_Narrow13x16_Bold;
+  S_High_Press_1.FontName        = Arial_Narrow11x16_Bold;
   S_High_Press_1.PressColEnabled = 1;
   S_High_Press_1.Font_Color      = 0x0400;
   S_High_Press_1.VerticalText    = 0;
@@ -18183,7 +18589,7 @@ static void InitializeObjects() {
   S_Low_Press_1.Caption         = S_Low_Press_1_Caption;
   S_Low_Press_1.TextAlign       = _taRight;
   S_Low_Press_1.TextAlignVertical= _tavMiddle;
-  S_Low_Press_1.FontName        = Arial_Narrow13x16_Bold;
+  S_Low_Press_1.FontName        = Arial_Narrow11x16_Bold;
   S_Low_Press_1.PressColEnabled = 1;
   S_Low_Press_1.Font_Color      = 0x0400;
   S_Low_Press_1.VerticalText    = 0;
@@ -18212,7 +18618,7 @@ static void InitializeObjects() {
   S_SH_1.Caption         = S_SH_1_Caption;
   S_SH_1.TextAlign       = _taRight;
   S_SH_1.TextAlignVertical= _tavMiddle;
-  S_SH_1.FontName        = Arial_Narrow13x16_Bold;
+  S_SH_1.FontName        = Arial_Narrow11x16_Bold;
   S_SH_1.PressColEnabled = 1;
   S_SH_1.Font_Color      = 0x8208;
   S_SH_1.VerticalText    = 0;
@@ -18273,7 +18679,7 @@ static void InitializeObjects() {
   flow_source.Caption         = flow_source_Caption;
   flow_source.TextAlign       = _taRight;
   flow_source.TextAlignVertical= _tavMiddle;
-  flow_source.FontName        = Arial_Narrow13x16_Bold;
+  flow_source.FontName        = Arial_Narrow11x16_Bold;
   flow_source.PressColEnabled = 1;
   flow_source.Font_Color      = 0x8408;
   flow_source.VerticalText    = 0;
@@ -18302,7 +18708,7 @@ static void InitializeObjects() {
   flow_heat.Caption         = flow_heat_Caption;
   flow_heat.TextAlign       = _taRight;
   flow_heat.TextAlignVertical= _tavMiddle;
-  flow_heat.FontName        = Arial_Narrow13x16_Bold;
+  flow_heat.FontName        = Arial_Narrow11x16_Bold;
   flow_heat.PressColEnabled = 1;
   flow_heat.Font_Color      = 0x8408;
   flow_heat.VerticalText    = 0;
@@ -18459,7 +18865,7 @@ static void InitializeObjects() {
   flow_sun.Caption         = flow_sun_Caption;
   flow_sun.TextAlign       = _taRight;
   flow_sun.TextAlignVertical= _tavMiddle;
-  flow_sun.FontName        = Arial_Narrow13x16_Bold;
+  flow_sun.FontName        = Arial_Narrow11x16_Bold;
   flow_sun.PressColEnabled = 1;
   flow_sun.Font_Color      = 0xB5A0;
   flow_sun.VerticalText    = 0;
@@ -18488,7 +18894,7 @@ static void InitializeObjects() {
   draw_One_ground_back.Caption         = draw_One_ground_back_Caption;
   draw_One_ground_back.TextAlign       = _taCenter;
   draw_One_ground_back.TextAlignVertical= _tavMiddle;
-  draw_One_ground_back.FontName        = Arial_Narrow16x19_Bold;
+  draw_One_ground_back.FontName        = Arial_Narrow13x20_Bold;
   draw_One_ground_back.PressColEnabled = 1;
   draw_One_ground_back.Font_Color      = 0x0000;
   draw_One_ground_back.VerticalText    = 0;
@@ -18539,12 +18945,12 @@ static void InitializeObjects() {
   Label239.Order           = 2;
   Label239.Left            = 220;
   Label239.Top             = 5;
-  Label239.Width           = 51;
+  Label239.Width           = 41;
   Label239.Height          = 20;
   Label239.Visible         = 1;
   Label239.Active          = 0;
   Label239.Caption         = Label239_Caption;
-  Label239.FontName        = Arial_Narrow16x19_Bold;
+  Label239.FontName        = Arial_Narrow13x20_Bold;
   Label239.Font_Color      = 0xE7FC;
   Label239.VerticalText    = 0;
   Label239.OnUpPtr         = 0;
@@ -18742,7 +19148,7 @@ static void InitializeObjects() {
   Home_b17.Caption         = Home_b17_Caption;
   Home_b17.TextAlign       = _taCenter;
   Home_b17.TextAlignVertical= _tavMiddle;
-  Home_b17.FontName        = Arial_Narrow16x19_Bold;
+  Home_b17.FontName        = Arial_Narrow13x20_Bold;
   Home_b17.PressColEnabled = 1;
   Home_b17.Font_Color      = 0xD6BA;
   Home_b17.VerticalText    = 0;
@@ -18767,12 +19173,12 @@ static void InitializeObjects() {
   Next_b9.Pen_Width       = 1;
   Next_b9.Pen_Color       = 0xC618;
   Next_b9.Visible         = 1;
-  Next_b9.Active          = 0;
+  Next_b9.Active          = 1;
   Next_b9.Transparent     = 1;
   Next_b9.Caption         = Next_b9_Caption;
   Next_b9.TextAlign       = _taCenter;
   Next_b9.TextAlignVertical= _tavMiddle;
-  Next_b9.FontName        = Arial_Narrow16x19_Bold;
+  Next_b9.FontName        = Arial_Narrow13x20_Bold;
   Next_b9.PressColEnabled = 1;
   Next_b9.Font_Color      = 0xD6BA;
   Next_b9.VerticalText    = 0;
@@ -18802,7 +19208,7 @@ static void InitializeObjects() {
   Back_13.Caption         = Back_13_Caption;
   Back_13.TextAlign       = _taCenter;
   Back_13.TextAlignVertical= _tavMiddle;
-  Back_13.FontName        = Arial_Narrow16x19_Bold;
+  Back_13.FontName        = Arial_Narrow13x20_Bold;
   Back_13.PressColEnabled = 1;
   Back_13.Font_Color      = 0xD6BA;
   Back_13.VerticalText    = 0;
@@ -18831,7 +19237,7 @@ static void InitializeObjects() {
   CircleButton12.Caption         = CircleButton12_Caption;
   CircleButton12.TextAlign       = _taCenter;
   CircleButton12.TextAlignVertical= _tavMiddle;
-  CircleButton12.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton12.FontName        = Arial_Narrow13x20_Bold;
   CircleButton12.PressColEnabled = 1;
   CircleButton12.Font_Color      = 0x0000;
   CircleButton12.VerticalText    = 0;
@@ -19063,7 +19469,7 @@ static void InitializeObjects() {
   Label63.Visible         = 1;
   Label63.Active          = 0;
   Label63.Caption         = Label63_Caption;
-  Label63.FontName        = Arial_Narrow16x19_Bold;
+  Label63.FontName        = Arial_Narrow13x20_Bold;
   Label63.Font_Color      = 0xE7FC;
   Label63.VerticalText    = 0;
   Label63.OnUpPtr         = 0;
@@ -19323,7 +19729,7 @@ static void InitializeObjects() {
   Home_b18.Caption         = Home_b18_Caption;
   Home_b18.TextAlign       = _taCenter;
   Home_b18.TextAlignVertical= _tavMiddle;
-  Home_b18.FontName        = Arial_Narrow16x19_Bold;
+  Home_b18.FontName        = Arial_Narrow13x20_Bold;
   Home_b18.PressColEnabled = 1;
   Home_b18.Font_Color      = 0xD6BA;
   Home_b18.VerticalText    = 0;
@@ -19353,7 +19759,7 @@ static void InitializeObjects() {
   Back_b14.Caption         = Back_b14_Caption;
   Back_b14.TextAlign       = _taCenter;
   Back_b14.TextAlignVertical= _tavMiddle;
-  Back_b14.FontName        = Arial_Narrow16x19_Bold;
+  Back_b14.FontName        = Arial_Narrow13x20_Bold;
   Back_b14.PressColEnabled = 1;
   Back_b14.Font_Color      = 0xD6BA;
   Back_b14.VerticalText    = 0;
@@ -19383,7 +19789,7 @@ static void InitializeObjects() {
   Furnance_temperature_ON.Caption         = Furnance_temperature_ON_Caption;
   Furnance_temperature_ON.TextAlign       = _taCenter;
   Furnance_temperature_ON.TextAlignVertical= _tavMiddle;
-  Furnance_temperature_ON.FontName        = Arial_Narrow16x19_Bold;
+  Furnance_temperature_ON.FontName        = Arial_Narrow13x20_Bold;
   Furnance_temperature_ON.PressColEnabled = 1;
   Furnance_temperature_ON.Font_Color      = 0x0000;
   Furnance_temperature_ON.VerticalText    = 0;
@@ -19413,7 +19819,7 @@ static void InitializeObjects() {
   heat_pump_OFF.Caption         = heat_pump_OFF_Caption;
   heat_pump_OFF.TextAlign       = _taCenter;
   heat_pump_OFF.TextAlignVertical= _tavMiddle;
-  heat_pump_OFF.FontName        = Arial_Narrow16x19_Bold;
+  heat_pump_OFF.FontName        = Arial_Narrow13x20_Bold;
   heat_pump_OFF.PressColEnabled = 1;
   heat_pump_OFF.Font_Color      = 0x0000;
   heat_pump_OFF.VerticalText    = 0;
@@ -19443,7 +19849,7 @@ static void InitializeObjects() {
   furnance_OFF.Caption         = furnance_OFF_Caption;
   furnance_OFF.TextAlign       = _taCenter;
   furnance_OFF.TextAlignVertical= _tavMiddle;
-  furnance_OFF.FontName        = Arial_Narrow16x19_Bold;
+  furnance_OFF.FontName        = Arial_Narrow13x20_Bold;
   furnance_OFF.PressColEnabled = 1;
   furnance_OFF.Font_Color      = 0x0000;
   furnance_OFF.VerticalText    = 0;
@@ -19473,7 +19879,7 @@ static void InitializeObjects() {
   furnance_Timer.Caption         = furnance_Timer_Caption;
   furnance_Timer.TextAlign       = _taCenter;
   furnance_Timer.TextAlignVertical= _tavMiddle;
-  furnance_Timer.FontName        = Arial_Narrow16x19_Bold;
+  furnance_Timer.FontName        = Arial_Narrow13x20_Bold;
   furnance_Timer.PressColEnabled = 1;
   furnance_Timer.Font_Color      = 0x0000;
   furnance_Timer.VerticalText    = 0;
@@ -19638,7 +20044,7 @@ static void InitializeObjects() {
   IPAddressLabel.Visible         = 1;
   IPAddressLabel.Active          = 1;
   IPAddressLabel.Caption         = IPAddressLabel_Caption;
-  IPAddressLabel.FontName        = Arial_Narrow16x19_Bold;
+  IPAddressLabel.FontName        = Arial_Narrow13x20_Bold;
   IPAddressLabel.Font_Color      = 0x0010;
   IPAddressLabel.VerticalText    = 0;
   IPAddressLabel.OnUpPtr         = 0;
@@ -19655,7 +20061,7 @@ static void InitializeObjects() {
   MaskLabel.Visible         = 1;
   MaskLabel.Active          = 1;
   MaskLabel.Caption         = MaskLabel_Caption;
-  MaskLabel.FontName        = Arial_Narrow16x19_Bold;
+  MaskLabel.FontName        = Arial_Narrow13x20_Bold;
   MaskLabel.Font_Color      = 0x0010;
   MaskLabel.VerticalText    = 0;
   MaskLabel.OnUpPtr         = 0;
@@ -19672,7 +20078,7 @@ static void InitializeObjects() {
   GATELabel.Visible         = 1;
   GATELabel.Active          = 1;
   GATELabel.Caption         = GATELabel_Caption;
-  GATELabel.FontName        = Arial_Narrow16x19_Bold;
+  GATELabel.FontName        = Arial_Narrow13x20_Bold;
   GATELabel.Font_Color      = 0x0010;
   GATELabel.VerticalText    = 0;
   GATELabel.OnUpPtr         = 0;
@@ -19689,7 +20095,7 @@ static void InitializeObjects() {
   DNSLabel.Visible         = 1;
   DNSLabel.Active          = 1;
   DNSLabel.Caption         = DNSLabel_Caption;
-  DNSLabel.FontName        = Arial_Narrow16x19_Bold;
+  DNSLabel.FontName        = Arial_Narrow13x20_Bold;
   DNSLabel.Font_Color      = 0x0010;
   DNSLabel.VerticalText    = 0;
   DNSLabel.OnUpPtr         = 0;
@@ -19711,7 +20117,7 @@ static void InitializeObjects() {
   LANSet.Caption         = LANSet_Caption;
   LANSet.TextAlign       = _taCenter;
   LANSet.TextAlignVertical= _tavMiddle;
-  LANSet.FontName        = Arial_Narrow16x19_Bold;
+  LANSet.FontName        = Arial_Narrow13x20_Bold;
   LANSet.PressColEnabled = 1;
   LANSet.Font_Color      = 0xFFFF;
   LANSet.VerticalText    = 0;
@@ -19741,7 +20147,7 @@ static void InitializeObjects() {
   SetGateWay.Caption         = SetGateWay_Caption;
   SetGateWay.TextAlign       = _taCenter;
   SetGateWay.TextAlignVertical= _tavMiddle;
-  SetGateWay.FontName        = Arial_Narrow16x19_Bold;
+  SetGateWay.FontName        = Arial_Narrow13x20_Bold;
   SetGateWay.PressColEnabled = 1;
   SetGateWay.Font_Color      = 0xFFFF;
   SetGateWay.VerticalText    = 0;
@@ -19771,7 +20177,7 @@ static void InitializeObjects() {
   SetDNS.Caption         = SetDNS_Caption;
   SetDNS.TextAlign       = _taCenter;
   SetDNS.TextAlignVertical= _tavMiddle;
-  SetDNS.FontName        = Arial_Narrow16x19_Bold;
+  SetDNS.FontName        = Arial_Narrow13x20_Bold;
   SetDNS.PressColEnabled = 1;
   SetDNS.Font_Color      = 0xFFFF;
   SetDNS.VerticalText    = 0;
@@ -19801,7 +20207,7 @@ static void InitializeObjects() {
   SetIPAddress.Caption         = SetIPAddress_Caption;
   SetIPAddress.TextAlign       = _taCenter;
   SetIPAddress.TextAlignVertical= _tavMiddle;
-  SetIPAddress.FontName        = Arial_Narrow16x19_Bold;
+  SetIPAddress.FontName        = Arial_Narrow13x20_Bold;
   SetIPAddress.PressColEnabled = 1;
   SetIPAddress.Font_Color      = 0xFFFF;
   SetIPAddress.VerticalText    = 0;
@@ -19831,7 +20237,7 @@ static void InitializeObjects() {
   SetMask.Caption         = SetMask_Caption;
   SetMask.TextAlign       = _taCenter;
   SetMask.TextAlignVertical= _tavMiddle;
-  SetMask.FontName        = Arial_Narrow16x19_Bold;
+  SetMask.FontName        = Arial_Narrow13x20_Bold;
   SetMask.PressColEnabled = 1;
   SetMask.Font_Color      = 0xFFFF;
   SetMask.VerticalText    = 0;
@@ -19861,7 +20267,7 @@ static void InitializeObjects() {
   LAN_Key_1.Caption         = LAN_Key_1_Caption;
   LAN_Key_1.TextAlign       = _taCenter;
   LAN_Key_1.TextAlignVertical= _tavMiddle;
-  LAN_Key_1.FontName        = Arial_Narrow16x19_Bold;
+  LAN_Key_1.FontName        = Arial_Narrow13x20_Bold;
   LAN_Key_1.PressColEnabled = 1;
   LAN_Key_1.Font_Color      = 0xEF5D;
   LAN_Key_1.VerticalText    = 0;
@@ -19891,7 +20297,7 @@ static void InitializeObjects() {
   LAN_Key_2.Caption         = LAN_Key_2_Caption;
   LAN_Key_2.TextAlign       = _taCenter;
   LAN_Key_2.TextAlignVertical= _tavMiddle;
-  LAN_Key_2.FontName        = Arial_Narrow16x19_Bold;
+  LAN_Key_2.FontName        = Arial_Narrow13x20_Bold;
   LAN_Key_2.PressColEnabled = 1;
   LAN_Key_2.Font_Color      = 0xEF5D;
   LAN_Key_2.VerticalText    = 0;
@@ -19921,7 +20327,7 @@ static void InitializeObjects() {
   LAN_Key_3.Caption         = LAN_Key_3_Caption;
   LAN_Key_3.TextAlign       = _taCenter;
   LAN_Key_3.TextAlignVertical= _tavMiddle;
-  LAN_Key_3.FontName        = Arial_Narrow16x19_Bold;
+  LAN_Key_3.FontName        = Arial_Narrow13x20_Bold;
   LAN_Key_3.PressColEnabled = 1;
   LAN_Key_3.Font_Color      = 0xEF5D;
   LAN_Key_3.VerticalText    = 0;
@@ -19951,7 +20357,7 @@ static void InitializeObjects() {
   LAN_Key_4.Caption         = LAN_Key_4_Caption;
   LAN_Key_4.TextAlign       = _taCenter;
   LAN_Key_4.TextAlignVertical= _tavMiddle;
-  LAN_Key_4.FontName        = Arial_Narrow16x19_Bold;
+  LAN_Key_4.FontName        = Arial_Narrow13x20_Bold;
   LAN_Key_4.PressColEnabled = 1;
   LAN_Key_4.Font_Color      = 0xEF5D;
   LAN_Key_4.VerticalText    = 0;
@@ -19981,7 +20387,7 @@ static void InitializeObjects() {
   LAN_Key_5.Caption         = LAN_Key_5_Caption;
   LAN_Key_5.TextAlign       = _taCenter;
   LAN_Key_5.TextAlignVertical= _tavMiddle;
-  LAN_Key_5.FontName        = Arial_Narrow16x19_Bold;
+  LAN_Key_5.FontName        = Arial_Narrow13x20_Bold;
   LAN_Key_5.PressColEnabled = 1;
   LAN_Key_5.Font_Color      = 0xEF5D;
   LAN_Key_5.VerticalText    = 0;
@@ -20011,7 +20417,7 @@ static void InitializeObjects() {
   LAN_Key_6.Caption         = LAN_Key_6_Caption;
   LAN_Key_6.TextAlign       = _taCenter;
   LAN_Key_6.TextAlignVertical= _tavMiddle;
-  LAN_Key_6.FontName        = Arial_Narrow16x19_Bold;
+  LAN_Key_6.FontName        = Arial_Narrow13x20_Bold;
   LAN_Key_6.PressColEnabled = 1;
   LAN_Key_6.Font_Color      = 0xEF5D;
   LAN_Key_6.VerticalText    = 0;
@@ -20041,7 +20447,7 @@ static void InitializeObjects() {
   LAN_Key_7.Caption         = LAN_Key_7_Caption;
   LAN_Key_7.TextAlign       = _taCenter;
   LAN_Key_7.TextAlignVertical= _tavMiddle;
-  LAN_Key_7.FontName        = Arial_Narrow16x19_Bold;
+  LAN_Key_7.FontName        = Arial_Narrow13x20_Bold;
   LAN_Key_7.PressColEnabled = 1;
   LAN_Key_7.Font_Color      = 0xEF5D;
   LAN_Key_7.VerticalText    = 0;
@@ -20071,7 +20477,7 @@ static void InitializeObjects() {
   LAN_Key_8.Caption         = LAN_Key_8_Caption;
   LAN_Key_8.TextAlign       = _taCenter;
   LAN_Key_8.TextAlignVertical= _tavMiddle;
-  LAN_Key_8.FontName        = Arial_Narrow16x19_Bold;
+  LAN_Key_8.FontName        = Arial_Narrow13x20_Bold;
   LAN_Key_8.PressColEnabled = 1;
   LAN_Key_8.Font_Color      = 0xEF5D;
   LAN_Key_8.VerticalText    = 0;
@@ -20101,7 +20507,7 @@ static void InitializeObjects() {
   LAN_Key_9.Caption         = LAN_Key_9_Caption;
   LAN_Key_9.TextAlign       = _taCenter;
   LAN_Key_9.TextAlignVertical= _tavMiddle;
-  LAN_Key_9.FontName        = Arial_Narrow16x19_Bold;
+  LAN_Key_9.FontName        = Arial_Narrow13x20_Bold;
   LAN_Key_9.PressColEnabled = 1;
   LAN_Key_9.Font_Color      = 0xEF5D;
   LAN_Key_9.VerticalText    = 0;
@@ -20131,7 +20537,7 @@ static void InitializeObjects() {
   LAN_Key_0.Caption         = LAN_Key_0_Caption;
   LAN_Key_0.TextAlign       = _taCenter;
   LAN_Key_0.TextAlignVertical= _tavMiddle;
-  LAN_Key_0.FontName        = Arial_Narrow16x19_Bold;
+  LAN_Key_0.FontName        = Arial_Narrow13x20_Bold;
   LAN_Key_0.PressColEnabled = 1;
   LAN_Key_0.Font_Color      = 0xEF5D;
   LAN_Key_0.VerticalText    = 0;
@@ -20156,7 +20562,7 @@ static void InitializeObjects() {
   Label40.Visible         = 1;
   Label40.Active          = 0;
   Label40.Caption         = Label40_Caption;
-  Label40.FontName        = Arial_Narrow16x19_Bold;
+  Label40.FontName        = Arial_Narrow13x20_Bold;
   Label40.Font_Color      = 0xE7FC;
   Label40.VerticalText    = 0;
   Label40.OnUpPtr         = 0;
@@ -20178,7 +20584,7 @@ static void InitializeObjects() {
   LAN_Key_Dot.Caption         = LAN_Key_Dot_Caption;
   LAN_Key_Dot.TextAlign       = _taCenter;
   LAN_Key_Dot.TextAlignVertical= _tavMiddle;
-  LAN_Key_Dot.FontName        = Arial_Narrow16x19_Bold;
+  LAN_Key_Dot.FontName        = Arial_Narrow13x20_Bold;
   LAN_Key_Dot.PressColEnabled = 1;
   LAN_Key_Dot.Font_Color      = 0xEF5D;
   LAN_Key_Dot.VerticalText    = 0;
@@ -20208,7 +20614,7 @@ static void InitializeObjects() {
   LAN_Key_Clear.Caption         = LAN_Key_Clear_Caption;
   LAN_Key_Clear.TextAlign       = _taCenter;
   LAN_Key_Clear.TextAlignVertical= _tavMiddle;
-  LAN_Key_Clear.FontName        = Arial_Narrow16x19_Bold;
+  LAN_Key_Clear.FontName        = Arial_Narrow13x20_Bold;
   LAN_Key_Clear.PressColEnabled = 1;
   LAN_Key_Clear.Font_Color      = 0xFFFF;
   LAN_Key_Clear.VerticalText    = 0;
@@ -20238,7 +20644,7 @@ static void InitializeObjects() {
   Home_b19.Caption         = Home_b19_Caption;
   Home_b19.TextAlign       = _taCenter;
   Home_b19.TextAlignVertical= _tavMiddle;
-  Home_b19.FontName        = Arial_Narrow16x19_Bold;
+  Home_b19.FontName        = Arial_Narrow13x20_Bold;
   Home_b19.PressColEnabled = 1;
   Home_b19.Font_Color      = 0xD6BA;
   Home_b19.VerticalText    = 0;
@@ -20268,7 +20674,7 @@ static void InitializeObjects() {
   Back_b15.Caption         = Back_b15_Caption;
   Back_b15.TextAlign       = _taCenter;
   Back_b15.TextAlignVertical= _tavMiddle;
-  Back_b15.FontName        = Arial_Narrow16x19_Bold;
+  Back_b15.FontName        = Arial_Narrow13x20_Bold;
   Back_b15.PressColEnabled = 1;
   Back_b15.Font_Color      = 0xD6BA;
   Back_b15.VerticalText    = 0;
@@ -20357,7 +20763,7 @@ static void InitializeObjects() {
   Label44.Visible         = 1;
   Label44.Active          = 0;
   Label44.Caption         = Label44_Caption;
-  Label44.FontName        = Arial_Narrow16x19_Bold;
+  Label44.FontName        = Arial_Narrow13x20_Bold;
   Label44.Font_Color      = 0xE7FC;
   Label44.VerticalText    = 0;
   Label44.OnUpPtr         = 0;
@@ -20667,7 +21073,7 @@ static void InitializeObjects() {
   Home_b20.Caption         = Home_b20_Caption;
   Home_b20.TextAlign       = _taCenter;
   Home_b20.TextAlignVertical= _tavMiddle;
-  Home_b20.FontName        = Arial_Narrow16x19_Bold;
+  Home_b20.FontName        = Arial_Narrow13x20_Bold;
   Home_b20.PressColEnabled = 1;
   Home_b20.Font_Color      = 0xD6BA;
   Home_b20.VerticalText    = 0;
@@ -20697,7 +21103,7 @@ static void InitializeObjects() {
   Back_b16.Caption         = Back_b16_Caption;
   Back_b16.TextAlign       = _taCenter;
   Back_b16.TextAlignVertical= _tavMiddle;
-  Back_b16.FontName        = Arial_Narrow16x19_Bold;
+  Back_b16.FontName        = Arial_Narrow13x20_Bold;
   Back_b16.PressColEnabled = 1;
   Back_b16.Font_Color      = 0xD6BA;
   Back_b16.VerticalText    = 0;
@@ -20727,7 +21133,7 @@ static void InitializeObjects() {
   Hysteresis_heating.Caption         = Hysteresis_heating_Caption;
   Hysteresis_heating.TextAlign       = _taCenter;
   Hysteresis_heating.TextAlignVertical= _tavMiddle;
-  Hysteresis_heating.FontName        = Arial_Narrow16x19_Bold;
+  Hysteresis_heating.FontName        = Arial_Narrow13x20_Bold;
   Hysteresis_heating.PressColEnabled = 1;
   Hysteresis_heating.Font_Color      = 0x0408;
   Hysteresis_heating.VerticalText    = 0;
@@ -20757,7 +21163,7 @@ static void InitializeObjects() {
   Hysteresis_cooling.Caption         = Hysteresis_cooling_Caption;
   Hysteresis_cooling.TextAlign       = _taCenter;
   Hysteresis_cooling.TextAlignVertical= _tavMiddle;
-  Hysteresis_cooling.FontName        = Arial_Narrow16x19_Bold;
+  Hysteresis_cooling.FontName        = Arial_Narrow13x20_Bold;
   Hysteresis_cooling.PressColEnabled = 1;
   Hysteresis_cooling.Font_Color      = 0x0408;
   Hysteresis_cooling.VerticalText    = 0;
@@ -20787,7 +21193,7 @@ static void InitializeObjects() {
   Hysteresis_DHW.Caption         = Hysteresis_DHW_Caption;
   Hysteresis_DHW.TextAlign       = _taCenter;
   Hysteresis_DHW.TextAlignVertical= _tavMiddle;
-  Hysteresis_DHW.FontName        = Arial_Narrow16x19_Bold;
+  Hysteresis_DHW.FontName        = Arial_Narrow13x20_Bold;
   Hysteresis_DHW.PressColEnabled = 1;
   Hysteresis_DHW.Font_Color      = 0x0408;
   Hysteresis_DHW.VerticalText    = 0;
@@ -20828,7 +21234,7 @@ static void InitializeObjects() {
   Label69.Visible         = 1;
   Label69.Active          = 0;
   Label69.Caption         = Label69_Caption;
-  Label69.FontName        = Arial_Narrow16x19_Bold;
+  Label69.FontName        = Arial_Narrow13x20_Bold;
   Label69.Font_Color      = 0xE7FC;
   Label69.VerticalText    = 0;
   Label69.OnUpPtr         = 0;
@@ -20918,7 +21324,7 @@ static void InitializeObjects() {
   Home_b22.Caption         = Home_b22_Caption;
   Home_b22.TextAlign       = _taCenter;
   Home_b22.TextAlignVertical= _tavMiddle;
-  Home_b22.FontName        = Arial_Narrow16x19_Bold;
+  Home_b22.FontName        = Arial_Narrow13x20_Bold;
   Home_b22.PressColEnabled = 1;
   Home_b22.Font_Color      = 0xD6BA;
   Home_b22.VerticalText    = 0;
@@ -20948,7 +21354,7 @@ static void InitializeObjects() {
   Back_b18.Caption         = Back_b18_Caption;
   Back_b18.TextAlign       = _taCenter;
   Back_b18.TextAlignVertical= _tavMiddle;
-  Back_b18.FontName        = Arial_Narrow16x19_Bold;
+  Back_b18.FontName        = Arial_Narrow13x20_Bold;
   Back_b18.PressColEnabled = 1;
   Back_b18.Font_Color      = 0xD6BA;
   Back_b18.VerticalText    = 0;
@@ -20977,7 +21383,7 @@ static void InitializeObjects() {
   CircleButton15.Caption         = CircleButton15_Caption;
   CircleButton15.TextAlign       = _taCenter;
   CircleButton15.TextAlignVertical= _tavMiddle;
-  CircleButton15.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton15.FontName        = Arial_Narrow13x20_Bold;
   CircleButton15.PressColEnabled = 1;
   CircleButton15.Font_Color      = 0x0000;
   CircleButton15.VerticalText    = 0;
@@ -21017,7 +21423,7 @@ static void InitializeObjects() {
   Module2_br_outlet.Visible         = 1;
   Module2_br_outlet.Active          = 0;
   Module2_br_outlet.Caption         = Module2_br_outlet_Caption;
-  Module2_br_outlet.FontName        = Arial_Narrow16x19_Bold;
+  Module2_br_outlet.FontName        = Arial_Narrow13x20_Bold;
   Module2_br_outlet.Font_Color      = 0xFFFF;
   Module2_br_outlet.VerticalText    = 0;
   Module2_br_outlet.OnUpPtr         = 0;
@@ -21034,7 +21440,7 @@ static void InitializeObjects() {
   Label81.Visible         = 1;
   Label81.Active          = 0;
   Label81.Caption         = Label81_Caption;
-  Label81.FontName        = Arial_Narrow16x19_Bold;
+  Label81.FontName        = Arial_Narrow13x20_Bold;
   Label81.Font_Color      = 0xFFFF;
   Label81.VerticalText    = 0;
   Label81.OnUpPtr         = 0;
@@ -21051,7 +21457,7 @@ static void InitializeObjects() {
   Module2_heat_inlet.Visible         = 1;
   Module2_heat_inlet.Active          = 0;
   Module2_heat_inlet.Caption         = Module2_heat_inlet_Caption;
-  Module2_heat_inlet.FontName        = Arial_Narrow16x19_Bold;
+  Module2_heat_inlet.FontName        = Arial_Narrow13x20_Bold;
   Module2_heat_inlet.Font_Color      = 0xFFFF;
   Module2_heat_inlet.VerticalText    = 0;
   Module2_heat_inlet.OnUpPtr         = 0;
@@ -21068,7 +21474,7 @@ static void InitializeObjects() {
   Module2_heat_outlet.Visible         = 1;
   Module2_heat_outlet.Active          = 0;
   Module2_heat_outlet.Caption         = Module2_heat_outlet_Caption;
-  Module2_heat_outlet.FontName        = Arial_Narrow16x19_Bold;
+  Module2_heat_outlet.FontName        = Arial_Narrow13x20_Bold;
   Module2_heat_outlet.Font_Color      = 0xFFFF;
   Module2_heat_outlet.VerticalText    = 0;
   Module2_heat_outlet.OnUpPtr         = 0;
@@ -21085,7 +21491,7 @@ static void InitializeObjects() {
   Module2_compressor.Visible         = 1;
   Module2_compressor.Active          = 0;
   Module2_compressor.Caption         = Module2_compressor_Caption;
-  Module2_compressor.FontName        = Arial_Narrow16x19_Bold;
+  Module2_compressor.FontName        = Arial_Narrow13x20_Bold;
   Module2_compressor.Font_Color      = 0xFFFF;
   Module2_compressor.VerticalText    = 0;
   Module2_compressor.OnUpPtr         = 0;
@@ -21102,7 +21508,7 @@ static void InitializeObjects() {
   Module2_SH.Visible         = 1;
   Module2_SH.Active          = 0;
   Module2_SH.Caption         = Module2_SH_Caption;
-  Module2_SH.FontName        = Arial_Narrow16x19_Bold;
+  Module2_SH.FontName        = Arial_Narrow13x20_Bold;
   Module2_SH.Font_Color      = 0xFFFF;
   Module2_SH.VerticalText    = 0;
   Module2_SH.OnUpPtr         = 0;
@@ -21119,7 +21525,7 @@ static void InitializeObjects() {
   Module2_SC.Visible         = 1;
   Module2_SC.Active          = 0;
   Module2_SC.Caption         = Module2_SC_Caption;
-  Module2_SC.FontName        = Arial_Narrow16x19_Bold;
+  Module2_SC.FontName        = Arial_Narrow13x20_Bold;
   Module2_SC.Font_Color      = 0xFFFF;
   Module2_SC.VerticalText    = 0;
   Module2_SC.OnUpPtr         = 0;
@@ -21141,7 +21547,7 @@ static void InitializeObjects() {
   S_Brine_Inlet_2.Caption         = S_Brine_Inlet_2_Caption;
   S_Brine_Inlet_2.TextAlign       = _taRight;
   S_Brine_Inlet_2.TextAlignVertical= _tavMiddle;
-  S_Brine_Inlet_2.FontName        = Arial_Narrow16x19_Bold;
+  S_Brine_Inlet_2.FontName        = Arial_Narrow13x20_Bold;
   S_Brine_Inlet_2.PressColEnabled = 0;
   S_Brine_Inlet_2.Font_Color      = 0x0000;
   S_Brine_Inlet_2.VerticalText    = 0;
@@ -21171,7 +21577,7 @@ static void InitializeObjects() {
   S_Brine_Outlet_2.Caption         = S_Brine_Outlet_2_Caption;
   S_Brine_Outlet_2.TextAlign       = _taRight;
   S_Brine_Outlet_2.TextAlignVertical= _tavMiddle;
-  S_Brine_Outlet_2.FontName        = Arial_Narrow16x19_Bold;
+  S_Brine_Outlet_2.FontName        = Arial_Narrow13x20_Bold;
   S_Brine_Outlet_2.PressColEnabled = 0;
   S_Brine_Outlet_2.Font_Color      = 0x0000;
   S_Brine_Outlet_2.VerticalText    = 0;
@@ -21201,7 +21607,7 @@ static void InitializeObjects() {
   S_Heat_Inlet_2.Caption         = S_Heat_Inlet_2_Caption;
   S_Heat_Inlet_2.TextAlign       = _taRight;
   S_Heat_Inlet_2.TextAlignVertical= _tavMiddle;
-  S_Heat_Inlet_2.FontName        = Arial_Narrow16x19_Bold;
+  S_Heat_Inlet_2.FontName        = Arial_Narrow13x20_Bold;
   S_Heat_Inlet_2.PressColEnabled = 0;
   S_Heat_Inlet_2.Font_Color      = 0x0000;
   S_Heat_Inlet_2.VerticalText    = 0;
@@ -21231,7 +21637,7 @@ static void InitializeObjects() {
   S_Heat_Outlet_2.Caption         = S_Heat_Outlet_2_Caption;
   S_Heat_Outlet_2.TextAlign       = _taRight;
   S_Heat_Outlet_2.TextAlignVertical= _tavMiddle;
-  S_Heat_Outlet_2.FontName        = Arial_Narrow16x19_Bold;
+  S_Heat_Outlet_2.FontName        = Arial_Narrow13x20_Bold;
   S_Heat_Outlet_2.PressColEnabled = 0;
   S_Heat_Outlet_2.Font_Color      = 0x0000;
   S_Heat_Outlet_2.VerticalText    = 0;
@@ -21261,7 +21667,7 @@ static void InitializeObjects() {
   S_Compressor_2.Caption         = S_Compressor_2_Caption;
   S_Compressor_2.TextAlign       = _taRight;
   S_Compressor_2.TextAlignVertical= _tavMiddle;
-  S_Compressor_2.FontName        = Arial_Narrow16x19_Bold;
+  S_Compressor_2.FontName        = Arial_Narrow13x20_Bold;
   S_Compressor_2.PressColEnabled = 0;
   S_Compressor_2.Font_Color      = 0x0000;
   S_Compressor_2.VerticalText    = 0;
@@ -21291,7 +21697,7 @@ static void InitializeObjects() {
   S_Superheat_2.Caption         = S_Superheat_2_Caption;
   S_Superheat_2.TextAlign       = _taRight;
   S_Superheat_2.TextAlignVertical= _tavMiddle;
-  S_Superheat_2.FontName        = Arial_Narrow16x19_Bold;
+  S_Superheat_2.FontName        = Arial_Narrow13x20_Bold;
   S_Superheat_2.PressColEnabled = 0;
   S_Superheat_2.Font_Color      = 0x0000;
   S_Superheat_2.VerticalText    = 0;
@@ -21321,7 +21727,7 @@ static void InitializeObjects() {
   S_Subcool_2.Caption         = S_Subcool_2_Caption;
   S_Subcool_2.TextAlign       = _taRight;
   S_Subcool_2.TextAlignVertical= _tavMiddle;
-  S_Subcool_2.FontName        = Arial_Narrow16x19_Bold;
+  S_Subcool_2.FontName        = Arial_Narrow13x20_Bold;
   S_Subcool_2.PressColEnabled = 0;
   S_Subcool_2.Font_Color      = 0x0000;
   S_Subcool_2.VerticalText    = 0;
@@ -21346,7 +21752,7 @@ static void InitializeObjects() {
   Label100.Visible         = 1;
   Label100.Active          = 0;
   Label100.Caption         = Label100_Caption;
-  Label100.FontName        = Arial_Narrow16x19_Bold;
+  Label100.FontName        = Arial_Narrow13x20_Bold;
   Label100.Font_Color      = 0xFFFF;
   Label100.VerticalText    = 0;
   Label100.OnUpPtr         = 0;
@@ -21363,7 +21769,7 @@ static void InitializeObjects() {
   Label101.Visible         = 1;
   Label101.Active          = 0;
   Label101.Caption         = Label101_Caption;
-  Label101.FontName        = Arial_Narrow16x19_Bold;
+  Label101.FontName        = Arial_Narrow13x20_Bold;
   Label101.Font_Color      = 0xFFFF;
   Label101.VerticalText    = 0;
   Label101.OnUpPtr         = 0;
@@ -21380,7 +21786,7 @@ static void InitializeObjects() {
   Label102.Visible         = 1;
   Label102.Active          = 0;
   Label102.Caption         = Label102_Caption;
-  Label102.FontName        = Arial_Narrow16x19_Bold;
+  Label102.FontName        = Arial_Narrow13x20_Bold;
   Label102.Font_Color      = 0xFFFF;
   Label102.VerticalText    = 0;
   Label102.OnUpPtr         = 0;
@@ -21397,7 +21803,7 @@ static void InitializeObjects() {
   Label103.Visible         = 1;
   Label103.Active          = 0;
   Label103.Caption         = Label103_Caption;
-  Label103.FontName        = Arial_Narrow16x19_Bold;
+  Label103.FontName        = Arial_Narrow13x20_Bold;
   Label103.Font_Color      = 0xFFFF;
   Label103.VerticalText    = 0;
   Label103.OnUpPtr         = 0;
@@ -21414,7 +21820,7 @@ static void InitializeObjects() {
   Label105.Visible         = 1;
   Label105.Active          = 0;
   Label105.Caption         = Label105_Caption;
-  Label105.FontName        = Arial_Narrow16x19_Bold;
+  Label105.FontName        = Arial_Narrow13x20_Bold;
   Label105.Font_Color      = 0xFFFF;
   Label105.VerticalText    = 0;
   Label105.OnUpPtr         = 0;
@@ -21431,7 +21837,7 @@ static void InitializeObjects() {
   Label106.Visible         = 1;
   Label106.Active          = 0;
   Label106.Caption         = Label106_Caption;
-  Label106.FontName        = Arial_Narrow16x19_Bold;
+  Label106.FontName        = Arial_Narrow13x20_Bold;
   Label106.Font_Color      = 0xFFFF;
   Label106.VerticalText    = 0;
   Label106.OnUpPtr         = 0;
@@ -21448,7 +21854,7 @@ static void InitializeObjects() {
   Label107.Visible         = 1;
   Label107.Active          = 0;
   Label107.Caption         = Label107_Caption;
-  Label107.FontName        = Arial_Narrow16x19_Bold;
+  Label107.FontName        = Arial_Narrow13x20_Bold;
   Label107.Font_Color      = 0xFFFF;
   Label107.VerticalText    = 0;
   Label107.OnUpPtr         = 0;
@@ -21465,7 +21871,7 @@ static void InitializeObjects() {
   Label108.Visible         = 1;
   Label108.Active          = 0;
   Label108.Caption         = Label108_Caption;
-  Label108.FontName        = Arial_Narrow16x19_Bold;
+  Label108.FontName        = Arial_Narrow13x20_Bold;
   Label108.Font_Color      = 0xFFFF;
   Label108.VerticalText    = 0;
   Label108.OnUpPtr         = 0;
@@ -21482,7 +21888,7 @@ static void InitializeObjects() {
   Label109.Visible         = 1;
   Label109.Active          = 0;
   Label109.Caption         = Label109_Caption;
-  Label109.FontName        = Arial_Narrow16x19_Bold;
+  Label109.FontName        = Arial_Narrow13x20_Bold;
   Label109.Font_Color      = 0xFFFF;
   Label109.VerticalText    = 0;
   Label109.OnUpPtr         = 0;
@@ -21499,7 +21905,7 @@ static void InitializeObjects() {
   Label110.Visible         = 1;
   Label110.Active          = 0;
   Label110.Caption         = Label110_Caption;
-  Label110.FontName        = Arial_Narrow16x19_Bold;
+  Label110.FontName        = Arial_Narrow13x20_Bold;
   Label110.Font_Color      = 0xFFFF;
   Label110.VerticalText    = 0;
   Label110.OnUpPtr         = 0;
@@ -21516,7 +21922,7 @@ static void InitializeObjects() {
   Label111.Visible         = 1;
   Label111.Active          = 0;
   Label111.Caption         = Label111_Caption;
-  Label111.FontName        = Arial_Narrow16x19_Bold;
+  Label111.FontName        = Arial_Narrow13x20_Bold;
   Label111.Font_Color      = 0xFFFF;
   Label111.VerticalText    = 0;
   Label111.OnUpPtr         = 0;
@@ -21533,7 +21939,7 @@ static void InitializeObjects() {
   Label112.Visible         = 1;
   Label112.Active          = 0;
   Label112.Caption         = Label112_Caption;
-  Label112.FontName        = Arial_Narrow16x19_Bold;
+  Label112.FontName        = Arial_Narrow13x20_Bold;
   Label112.Font_Color      = 0xFFFF;
   Label112.VerticalText    = 0;
   Label112.OnUpPtr         = 0;
@@ -21550,7 +21956,7 @@ static void InitializeObjects() {
   Label113.Visible         = 1;
   Label113.Active          = 0;
   Label113.Caption         = Label113_Caption;
-  Label113.FontName        = Arial_Narrow16x19_Bold;
+  Label113.FontName        = Arial_Narrow13x20_Bold;
   Label113.Font_Color      = 0xFFFF;
   Label113.VerticalText    = 0;
   Label113.OnUpPtr         = 0;
@@ -21567,7 +21973,7 @@ static void InitializeObjects() {
   Label114.Visible         = 1;
   Label114.Active          = 0;
   Label114.Caption         = Label114_Caption;
-  Label114.FontName        = Arial_Narrow16x19_Bold;
+  Label114.FontName        = Arial_Narrow13x20_Bold;
   Label114.Font_Color      = 0xFFFF;
   Label114.VerticalText    = 0;
   Label114.OnUpPtr         = 0;
@@ -21584,7 +21990,7 @@ static void InitializeObjects() {
   Label115.Visible         = 1;
   Label115.Active          = 0;
   Label115.Caption         = Label115_Caption;
-  Label115.FontName        = Arial_Narrow16x19_Bold;
+  Label115.FontName        = Arial_Narrow13x20_Bold;
   Label115.Font_Color      = 0xFFFF;
   Label115.VerticalText    = 0;
   Label115.OnUpPtr         = 0;
@@ -21601,7 +22007,7 @@ static void InitializeObjects() {
   Label116.Visible         = 1;
   Label116.Active          = 0;
   Label116.Caption         = Label116_Caption;
-  Label116.FontName        = Arial_Narrow16x19_Bold;
+  Label116.FontName        = Arial_Narrow13x20_Bold;
   Label116.Font_Color      = 0xFFFF;
   Label116.VerticalText    = 0;
   Label116.OnUpPtr         = 0;
@@ -21618,7 +22024,7 @@ static void InitializeObjects() {
   Module2_br_flow.Visible         = 1;
   Module2_br_flow.Active          = 0;
   Module2_br_flow.Caption         = Module2_br_flow_Caption;
-  Module2_br_flow.FontName        = Arial_Narrow16x19_Bold;
+  Module2_br_flow.FontName        = Arial_Narrow13x20_Bold;
   Module2_br_flow.Font_Color      = 0xFFFF;
   Module2_br_flow.VerticalText    = 0;
   Module2_br_flow.OnUpPtr         = 0;
@@ -21640,7 +22046,7 @@ static void InitializeObjects() {
   S_Source_Flow_2.Caption         = S_Source_Flow_2_Caption;
   S_Source_Flow_2.TextAlign       = _taRight;
   S_Source_Flow_2.TextAlignVertical= _tavMiddle;
-  S_Source_Flow_2.FontName        = Arial_Narrow16x19_Bold;
+  S_Source_Flow_2.FontName        = Arial_Narrow13x20_Bold;
   S_Source_Flow_2.PressColEnabled = 0;
   S_Source_Flow_2.Font_Color      = 0x0000;
   S_Source_Flow_2.VerticalText    = 0;
@@ -21665,7 +22071,7 @@ static void InitializeObjects() {
   Module2_heat_flow.Visible         = 1;
   Module2_heat_flow.Active          = 0;
   Module2_heat_flow.Caption         = Module2_heat_flow_Caption;
-  Module2_heat_flow.FontName        = Arial_Narrow16x19_Bold;
+  Module2_heat_flow.FontName        = Arial_Narrow13x20_Bold;
   Module2_heat_flow.Font_Color      = 0xFFFF;
   Module2_heat_flow.VerticalText    = 0;
   Module2_heat_flow.OnUpPtr         = 0;
@@ -21687,7 +22093,7 @@ static void InitializeObjects() {
   S_Heat_Flow_2.Caption         = S_Heat_Flow_2_Caption;
   S_Heat_Flow_2.TextAlign       = _taRight;
   S_Heat_Flow_2.TextAlignVertical= _tavMiddle;
-  S_Heat_Flow_2.FontName        = Arial_Narrow16x19_Bold;
+  S_Heat_Flow_2.FontName        = Arial_Narrow13x20_Bold;
   S_Heat_Flow_2.PressColEnabled = 0;
   S_Heat_Flow_2.Font_Color      = 0x0000;
   S_Heat_Flow_2.VerticalText    = 0;
@@ -21712,7 +22118,7 @@ static void InitializeObjects() {
   Label119.Visible         = 1;
   Label119.Active          = 0;
   Label119.Caption         = Label119_Caption;
-  Label119.FontName        = Arial_Narrow16x19_Bold;
+  Label119.FontName        = Arial_Narrow13x20_Bold;
   Label119.Font_Color      = 0xFFFF;
   Label119.VerticalText    = 0;
   Label119.OnUpPtr         = 0;
@@ -21729,7 +22135,7 @@ static void InitializeObjects() {
   Label120.Visible         = 1;
   Label120.Active          = 0;
   Label120.Caption         = Label120_Caption;
-  Label120.FontName        = Arial_Narrow16x19_Bold;
+  Label120.FontName        = Arial_Narrow13x20_Bold;
   Label120.Font_Color      = 0xFFFF;
   Label120.VerticalText    = 0;
   Label120.OnUpPtr         = 0;
@@ -21746,7 +22152,7 @@ static void InitializeObjects() {
   Label128.Visible         = 1;
   Label128.Active          = 0;
   Label128.Caption         = Label128_Caption;
-  Label128.FontName        = Arial_Narrow16x19_Bold;
+  Label128.FontName        = Arial_Narrow13x20_Bold;
   Label128.Font_Color      = 0xFFFF;
   Label128.VerticalText    = 0;
   Label128.OnUpPtr         = 0;
@@ -21763,7 +22169,7 @@ static void InitializeObjects() {
   Label129.Visible         = 1;
   Label129.Active          = 0;
   Label129.Caption         = Label129_Caption;
-  Label129.FontName        = Arial_Narrow16x19_Bold;
+  Label129.FontName        = Arial_Narrow13x20_Bold;
   Label129.Font_Color      = 0xFFFF;
   Label129.VerticalText    = 0;
   Label129.OnUpPtr         = 0;
@@ -21780,7 +22186,7 @@ static void InitializeObjects() {
   Label76.Visible         = 1;
   Label76.Active          = 0;
   Label76.Caption         = Label76_Caption;
-  Label76.FontName        = Arial_Narrow16x19_Bold;
+  Label76.FontName        = Arial_Narrow13x20_Bold;
   Label76.Font_Color      = 0xE7FC;
   Label76.VerticalText    = 0;
   Label76.OnUpPtr         = 0;
@@ -21802,7 +22208,7 @@ static void InitializeObjects() {
   S_condenser_2.Caption         = S_condenser_2_Caption;
   S_condenser_2.TextAlign       = _taRight;
   S_condenser_2.TextAlignVertical= _tavMiddle;
-  S_condenser_2.FontName        = Arial_Narrow16x19_Bold;
+  S_condenser_2.FontName        = Arial_Narrow13x20_Bold;
   S_condenser_2.PressColEnabled = 0;
   S_condenser_2.Font_Color      = 0x0000;
   S_condenser_2.VerticalText    = 0;
@@ -21832,7 +22238,7 @@ static void InitializeObjects() {
   S_suction_2.Caption         = S_suction_2_Caption;
   S_suction_2.TextAlign       = _taRight;
   S_suction_2.TextAlignVertical= _tavMiddle;
-  S_suction_2.FontName        = Arial_Narrow16x19_Bold;
+  S_suction_2.FontName        = Arial_Narrow13x20_Bold;
   S_suction_2.PressColEnabled = 0;
   S_suction_2.Font_Color      = 0x0000;
   S_suction_2.VerticalText    = 0;
@@ -21857,7 +22263,7 @@ static void InitializeObjects() {
   Module2_cond.Visible         = 1;
   Module2_cond.Active          = 0;
   Module2_cond.Caption         = Module2_cond_Caption;
-  Module2_cond.FontName        = Arial_Narrow16x19_Bold;
+  Module2_cond.FontName        = Arial_Narrow13x20_Bold;
   Module2_cond.Font_Color      = 0xFFFF;
   Module2_cond.VerticalText    = 0;
   Module2_cond.OnUpPtr         = 0;
@@ -21874,7 +22280,7 @@ static void InitializeObjects() {
   Module2_suct.Visible         = 1;
   Module2_suct.Active          = 0;
   Module2_suct.Caption         = Module2_suct_Caption;
-  Module2_suct.FontName        = Arial_Narrow16x19_Bold;
+  Module2_suct.FontName        = Arial_Narrow13x20_Bold;
   Module2_suct.Font_Color      = 0xFFFF;
   Module2_suct.VerticalText    = 0;
   Module2_suct.OnUpPtr         = 0;
@@ -21896,7 +22302,7 @@ static void InitializeObjects() {
   ButtonRound14.Caption         = ButtonRound14_Caption;
   ButtonRound14.TextAlign       = _taCenter;
   ButtonRound14.TextAlignVertical= _tavMiddle;
-  ButtonRound14.FontName        = Arial_Narrow16x19_Bold;
+  ButtonRound14.FontName        = Arial_Narrow13x20_Bold;
   ButtonRound14.PressColEnabled = 1;
   ButtonRound14.Font_Color      = 0xD6BA;
   ButtonRound14.VerticalText    = 0;
@@ -21926,7 +22332,7 @@ static void InitializeObjects() {
   Home_b23.Caption         = Home_b23_Caption;
   Home_b23.TextAlign       = _taCenter;
   Home_b23.TextAlignVertical= _tavMiddle;
-  Home_b23.FontName        = Arial_Narrow16x19_Bold;
+  Home_b23.FontName        = Arial_Narrow13x20_Bold;
   Home_b23.PressColEnabled = 1;
   Home_b23.Font_Color      = 0xD6BA;
   Home_b23.VerticalText    = 0;
@@ -21955,7 +22361,7 @@ static void InitializeObjects() {
   CircleButton16.Caption         = CircleButton16_Caption;
   CircleButton16.TextAlign       = _taCenter;
   CircleButton16.TextAlignVertical= _tavMiddle;
-  CircleButton16.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton16.FontName        = Arial_Narrow13x20_Bold;
   CircleButton16.PressColEnabled = 1;
   CircleButton16.Font_Color      = 0x0000;
   CircleButton16.VerticalText    = 0;
@@ -21984,7 +22390,7 @@ static void InitializeObjects() {
   S_Low_Pressure_2.Caption         = S_Low_Pressure_2_Caption;
   S_Low_Pressure_2.TextAlign       = _taRight;
   S_Low_Pressure_2.TextAlignVertical= _tavMiddle;
-  S_Low_Pressure_2.FontName        = Arial_Narrow16x19_Bold;
+  S_Low_Pressure_2.FontName        = Arial_Narrow13x20_Bold;
   S_Low_Pressure_2.PressColEnabled = 0;
   S_Low_Pressure_2.Font_Color      = 0x0418;
   S_Low_Pressure_2.VerticalText    = 0;
@@ -22014,7 +22420,7 @@ static void InitializeObjects() {
   S_High_Pressure_2.Caption         = S_High_Pressure_2_Caption;
   S_High_Pressure_2.TextAlign       = _taRight;
   S_High_Pressure_2.TextAlignVertical= _tavMiddle;
-  S_High_Pressure_2.FontName        = Arial_Narrow16x19_Bold;
+  S_High_Pressure_2.FontName        = Arial_Narrow13x20_Bold;
   S_High_Pressure_2.PressColEnabled = 0;
   S_High_Pressure_2.Font_Color      = 0x06A0;
   S_High_Pressure_2.VerticalText    = 0;
@@ -22039,7 +22445,7 @@ static void InitializeObjects() {
   Label283.Visible         = 1;
   Label283.Active          = 0;
   Label283.Caption         = Label283_Caption;
-  Label283.FontName        = Arial_Narrow16x19_Bold;
+  Label283.FontName        = Arial_Narrow13x20_Bold;
   Label283.Font_Color      = 0xFFFF;
   Label283.VerticalText    = 0;
   Label283.OnUpPtr         = 0;
@@ -22056,7 +22462,7 @@ static void InitializeObjects() {
   Label284.Visible         = 1;
   Label284.Active          = 0;
   Label284.Caption         = Label284_Caption;
-  Label284.FontName        = Arial_Narrow16x19_Bold;
+  Label284.FontName        = Arial_Narrow13x20_Bold;
   Label284.Font_Color      = 0xFFFF;
   Label284.VerticalText    = 0;
   Label284.OnUpPtr         = 0;
@@ -22073,7 +22479,7 @@ static void InitializeObjects() {
   Label3.Visible         = 1;
   Label3.Active          = 0;
   Label3.Caption         = Label3_Caption;
-  Label3.FontName        = Arial_Narrow16x19_Bold;
+  Label3.FontName        = Arial_Narrow13x20_Bold;
   Label3.Font_Color      = 0xFFFF;
   Label3.VerticalText    = 0;
   Label3.OnUpPtr         = 0;
@@ -22090,7 +22496,7 @@ static void InitializeObjects() {
   Label26.Visible         = 1;
   Label26.Active          = 0;
   Label26.Caption         = Label26_Caption;
-  Label26.FontName        = Arial_Narrow16x19_Bold;
+  Label26.FontName        = Arial_Narrow13x20_Bold;
   Label26.Font_Color      = 0xFFFF;
   Label26.VerticalText    = 0;
   Label26.OnUpPtr         = 0;
@@ -22118,12 +22524,12 @@ static void InitializeObjects() {
   Label80.Order           = 1;
   Label80.Left            = 220;
   Label80.Top             = 5;
-  Label80.Width           = 51;
+  Label80.Width           = 41;
   Label80.Height          = 20;
   Label80.Visible         = 1;
   Label80.Active          = 0;
   Label80.Caption         = Label80_Caption;
-  Label80.FontName        = Arial_Narrow16x19_Bold;
+  Label80.FontName        = Arial_Narrow13x20_Bold;
   Label80.Font_Color      = 0xE7FC;
   Label80.VerticalText    = 0;
   Label80.OnUpPtr         = 0;
@@ -22177,7 +22583,7 @@ static void InitializeObjects() {
   Home_b24.Caption         = Home_b24_Caption;
   Home_b24.TextAlign       = _taCenter;
   Home_b24.TextAlignVertical= _tavMiddle;
-  Home_b24.FontName        = Arial_Narrow16x19_Bold;
+  Home_b24.FontName        = Arial_Narrow13x20_Bold;
   Home_b24.PressColEnabled = 1;
   Home_b24.Font_Color      = 0xD6BA;
   Home_b24.VerticalText    = 0;
@@ -22207,7 +22613,7 @@ static void InitializeObjects() {
   Back_20.Caption         = Back_20_Caption;
   Back_20.TextAlign       = _taCenter;
   Back_20.TextAlignVertical= _tavMiddle;
-  Back_20.FontName        = Arial_Narrow16x19_Bold;
+  Back_20.FontName        = Arial_Narrow13x20_Bold;
   Back_20.PressColEnabled = 1;
   Back_20.Font_Color      = 0xD6BA;
   Back_20.VerticalText    = 0;
@@ -22236,7 +22642,7 @@ static void InitializeObjects() {
   CircleButton13.Caption         = CircleButton13_Caption;
   CircleButton13.TextAlign       = _taCenter;
   CircleButton13.TextAlignVertical= _tavMiddle;
-  CircleButton13.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton13.FontName        = Arial_Narrow13x20_Bold;
   CircleButton13.PressColEnabled = 1;
   CircleButton13.Font_Color      = 0x0000;
   CircleButton13.VerticalText    = 0;
@@ -22506,7 +22912,7 @@ static void InitializeObjects() {
   Module1_br_inlet.Caption         = Module1_br_inlet_Caption;
   Module1_br_inlet.TextAlign       = _taRight;
   Module1_br_inlet.TextAlignVertical= _tavMiddle;
-  Module1_br_inlet.FontName        = Arial_Narrow13x16_Bold;
+  Module1_br_inlet.FontName        = Arial_Narrow11x16_Bold;
   Module1_br_inlet.PressColEnabled = 1;
   Module1_br_inlet.Font_Color      = 0x001F;
   Module1_br_inlet.VerticalText    = 0;
@@ -22535,7 +22941,7 @@ static void InitializeObjects() {
   Module1_br_outlet.Caption         = Module1_br_outlet_Caption;
   Module1_br_outlet.TextAlign       = _taRight;
   Module1_br_outlet.TextAlignVertical= _tavMiddle;
-  Module1_br_outlet.FontName        = Arial_Narrow13x16_Bold;
+  Module1_br_outlet.FontName        = Arial_Narrow11x16_Bold;
   Module1_br_outlet.PressColEnabled = 1;
   Module1_br_outlet.Font_Color      = 0x001F;
   Module1_br_outlet.VerticalText    = 0;
@@ -22564,7 +22970,7 @@ static void InitializeObjects() {
   Module1_heat_outlet.Caption         = Module1_heat_outlet_Caption;
   Module1_heat_outlet.TextAlign       = _taRight;
   Module1_heat_outlet.TextAlignVertical= _tavMiddle;
-  Module1_heat_outlet.FontName        = Arial_Narrow13x16_Bold;
+  Module1_heat_outlet.FontName        = Arial_Narrow11x16_Bold;
   Module1_heat_outlet.PressColEnabled = 1;
   Module1_heat_outlet.Font_Color      = 0xFC10;
   Module1_heat_outlet.VerticalText    = 0;
@@ -22593,7 +22999,7 @@ static void InitializeObjects() {
   Module1_heat_inlet.Caption         = Module1_heat_inlet_Caption;
   Module1_heat_inlet.TextAlign       = _taRight;
   Module1_heat_inlet.TextAlignVertical= _tavMiddle;
-  Module1_heat_inlet.FontName        = Arial_Narrow13x16_Bold;
+  Module1_heat_inlet.FontName        = Arial_Narrow11x16_Bold;
   Module1_heat_inlet.PressColEnabled = 1;
   Module1_heat_inlet.Font_Color      = 0xFC10;
   Module1_heat_inlet.VerticalText    = 0;
@@ -22622,7 +23028,7 @@ static void InitializeObjects() {
   TANK.Caption         = TANK_Caption;
   TANK.TextAlign       = _taRight;
   TANK.TextAlignVertical= _tavMiddle;
-  TANK.FontName        = Arial_Narrow13x16_Bold;
+  TANK.FontName        = Arial_Narrow11x16_Bold;
   TANK.PressColEnabled = 1;
   TANK.Font_Color      = 0xF800;
   TANK.VerticalText    = 0;
@@ -22680,7 +23086,7 @@ static void InitializeObjects() {
   Module1_exhaust.Caption         = Module1_exhaust_Caption;
   Module1_exhaust.TextAlign       = _taRight;
   Module1_exhaust.TextAlignVertical= _tavMiddle;
-  Module1_exhaust.FontName        = Arial_Narrow13x16_Bold;
+  Module1_exhaust.FontName        = Arial_Narrow11x16_Bold;
   Module1_exhaust.PressColEnabled = 1;
   Module1_exhaust.Font_Color      = 0xF81F;
   Module1_exhaust.VerticalText    = 0;
@@ -22709,7 +23115,7 @@ static void InitializeObjects() {
   Module1_superheat.Caption         = Module1_superheat_Caption;
   Module1_superheat.TextAlign       = _taRight;
   Module1_superheat.TextAlignVertical= _tavMiddle;
-  Module1_superheat.FontName        = Arial_Narrow13x16_Bold;
+  Module1_superheat.FontName        = Arial_Narrow11x16_Bold;
   Module1_superheat.PressColEnabled = 1;
   Module1_superheat.Font_Color      = 0x8208;
   Module1_superheat.VerticalText    = 0;
@@ -22738,7 +23144,7 @@ static void InitializeObjects() {
   Module1_heat_flow.Caption         = Module1_heat_flow_Caption;
   Module1_heat_flow.TextAlign       = _taRight;
   Module1_heat_flow.TextAlignVertical= _tavMiddle;
-  Module1_heat_flow.FontName        = Arial_Narrow13x16_Bold;
+  Module1_heat_flow.FontName        = Arial_Narrow11x16_Bold;
   Module1_heat_flow.PressColEnabled = 1;
   Module1_heat_flow.Font_Color      = 0x8408;
   Module1_heat_flow.VerticalText    = 0;
@@ -22799,7 +23205,7 @@ static void InitializeObjects() {
   Button7.Caption         = Button7_Caption;
   Button7.TextAlign       = _taRight;
   Button7.TextAlignVertical= _tavMiddle;
-  Button7.FontName        = Arial_Narrow13x16_Bold;
+  Button7.FontName        = Arial_Narrow11x16_Bold;
   Button7.PressColEnabled = 1;
   Button7.Font_Color      = 0x001F;
   Button7.VerticalText    = 0;
@@ -22828,7 +23234,7 @@ static void InitializeObjects() {
   Button9.Caption         = Button9_Caption;
   Button9.TextAlign       = _taRight;
   Button9.TextAlignVertical= _tavMiddle;
-  Button9.FontName        = Arial_Narrow13x16_Bold;
+  Button9.FontName        = Arial_Narrow11x16_Bold;
   Button9.PressColEnabled = 1;
   Button9.Font_Color      = 0x001F;
   Button9.VerticalText    = 0;
@@ -22857,7 +23263,7 @@ static void InitializeObjects() {
   Button10.Caption         = Button10_Caption;
   Button10.TextAlign       = _taRight;
   Button10.TextAlignVertical= _tavMiddle;
-  Button10.FontName        = Arial_Narrow13x16_Bold;
+  Button10.FontName        = Arial_Narrow11x16_Bold;
   Button10.PressColEnabled = 1;
   Button10.Font_Color      = 0xFC10;
   Button10.VerticalText    = 0;
@@ -22886,7 +23292,7 @@ static void InitializeObjects() {
   Button11.Caption         = Button11_Caption;
   Button11.TextAlign       = _taRight;
   Button11.TextAlignVertical= _tavMiddle;
-  Button11.FontName        = Arial_Narrow13x16_Bold;
+  Button11.FontName        = Arial_Narrow11x16_Bold;
   Button11.PressColEnabled = 1;
   Button11.Font_Color      = 0xFC10;
   Button11.VerticalText    = 0;
@@ -22915,7 +23321,7 @@ static void InitializeObjects() {
   Module2_exhaust.Caption         = Module2_exhaust_Caption;
   Module2_exhaust.TextAlign       = _taRight;
   Module2_exhaust.TextAlignVertical= _tavMiddle;
-  Module2_exhaust.FontName        = Arial_Narrow13x16_Bold;
+  Module2_exhaust.FontName        = Arial_Narrow11x16_Bold;
   Module2_exhaust.PressColEnabled = 1;
   Module2_exhaust.Font_Color      = 0xF81F;
   Module2_exhaust.VerticalText    = 0;
@@ -22944,7 +23350,7 @@ static void InitializeObjects() {
   Module2_superheat.Caption         = Module2_superheat_Caption;
   Module2_superheat.TextAlign       = _taRight;
   Module2_superheat.TextAlignVertical= _tavMiddle;
-  Module2_superheat.FontName        = Arial_Narrow13x16_Bold;
+  Module2_superheat.FontName        = Arial_Narrow11x16_Bold;
   Module2_superheat.PressColEnabled = 1;
   Module2_superheat.Font_Color      = 0x8208;
   Module2_superheat.VerticalText    = 0;
@@ -22973,7 +23379,7 @@ static void InitializeObjects() {
   Module2_brine_flow.Caption         = Module2_brine_flow_Caption;
   Module2_brine_flow.TextAlign       = _taRight;
   Module2_brine_flow.TextAlignVertical= _tavMiddle;
-  Module2_brine_flow.FontName        = Arial_Narrow13x16_Bold;
+  Module2_brine_flow.FontName        = Arial_Narrow11x16_Bold;
   Module2_brine_flow.PressColEnabled = 1;
   Module2_brine_flow.Font_Color      = 0x8408;
   Module2_brine_flow.VerticalText    = 0;
@@ -23002,7 +23408,7 @@ static void InitializeObjects() {
   Button15.Caption         = Button15_Caption;
   Button15.TextAlign       = _taRight;
   Button15.TextAlignVertical= _tavMiddle;
-  Button15.FontName        = Arial_Narrow13x16_Bold;
+  Button15.FontName        = Arial_Narrow11x16_Bold;
   Button15.PressColEnabled = 1;
   Button15.Font_Color      = 0x8408;
   Button15.VerticalText    = 0;
@@ -23186,7 +23592,7 @@ static void InitializeObjects() {
   Label95.Visible         = 1;
   Label95.Active          = 0;
   Label95.Caption         = Label95_Caption;
-  Label95.FontName        = Arial_Narrow16x19_Bold;
+  Label95.FontName        = Arial_Narrow13x20_Bold;
   Label95.Font_Color      = 0xE7FC;
   Label95.VerticalText    = 0;
   Label95.OnUpPtr         = 0;
@@ -23208,7 +23614,7 @@ static void InitializeObjects() {
   Button13.Caption         = Button13_Caption;
   Button13.TextAlign       = _taRight;
   Button13.TextAlignVertical= _tavMiddle;
-  Button13.FontName        = Arial_Narrow13x16_Bold;
+  Button13.FontName        = Arial_Narrow11x16_Bold;
   Button13.PressColEnabled = 1;
   Button13.Font_Color      = 0xB5A0;
   Button13.VerticalText    = 0;
@@ -23237,7 +23643,7 @@ static void InitializeObjects() {
   Button5.Caption         = Button5_Caption;
   Button5.TextAlign       = _taRight;
   Button5.TextAlignVertical= _tavMiddle;
-  Button5.FontName        = Arial_Narrow13x16_Bold;
+  Button5.FontName        = Arial_Narrow11x16_Bold;
   Button5.PressColEnabled = 1;
   Button5.Font_Color      = 0x8408;
   Button5.VerticalText    = 0;
@@ -23272,12 +23678,12 @@ static void InitializeObjects() {
   Label96.Order           = 1;
   Label96.Left            = 203;
   Label96.Top             = 5;
-  Label96.Width           = 91;
+  Label96.Width           = 74;
   Label96.Height          = 20;
   Label96.Visible         = 1;
   Label96.Active          = 0;
   Label96.Caption         = Label96_Caption;
-  Label96.FontName        = Arial_Narrow16x19_Bold;
+  Label96.FontName        = Arial_Narrow13x20_Bold;
   Label96.Font_Color      = 0xE7FC;
   Label96.VerticalText    = 0;
   Label96.OnUpPtr         = 0;
@@ -23299,7 +23705,7 @@ static void InitializeObjects() {
   Time2_reverse.Caption         = Time2_reverse_Caption;
   Time2_reverse.TextAlign       = _taCenter;
   Time2_reverse.TextAlignVertical= _tavMiddle;
-  Time2_reverse.FontName        = Arial_Narrow16x19_Bold;
+  Time2_reverse.FontName        = Arial_Narrow13x20_Bold;
   Time2_reverse.PressColEnabled = 1;
   Time2_reverse.Font_Color      = 0x0585;
   Time2_reverse.VerticalText    = 0;
@@ -23329,7 +23735,7 @@ static void InitializeObjects() {
   Time2_ground_pump.Caption         = Time2_ground_pump_Caption;
   Time2_ground_pump.TextAlign       = _taCenter;
   Time2_ground_pump.TextAlignVertical= _tavMiddle;
-  Time2_ground_pump.FontName        = Arial_Narrow16x19_Bold;
+  Time2_ground_pump.FontName        = Arial_Narrow13x20_Bold;
   Time2_ground_pump.PressColEnabled = 1;
   Time2_ground_pump.Font_Color      = 0x0585;
   Time2_ground_pump.VerticalText    = 0;
@@ -23359,7 +23765,7 @@ static void InitializeObjects() {
   Time2_heat_pump.Caption         = Time2_heat_pump_Caption;
   Time2_heat_pump.TextAlign       = _taCenter;
   Time2_heat_pump.TextAlignVertical= _tavMiddle;
-  Time2_heat_pump.FontName        = Arial_Narrow16x19_Bold;
+  Time2_heat_pump.FontName        = Arial_Narrow13x20_Bold;
   Time2_heat_pump.PressColEnabled = 1;
   Time2_heat_pump.Font_Color      = 0x0585;
   Time2_heat_pump.VerticalText    = 0;
@@ -23389,7 +23795,7 @@ static void InitializeObjects() {
   Time2_compressor.Caption         = Time2_compressor_Caption;
   Time2_compressor.TextAlign       = _taCenter;
   Time2_compressor.TextAlignVertical= _tavMiddle;
-  Time2_compressor.FontName        = Arial_Narrow16x19_Bold;
+  Time2_compressor.FontName        = Arial_Narrow13x20_Bold;
   Time2_compressor.PressColEnabled = 1;
   Time2_compressor.Font_Color      = 0x0585;
   Time2_compressor.VerticalText    = 0;
@@ -23419,7 +23825,7 @@ static void InitializeObjects() {
   Home_b25.Caption         = Home_b25_Caption;
   Home_b25.TextAlign       = _taCenter;
   Home_b25.TextAlignVertical= _tavMiddle;
-  Home_b25.FontName        = Arial_Narrow16x19_Bold;
+  Home_b25.FontName        = Arial_Narrow13x20_Bold;
   Home_b25.PressColEnabled = 1;
   Home_b25.Font_Color      = 0xD6BA;
   Home_b25.VerticalText    = 0;
@@ -23449,7 +23855,7 @@ static void InitializeObjects() {
   Time_solar.Caption         = Time_solar_Caption;
   Time_solar.TextAlign       = _taCenter;
   Time_solar.TextAlignVertical= _tavMiddle;
-  Time_solar.FontName        = Arial_Narrow16x19_Bold;
+  Time_solar.FontName        = Arial_Narrow13x20_Bold;
   Time_solar.PressColEnabled = 1;
   Time_solar.Font_Color      = 0x0585;
   Time_solar.VerticalText    = 0;
@@ -23478,7 +23884,7 @@ static void InitializeObjects() {
   CircleButton7.Caption         = CircleButton7_Caption;
   CircleButton7.TextAlign       = _taCenter;
   CircleButton7.TextAlignVertical= _tavMiddle;
-  CircleButton7.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton7.FontName        = Arial_Narrow13x20_Bold;
   CircleButton7.PressColEnabled = 1;
   CircleButton7.Font_Color      = 0x0000;
   CircleButton7.VerticalText    = 0;
@@ -23507,7 +23913,7 @@ static void InitializeObjects() {
   Back_b21.Caption         = Back_b21_Caption;
   Back_b21.TextAlign       = _taCenter;
   Back_b21.TextAlignVertical= _tavMiddle;
-  Back_b21.FontName        = Arial_Narrow16x19_Bold;
+  Back_b21.FontName        = Arial_Narrow13x20_Bold;
   Back_b21.PressColEnabled = 1;
   Back_b21.Font_Color      = 0xD6BA;
   Back_b21.VerticalText    = 0;
@@ -23527,12 +23933,12 @@ static void InitializeObjects() {
   Label9.Order           = 10;
   Label9.Left            = 409;
   Label9.Top             = 191;
-  Label9.Width           = 46;
+  Label9.Width           = 39;
   Label9.Height          = 20;
   Label9.Visible         = 1;
   Label9.Active          = 1;
   Label9.Caption         = Label9_Caption;
-  Label9.FontName        = Arial_Narrow16x19_Bold;
+  Label9.FontName        = Arial_Narrow13x20_Bold;
   Label9.Font_Color      = 0xFFFF;
   Label9.VerticalText    = 0;
   Label9.OnUpPtr         = 0;
@@ -23758,7 +24164,7 @@ static void InitializeObjects() {
   Label98.Visible         = 1;
   Label98.Active          = 0;
   Label98.Caption         = Label98_Caption;
-  Label98.FontName        = Arial_Narrow16x19_Bold;
+  Label98.FontName        = Arial_Narrow13x20_Bold;
   Label98.Font_Color      = 0xE7FC;
   Label98.VerticalText    = 0;
   Label98.OnUpPtr         = 0;
@@ -23988,7 +24394,7 @@ static void InitializeObjects() {
   Button17.Caption         = Button17_Caption;
   Button17.TextAlign       = _taRight;
   Button17.TextAlignVertical= _tavMiddle;
-  Button17.FontName        = Arial_Narrow13x16_Bold;
+  Button17.FontName        = Arial_Narrow11x16_Bold;
   Button17.PressColEnabled = 1;
   Button17.Font_Color      = 0xFC10;
   Button17.VerticalText    = 0;
@@ -24017,7 +24423,7 @@ static void InitializeObjects() {
   Button18.Caption         = Button18_Caption;
   Button18.TextAlign       = _taRight;
   Button18.TextAlignVertical= _tavMiddle;
-  Button18.FontName        = Arial_Narrow13x16_Bold;
+  Button18.FontName        = Arial_Narrow11x16_Bold;
   Button18.PressColEnabled = 1;
   Button18.Font_Color      = 0xFC10;
   Button18.VerticalText    = 0;
@@ -24046,7 +24452,7 @@ static void InitializeObjects() {
   Button19.Caption         = Button19_Caption;
   Button19.TextAlign       = _taRight;
   Button19.TextAlignVertical= _tavMiddle;
-  Button19.FontName        = Arial_Narrow13x16_Bold;
+  Button19.FontName        = Arial_Narrow11x16_Bold;
   Button19.PressColEnabled = 1;
   Button19.Font_Color      = 0xF800;
   Button19.VerticalText    = 0;
@@ -24075,7 +24481,7 @@ static void InitializeObjects() {
   Button20.Caption         = Button20_Caption;
   Button20.TextAlign       = _taRight;
   Button20.TextAlignVertical= _tavMiddle;
-  Button20.FontName        = Arial_Narrow13x16_Bold;
+  Button20.FontName        = Arial_Narrow11x16_Bold;
   Button20.PressColEnabled = 1;
   Button20.Font_Color      = 0xFC08;
   Button20.VerticalText    = 0;
@@ -24104,7 +24510,7 @@ static void InitializeObjects() {
   Button22.Caption         = Button22_Caption;
   Button22.TextAlign       = _taRight;
   Button22.TextAlignVertical= _tavMiddle;
-  Button22.FontName        = Arial_Narrow11x14_Bold;
+  Button22.FontName        = Arial_Narrow9x15_Bold;
   Button22.PressColEnabled = 1;
   Button22.Font_Color      = 0xF81F;
   Button22.VerticalText    = 0;
@@ -24133,7 +24539,7 @@ static void InitializeObjects() {
   Button23.Caption         = Button23_Caption;
   Button23.TextAlign       = _taRight;
   Button23.TextAlignVertical= _tavMiddle;
-  Button23.FontName        = Arial_Narrow13x16_Bold;
+  Button23.FontName        = Arial_Narrow11x16_Bold;
   Button23.PressColEnabled = 1;
   Button23.Font_Color      = 0x8208;
   Button23.VerticalText    = 0;
@@ -24162,7 +24568,7 @@ static void InitializeObjects() {
   Button25.Caption         = Button25_Caption;
   Button25.TextAlign       = _taRight;
   Button25.TextAlignVertical= _tavMiddle;
-  Button25.FontName        = Arial_Narrow13x16_Bold;
+  Button25.FontName        = Arial_Narrow11x16_Bold;
   Button25.PressColEnabled = 1;
   Button25.Font_Color      = 0x8408;
   Button25.VerticalText    = 0;
@@ -24191,7 +24597,7 @@ static void InitializeObjects() {
   Button28.Caption         = Button28_Caption;
   Button28.TextAlign       = _taRight;
   Button28.TextAlignVertical= _tavMiddle;
-  Button28.FontName        = Arial_Narrow13x16_Bold;
+  Button28.FontName        = Arial_Narrow11x16_Bold;
   Button28.PressColEnabled = 1;
   Button28.Font_Color      = 0xFC10;
   Button28.VerticalText    = 0;
@@ -24220,7 +24626,7 @@ static void InitializeObjects() {
   Button29.Caption         = Button29_Caption;
   Button29.TextAlign       = _taRight;
   Button29.TextAlignVertical= _tavMiddle;
-  Button29.FontName        = Arial_Narrow13x16_Bold;
+  Button29.FontName        = Arial_Narrow11x16_Bold;
   Button29.PressColEnabled = 1;
   Button29.Font_Color      = 0xFC10;
   Button29.VerticalText    = 0;
@@ -24249,7 +24655,7 @@ static void InitializeObjects() {
   Button30.Caption         = Button30_Caption;
   Button30.TextAlign       = _taRight;
   Button30.TextAlignVertical= _tavMiddle;
-  Button30.FontName        = Arial_Narrow13x16_Bold;
+  Button30.FontName        = Arial_Narrow11x16_Bold;
   Button30.PressColEnabled = 1;
   Button30.Font_Color      = 0xF81F;
   Button30.VerticalText    = 0;
@@ -24278,7 +24684,7 @@ static void InitializeObjects() {
   Button31.Caption         = Button31_Caption;
   Button31.TextAlign       = _taRight;
   Button31.TextAlignVertical= _tavMiddle;
-  Button31.FontName        = Arial_Narrow13x16_Bold;
+  Button31.FontName        = Arial_Narrow11x16_Bold;
   Button31.PressColEnabled = 1;
   Button31.Font_Color      = 0x8208;
   Button31.VerticalText    = 0;
@@ -24307,7 +24713,7 @@ static void InitializeObjects() {
   Button33.Caption         = Button33_Caption;
   Button33.TextAlign       = _taRight;
   Button33.TextAlignVertical= _tavMiddle;
-  Button33.FontName        = Arial_Narrow13x16_Bold;
+  Button33.FontName        = Arial_Narrow11x16_Bold;
   Button33.PressColEnabled = 1;
   Button33.Font_Color      = 0x8408;
   Button33.VerticalText    = 0;
@@ -24336,7 +24742,7 @@ static void InitializeObjects() {
   Button34.Caption         = Button34_Caption;
   Button34.TextAlign       = _taRight;
   Button34.TextAlignVertical= _tavMiddle;
-  Button34.FontName        = Arial_Narrow13x16_Bold;
+  Button34.FontName        = Arial_Narrow11x16_Bold;
   Button34.PressColEnabled = 1;
   Button34.Font_Color      = 0xB5A0;
   Button34.VerticalText    = 0;
@@ -24365,7 +24771,7 @@ static void InitializeObjects() {
   Button16.Caption         = Button16_Caption;
   Button16.TextAlign       = _taRight;
   Button16.TextAlignVertical= _tavMiddle;
-  Button16.FontName        = Arial_Narrow13x16_Bold;
+  Button16.FontName        = Arial_Narrow11x16_Bold;
   Button16.PressColEnabled = 1;
   Button16.Font_Color      = 0x001F;
   Button16.VerticalText    = 0;
@@ -24410,7 +24816,7 @@ static void InitializeObjects() {
   Button6.Caption         = Button6_Caption;
   Button6.TextAlign       = _taRight;
   Button6.TextAlignVertical= _tavMiddle;
-  Button6.FontName        = Arial_Narrow13x16_Bold;
+  Button6.FontName        = Arial_Narrow11x16_Bold;
   Button6.PressColEnabled = 1;
   Button6.Font_Color      = 0x001F;
   Button6.VerticalText    = 0;
@@ -24578,7 +24984,7 @@ static void InitializeObjects() {
   Label99.Visible         = 1;
   Label99.Active          = 0;
   Label99.Caption         = Label99_Caption;
-  Label99.FontName        = Arial_Narrow16x19_Bold;
+  Label99.FontName        = Arial_Narrow13x20_Bold;
   Label99.Font_Color      = 0xE7FC;
   Label99.VerticalText    = 0;
   Label99.OnUpPtr         = 0;
@@ -24744,7 +25150,7 @@ static void InitializeObjects() {
   Button14.Caption         = Button14_Caption;
   Button14.TextAlign       = _taRight;
   Button14.TextAlignVertical= _tavMiddle;
-  Button14.FontName        = Arial_Narrow13x16_Bold;
+  Button14.FontName        = Arial_Narrow11x16_Bold;
   Button14.PressColEnabled = 1;
   Button14.Font_Color      = 0x001F;
   Button14.VerticalText    = 0;
@@ -24773,7 +25179,7 @@ static void InitializeObjects() {
   Button26.Caption         = Button26_Caption;
   Button26.TextAlign       = _taRight;
   Button26.TextAlignVertical= _tavMiddle;
-  Button26.FontName        = Arial_Narrow13x16_Bold;
+  Button26.FontName        = Arial_Narrow11x16_Bold;
   Button26.PressColEnabled = 1;
   Button26.Font_Color      = 0xFC10;
   Button26.VerticalText    = 0;
@@ -24802,7 +25208,7 @@ static void InitializeObjects() {
   Button27.Caption         = Button27_Caption;
   Button27.TextAlign       = _taRight;
   Button27.TextAlignVertical= _tavMiddle;
-  Button27.FontName        = Arial_Narrow13x16_Bold;
+  Button27.FontName        = Arial_Narrow11x16_Bold;
   Button27.PressColEnabled = 1;
   Button27.Font_Color      = 0xFC10;
   Button27.VerticalText    = 0;
@@ -24831,7 +25237,7 @@ static void InitializeObjects() {
   Button32.Caption         = Button32_Caption;
   Button32.TextAlign       = _taRight;
   Button32.TextAlignVertical= _tavMiddle;
-  Button32.FontName        = Arial_Narrow13x16_Bold;
+  Button32.FontName        = Arial_Narrow11x16_Bold;
   Button32.PressColEnabled = 1;
   Button32.Font_Color      = 0xF800;
   Button32.VerticalText    = 0;
@@ -24860,7 +25266,7 @@ static void InitializeObjects() {
   Button35.Caption         = Button35_Caption;
   Button35.TextAlign       = _taRight;
   Button35.TextAlignVertical= _tavMiddle;
-  Button35.FontName        = Arial_Narrow13x16_Bold;
+  Button35.FontName        = Arial_Narrow11x16_Bold;
   Button35.PressColEnabled = 1;
   Button35.Font_Color      = 0xFC08;
   Button35.VerticalText    = 0;
@@ -24889,7 +25295,7 @@ static void InitializeObjects() {
   Button36.Caption         = Button36_Caption;
   Button36.TextAlign       = _taRight;
   Button36.TextAlignVertical= _tavMiddle;
-  Button36.FontName        = Arial_Narrow13x16_Bold;
+  Button36.FontName        = Arial_Narrow11x16_Bold;
   Button36.PressColEnabled = 1;
   Button36.Font_Color      = 0xF81F;
   Button36.VerticalText    = 0;
@@ -24918,7 +25324,7 @@ static void InitializeObjects() {
   Button37.Caption         = Button37_Caption;
   Button37.TextAlign       = _taRight;
   Button37.TextAlignVertical= _tavMiddle;
-  Button37.FontName        = Arial_Narrow13x16_Bold;
+  Button37.FontName        = Arial_Narrow11x16_Bold;
   Button37.PressColEnabled = 1;
   Button37.Font_Color      = 0x0400;
   Button37.VerticalText    = 0;
@@ -24947,7 +25353,7 @@ static void InitializeObjects() {
   Button38.Caption         = Button38_Caption;
   Button38.TextAlign       = _taRight;
   Button38.TextAlignVertical= _tavMiddle;
-  Button38.FontName        = Arial_Narrow13x16_Bold;
+  Button38.FontName        = Arial_Narrow11x16_Bold;
   Button38.PressColEnabled = 1;
   Button38.Font_Color      = 0x0400;
   Button38.VerticalText    = 0;
@@ -24976,7 +25382,7 @@ static void InitializeObjects() {
   Button39.Caption         = Button39_Caption;
   Button39.TextAlign       = _taRight;
   Button39.TextAlignVertical= _tavMiddle;
-  Button39.FontName        = Arial_Narrow13x16_Bold;
+  Button39.FontName        = Arial_Narrow11x16_Bold;
   Button39.PressColEnabled = 1;
   Button39.Font_Color      = 0x8208;
   Button39.VerticalText    = 0;
@@ -25005,7 +25411,7 @@ static void InitializeObjects() {
   Button41.Caption         = Button41_Caption;
   Button41.TextAlign       = _taRight;
   Button41.TextAlignVertical= _tavMiddle;
-  Button41.FontName        = Arial_Narrow13x16_Bold;
+  Button41.FontName        = Arial_Narrow11x16_Bold;
   Button41.PressColEnabled = 1;
   Button41.Font_Color      = 0x8408;
   Button41.VerticalText    = 0;
@@ -25034,7 +25440,7 @@ static void InitializeObjects() {
   Button42.Caption         = Button42_Caption;
   Button42.TextAlign       = _taRight;
   Button42.TextAlignVertical= _tavMiddle;
-  Button42.FontName        = Arial_Narrow13x16_Bold;
+  Button42.FontName        = Arial_Narrow11x16_Bold;
   Button42.PressColEnabled = 1;
   Button42.Font_Color      = 0xB5A0;
   Button42.VerticalText    = 0;
@@ -25063,7 +25469,7 @@ static void InitializeObjects() {
   Button2.Caption         = Button2_Caption;
   Button2.TextAlign       = _taCenter;
   Button2.TextAlignVertical= _tavMiddle;
-  Button2.FontName        = Arial_Narrow16x19_Bold;
+  Button2.FontName        = Arial_Narrow13x20_Bold;
   Button2.PressColEnabled = 1;
   Button2.Font_Color      = 0x0000;
   Button2.VerticalText    = 0;
@@ -25206,7 +25612,7 @@ static void InitializeObjects() {
   Label121.Visible         = 1;
   Label121.Active          = 0;
   Label121.Caption         = Label121_Caption;
-  Label121.FontName        = Arial_Narrow16x19_Bold;
+  Label121.FontName        = Arial_Narrow13x20_Bold;
   Label121.Font_Color      = 0xFFFF;
   Label121.VerticalText    = 0;
   Label121.OnUpPtr         = 0;
@@ -25223,7 +25629,7 @@ static void InitializeObjects() {
   Label122.Visible         = 1;
   Label122.Active          = 0;
   Label122.Caption         = Label122_Caption;
-  Label122.FontName        = Arial_Narrow16x19_Bold;
+  Label122.FontName        = Arial_Narrow13x20_Bold;
   Label122.Font_Color      = 0xFFFF;
   Label122.VerticalText    = 0;
   Label122.OnUpPtr         = 0;
@@ -25240,7 +25646,7 @@ static void InitializeObjects() {
   Label125.Visible         = 1;
   Label125.Active          = 0;
   Label125.Caption         = Label125_Caption;
-  Label125.FontName        = Arial_Narrow16x19_Bold;
+  Label125.FontName        = Arial_Narrow13x20_Bold;
   Label125.Font_Color      = 0xFFFF;
   Label125.VerticalText    = 0;
   Label125.OnUpPtr         = 0;
@@ -25257,7 +25663,7 @@ static void InitializeObjects() {
   Label127.Visible         = 1;
   Label127.Active          = 0;
   Label127.Caption         = Label127_Caption;
-  Label127.FontName        = Arial_Narrow16x19_Bold;
+  Label127.FontName        = Arial_Narrow13x20_Bold;
   Label127.Font_Color      = 0xFFFF;
   Label127.VerticalText    = 0;
   Label127.OnUpPtr         = 0;
@@ -25274,7 +25680,7 @@ static void InitializeObjects() {
   Label130.Visible         = 1;
   Label130.Active          = 0;
   Label130.Caption         = Label130_Caption;
-  Label130.FontName        = Arial_Narrow16x19_Bold;
+  Label130.FontName        = Arial_Narrow13x20_Bold;
   Label130.Font_Color      = 0xFFFF;
   Label130.VerticalText    = 0;
   Label130.OnUpPtr         = 0;
@@ -25291,7 +25697,7 @@ static void InitializeObjects() {
   Label131.Visible         = 1;
   Label131.Active          = 0;
   Label131.Caption         = Label131_Caption;
-  Label131.FontName        = Arial_Narrow16x19_Bold;
+  Label131.FontName        = Arial_Narrow13x20_Bold;
   Label131.Font_Color      = 0xFFFF;
   Label131.VerticalText    = 0;
   Label131.OnUpPtr         = 0;
@@ -25308,7 +25714,7 @@ static void InitializeObjects() {
   Label132.Visible         = 1;
   Label132.Active          = 0;
   Label132.Caption         = Label132_Caption;
-  Label132.FontName        = Arial_Narrow16x19_Bold;
+  Label132.FontName        = Arial_Narrow13x20_Bold;
   Label132.Font_Color      = 0xFFFF;
   Label132.VerticalText    = 0;
   Label132.OnUpPtr         = 0;
@@ -25325,7 +25731,7 @@ static void InitializeObjects() {
   Label133.Visible         = 1;
   Label133.Active          = 0;
   Label133.Caption         = Label133_Caption;
-  Label133.FontName        = Arial_Narrow16x19_Bold;
+  Label133.FontName        = Arial_Narrow13x20_Bold;
   Label133.Font_Color      = 0xFFFF;
   Label133.VerticalText    = 0;
   Label133.OnUpPtr         = 0;
@@ -25342,7 +25748,7 @@ static void InitializeObjects() {
   Label134.Visible         = 1;
   Label134.Active          = 0;
   Label134.Caption         = Label134_Caption;
-  Label134.FontName        = Arial_Narrow16x19_Bold;
+  Label134.FontName        = Arial_Narrow13x20_Bold;
   Label134.Font_Color      = 0xFFFF;
   Label134.VerticalText    = 0;
   Label134.OnUpPtr         = 0;
@@ -25359,7 +25765,7 @@ static void InitializeObjects() {
   Label135.Visible         = 1;
   Label135.Active          = 0;
   Label135.Caption         = Label135_Caption;
-  Label135.FontName        = Arial_Narrow16x19_Bold;
+  Label135.FontName        = Arial_Narrow13x20_Bold;
   Label135.Font_Color      = 0xFFFF;
   Label135.VerticalText    = 0;
   Label135.OnUpPtr         = 0;
@@ -25376,7 +25782,7 @@ static void InitializeObjects() {
   Label136.Visible         = 1;
   Label136.Active          = 0;
   Label136.Caption         = Label136_Caption;
-  Label136.FontName        = Arial_Narrow16x19_Bold;
+  Label136.FontName        = Arial_Narrow13x20_Bold;
   Label136.Font_Color      = 0xFFFF;
   Label136.VerticalText    = 0;
   Label136.OnUpPtr         = 0;
@@ -25423,7 +25829,7 @@ static void InitializeObjects() {
   Label137.Visible         = 1;
   Label137.Active          = 0;
   Label137.Caption         = Label137_Caption;
-  Label137.FontName        = Arial_Narrow16x19_Bold;
+  Label137.FontName        = Arial_Narrow13x20_Bold;
   Label137.Font_Color      = 0xFFFF;
   Label137.VerticalText    = 0;
   Label137.OnUpPtr         = 0;
@@ -25440,7 +25846,7 @@ static void InitializeObjects() {
   Label146.Visible         = 1;
   Label146.Active          = 0;
   Label146.Caption         = Label146_Caption;
-  Label146.FontName        = Arial_Narrow16x19_Bold;
+  Label146.FontName        = Arial_Narrow13x20_Bold;
   Label146.Font_Color      = 0xFFFF;
   Label146.VerticalText    = 0;
   Label146.OnUpPtr         = 0;
@@ -25483,7 +25889,7 @@ static void InitializeObjects() {
   Label151.Visible         = 1;
   Label151.Active          = 0;
   Label151.Caption         = Label151_Caption;
-  Label151.FontName        = Arial_Narrow16x19_Bold;
+  Label151.FontName        = Arial_Narrow13x20_Bold;
   Label151.Font_Color      = 0xFFFF;
   Label151.VerticalText    = 0;
   Label151.OnUpPtr         = 0;
@@ -25500,7 +25906,7 @@ static void InitializeObjects() {
   _.Visible         = 1;
   _.Active          = 0;
   _.Caption         = __Caption;
-  _.FontName        = Arial_Narrow16x19_Bold;
+  _.FontName        = Arial_Narrow13x20_Bold;
   _.Font_Color      = 0xE7FC;
   _.VerticalText    = 0;
   _.OnUpPtr         = 0;
@@ -25522,7 +25928,7 @@ static void InitializeObjects() {
   Home_b26.Caption         = Home_b26_Caption;
   Home_b26.TextAlign       = _taCenter;
   Home_b26.TextAlignVertical= _tavMiddle;
-  Home_b26.FontName        = Arial_Narrow16x19_Bold;
+  Home_b26.FontName        = Arial_Narrow13x20_Bold;
   Home_b26.PressColEnabled = 1;
   Home_b26.Font_Color      = 0xD6BA;
   Home_b26.VerticalText    = 0;
@@ -25552,7 +25958,7 @@ static void InitializeObjects() {
   Back_b22.Caption         = Back_b22_Caption;
   Back_b22.TextAlign       = _taCenter;
   Back_b22.TextAlignVertical= _tavMiddle;
-  Back_b22.FontName        = Arial_Narrow16x19_Bold;
+  Back_b22.FontName        = Arial_Narrow13x20_Bold;
   Back_b22.PressColEnabled = 1;
   Back_b22.Font_Color      = 0xD6BA;
   Back_b22.VerticalText    = 0;
@@ -25577,7 +25983,7 @@ static void InitializeObjects() {
   graph2_pos.Visible         = 1;
   graph2_pos.Active          = 0;
   graph2_pos.Caption         = graph2_pos_Caption;
-  graph2_pos.FontName        = Arial_Narrow16x19_Bold;
+  graph2_pos.FontName        = Arial_Narrow13x20_Bold;
   graph2_pos.Font_Color      = 0xFFFF;
   graph2_pos.VerticalText    = 0;
   graph2_pos.OnUpPtr         = 0;
@@ -25599,7 +26005,7 @@ static void InitializeObjects() {
   graph_br2_in.Caption         = graph_br2_in_Caption;
   graph_br2_in.TextAlign       = _taCenter;
   graph_br2_in.TextAlignVertical= _tavMiddle;
-  graph_br2_in.FontName        = Arial_Narrow13x16_Bold;
+  graph_br2_in.FontName        = Arial_Narrow11x16_Bold;
   graph_br2_in.PressColEnabled = 1;
   graph_br2_in.Font_Color      = 0xF800;
   graph_br2_in.VerticalText    = 0;
@@ -25629,7 +26035,7 @@ static void InitializeObjects() {
   graph_br2_out.Caption         = graph_br2_out_Caption;
   graph_br2_out.TextAlign       = _taCenter;
   graph_br2_out.TextAlignVertical= _tavMiddle;
-  graph_br2_out.FontName        = Arial_Narrow13x16_Bold;
+  graph_br2_out.FontName        = Arial_Narrow11x16_Bold;
   graph_br2_out.PressColEnabled = 1;
   graph_br2_out.Font_Color      = 0x001F;
   graph_br2_out.VerticalText    = 0;
@@ -25659,7 +26065,7 @@ static void InitializeObjects() {
   graph_heat2_in.Caption         = graph_heat2_in_Caption;
   graph_heat2_in.TextAlign       = _taCenter;
   graph_heat2_in.TextAlignVertical= _tavMiddle;
-  graph_heat2_in.FontName        = Arial_Narrow13x16_Bold;
+  graph_heat2_in.FontName        = Arial_Narrow11x16_Bold;
   graph_heat2_in.PressColEnabled = 1;
   graph_heat2_in.Font_Color      = 0x0400;
   graph_heat2_in.VerticalText    = 0;
@@ -25689,7 +26095,7 @@ static void InitializeObjects() {
   graph_heat2_out.Caption         = graph_heat2_out_Caption;
   graph_heat2_out.TextAlign       = _taCenter;
   graph_heat2_out.TextAlignVertical= _tavMiddle;
-  graph_heat2_out.FontName        = Arial_Narrow13x16_Bold;
+  graph_heat2_out.FontName        = Arial_Narrow11x16_Bold;
   graph_heat2_out.PressColEnabled = 1;
   graph_heat2_out.Font_Color      = 0x0000;
   graph_heat2_out.VerticalText    = 0;
@@ -25714,7 +26120,7 @@ static void InitializeObjects() {
   Label5.Visible         = 1;
   Label5.Active          = 0;
   Label5.Caption         = Label5_Caption;
-  Label5.FontName        = Arial_Narrow16x19_Bold;
+  Label5.FontName        = Arial_Narrow13x20_Bold;
   Label5.Font_Color      = 0xFFFF;
   Label5.VerticalText    = 0;
   Label5.OnUpPtr         = 0;
@@ -25731,7 +26137,7 @@ static void InitializeObjects() {
   Label8.Visible         = 1;
   Label8.Active          = 0;
   Label8.Caption         = Label8_Caption;
-  Label8.FontName        = Arial_Narrow16x19_Bold;
+  Label8.FontName        = Arial_Narrow13x20_Bold;
   Label8.Font_Color      = 0xFFFF;
   Label8.VerticalText    = 0;
   Label8.OnUpPtr         = 0;
@@ -25748,7 +26154,7 @@ static void InitializeObjects() {
   Label16.Visible         = 1;
   Label16.Active          = 0;
   Label16.Caption         = Label16_Caption;
-  Label16.FontName        = Arial_Narrow16x19_Bold;
+  Label16.FontName        = Arial_Narrow13x20_Bold;
   Label16.Font_Color      = 0xFFFF;
   Label16.VerticalText    = 0;
   Label16.OnUpPtr         = 0;
@@ -25765,7 +26171,7 @@ static void InitializeObjects() {
   Label19.Visible         = 1;
   Label19.Active          = 0;
   Label19.Caption         = Label19_Caption;
-  Label19.FontName        = Arial_Narrow16x19_Bold;
+  Label19.FontName        = Arial_Narrow13x20_Bold;
   Label19.Font_Color      = 0xFFFF;
   Label19.VerticalText    = 0;
   Label19.OnUpPtr         = 0;
@@ -25782,7 +26188,7 @@ static void InitializeObjects() {
   Label21.Visible         = 1;
   Label21.Active          = 0;
   Label21.Caption         = Label21_Caption;
-  Label21.FontName        = Arial_Narrow16x19_Bold;
+  Label21.FontName        = Arial_Narrow13x20_Bold;
   Label21.Font_Color      = 0xFFFF;
   Label21.VerticalText    = 0;
   Label21.OnUpPtr         = 0;
@@ -25803,7 +26209,7 @@ static void InitializeObjects() {
   CircleButton5.Caption         = CircleButton5_Caption;
   CircleButton5.TextAlign       = _taCenter;
   CircleButton5.TextAlignVertical= _tavMiddle;
-  CircleButton5.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton5.FontName        = Arial_Narrow13x20_Bold;
   CircleButton5.PressColEnabled = 1;
   CircleButton5.Font_Color      = 0x0000;
   CircleButton5.VerticalText    = 0;
@@ -26051,7 +26457,7 @@ static void InitializeObjects() {
   Label162.Visible         = 1;
   Label162.Active          = 0;
   Label162.Caption         = Label162_Caption;
-  Label162.FontName        = Arial_Narrow16x19_Bold;
+  Label162.FontName        = Arial_Narrow13x20_Bold;
   Label162.Font_Color      = 0xE7FC;
   Label162.VerticalText    = 0;
   Label162.OnUpPtr         = 0;
@@ -26073,7 +26479,7 @@ static void InitializeObjects() {
   Home_b27.Caption         = Home_b27_Caption;
   Home_b27.TextAlign       = _taCenter;
   Home_b27.TextAlignVertical= _tavMiddle;
-  Home_b27.FontName        = Arial_Narrow16x19_Bold;
+  Home_b27.FontName        = Arial_Narrow13x20_Bold;
   Home_b27.PressColEnabled = 1;
   Home_b27.Font_Color      = 0xD6BA;
   Home_b27.VerticalText    = 0;
@@ -26103,7 +26509,7 @@ static void InitializeObjects() {
   Back_b23.Caption         = Back_b23_Caption;
   Back_b23.TextAlign       = _taCenter;
   Back_b23.TextAlignVertical= _tavMiddle;
-  Back_b23.FontName        = Arial_Narrow16x19_Bold;
+  Back_b23.FontName        = Arial_Narrow13x20_Bold;
   Back_b23.PressColEnabled = 1;
   Back_b23.Font_Color      = 0xD6BA;
   Back_b23.VerticalText    = 0;
@@ -26144,7 +26550,7 @@ static void InitializeObjects() {
   Label126.Visible         = 1;
   Label126.Active          = 0;
   Label126.Caption         = Label126_Caption;
-  Label126.FontName        = Arial_Narrow16x19_Bold;
+  Label126.FontName        = Arial_Narrow13x20_Bold;
   Label126.Font_Color      = 0xE7FC;
   Label126.VerticalText    = 0;
   Label126.OnUpPtr         = 0;
@@ -26166,7 +26572,7 @@ static void InitializeObjects() {
   Home_b28.Caption         = Home_b28_Caption;
   Home_b28.TextAlign       = _taCenter;
   Home_b28.TextAlignVertical= _tavMiddle;
-  Home_b28.FontName        = Arial_Narrow16x19_Bold;
+  Home_b28.FontName        = Arial_Narrow13x20_Bold;
   Home_b28.PressColEnabled = 1;
   Home_b28.Font_Color      = 0xD6BA;
   Home_b28.VerticalText    = 0;
@@ -26196,7 +26602,7 @@ static void InitializeObjects() {
   Back_b24.Caption         = Back_b24_Caption;
   Back_b24.TextAlign       = _taCenter;
   Back_b24.TextAlignVertical= _tavMiddle;
-  Back_b24.FontName        = Arial_Narrow16x19_Bold;
+  Back_b24.FontName        = Arial_Narrow13x20_Bold;
   Back_b24.PressColEnabled = 1;
   Back_b24.Font_Color      = 0xD6BA;
   Back_b24.VerticalText    = 0;
@@ -26226,7 +26632,7 @@ static void InitializeObjects() {
   Energy_Volt_1.Caption         = Energy_Volt_1_Caption;
   Energy_Volt_1.TextAlign       = _taCenter;
   Energy_Volt_1.TextAlignVertical= _tavMiddle;
-  Energy_Volt_1.FontName        = Arial_Narrow16x19_Bold;
+  Energy_Volt_1.FontName        = Arial_Narrow13x20_Bold;
   Energy_Volt_1.PressColEnabled = 1;
   Energy_Volt_1.Font_Color      = 0x0210;
   Energy_Volt_1.VerticalText    = 0;
@@ -26251,7 +26657,7 @@ static void InitializeObjects() {
   Label251.Visible         = 1;
   Label251.Active          = 1;
   Label251.Caption         = Label251_Caption;
-  Label251.FontName        = Arial_Narrow16x19_Bold;
+  Label251.FontName        = Arial_Narrow13x20_Bold;
   Label251.Font_Color      = 0xFFFF;
   Label251.VerticalText    = 0;
   Label251.OnUpPtr         = 0;
@@ -26268,7 +26674,7 @@ static void InitializeObjects() {
   Label252.Visible         = 1;
   Label252.Active          = 1;
   Label252.Caption         = Label252_Caption;
-  Label252.FontName        = Arial_Narrow16x19_Bold;
+  Label252.FontName        = Arial_Narrow13x20_Bold;
   Label252.Font_Color      = 0xFFFF;
   Label252.VerticalText    = 0;
   Label252.OnUpPtr         = 0;
@@ -26290,7 +26696,7 @@ static void InitializeObjects() {
   S_Current_1.Caption         = S_Current_1_Caption;
   S_Current_1.TextAlign       = _taCenter;
   S_Current_1.TextAlignVertical= _tavMiddle;
-  S_Current_1.FontName        = Arial_Narrow16x19_Bold;
+  S_Current_1.FontName        = Arial_Narrow13x20_Bold;
   S_Current_1.PressColEnabled = 1;
   S_Current_1.Font_Color      = 0xC800;
   S_Current_1.VerticalText    = 0;
@@ -26315,7 +26721,7 @@ static void InitializeObjects() {
   Label253.Visible         = 1;
   Label253.Active          = 1;
   Label253.Caption         = Label253_Caption;
-  Label253.FontName        = Arial_Narrow16x19_Bold;
+  Label253.FontName        = Arial_Narrow13x20_Bold;
   Label253.Font_Color      = 0xFFFF;
   Label253.VerticalText    = 0;
   Label253.OnUpPtr         = 0;
@@ -26337,7 +26743,7 @@ static void InitializeObjects() {
   Energy_Volt_2.Caption         = Energy_Volt_2_Caption;
   Energy_Volt_2.TextAlign       = _taCenter;
   Energy_Volt_2.TextAlignVertical= _tavMiddle;
-  Energy_Volt_2.FontName        = Arial_Narrow16x19_Bold;
+  Energy_Volt_2.FontName        = Arial_Narrow13x20_Bold;
   Energy_Volt_2.PressColEnabled = 1;
   Energy_Volt_2.Font_Color      = 0x0210;
   Energy_Volt_2.VerticalText    = 0;
@@ -26362,7 +26768,7 @@ static void InitializeObjects() {
   Label254.Visible         = 1;
   Label254.Active          = 1;
   Label254.Caption         = Label254_Caption;
-  Label254.FontName        = Arial_Narrow16x19_Bold;
+  Label254.FontName        = Arial_Narrow13x20_Bold;
   Label254.Font_Color      = 0xFFFF;
   Label254.VerticalText    = 0;
   Label254.OnUpPtr         = 0;
@@ -26379,7 +26785,7 @@ static void InitializeObjects() {
   Label255.Visible         = 1;
   Label255.Active          = 1;
   Label255.Caption         = Label255_Caption;
-  Label255.FontName        = Arial_Narrow16x19_Bold;
+  Label255.FontName        = Arial_Narrow13x20_Bold;
   Label255.Font_Color      = 0xFFFF;
   Label255.VerticalText    = 0;
   Label255.OnUpPtr         = 0;
@@ -26401,7 +26807,7 @@ static void InitializeObjects() {
   S_Current_2.Caption         = S_Current_2_Caption;
   S_Current_2.TextAlign       = _taCenter;
   S_Current_2.TextAlignVertical= _tavMiddle;
-  S_Current_2.FontName        = Arial_Narrow16x19_Bold;
+  S_Current_2.FontName        = Arial_Narrow13x20_Bold;
   S_Current_2.PressColEnabled = 1;
   S_Current_2.Font_Color      = 0xC800;
   S_Current_2.VerticalText    = 0;
@@ -26426,7 +26832,7 @@ static void InitializeObjects() {
   Label256.Visible         = 1;
   Label256.Active          = 1;
   Label256.Caption         = Label256_Caption;
-  Label256.FontName        = Arial_Narrow16x19_Bold;
+  Label256.FontName        = Arial_Narrow13x20_Bold;
   Label256.Font_Color      = 0xFFFF;
   Label256.VerticalText    = 0;
   Label256.OnUpPtr         = 0;
@@ -26448,7 +26854,7 @@ static void InitializeObjects() {
   Energy_Volt_3.Caption         = Energy_Volt_3_Caption;
   Energy_Volt_3.TextAlign       = _taCenter;
   Energy_Volt_3.TextAlignVertical= _tavMiddle;
-  Energy_Volt_3.FontName        = Arial_Narrow16x19_Bold;
+  Energy_Volt_3.FontName        = Arial_Narrow13x20_Bold;
   Energy_Volt_3.PressColEnabled = 1;
   Energy_Volt_3.Font_Color      = 0x0210;
   Energy_Volt_3.VerticalText    = 0;
@@ -26473,7 +26879,7 @@ static void InitializeObjects() {
   Label257.Visible         = 1;
   Label257.Active          = 1;
   Label257.Caption         = Label257_Caption;
-  Label257.FontName        = Arial_Narrow16x19_Bold;
+  Label257.FontName        = Arial_Narrow13x20_Bold;
   Label257.Font_Color      = 0xFFFF;
   Label257.VerticalText    = 0;
   Label257.OnUpPtr         = 0;
@@ -26490,7 +26896,7 @@ static void InitializeObjects() {
   Label258.Visible         = 1;
   Label258.Active          = 1;
   Label258.Caption         = Label258_Caption;
-  Label258.FontName        = Arial_Narrow16x19_Bold;
+  Label258.FontName        = Arial_Narrow13x20_Bold;
   Label258.Font_Color      = 0xFFFF;
   Label258.VerticalText    = 0;
   Label258.OnUpPtr         = 0;
@@ -26512,7 +26918,7 @@ static void InitializeObjects() {
   S_Current_3.Caption         = S_Current_3_Caption;
   S_Current_3.TextAlign       = _taCenter;
   S_Current_3.TextAlignVertical= _tavMiddle;
-  S_Current_3.FontName        = Arial_Narrow16x19_Bold;
+  S_Current_3.FontName        = Arial_Narrow13x20_Bold;
   S_Current_3.PressColEnabled = 1;
   S_Current_3.Font_Color      = 0xC800;
   S_Current_3.VerticalText    = 0;
@@ -26537,7 +26943,7 @@ static void InitializeObjects() {
   Label259.Visible         = 1;
   Label259.Active          = 1;
   Label259.Caption         = Label259_Caption;
-  Label259.FontName        = Arial_Narrow16x19_Bold;
+  Label259.FontName        = Arial_Narrow13x20_Bold;
   Label259.Font_Color      = 0xFFFF;
   Label259.VerticalText    = 0;
   Label259.OnUpPtr         = 0;
@@ -26559,7 +26965,7 @@ static void InitializeObjects() {
   Energy_Power_1.Caption         = Energy_Power_1_Caption;
   Energy_Power_1.TextAlign       = _taCenter;
   Energy_Power_1.TextAlignVertical= _tavMiddle;
-  Energy_Power_1.FontName        = Arial_Narrow16x19_Bold;
+  Energy_Power_1.FontName        = Arial_Narrow13x20_Bold;
   Energy_Power_1.PressColEnabled = 1;
   Energy_Power_1.Font_Color      = 0x0580;
   Energy_Power_1.VerticalText    = 0;
@@ -26584,7 +26990,7 @@ static void InitializeObjects() {
   Label260.Visible         = 1;
   Label260.Active          = 1;
   Label260.Caption         = Label260_Caption;
-  Label260.FontName        = Arial_Narrow16x19_Bold;
+  Label260.FontName        = Arial_Narrow13x20_Bold;
   Label260.Font_Color      = 0xFFFF;
   Label260.VerticalText    = 0;
   Label260.OnUpPtr         = 0;
@@ -26601,7 +27007,7 @@ static void InitializeObjects() {
   Label261.Visible         = 1;
   Label261.Active          = 1;
   Label261.Caption         = Label261_Caption;
-  Label261.FontName        = Arial_Narrow16x19_Bold;
+  Label261.FontName        = Arial_Narrow13x20_Bold;
   Label261.Font_Color      = 0xFFFF;
   Label261.VerticalText    = 0;
   Label261.OnUpPtr         = 0;
@@ -26623,7 +27029,7 @@ static void InitializeObjects() {
   ButtonRound12.Caption         = ButtonRound12_Caption;
   ButtonRound12.TextAlign       = _taCenter;
   ButtonRound12.TextAlignVertical= _tavMiddle;
-  ButtonRound12.FontName        = Arial_Narrow16x19_Bold;
+  ButtonRound12.FontName        = Arial_Narrow13x20_Bold;
   ButtonRound12.PressColEnabled = 1;
   ButtonRound12.Font_Color      = 0x0580;
   ButtonRound12.VerticalText    = 0;
@@ -26648,7 +27054,7 @@ static void InitializeObjects() {
   Label400.Visible         = 1;
   Label400.Active          = 1;
   Label400.Caption         = Label400_Caption;
-  Label400.FontName        = Arial_Narrow16x19_Bold;
+  Label400.FontName        = Arial_Narrow13x20_Bold;
   Label400.Font_Color      = 0xFFFF;
   Label400.VerticalText    = 0;
   Label400.OnUpPtr         = 0;
@@ -26665,7 +27071,7 @@ static void InitializeObjects() {
   Label401.Visible         = 1;
   Label401.Active          = 1;
   Label401.Caption         = Label401_Caption;
-  Label401.FontName        = Arial_Narrow16x19_Bold;
+  Label401.FontName        = Arial_Narrow13x20_Bold;
   Label401.Font_Color      = 0xFFFF;
   Label401.VerticalText    = 0;
   Label401.OnUpPtr         = 0;
@@ -26716,8 +27122,8 @@ static void InitializeObjects() {
   Defrost_set4.Picture_Name    = Setting_ON_jpg;
   Defrost_set4.Visible         = 1;
   Defrost_set4.Active          = 1;
-  Defrost_set4.OnUpPtr         = 0;
-  Defrost_set4.OnDownPtr       = 0;
+  Defrost_set4.OnUpPtr         = temp_on_set;
+  Defrost_set4.OnDownPtr       = temp_off_set;
   Defrost_set4.OnClickPtr      = 0;
   Defrost_set4.OnPressPtr      = 0;
 
@@ -26783,7 +27189,7 @@ static void InitializeObjects() {
   Defrost_on_time.Caption         = Defrost_on_time_Caption;
   Defrost_on_time.TextAlign       = _taCenter;
   Defrost_on_time.TextAlignVertical= _tavMiddle;
-  Defrost_on_time.FontName        = Arial_Narrow16x19_Bold;
+  Defrost_on_time.FontName        = Arial_Narrow13x20_Bold;
   Defrost_on_time.PressColEnabled = 1;
   Defrost_on_time.Font_Color      = 0x0408;
   Defrost_on_time.VerticalText    = 0;
@@ -26897,8 +27303,8 @@ static void InitializeObjects() {
 
   Defrost_off_time.OwnerScreen     = &DEFROST;
   Defrost_off_time.Order           = 13;
-  Defrost_off_time.Left            = 299;
-  Defrost_off_time.Top             = 67;
+  Defrost_off_time.Left            = 298;
+  Defrost_off_time.Top             = 68;
   Defrost_off_time.Width           = 42;
   Defrost_off_time.Height          = 23;
   Defrost_off_time.Pen_Width       = 1;
@@ -26909,7 +27315,7 @@ static void InitializeObjects() {
   Defrost_off_time.Caption         = Defrost_off_time_Caption;
   Defrost_off_time.TextAlign       = _taCenter;
   Defrost_off_time.TextAlignVertical= _tavMiddle;
-  Defrost_off_time.FontName        = Arial_Narrow16x19_Bold;
+  Defrost_off_time.FontName        = Arial_Narrow13x20_Bold;
   Defrost_off_time.PressColEnabled = 1;
   Defrost_off_time.Font_Color      = 0x0408;
   Defrost_off_time.VerticalText    = 0;
@@ -26928,7 +27334,7 @@ static void InitializeObjects() {
   Defrost_on_temperature.OwnerScreen     = &DEFROST;
   Defrost_on_temperature.Order           = 14;
   Defrost_on_temperature.Left            = 299;
-  Defrost_on_temperature.Top             = 99;
+  Defrost_on_temperature.Top             = 100;
   Defrost_on_temperature.Width           = 42;
   Defrost_on_temperature.Height          = 23;
   Defrost_on_temperature.Pen_Width       = 1;
@@ -26939,7 +27345,7 @@ static void InitializeObjects() {
   Defrost_on_temperature.Caption         = Defrost_on_temperature_Caption;
   Defrost_on_temperature.TextAlign       = _taCenter;
   Defrost_on_temperature.TextAlignVertical= _tavMiddle;
-  Defrost_on_temperature.FontName        = Arial_Narrow16x19_Bold;
+  Defrost_on_temperature.FontName        = Arial_Narrow13x20_Bold;
   Defrost_on_temperature.PressColEnabled = 1;
   Defrost_on_temperature.Font_Color      = 0x0408;
   Defrost_on_temperature.VerticalText    = 0;
@@ -26969,7 +27375,7 @@ static void InitializeObjects() {
   Defrost_off_temperature.Caption         = Defrost_off_temperature_Caption;
   Defrost_off_temperature.TextAlign       = _taCenter;
   Defrost_off_temperature.TextAlignVertical= _tavMiddle;
-  Defrost_off_temperature.FontName        = Arial_Narrow16x19_Bold;
+  Defrost_off_temperature.FontName        = Arial_Narrow13x20_Bold;
   Defrost_off_temperature.PressColEnabled = 1;
   Defrost_off_temperature.Font_Color      = 0x0408;
   Defrost_off_temperature.VerticalText    = 0;
@@ -26987,8 +27393,8 @@ static void InitializeObjects() {
 
   Home_b29.OwnerScreen     = &DEFROST;
   Home_b29.Order           = 16;
-  Home_b29.Left            = 246;
-  Home_b29.Top             = 232;
+  Home_b29.Left            = 219;
+  Home_b29.Top             = 231;
   Home_b29.Width           = 78;
   Home_b29.Height          = 35;
   Home_b29.Pen_Width       = 1;
@@ -26999,7 +27405,7 @@ static void InitializeObjects() {
   Home_b29.Caption         = Home_b29_Caption;
   Home_b29.TextAlign       = _taCenter;
   Home_b29.TextAlignVertical= _tavMiddle;
-  Home_b29.FontName        = Arial_Narrow16x19_Bold;
+  Home_b29.FontName        = Arial_Narrow13x20_Bold;
   Home_b29.PressColEnabled = 1;
   Home_b29.Font_Color      = 0xD6BA;
   Home_b29.VerticalText    = 0;
@@ -27017,8 +27423,8 @@ static void InitializeObjects() {
 
   Back_b25.OwnerScreen     = &DEFROST;
   Back_b25.Order           = 17;
-  Back_b25.Left            = 162;
-  Back_b25.Top             = 232;
+  Back_b25.Left            = 125;
+  Back_b25.Top             = 231;
   Back_b25.Width           = 78;
   Back_b25.Height          = 35;
   Back_b25.Pen_Width       = 1;
@@ -27029,7 +27435,7 @@ static void InitializeObjects() {
   Back_b25.Caption         = Back_b25_Caption;
   Back_b25.TextAlign       = _taCenter;
   Back_b25.TextAlignVertical= _tavMiddle;
-  Back_b25.FontName        = Arial_Narrow16x19_Bold;
+  Back_b25.FontName        = Arial_Narrow13x20_Bold;
   Back_b25.PressColEnabled = 1;
   Back_b25.Font_Color      = 0xD6BA;
   Back_b25.VerticalText    = 0;
@@ -27058,7 +27464,7 @@ static void InitializeObjects() {
   Defrost_minus1.Active          = 1;
   Defrost_minus1.OnUpPtr         = 0;
   Defrost_minus1.OnDownPtr       = 0;
-  Defrost_minus1.OnClickPtr      = 0;
+  Defrost_minus1.OnClickPtr      = dec_def;
   Defrost_minus1.OnPressPtr      = 0;
 
   Defrost_minus2.OwnerScreen     = &DEFROST;
@@ -27074,12 +27480,12 @@ static void InitializeObjects() {
   Defrost_minus2.Active          = 1;
   Defrost_minus2.OnUpPtr         = 0;
   Defrost_minus2.OnDownPtr       = 0;
-  Defrost_minus2.OnClickPtr      = 0;
+  Defrost_minus2.OnClickPtr      = time_def_dec;
   Defrost_minus2.OnPressPtr      = 0;
 
   Defrost_minus3.OwnerScreen     = &DEFROST;
   Defrost_minus3.Order           = 20;
-  Defrost_minus3.Left            = 377;
+  Defrost_minus3.Left            = 378;
   Defrost_minus3.Top             = 96;
   Defrost_minus3.Width           = 28;
   Defrost_minus3.Height          = 32;
@@ -27090,13 +27496,13 @@ static void InitializeObjects() {
   Defrost_minus3.Active          = 1;
   Defrost_minus3.OnUpPtr         = 0;
   Defrost_minus3.OnDownPtr       = 0;
-  Defrost_minus3.OnClickPtr      = 0;
+  Defrost_minus3.OnClickPtr      = temp_on_dec;
   Defrost_minus3.OnPressPtr      = 0;
 
   Defrost_plus1.OwnerScreen     = &DEFROST;
   Defrost_plus1.Order           = 21;
   Defrost_plus1.Left            = 408;
-  Defrost_plus1.Top             = 33;
+  Defrost_plus1.Top             = 32;
   Defrost_plus1.Width           = 28;
   Defrost_plus1.Height          = 32;
   Defrost_plus1.Picture_Type    = 1;
@@ -27106,12 +27512,12 @@ static void InitializeObjects() {
   Defrost_plus1.Active          = 1;
   Defrost_plus1.OnUpPtr         = 0;
   Defrost_plus1.OnDownPtr       = 0;
-  Defrost_plus1.OnClickPtr      = 0;
+  Defrost_plus1.OnClickPtr      = inc_def;
   Defrost_plus1.OnPressPtr      = 0;
 
   Defrost_plus2.OwnerScreen     = &DEFROST;
   Defrost_plus2.Order           = 22;
-  Defrost_plus2.Left            = 408;
+  Defrost_plus2.Left            = 407;
   Defrost_plus2.Top             = 64;
   Defrost_plus2.Width           = 28;
   Defrost_plus2.Height          = 32;
@@ -27122,7 +27528,7 @@ static void InitializeObjects() {
   Defrost_plus2.Active          = 1;
   Defrost_plus2.OnUpPtr         = 0;
   Defrost_plus2.OnDownPtr       = 0;
-  Defrost_plus2.OnClickPtr      = 0;
+  Defrost_plus2.OnClickPtr      = time_def_inc;
   Defrost_plus2.OnPressPtr      = 0;
 
   Defrost_plus3.OwnerScreen     = &DEFROST;
@@ -27138,12 +27544,12 @@ static void InitializeObjects() {
   Defrost_plus3.Active          = 1;
   Defrost_plus3.OnUpPtr         = 0;
   Defrost_plus3.OnDownPtr       = 0;
-  Defrost_plus3.OnClickPtr      = 0;
+  Defrost_plus3.OnClickPtr      = temp_on_inc;
   Defrost_plus3.OnPressPtr      = 0;
 
   Defrost_set1.OwnerScreen     = &DEFROST;
   Defrost_set1.Order           = 24;
-  Defrost_set1.Left            = 439;
+  Defrost_set1.Left            = 438;
   Defrost_set1.Top             = 32;
   Defrost_set1.Width           = 34;
   Defrost_set1.Height          = 32;
@@ -27152,14 +27558,14 @@ static void InitializeObjects() {
   Defrost_set1.Picture_Name    = Setting_ON_jpg;
   Defrost_set1.Visible         = 1;
   Defrost_set1.Active          = 1;
-  Defrost_set1.OnUpPtr         = 0;
-  Defrost_set1.OnDownPtr       = 0;
+  Defrost_set1.OnUpPtr         = SetUPttimDef;
+  Defrost_set1.OnDownPtr       = SetdownttimDef;
   Defrost_set1.OnClickPtr      = 0;
   Defrost_set1.OnPressPtr      = 0;
 
   Defrost_set2.OwnerScreen     = &DEFROST;
   Defrost_set2.Order           = 25;
-  Defrost_set2.Left            = 439;
+  Defrost_set2.Left            = 438;
   Defrost_set2.Top             = 64;
   Defrost_set2.Width           = 34;
   Defrost_set2.Height          = 32;
@@ -27168,14 +27574,14 @@ static void InitializeObjects() {
   Defrost_set2.Picture_Name    = Setting_ON_jpg;
   Defrost_set2.Visible         = 1;
   Defrost_set2.Active          = 1;
-  Defrost_set2.OnUpPtr         = 0;
-  Defrost_set2.OnDownPtr       = 0;
+  Defrost_set2.OnUpPtr         = Setupintdef;
+  Defrost_set2.OnDownPtr       = Setdownintdef;
   Defrost_set2.OnClickPtr      = 0;
   Defrost_set2.OnPressPtr      = 0;
 
   Defrost_set3.OwnerScreen     = &DEFROST;
   Defrost_set3.Order           = 26;
-  Defrost_set3.Left            = 439;
+  Defrost_set3.Left            = 438;
   Defrost_set3.Top             = 96;
   Defrost_set3.Width           = 34;
   Defrost_set3.Height          = 32;
@@ -27184,8 +27590,8 @@ static void InitializeObjects() {
   Defrost_set3.Picture_Name    = Setting_ON_jpg;
   Defrost_set3.Visible         = 1;
   Defrost_set3.Active          = 1;
-  Defrost_set3.OnUpPtr         = 0;
-  Defrost_set3.OnDownPtr       = 0;
+  Defrost_set3.OnUpPtr         = Setuptempdef;
+  Defrost_set3.OnDownPtr       = Setdowntempdef;
   Defrost_set3.OnClickPtr      = 0;
   Defrost_set3.OnPressPtr      = 0;
 
@@ -27234,7 +27640,7 @@ static void InitializeObjects() {
   Defrost_plus4.Active          = 1;
   Defrost_plus4.OnUpPtr         = 0;
   Defrost_plus4.OnDownPtr       = 0;
-  Defrost_plus4.OnClickPtr      = 0;
+  Defrost_plus4.OnClickPtr      = temp_off_inc;
   Defrost_plus4.OnPressPtr      = 0;
 
   Defrost_minus4.OwnerScreen     = &DEFROST;
@@ -27250,7 +27656,7 @@ static void InitializeObjects() {
   Defrost_minus4.Active          = 1;
   Defrost_minus4.OnUpPtr         = 0;
   Defrost_minus4.OnDownPtr       = 0;
-  Defrost_minus4.OnClickPtr      = 0;
+  Defrost_minus4.OnClickPtr      = temp_off_dec;
   Defrost_minus4.OnPressPtr      = 0;
 
   Defrost_on_humidity.OwnerScreen     = &DEFROST;
@@ -27267,7 +27673,7 @@ static void InitializeObjects() {
   Defrost_on_humidity.Caption         = Defrost_on_humidity_Caption;
   Defrost_on_humidity.TextAlign       = _taCenter;
   Defrost_on_humidity.TextAlignVertical= _tavMiddle;
-  Defrost_on_humidity.FontName        = Arial_Narrow16x19_Bold;
+  Defrost_on_humidity.FontName        = Arial_Narrow13x20_Bold;
   Defrost_on_humidity.PressColEnabled = 1;
   Defrost_on_humidity.Font_Color      = 0x0408;
   Defrost_on_humidity.VerticalText    = 0;
@@ -27335,12 +27741,12 @@ static void InitializeObjects() {
   Label51.Order           = 35;
   Label51.Left            = 196;
   Label51.Top             = 5;
-  Label51.Width           = 111;
+  Label51.Width           = 89;
   Label51.Height          = 20;
   Label51.Visible         = 1;
   Label51.Active          = 0;
   Label51.Caption         = Label51_Caption;
-  Label51.FontName        = Arial_Narrow16x19_Bold;
+  Label51.FontName        = Arial_Narrow13x20_Bold;
   Label51.Font_Color      = 0xE7FC;
   Label51.VerticalText    = 0;
   Label51.OnUpPtr         = 0;
@@ -27361,7 +27767,7 @@ static void InitializeObjects() {
   humidity_down.Active          = 1;
   humidity_down.OnUpPtr         = 0;
   humidity_down.OnDownPtr       = 0;
-  humidity_down.OnClickPtr      = 0;
+  humidity_down.OnClickPtr      = hum_dec;
   humidity_down.OnPressPtr      = 0;
 
   humidity_up.OwnerScreen     = &DEFROST;
@@ -27377,7 +27783,7 @@ static void InitializeObjects() {
   humidity_up.Active          = 1;
   humidity_up.OnUpPtr         = 0;
   humidity_up.OnDownPtr       = 0;
-  humidity_up.OnClickPtr      = 0;
+  humidity_up.OnClickPtr      = hum_inc;
   humidity_up.OnPressPtr      = 0;
 
   humidity_set.OwnerScreen     = &DEFROST;
@@ -27393,8 +27799,38 @@ static void InitializeObjects() {
   humidity_set.Active          = 1;
   humidity_set.OnUpPtr         = 0;
   humidity_set.OnDownPtr       = 0;
-  humidity_set.OnClickPtr      = 0;
+  humidity_set.OnClickPtr      = hum_set;
   humidity_set.OnPressPtr      = 0;
+
+  ButtonRound2.OwnerScreen     = &DEFROST;
+  ButtonRound2.Order           = 39;
+  ButtonRound2.Left            = 315;
+  ButtonRound2.Top             = 231;
+  ButtonRound2.Width           = 78;
+  ButtonRound2.Height          = 35;
+  ButtonRound2.Pen_Width       = 1;
+  ButtonRound2.Pen_Color       = 0xC618;
+  ButtonRound2.Visible         = 1;
+  ButtonRound2.Active          = 1;
+  ButtonRound2.Transparent     = 1;
+  ButtonRound2.Caption         = ButtonRound2_Caption;
+  ButtonRound2.TextAlign       = _taCenter;
+  ButtonRound2.TextAlignVertical= _tavMiddle;
+  ButtonRound2.FontName        = Arial_Narrow13x20_Bold;
+  ButtonRound2.PressColEnabled = 1;
+  ButtonRound2.Font_Color      = 0xD6BA;
+  ButtonRound2.VerticalText    = 0;
+  ButtonRound2.Gradient        = 1;
+  ButtonRound2.Gradient_Orientation = 0;
+  ButtonRound2.Gradient_Start_Color = 0x0418;
+  ButtonRound2.Gradient_End_Color = 0x00A5;
+  ButtonRound2.Color           = 0xC618;
+  ButtonRound2.Press_Color     = 0xE71C;
+  ButtonRound2.Corner_Radius   = 5;
+  ButtonRound2.OnUpPtr         = 0;
+  ButtonRound2.OnDownPtr       = 0;
+  ButtonRound2.OnClickPtr      = pushDEF;
+  ButtonRound2.OnPressPtr      = 0;
 
   Image63.OwnerScreen     = &EVENTS;
   Image63.Order           = 0;
@@ -27426,7 +27862,7 @@ static void InitializeObjects() {
   Home_b30.Caption         = Home_b30_Caption;
   Home_b30.TextAlign       = _taCenter;
   Home_b30.TextAlignVertical= _tavMiddle;
-  Home_b30.FontName        = Arial_Narrow16x19_Bold;
+  Home_b30.FontName        = Arial_Narrow13x20_Bold;
   Home_b30.PressColEnabled = 1;
   Home_b30.Font_Color      = 0xD6BA;
   Home_b30.VerticalText    = 0;
@@ -27480,7 +27916,7 @@ static void InitializeObjects() {
   Back_b26.Caption         = Back_b26_Caption;
   Back_b26.TextAlign       = _taCenter;
   Back_b26.TextAlignVertical= _tavMiddle;
-  Back_b26.FontName        = Arial_Narrow16x19_Bold;
+  Back_b26.FontName        = Arial_Narrow13x20_Bold;
   Back_b26.PressColEnabled = 1;
   Back_b26.Font_Color      = 0xD6BA;
   Back_b26.VerticalText    = 0;
@@ -27505,7 +27941,7 @@ static void InitializeObjects() {
   Label50.Visible         = 1;
   Label50.Active          = 0;
   Label50.Caption         = Label50_Caption;
-  Label50.FontName        = Arial_Narrow16x19_Bold;
+  Label50.FontName        = Arial_Narrow13x20_Bold;
   Label50.Font_Color      = 0xE7FC;
   Label50.VerticalText    = 0;
   Label50.OnUpPtr         = 0;
@@ -27639,7 +28075,7 @@ static void InitializeObjects() {
   Home_b31.Caption         = Home_b31_Caption;
   Home_b31.TextAlign       = _taCenter;
   Home_b31.TextAlignVertical= _tavMiddle;
-  Home_b31.FontName        = Arial_Narrow16x19_Bold;
+  Home_b31.FontName        = Arial_Narrow13x20_Bold;
   Home_b31.PressColEnabled = 1;
   Home_b31.Font_Color      = 0xD6BA;
   Home_b31.VerticalText    = 0;
@@ -27669,7 +28105,7 @@ static void InitializeObjects() {
   Set_max_low_pressure.Caption         = Set_max_low_pressure_Caption;
   Set_max_low_pressure.TextAlign       = _taCenter;
   Set_max_low_pressure.TextAlignVertical= _tavMiddle;
-  Set_max_low_pressure.FontName        = Arial_Narrow16x19_Bold;
+  Set_max_low_pressure.FontName        = Arial_Narrow13x20_Bold;
   Set_max_low_pressure.PressColEnabled = 1;
   Set_max_low_pressure.Font_Color      = 0x0408;
   Set_max_low_pressure.VerticalText    = 0;
@@ -27699,7 +28135,7 @@ static void InitializeObjects() {
   Set_min_low_pressure.Caption         = Set_min_low_pressure_Caption;
   Set_min_low_pressure.TextAlign       = _taCenter;
   Set_min_low_pressure.TextAlignVertical= _tavMiddle;
-  Set_min_low_pressure.FontName        = Arial_Narrow16x19_Bold;
+  Set_min_low_pressure.FontName        = Arial_Narrow13x20_Bold;
   Set_min_low_pressure.PressColEnabled = 1;
   Set_min_low_pressure.Font_Color      = 0x0408;
   Set_min_low_pressure.VerticalText    = 0;
@@ -27825,7 +28261,7 @@ static void InitializeObjects() {
   Back_b27.Caption         = Back_b27_Caption;
   Back_b27.TextAlign       = _taCenter;
   Back_b27.TextAlignVertical= _tavMiddle;
-  Back_b27.FontName        = Arial_Narrow16x19_Bold;
+  Back_b27.FontName        = Arial_Narrow13x20_Bold;
   Back_b27.PressColEnabled = 1;
   Back_b27.Font_Color      = 0xD6BA;
   Back_b27.VerticalText    = 0;
@@ -27850,7 +28286,7 @@ static void InitializeObjects() {
   Label46.Visible         = 1;
   Label46.Active          = 0;
   Label46.Caption         = Label46_Caption;
-  Label46.FontName        = Arial_Narrow16x19_Bold;
+  Label46.FontName        = Arial_Narrow13x20_Bold;
   Label46.Font_Color      = 0xE7FC;
   Label46.VerticalText    = 0;
   Label46.OnUpPtr         = 0;
@@ -27871,7 +28307,7 @@ static void InitializeObjects() {
   CircleButton3.Caption         = CircleButton3_Caption;
   CircleButton3.TextAlign       = _taCenter;
   CircleButton3.TextAlignVertical= _tavMiddle;
-  CircleButton3.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton3.FontName        = Arial_Narrow13x20_Bold;
   CircleButton3.PressColEnabled = 1;
   CircleButton3.Font_Color      = 0x0000;
   CircleButton3.VerticalText    = 0;
@@ -28044,7 +28480,7 @@ static void InitializeObjects() {
   Set_eev_on.Caption         = Set_eev_on_Caption;
   Set_eev_on.TextAlign       = _taCenter;
   Set_eev_on.TextAlignVertical= _tavMiddle;
-  Set_eev_on.FontName        = Arial_Narrow16x19_Bold;
+  Set_eev_on.FontName        = Arial_Narrow13x20_Bold;
   Set_eev_on.PressColEnabled = 1;
   Set_eev_on.Font_Color      = 0x0408;
   Set_eev_on.VerticalText    = 0;
@@ -28106,7 +28542,7 @@ static void InitializeObjects() {
   Back_b28.Caption         = Back_b28_Caption;
   Back_b28.TextAlign       = _taCenter;
   Back_b28.TextAlignVertical= _tavMiddle;
-  Back_b28.FontName        = Arial_Narrow16x19_Bold;
+  Back_b28.FontName        = Arial_Narrow13x20_Bold;
   Back_b28.PressColEnabled = 1;
   Back_b28.Font_Color      = 0xD6BA;
   Back_b28.VerticalText    = 0;
@@ -28136,7 +28572,7 @@ static void InitializeObjects() {
   Home_b32.Caption         = Home_b32_Caption;
   Home_b32.TextAlign       = _taCenter;
   Home_b32.TextAlignVertical= _tavMiddle;
-  Home_b32.FontName        = Arial_Narrow16x19_Bold;
+  Home_b32.FontName        = Arial_Narrow13x20_Bold;
   Home_b32.PressColEnabled = 1;
   Home_b32.Font_Color      = 0xD6BA;
   Home_b32.VerticalText    = 0;
@@ -28161,7 +28597,7 @@ static void InitializeObjects() {
   Label7.Visible         = 1;
   Label7.Active          = 0;
   Label7.Caption         = Label7_Caption;
-  Label7.FontName        = Arial_Narrow16x19_Bold;
+  Label7.FontName        = Arial_Narrow13x20_Bold;
   Label7.Font_Color      = 0xE7FC;
   Label7.VerticalText    = 0;
   Label7.OnUpPtr         = 0;
@@ -28487,7 +28923,7 @@ static void InitializeObjects() {
   Home_b33.Caption         = Home_b33_Caption;
   Home_b33.TextAlign       = _taCenter;
   Home_b33.TextAlignVertical= _tavMiddle;
-  Home_b33.FontName        = Arial_Narrow16x19_Bold;
+  Home_b33.FontName        = Arial_Narrow13x20_Bold;
   Home_b33.PressColEnabled = 1;
   Home_b33.Font_Color      = 0xD6BA;
   Home_b33.VerticalText    = 0;
@@ -28517,7 +28953,7 @@ static void InitializeObjects() {
   Back_b29.Caption         = Back_b29_Caption;
   Back_b29.TextAlign       = _taCenter;
   Back_b29.TextAlignVertical= _tavMiddle;
-  Back_b29.FontName        = Arial_Narrow16x19_Bold;
+  Back_b29.FontName        = Arial_Narrow13x20_Bold;
   Back_b29.PressColEnabled = 1;
   Back_b29.Font_Color      = 0xD6BA;
   Back_b29.VerticalText    = 0;
@@ -28547,7 +28983,7 @@ static void InitializeObjects() {
   Next_b10.Caption         = Next_b10_Caption;
   Next_b10.TextAlign       = _taCenter;
   Next_b10.TextAlignVertical= _tavMiddle;
-  Next_b10.FontName        = Arial_Narrow16x19_Bold;
+  Next_b10.FontName        = Arial_Narrow13x20_Bold;
   Next_b10.PressColEnabled = 1;
   Next_b10.Font_Color      = 0xD6BA;
   Next_b10.VerticalText    = 0;
@@ -28865,7 +29301,7 @@ static void InitializeObjects() {
   Set_Furnance_one_preset.Caption         = Set_Furnance_one_preset_Caption;
   Set_Furnance_one_preset.TextAlign       = _taCenter;
   Set_Furnance_one_preset.TextAlignVertical= _tavMiddle;
-  Set_Furnance_one_preset.FontName        = Arial_Narrow16x19_Bold;
+  Set_Furnance_one_preset.FontName        = Arial_Narrow13x20_Bold;
   Set_Furnance_one_preset.PressColEnabled = 1;
   Set_Furnance_one_preset.Font_Color      = 0x0408;
   Set_Furnance_one_preset.VerticalText    = 0;
@@ -28895,7 +29331,7 @@ static void InitializeObjects() {
   Set_solar_max.Caption         = Set_solar_max_Caption;
   Set_solar_max.TextAlign       = _taCenter;
   Set_solar_max.TextAlignVertical= _tavMiddle;
-  Set_solar_max.FontName        = Arial_Narrow16x19_Bold;
+  Set_solar_max.FontName        = Arial_Narrow13x20_Bold;
   Set_solar_max.PressColEnabled = 1;
   Set_solar_max.Font_Color      = 0x0408;
   Set_solar_max.VerticalText    = 0;
@@ -28925,7 +29361,7 @@ static void InitializeObjects() {
   Set_max_electric.Caption         = Set_max_electric_Caption;
   Set_max_electric.TextAlign       = _taCenter;
   Set_max_electric.TextAlignVertical= _tavMiddle;
-  Set_max_electric.FontName        = Arial_Narrow16x19_Bold;
+  Set_max_electric.FontName        = Arial_Narrow13x20_Bold;
   Set_max_electric.PressColEnabled = 1;
   Set_max_electric.Font_Color      = 0x0408;
   Set_max_electric.VerticalText    = 0;
@@ -28955,7 +29391,7 @@ static void InitializeObjects() {
   Set_max_furnance.Caption         = Set_max_furnance_Caption;
   Set_max_furnance.TextAlign       = _taCenter;
   Set_max_furnance.TextAlignVertical= _tavMiddle;
-  Set_max_furnance.FontName        = Arial_Narrow16x19_Bold;
+  Set_max_furnance.FontName        = Arial_Narrow13x20_Bold;
   Set_max_furnance.PressColEnabled = 1;
   Set_max_furnance.Font_Color      = 0x0408;
   Set_max_furnance.VerticalText    = 0;
@@ -28985,7 +29421,7 @@ static void InitializeObjects() {
   Set_electric_preset.Caption         = Set_electric_preset_Caption;
   Set_electric_preset.TextAlign       = _taCenter;
   Set_electric_preset.TextAlignVertical= _tavMiddle;
-  Set_electric_preset.FontName        = Arial_Narrow16x19_Bold;
+  Set_electric_preset.FontName        = Arial_Narrow13x20_Bold;
   Set_electric_preset.PressColEnabled = 1;
   Set_electric_preset.Font_Color      = 0x0408;
   Set_electric_preset.VerticalText    = 0;
@@ -29015,7 +29451,7 @@ static void InitializeObjects() {
   Set_min_superheat.Caption         = Set_min_superheat_Caption;
   Set_min_superheat.TextAlign       = _taCenter;
   Set_min_superheat.TextAlignVertical= _tavMiddle;
-  Set_min_superheat.FontName        = Arial_Narrow16x19_Bold;
+  Set_min_superheat.FontName        = Arial_Narrow13x20_Bold;
   Set_min_superheat.PressColEnabled = 1;
   Set_min_superheat.Font_Color      = 0x0408;
   Set_min_superheat.VerticalText    = 0;
@@ -29040,7 +29476,7 @@ static void InitializeObjects() {
   Label341.Visible         = 1;
   Label341.Active          = 0;
   Label341.Caption         = Label341_Caption;
-  Label341.FontName        = Arial_Narrow16x19_Bold;
+  Label341.FontName        = Arial_Narrow13x20_Bold;
   Label341.Font_Color      = 0xE7FC;
   Label341.VerticalText    = 0;
   Label341.OnUpPtr         = 0;
@@ -29061,7 +29497,7 @@ static void InitializeObjects() {
   CircleButton17.Caption         = CircleButton17_Caption;
   CircleButton17.TextAlign       = _taCenter;
   CircleButton17.TextAlignVertical= _tavMiddle;
-  CircleButton17.FontName        = Arial_Narrow16x19_Bold;
+  CircleButton17.FontName        = Arial_Narrow13x20_Bold;
   CircleButton17.PressColEnabled = 1;
   CircleButton17.Font_Color      = 0x0000;
   CircleButton17.VerticalText    = 0;

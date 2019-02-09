@@ -3,6 +3,7 @@ main
 	DisableInterrupts
 	__CC2DW
 	__FillZeros
+	RTC_Init
 	InitSysTick
 	USART_init
 		NVIC_IntEnable
@@ -837,8 +838,6 @@ main
 					TFT_Set_Ext_Font
 					TFT_Write_Text_Return_Pos
 					TFT_Write_Text
-	DrawRoundBox
-	DrawLabel
 	data_eeprom
 		IntToStr
 			WordToStr
@@ -849,69 +848,18 @@ main
 	startPage
 		DrawImage
 		DrawRoundButton
+	DrawRoundBox
+	DrawLabel
+	find_errors
+		memset
+		strcpy
 	millis
-	selectPage
-		main_page
-			IntToStr
-			Ltrim
-			strncmp
-			strncpy
-			DrawRoundBox
-			DrawLabel
-			DrawCircle
-		reciev_data_packet
-			constructPacket
-				calculateCRC
-				sendbus_data
-					UART2_Write
-					millis
-		sensor_1
-			IntToStr
-			Ltrim
-			strncmp
-			strncpy
-			DrawRoundButton
-		strcmp
-		DrawCircleButton
-		LP_display
-			DrawImage
-			TFT_Set_Pen
-			sin
-				floor
-				eval_poly
-			cos
-				sin
-			TFT_Line
-		HP_display
-			DrawImage
-			TFT_Set_Pen
-			sin
-			cos
-			TFT_Line
-		DrawRoundButton
-		count_steps
-			IntToStr
-			Ltrim
-			strncmp
-			strncpy
-			DrawRoundButton
-		working_time
-			IntToStr
-			Ltrim
-			strncmp
-			strcpy
-			DrawRoundButton
-		schema1_page
-			DrawImage
-			IntToStr
-			Ltrim
-			strncmp
-			strncpy
-			DrawButton
-			DrawRoundButton
-	reciev_data_packet
-	send_data_packet
-		constructPacket
+	RTC_GetDate
+	RTC_GetTime
+	printTime
+		ByteToStr
+		strcpy
+		strcat
 	Check_TP
 		STMPE610_PressDetect
 			STMPE610_ReadReg
@@ -974,9 +922,12 @@ main
 				BLED_Fade_In
 			Main_OFFOnClick
 				DrawImage
-				DrawRoundBox
-				DrawLabel
 				send_data_packet
+					constructPacket
+						calculateCRC
+						sendbus_data
+							UART2_Write
+							millis
 			DHW_SetingOnClick
 				IntToStr
 				Ltrim
@@ -1172,18 +1123,16 @@ main
 			DEC_EEV1OnPress
 				Tone1
 					Sound_Play
-				DrawProgressBar
+				IntToStr
+				Ltrim
+				strcpy
+				DrawRoundButton
 			INC_EEV1OnPress
 				Tone1
-				UpdatePBPosition
-					Update_Sector
-						TFT_Set_Pen
-						GetColorFromGradientRange
-						TFT_Set_Brush
-						TFT_Rectangle
-					TFT_Set_Ext_Font
-					TFT_Write_Text_Return_Pos
-					Update_Percentage
+				IntToStr
+				Ltrim
+				strcpy
+				DrawRoundButton
 			Set_Trv
 				send_data_packet
 			_1OnClick
@@ -1231,76 +1180,135 @@ main
 			_SlashOnClick
 			ENTEROnClick
 			Ten_minutesUpOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			Ten_minutesUpOnClick
 			Ten_minutesUpOnPress
 			Ten_minutesDwnOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			Ten_minutesDwnOnClick
 			Ten_minutesDwnOnPress
 			Unit_minutesUpOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			Unit_minutesUpOnClick
 			Unit_minutesUpOnPress
 			Unit_minutesDwnOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			Unit_minutesDwnOnClick
 			Unit_minutesDwnOnPress
 			SetDateAndTimeOnClick
+				RTC_SetTime
+					Calibrate_RTC_Crystal
+						abs
+				RTC_SetDate
+					Message
+						UART2_Write
+						UART2_Write_Text
 			Day_unitUpOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			Day_unitUpOnClick
 			Day_unitUpOnPress
 			Day_unitDwnOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			Day_unitDwnOnClick
 			Day_unitDwnOnPress
 			Unit_hoursUpOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			Unit_hoursUpOnClick
 			Unit_hoursUpOnPress
 			Unit_hoursDwnOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			Unit_hoursDwnOnClick
 			Unit_hoursDwnOnPress
 			OneDayUpOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			OneDayUpOnClick
 			OneDayUpOnPress
 			OneDayDwnOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			OneDayDwnOnClick
 			OneDayDwnOnPress
 			TenDayUpOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			TenDayUpOnClick
 			TenDayUpOnPress
 			TenDayDwnOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			TenDayDwnOnClick
 			TenDayDwnOnPress
 			MonthDateUpOnUp
+				strcpy
+				DrawButton
 			MonthDateUpOnClick
 			MonthDateUpOnPress
 			MonthDateDwnOnUp
+				strcpy
+				DrawButton
 			MonthDateDwnOnClick
 			MonthDateDwnOnPress
 			TenYearUpOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			TenYearUpOnClick
 			TenYearUpOnPress
 			TenYearDwnOnUp
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			TenYearDwnOnClick
 			TenYearDwnOnPress
 			OneYearUpOnUp
-				DrawLabel
+				ByteToStr
+				Ltrim
+				strcpy
+				DrawButton
 			OneYearUpOnClick
-				Tone2
-				ByteToStr
-				Ltrim
-				strcpy
-				DrawButton
-				DrawLabel
 			OneYearUpOnPress
-				DrawLabel
 			OneYearDwnOnUp
-				DrawLabel
-			OneYearDwnOnClick
-				Tone2
 				ByteToStr
 				Ltrim
 				strcpy
 				DrawButton
-				DrawLabel
+			OneYearDwnOnClick
 			OneYearDwnOnPress
-				DrawLabel
 			Admin_SetOnClick
 			system_delayOnUp
 				Tone2
@@ -1326,10 +1334,15 @@ main
 			system_EEVOnUp
 				Tone2
 				BLED_Fade_Out
+				IntToStr
+				Ltrim
+				strcpy
 				DrawScreen
 				BLED_Fade_In
 			system_EEVOnDown
 				DrawImage
+				reciev_data_packet
+					constructPacket
 			system_passOnUp
 				Tone2
 				BLED_Fade_Out
@@ -1901,6 +1914,8 @@ main
 			Flow_Source__Heat1_ONOnClick
 			Flow_Source__Heat2_ONOnClick
 			Power_380VOnClick
+				DrawImage
+				send_data_packet
 			Furnance_start_temp_DownOnUp
 			Furnance_start_temp_DownOnPress
 			Furnance_off_downOnUp
@@ -2015,6 +2030,71 @@ main
 				DrawRoundButton
 			Mode_ground_onOnClick
 				DrawImage
+				send_data_packet
+			temp_on_set
+				DrawImage
+			temp_off_set
+				DrawImage
+				send_data_packet
+			dec_def
+				IntToStr
+				Ltrim
+				strncpy
+				DrawRoundButton
+			time_def_dec
+				IntToStr
+				Ltrim
+				strncpy
+				DrawRoundButton
+			temp_on_dec
+				IntToStr
+				Ltrim
+				strncpy
+				DrawRoundButton
+			inc_def
+				IntToStr
+				Ltrim
+				strncpy
+				DrawRoundButton
+			time_def_inc
+				IntToStr
+				Ltrim
+				strncpy
+				DrawRoundButton
+			temp_on_inc
+				IntToStr
+				Ltrim
+				strncpy
+				DrawRoundButton
+			SetUPttimDef
+				DrawImage
+			SetdownttimDef
+				DrawImage
+				send_data_packet
+			Setupintdef
+				DrawImage
+			Setdownintdef
+				DrawImage
+				send_data_packet
+			Setuptempdef
+				DrawImage
+			Setdowntempdef
+				DrawImage
+				send_data_packet
+			temp_off_inc
+				IntToStr
+				Ltrim
+				strncpy
+				DrawRoundButton
+			temp_off_dec
+				IntToStr
+				Ltrim
+				strncpy
+				DrawRoundButton
+			hum_dec
+			hum_inc
+			hum_set
+			pushDEF
 				send_data_packet
 			Up_24_OnUp
 				DrawImage
@@ -2499,6 +2579,26 @@ main
 			Hyst_Cool_downOnUp
 			Hyst_Cool_downOnPress
 			Mode_ground_onOnClick
+			temp_on_set
+			temp_off_set
+			dec_def
+			time_def_dec
+			temp_on_dec
+			inc_def
+			time_def_inc
+			temp_on_inc
+			SetUPttimDef
+			SetdownttimDef
+			Setupintdef
+			Setdownintdef
+			Setuptempdef
+			Setdowntempdef
+			temp_off_inc
+			temp_off_dec
+			hum_dec
+			hum_inc
+			hum_set
+			pushDEF
 			Up_24_OnUp
 			Up_24_OnPress
 			Up_25_OnUp
@@ -2930,6 +3030,26 @@ main
 			Hyst_Cool_downOnUp
 			Hyst_Cool_downOnPress
 			Mode_ground_onOnClick
+			temp_on_set
+			temp_off_set
+			dec_def
+			time_def_dec
+			temp_on_dec
+			inc_def
+			time_def_inc
+			temp_on_inc
+			SetUPttimDef
+			SetdownttimDef
+			Setupintdef
+			Setdownintdef
+			Setuptempdef
+			Setdowntempdef
+			temp_off_inc
+			temp_off_dec
+			hum_dec
+			hum_inc
+			hum_set
+			pushDEF
 			Up_24_OnUp
 			Up_24_OnPress
 			Up_25_OnUp

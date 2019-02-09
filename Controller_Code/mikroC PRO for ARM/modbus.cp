@@ -1,6 +1,6 @@
-#line 1 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
-#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
+#line 1 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -69,8 +69,8 @@ enum _system {
 ELECT_HEAT,
 PROG_REL,
 TIME_REL,
-TRV_CORRECT_1,
-TRV_CORRECT_2,
+TRV_CORRECT_1=391,
+TRV_CORRECT_2=392,
 NUM_P_HEAT_1,
 NUM_P_SOURS_1,
 NUM_REV_1,
@@ -95,17 +95,18 @@ CURR_C=520,
 TRV_STEPS_1=61, TRV_STEPS_2=62,
 BAC_TEMP=71,
 DHW_TEMP=81,
-CONDENS_TEMP_1=91,CONDENS_TEMP_2=92,
-SUCT_TEMP_1=101, SUCT_TEMP_2=102,
-S_COOL_1=111,S_COOL_2=112,
-S_HEAT_1=121,S_HEAT_2=122,
-HEAT_IN_1=131,HEAT_IN_2=132,
-HEAT_OUT_1=141,HEAT_OUT_2=142,
-SOURC_IN_1=151, SOURC_IN_2=152,
-SOURC_OUT_1=161,SOURC_OUT_2=162,
-HIGH_PRESS_1=171, HIGH_PRESS_2 =172,
-LOW_PRESS_1=181,LOW_PRESS_2=182,
-ERRORS_1=191,ERRORS_2=192,
+SOURC_IN_1=91, SOURC_IN_2=92,
+SOURC_OUT_1=101,SOURC_OUT_2=102,
+ERRORS_1=111,ERRORS_2=112,
+
+CONDENS_TEMP_1=121,CONDENS_TEMP_2=122,
+SUCT_TEMP_1=131, SUCT_TEMP_2=132,
+S_COOL_1=141,S_COOL_2=142,
+S_HEAT_1=151,S_HEAT_2=152,
+HEAT_IN_1=161,HEAT_IN_2=162,
+HEAT_OUT_1=171,HEAT_OUT_2=172,
+HIGH_PRESS_1=181, HIGH_PRESS_2 =182,
+LOW_PRESS_1=191,LOW_PRESS_2=192,
 EXAUST_TEMP_1=201,EXAUST_TEMP_2=202,
 
 
@@ -125,6 +126,7 @@ PUMP_SOURS_STATE_1=21, PUMP_SOURS_STATE_2=22,
 PUMP_HEAT_STATE_1=31, PUMP_HEAT_STATE_2=32,
 REV_STATE_1=41,REV_STATE_2=42,
 THREE_STATE=51,
+PUSH_DEFROS=393,
 
 COMP_DEL=10,
 HEAT_DEL=20,
@@ -171,7 +173,9 @@ TRV_DEL=420,
 SOURS_MAX=430,
 SOURS_MIN=440,
 DEL_DHW_MAX=450,
-DEL_DHW_MIN=460
+DEL_DHW_MIN=460,
+POWER_380=470,
+TIME_BETWEEN_DEF=480
 };
 
 
@@ -522,6 +526,7 @@ struct Screen {
 };
 
 extern TScreen HOME;
+extern TBox_Round BoxRound8;
 extern TBox Set_Heat_Box;
 extern TBox Set_Dhw_Box;
 extern TImage background;
@@ -566,7 +571,6 @@ extern TImage dhw_icon;
 extern TLabel Label25;
 extern TImage cool_icon;
 extern TImage Image28;
-extern TLabel DateTime;
 extern TLabel dhw_celc;
 extern TLabel dhw_point;
 extern TLabel heat_point;
@@ -580,6 +584,10 @@ extern TImage Image168;
 extern TImage Image169;
 extern TImage Image26;
 extern TImage Image170;
+
+extern TButton_Round dhw_T;
+extern TButton_Round heat_T;
+
 extern TButton_Round DHW_UP;
 extern TButton_Round DHW_DOWN;
 extern TButton_Round HEAT_Down;
@@ -593,28 +601,30 @@ extern TImage heat_icon;
 extern TImage MainBut1;
 extern TImage MainBut2;
 extern TImage MainBut5;
-extern TBox_Round heatBox;
-extern TLabel heat_temp_main;
-extern TBox_Round BoxRound2;
-extern TLabel dhw_temp_main;
-extern TBox_Round BoxRound3;
-extern TLabel sourse_temp_input_main;
-extern TBox_Round BoxRound4;
-extern TLabel sourse_temp_output_main;
 extern TBox_Round BoxRound5;
 extern TLabel weather_temp_main;
 extern TBox_Round BoxRound6;
 extern TLabel humedity_main;
 extern TBox_Round BoxRound7;
 extern TLabel prassure_main;
+extern TButton_Round dhw_T;
+extern TButton_Round heat_T;
+extern TButton_Round sourc_out_TEMP;
+extern TButton_Round sign_OUT;
+extern TButton_Round sourc_in_T;
+extern TButton_Round sign_IN;
+extern TButton_Round dhw_dec;
+extern TButton_Round heat_dec;
+extern TButton_Round sourc_in_dec;
+extern TButton_Round source_out_dec;
 extern TBox_Round Messages_Box;
-extern TLabel Messages_Label;
-extern TButton_Round * const code Screen1_Buttons_Round[12];
-extern TLabel * const code Screen1_Labels[23];
+extern TLabel DateTime;
+extern TButton_Round * const code Screen1_Buttons_Round[22];
+extern TLabel * const code Screen1_Labels[18];
 extern TImage * const code Screen1_Images[30];
 extern TCircle * const code Screen1_Circles[4];
 extern TBox * const code Screen1_Boxes[4];
-extern TBox_Round * const code Screen1_Boxes_Round[12];
+extern TBox_Round * const code Screen1_Boxes_Round[9];
 extern TLine * const code Screen1_Lines[2];
 
 extern TScreen USER_MENU;
@@ -744,10 +754,8 @@ extern TScreen SetRTC;
 extern TImage Image32;
 extern TButton Ten_minutesUp;
 extern TButton Ten_minutesDwn;
-extern TLabel Ten_minutes;
 extern TButton Unit_minutesUp;
 extern TButton Unit_minutesDwn;
-extern TLabel Unit_minutes;
 extern TButton SetDateAndTime;
 extern TLabel Year_word;
 extern TLabel Month_Word;
@@ -758,31 +766,32 @@ extern TButton Day_unitUp;
 extern TButton Day_unitDwn;
 extern TButton Unit_hoursUp;
 extern TButton Unit_hoursDwn;
-extern TLabel Unit_hours;
-extern TLabel Day_unit;
 extern TButton OneDayUp;
 extern TButton OneDayDwn;
 extern TLine LineSlash;
 extern TButton TenDayUp;
 extern TButton TenDayDwn;
-extern TLabel TenDay;
-extern TLabel OneDay;
 extern TButton MonthDateUp;
 extern TButton MonthDateDwn;
-extern TLabel MonthDate;
 extern TButton TenYearUp;
 extern TButton TenYearDwn;
 extern TButton OneYearUp;
 extern TButton OneYearDwn;
-extern TLabel OneYear;
-extern TLabel TenYear;
-extern TButton DayOfWeek;
 extern TLabel Time_setting_label;
 extern TButton_Round home_b4;
 extern TButton_Round Back_b3;
-extern TButton * const code Screen5_Buttons[20];
+extern TButton Button1;
+extern TButton Button3;
+extern TButton Button4;
+extern TButton Button8;
+extern TButton Button12;
+extern TButton Button21;
+extern TButton Button24;
+extern TButton Button40;
+extern TButton Button43;
+extern TButton * const code Screen5_Buttons[28];
 extern TButton_Round * const code Screen5_Buttons_Round[2];
-extern TLabel * const code Screen5_Labels[15];
+extern TLabel * const code Screen5_Labels[6];
 extern TImage * const code Screen5_Images[1];
 extern TLine * const code Screen5_Lines[1];
 
@@ -1108,7 +1117,12 @@ extern TLabel Label72;
 extern TButton_Round Next_b6;
 extern TLabel Label27;
 extern TLabel Label35;
-extern TButton_Round * const code Screen14_Buttons_Round[18];
+extern TButton_Round BrineIN_sign;
+extern TButton_Round BrineOUT_sign;
+extern TButton_Round Super_sign;
+extern TButton_Round Cond_sign;
+extern TButton_Round Cool_sign;
+extern TButton_Round * const code Screen14_Buttons_Round[23];
 extern TLabel * const code Screen14_Labels[42];
 extern TImage * const code Screen14_Images[1];
 extern TCircleButton * const code Screen14_CircleButtons[1];
@@ -1819,7 +1833,8 @@ extern TLabel Label51;
 extern TImage humidity_down;
 extern TImage humidity_up;
 extern TImage humidity_set;
-extern TButton_Round * const code Screen33_Buttons_Round[7];
+extern TButton_Round ButtonRound2;
+extern TButton_Round * const code Screen33_Buttons_Round[8];
 extern TLabel * const code Screen33_Labels[1];
 extern TImage * const code Screen33_Images[31];
 
@@ -1935,7 +1950,6 @@ extern TCircleButton * const code Screen37_CircleButtons[1];
 
 
 
-
 void BackToHome();
 void goToBack();
 void nextPage();
@@ -1985,7 +1999,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2016 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2030 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -2417,7 +2431,33 @@ void Set_13_OnDown();
 
 
 
+void dec_def();
+void time_def_dec();
+void temp_on_dec();
+void temp_off_dec();
+void hum_dec();
 
+void inc_def();
+void time_def_inc();
+void temp_on_inc();
+void temp_off_inc();
+void hum_inc();
+void temp_off_set();
+void temp_on_set();
+void hum_set();
+void SetUPttimDef();
+void SetdownttimDef();
+void Setdownintdef();
+void Setupintdef();
+void Setuptempdef();
+void Setdowntempdef();
+void Mode_ground_onOnClick ();
+void pushDEF();
+
+
+
+
+extern char BoxRound8_Caption[];
 extern char Set_Heat_Box_Caption[];
 extern char Set_Dhw_Box_Caption[];
 extern char background_Caption[];
@@ -2462,7 +2502,6 @@ extern char dhw_icon_Caption[];
 extern char Label25_Caption[];
 extern char cool_icon_Caption[];
 extern char Image28_Caption[];
-extern char DateTime_Caption[];
 extern char dhw_celc_Caption[];
 extern char dhw_point_Caption[];
 extern char heat_point_Caption[];
@@ -2503,8 +2542,18 @@ extern char BoxRound6_Caption[];
 extern char humedity_main_Caption[];
 extern char BoxRound7_Caption[];
 extern char prassure_main_Caption[];
+extern char dhw_T_Caption[];
+extern char heat_T_Caption[];
+extern char sourc_out_TEMP_Caption[];
+extern char sign_OUT_Caption[];
+extern char sourc_in_T_Caption[];
+extern char sign_IN_Caption[];
+extern char dhw_dec_Caption[];
+extern char heat_dec_Caption[];
+extern char sourc_in_dec_Caption[];
+extern char source_out_dec_Caption[];
 extern char Messages_Box_Caption[];
-extern char Messages_Label_Caption[];
+extern char DateTime_Caption[];
 extern char Image30_Caption[];
 extern char Image105_Caption[];
 extern char Image60_Caption[];
@@ -2613,10 +2662,8 @@ extern char Home_b3_Caption[];
 extern char Image32_Caption[];
 extern char Ten_minutesUp_Caption[];
 extern char Ten_minutesDwn_Caption[];
-extern char Ten_minutes_Caption[];
 extern char Unit_minutesUp_Caption[];
 extern char Unit_minutesDwn_Caption[];
-extern char Unit_minutes_Caption[];
 extern char SetDateAndTime_Caption[];
 extern char Year_word_Caption[];
 extern char Month_Word_Caption[];
@@ -2627,28 +2674,29 @@ extern char Day_unitUp_Caption[];
 extern char Day_unitDwn_Caption[];
 extern char Unit_hoursUp_Caption[];
 extern char Unit_hoursDwn_Caption[];
-extern char Unit_hours_Caption[];
-extern char Day_unit_Caption[];
 extern char OneDayUp_Caption[];
 extern char OneDayDwn_Caption[];
 extern char LineSlash_Caption[];
 extern char TenDayUp_Caption[];
 extern char TenDayDwn_Caption[];
-extern char TenDay_Caption[];
-extern char OneDay_Caption[];
 extern char MonthDateUp_Caption[];
 extern char MonthDateDwn_Caption[];
-extern char MonthDate_Caption[];
 extern char TenYearUp_Caption[];
 extern char TenYearDwn_Caption[];
 extern char OneYearUp_Caption[];
 extern char OneYearDwn_Caption[];
-extern char OneYear_Caption[];
-extern char TenYear_Caption[];
-extern char DayOfWeek_Caption[];
 extern char Time_setting_label_Caption[];
 extern char home_b4_Caption[];
 extern char Back_b3_Caption[];
+extern char Button1_Caption[];
+extern char Button3_Caption[];
+extern char Button4_Caption[];
+extern char Button8_Caption[];
+extern char Button12_Caption[];
+extern char Button21_Caption[];
+extern char Button24_Caption[];
+extern char Button40_Caption[];
+extern char Button43_Caption[];
 extern char Image45_Caption[];
 extern char Error_label_Caption[];
 extern char Error_message_Caption[];
@@ -2923,6 +2971,11 @@ extern char Label72_Caption[];
 extern char Next_b6_Caption[];
 extern char Label27_Caption[];
 extern char Label35_Caption[];
+extern char BrineIN_sign_Caption[];
+extern char BrineOUT_sign_Caption[];
+extern char Super_sign_Caption[];
+extern char Cond_sign_Caption[];
+extern char Cool_sign_Caption[];
 extern char Image192_Caption[];
 extern char Image33_Caption[];
 extern char Image34_Caption[];
@@ -3522,6 +3575,7 @@ extern char Label51_Caption[];
 extern char humidity_down_Caption[];
 extern char humidity_up_Caption[];
 extern char humidity_set_Caption[];
+extern char ButtonRound2_Caption[];
 extern char Image63_Caption[];
 extern char Home_b30_Caption[];
 extern char BoxRound1_Caption[];
@@ -3629,8 +3683,8 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
-#line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdint.h"
 
 
 
@@ -3679,17 +3733,17 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 25 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
+#line 25 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
  void InitSysTick();
  uint32_t millis();
-#line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
-#line 1 "e:/mikroc/mikroc pro for arm/include/stdbool.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 1 "e:/mikroc/mikroc pro for arm/include/built_in.h"
-#line 8 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
+#line 1 "c:/mikroc/mikroc pro for arm/include/built_in.h"
+#line 8 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
 extern  _Bool  sendMessage;
 extern volatile  _Bool  end_packet;
 extern volatile unsigned char sizeOfBuffer;
@@ -3820,7 +3874,7 @@ void constructPacket()
  index++;
  i+=10;
  }
-#line 152 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
+#line 152 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
  crc16 = calculateCRC(frameSize - 2);
  frame[frameSize - 2] =  ((char *)&crc16)[1] ;
  frame[frameSize - 1] =  ((char *)&crc16)[0] ;
@@ -3846,7 +3900,7 @@ void check_F3_data(unsigned char buffer)
  char txt[7];
  unsigned int recieved_crc = ((frame[buffer - 2] << 8) | frame[buffer - 1]);
  unsigned int calculated_crc = calculateCRC(buffer - 2);
-#line 191 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
+#line 191 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
  if (calculated_crc == recieved_crc)
  {
 
@@ -3859,7 +3913,7 @@ void check_F3_data(unsigned char buffer)
  {
 
  system_reg[bus_data.address + incAdr] = (frame[index] << 8) | frame[index + 1];
-#line 207 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
+#line 207 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/modbus.c"
  index += 2;
  incAdr+=10;
  }

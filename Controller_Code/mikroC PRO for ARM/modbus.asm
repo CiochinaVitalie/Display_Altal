@@ -679,7 +679,7 @@ IT	AL
 BAL	L_sendbus_data17
 L_sendbus_data18:
 ;modbus.c,236 :: 		Delay_us(3645);
-MOVW	R7, #14726
+MOVW	R7, #51176
 MOVT	R7, #2
 NOP
 NOP

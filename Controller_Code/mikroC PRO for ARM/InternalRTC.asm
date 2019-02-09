@@ -119,7 +119,7 @@ BAL	L_RTC_Init0
 L__RTC_Init51:
 L__RTC_Init50:
 ;InternalRTC.c,72 :: 		delay_us(1);
-MOVW	R7, #38
+MOVW	R7, #48
 MOVT	R7, #0
 NOP
 NOP
@@ -166,7 +166,7 @@ IT	CS
 BCS	L__RTC_Init52
 L__RTC_Init48:
 ;InternalRTC.c,88 :: 		delay_us(10);                                                      //  to 2 RTCCLK clock cycles (due to clocks synchronization).
-MOVW	R7, #398
+MOVW	R7, #498
 MOVT	R7, #0
 NOP
 NOP
@@ -474,7 +474,7 @@ IT	CS
 BCS	L__RTC_SetTime60
 L__RTC_SetTime59:
 ;InternalRTC.c,206 :: 		delay_us(10);                                                      //  to 2 RTCCLK clock cycles (due to clocks synchronization).
-MOVW	R7, #398
+MOVW	R7, #498
 MOVT	R7, #0
 NOP
 NOP
@@ -639,7 +639,7 @@ BCS	L__RTC_SetDate64
 L__RTC_SetDate63:
 ;InternalRTC.c,268 :: 		delay_us(10);                                                      //  to 2 RTCCLK clock cycles (due to clocks synchronization).
 STR	R7, [SP, #4]
-MOVW	R7, #398
+MOVW	R7, #498
 MOVT	R7, #0
 NOP
 NOP
@@ -873,38 +873,38 @@ L_end_RTC_GetDate:
 BX	LR
 ; end of _RTC_GetDate
 _RTC_PrintTime:
-;InternalRTC.c,362 :: 		void RTC_PrintTime(RTC_TimeTypeDef *RTC_TimeStruct)
+;InternalRTC.c,363 :: 		void RTC_PrintTime(RTC_TimeTypeDef *RTC_TimeStruct)
 ; RTC_TimeStruct start address is: 0 (R0)
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
 MOV	R7, R0
 ; RTC_TimeStruct end address is: 0 (R0)
 ; RTC_TimeStruct start address is: 28 (R7)
-;InternalRTC.c,366 :: 		UART2_Write(13);
+;InternalRTC.c,367 :: 		UART2_Write(13);
 MOVS	R0, #13
 BL	_UART2_Write+0
-;InternalRTC.c,367 :: 		UART2_Write(10);
+;InternalRTC.c,368 :: 		UART2_Write(10);
 MOVS	R0, #10
 BL	_UART2_Write+0
-;InternalRTC.c,368 :: 		ByteToStr(RTC_TimeStruct->RTC_Hour_Tens, txt);
+;InternalRTC.c,369 :: 		ByteToStr(RTC_TimeStruct->RTC_Hour_Tens, txt);
 ADD	R2, SP, #4
 STR	R2, [SP, #8]
 LDRB	R1, [R7, #0]
 UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
-;InternalRTC.c,369 :: 		UART2_Write_Text(txt);
+;InternalRTC.c,370 :: 		UART2_Write_Text(txt);
 ADD	R1, SP, #4
 MOV	R0, R1
 BL	_UART2_Write_Text+0
-;InternalRTC.c,370 :: 		ByteToStr(RTC_TimeStruct->RTC_Hour_Units, txt);
+;InternalRTC.c,371 :: 		ByteToStr(RTC_TimeStruct->RTC_Hour_Units, txt);
 ADD	R2, SP, #4
 ADDS	R1, R7, #1
 LDRB	R1, [R1, #0]
 UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
-;InternalRTC.c,371 :: 		txt[0] = txt[2];    txt[1] = txt[3];
+;InternalRTC.c,372 :: 		txt[0] = txt[2];    txt[1] = txt[3];
 ADD	R2, SP, #4
 ADDS	R1, R2, #2
 LDRB	R1, [R1, #0]
@@ -914,22 +914,22 @@ ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
 STRB	R1, [R2, #0]
-;InternalRTC.c,372 :: 		UART2_Write_Text(txt);
+;InternalRTC.c,373 :: 		UART2_Write_Text(txt);
 MOV	R0, R3
 BL	_UART2_Write_Text+0
-;InternalRTC.c,373 :: 		UART2_Write_Text(":");
+;InternalRTC.c,374 :: 		UART2_Write_Text(":");
 MOVW	R1, #lo_addr(?lstr2_InternalRTC+0)
 MOVT	R1, #hi_addr(?lstr2_InternalRTC+0)
 MOV	R0, R1
 BL	_UART2_Write_Text+0
-;InternalRTC.c,374 :: 		ByteToStr(RTC_TimeStruct->RTC_Min_Tens, txt);
+;InternalRTC.c,375 :: 		ByteToStr(RTC_TimeStruct->RTC_Min_Tens, txt);
 ADD	R2, SP, #4
 ADDS	R1, R7, #2
 LDRB	R1, [R1, #0]
 UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
-;InternalRTC.c,375 :: 		txt[0] = txt[2];    txt[1] = txt[3];
+;InternalRTC.c,376 :: 		txt[0] = txt[2];    txt[1] = txt[3];
 ADD	R2, SP, #4
 ADDS	R1, R2, #2
 LDRB	R1, [R1, #0]
@@ -939,17 +939,17 @@ ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
 STRB	R1, [R2, #0]
-;InternalRTC.c,376 :: 		UART2_Write_Text(txt);
+;InternalRTC.c,377 :: 		UART2_Write_Text(txt);
 MOV	R0, R3
 BL	_UART2_Write_Text+0
-;InternalRTC.c,377 :: 		ByteToStr(RTC_TimeStruct->RTC_Min_Units, txt);
+;InternalRTC.c,378 :: 		ByteToStr(RTC_TimeStruct->RTC_Min_Units, txt);
 ADD	R2, SP, #4
 ADDS	R1, R7, #3
 LDRB	R1, [R1, #0]
 UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
-;InternalRTC.c,378 :: 		txt[0] = txt[2];    txt[1] = txt[3];
+;InternalRTC.c,379 :: 		txt[0] = txt[2];    txt[1] = txt[3];
 ADD	R2, SP, #4
 ADDS	R1, R2, #2
 LDRB	R1, [R1, #0]
@@ -959,22 +959,22 @@ ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
 STRB	R1, [R2, #0]
-;InternalRTC.c,379 :: 		UART2_Write_Text(txt);
+;InternalRTC.c,380 :: 		UART2_Write_Text(txt);
 MOV	R0, R3
 BL	_UART2_Write_Text+0
-;InternalRTC.c,380 :: 		UART2_Write_Text(":");
+;InternalRTC.c,381 :: 		UART2_Write_Text(":");
 MOVW	R1, #lo_addr(?lstr3_InternalRTC+0)
 MOVT	R1, #hi_addr(?lstr3_InternalRTC+0)
 MOV	R0, R1
 BL	_UART2_Write_Text+0
-;InternalRTC.c,381 :: 		ByteToStr(RTC_TimeStruct->RTC_Sec_Tens, txt);
+;InternalRTC.c,382 :: 		ByteToStr(RTC_TimeStruct->RTC_Sec_Tens, txt);
 ADD	R2, SP, #4
 ADDS	R1, R7, #4
 LDRB	R1, [R1, #0]
 UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
-;InternalRTC.c,382 :: 		txt[0] = txt[2];    txt[1] = txt[3];
+;InternalRTC.c,383 :: 		txt[0] = txt[2];    txt[1] = txt[3];
 ADD	R2, SP, #4
 ADDS	R1, R2, #2
 LDRB	R1, [R1, #0]
@@ -984,17 +984,17 @@ ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
 STRB	R1, [R2, #0]
-;InternalRTC.c,383 :: 		UART2_Write_Text(txt);
+;InternalRTC.c,384 :: 		UART2_Write_Text(txt);
 MOV	R0, R3
 BL	_UART2_Write_Text+0
-;InternalRTC.c,384 :: 		ByteToStr(RTC_TimeStruct->RTC_Sec_Units, txt);
+;InternalRTC.c,385 :: 		ByteToStr(RTC_TimeStruct->RTC_Sec_Units, txt);
 ADD	R2, SP, #4
 ADDS	R1, R7, #5
 LDRB	R1, [R1, #0]
 UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
-;InternalRTC.c,385 :: 		txt[0] = txt[2];    txt[1] = txt[3];
+;InternalRTC.c,386 :: 		txt[0] = txt[2];    txt[1] = txt[3];
 ADD	R2, SP, #4
 ADDS	R1, R2, #2
 LDRB	R1, [R1, #0]
@@ -1004,17 +1004,17 @@ ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
 STRB	R1, [R2, #0]
-;InternalRTC.c,386 :: 		UART2_Write_Text(txt);
+;InternalRTC.c,387 :: 		UART2_Write_Text(txt);
 MOV	R0, R3
 BL	_UART2_Write_Text+0
-;InternalRTC.c,388 :: 		if (RTC_TimeStruct->RTC_H12)
+;InternalRTC.c,389 :: 		if (RTC_TimeStruct->RTC_H12)
 ADDS	R1, R7, #6
 ; RTC_TimeStruct end address is: 28 (R7)
 LDRB	R1, [R1, #0]
 CMP	R1, #0
 IT	EQ
 BEQ	L_RTC_PrintTime37
-;InternalRTC.c,389 :: 		UART2_Write_Text(" pm");
+;InternalRTC.c,390 :: 		UART2_Write_Text(" pm");
 MOVW	R1, #lo_addr(?lstr4_InternalRTC+0)
 MOVT	R1, #hi_addr(?lstr4_InternalRTC+0)
 MOV	R0, R1
@@ -1022,47 +1022,47 @@ BL	_UART2_Write_Text+0
 IT	AL
 BAL	L_RTC_PrintTime38
 L_RTC_PrintTime37:
-;InternalRTC.c,391 :: 		UART2_Write_Text(" am");
+;InternalRTC.c,392 :: 		UART2_Write_Text(" am");
 MOVW	R1, #lo_addr(?lstr5_InternalRTC+0)
 MOVT	R1, #hi_addr(?lstr5_InternalRTC+0)
 MOV	R0, R1
 BL	_UART2_Write_Text+0
 L_RTC_PrintTime38:
-;InternalRTC.c,393 :: 		UART2_Write(13);
+;InternalRTC.c,394 :: 		UART2_Write(13);
 MOVS	R0, #13
 BL	_UART2_Write+0
-;InternalRTC.c,394 :: 		UART2_Write(10);
+;InternalRTC.c,395 :: 		UART2_Write(10);
 MOVS	R0, #10
 BL	_UART2_Write+0
-;InternalRTC.c,395 :: 		}
+;InternalRTC.c,396 :: 		}
 L_end_RTC_PrintTime:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _RTC_PrintTime
 _RTC_PrintDate:
-;InternalRTC.c,404 :: 		void RTC_PrintDate(RTC_DateTypeDef *RTC_DateStruct)
+;InternalRTC.c,405 :: 		void RTC_PrintDate(RTC_DateTypeDef *RTC_DateStruct)
 ; RTC_DateStruct start address is: 0 (R0)
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
 MOV	R7, R0
 ; RTC_DateStruct end address is: 0 (R0)
 ; RTC_DateStruct start address is: 28 (R7)
-;InternalRTC.c,409 :: 		Temp_Day = RTC_DateStruct->RTC_DayofWeek;
+;InternalRTC.c,412 :: 		Temp_Day = RTC_DateStruct->RTC_DayofWeek;
 LDRB	R1, [R7, #0]
 ; Temp_Day start address is: 16 (R4)
 UXTB	R4, R1
-;InternalRTC.c,411 :: 		UART2_Write(13);
+;InternalRTC.c,414 :: 		UART2_Write(13);
 MOVS	R0, #13
 BL	_UART2_Write+0
-;InternalRTC.c,412 :: 		UART2_Write(10);
+;InternalRTC.c,415 :: 		UART2_Write(10);
 MOVS	R0, #10
 BL	_UART2_Write+0
-;InternalRTC.c,414 :: 		switch (Temp_Day)  {
+;InternalRTC.c,417 :: 		switch (Temp_Day)  {
 IT	AL
 BAL	L_RTC_PrintDate39
 ; Temp_Day end address is: 16 (R4)
-;InternalRTC.c,415 :: 		case 1 : UART2_Write_Text("  Mon");  break;
+;InternalRTC.c,418 :: 		case 1 : UART2_Write_Text("  Mon");  break;
 L_RTC_PrintDate41:
 MOVW	R1, #lo_addr(?lstr6_InternalRTC+0)
 MOVT	R1, #hi_addr(?lstr6_InternalRTC+0)
@@ -1070,7 +1070,7 @@ MOV	R0, R1
 BL	_UART2_Write_Text+0
 IT	AL
 BAL	L_RTC_PrintDate40
-;InternalRTC.c,416 :: 		case 2 : UART2_Write_Text("  Tue");  break;
+;InternalRTC.c,419 :: 		case 2 : UART2_Write_Text("  Tue");  break;
 L_RTC_PrintDate42:
 MOVW	R1, #lo_addr(?lstr7_InternalRTC+0)
 MOVT	R1, #hi_addr(?lstr7_InternalRTC+0)
@@ -1078,7 +1078,7 @@ MOV	R0, R1
 BL	_UART2_Write_Text+0
 IT	AL
 BAL	L_RTC_PrintDate40
-;InternalRTC.c,417 :: 		case 3 : UART2_Write_Text("  Wed");  break;
+;InternalRTC.c,420 :: 		case 3 : UART2_Write_Text("  Wed");  break;
 L_RTC_PrintDate43:
 MOVW	R1, #lo_addr(?lstr8_InternalRTC+0)
 MOVT	R1, #hi_addr(?lstr8_InternalRTC+0)
@@ -1086,7 +1086,7 @@ MOV	R0, R1
 BL	_UART2_Write_Text+0
 IT	AL
 BAL	L_RTC_PrintDate40
-;InternalRTC.c,418 :: 		case 4 : UART2_Write_Text("  Thu");  break;
+;InternalRTC.c,421 :: 		case 4 : UART2_Write_Text("  Thu");  break;
 L_RTC_PrintDate44:
 MOVW	R1, #lo_addr(?lstr9_InternalRTC+0)
 MOVT	R1, #hi_addr(?lstr9_InternalRTC+0)
@@ -1094,7 +1094,7 @@ MOV	R0, R1
 BL	_UART2_Write_Text+0
 IT	AL
 BAL	L_RTC_PrintDate40
-;InternalRTC.c,419 :: 		case 5 : UART2_Write_Text("  Fri");  break;
+;InternalRTC.c,422 :: 		case 5 : UART2_Write_Text("  Fri");  break;
 L_RTC_PrintDate45:
 MOVW	R1, #lo_addr(?lstr10_InternalRTC+0)
 MOVT	R1, #hi_addr(?lstr10_InternalRTC+0)
@@ -1102,7 +1102,7 @@ MOV	R0, R1
 BL	_UART2_Write_Text+0
 IT	AL
 BAL	L_RTC_PrintDate40
-;InternalRTC.c,420 :: 		case 6 : UART2_Write_Text("  Sat");  break;
+;InternalRTC.c,423 :: 		case 6 : UART2_Write_Text("  Sat");  break;
 L_RTC_PrintDate46:
 MOVW	R1, #lo_addr(?lstr11_InternalRTC+0)
 MOVT	R1, #hi_addr(?lstr11_InternalRTC+0)
@@ -1110,7 +1110,7 @@ MOV	R0, R1
 BL	_UART2_Write_Text+0
 IT	AL
 BAL	L_RTC_PrintDate40
-;InternalRTC.c,421 :: 		case 7 : UART2_Write_Text("  Sun");  break;
+;InternalRTC.c,424 :: 		case 7 : UART2_Write_Text("  Sun");  break;
 L_RTC_PrintDate47:
 MOVW	R1, #lo_addr(?lstr12_InternalRTC+0)
 MOVT	R1, #hi_addr(?lstr12_InternalRTC+0)
@@ -1118,7 +1118,7 @@ MOV	R0, R1
 BL	_UART2_Write_Text+0
 IT	AL
 BAL	L_RTC_PrintDate40
-;InternalRTC.c,422 :: 		}
+;InternalRTC.c,425 :: 		}
 L_RTC_PrintDate39:
 ; Temp_Day start address is: 16 (R4)
 CMP	R4, #1
@@ -1144,7 +1144,7 @@ IT	EQ
 BEQ	L_RTC_PrintDate47
 ; Temp_Day end address is: 16 (R4)
 L_RTC_PrintDate40:
-;InternalRTC.c,424 :: 		ByteToStr(RTC_DateStruct->RTC_Date_Tens, txt);
+;InternalRTC.c,427 :: 		ByteToStr(RTC_DateStruct->RTC_Date_Tens, txt);
 ADD	R2, SP, #4
 STR	R2, [SP, #8]
 ADDS	R1, R7, #1
@@ -1152,18 +1152,18 @@ LDRB	R1, [R1, #0]
 UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
-;InternalRTC.c,425 :: 		UART2_Write_Text(txt);
+;InternalRTC.c,428 :: 		UART2_Write_Text(txt);
 ADD	R1, SP, #4
 MOV	R0, R1
 BL	_UART2_Write_Text+0
-;InternalRTC.c,426 :: 		ByteToStr(RTC_DateStruct->RTC_Date_Units, txt);
+;InternalRTC.c,429 :: 		ByteToStr(RTC_DateStruct->RTC_Date_Units, txt);
 ADD	R2, SP, #4
 ADDS	R1, R7, #2
 LDRB	R1, [R1, #0]
 UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
-;InternalRTC.c,427 :: 		txt[0] = txt[2];    txt[1] = txt[3];
+;InternalRTC.c,430 :: 		txt[0] = txt[2];    txt[1] = txt[3];
 ADD	R2, SP, #4
 ADDS	R1, R2, #2
 LDRB	R1, [R1, #0]
@@ -1173,37 +1173,17 @@ ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
 STRB	R1, [R2, #0]
-;InternalRTC.c,428 :: 		UART2_Write_Text(txt);
+;InternalRTC.c,431 :: 		UART2_Write_Text(txt);
 MOV	R0, R3
 BL	_UART2_Write_Text+0
-;InternalRTC.c,429 :: 		UART2_Write_Text("/");
+;InternalRTC.c,432 :: 		UART2_Write_Text("/");
 MOVW	R1, #lo_addr(?lstr13_InternalRTC+0)
 MOVT	R1, #hi_addr(?lstr13_InternalRTC+0)
 MOV	R0, R1
 BL	_UART2_Write_Text+0
-;InternalRTC.c,430 :: 		ByteToStr(RTC_DateStruct->RTC_Month_Tens, txt);
+;InternalRTC.c,433 :: 		ByteToStr(RTC_DateStruct->RTC_Month_Tens, txt);
 ADD	R2, SP, #4
 ADDS	R1, R7, #3
-LDRB	R1, [R1, #0]
-UXTB	R0, R1
-MOV	R1, R2
-BL	_ByteToStr+0
-;InternalRTC.c,431 :: 		txt[0] = txt[2];    txt[1] = txt[3];
-ADD	R2, SP, #4
-ADDS	R1, R2, #2
-LDRB	R1, [R1, #0]
-STRB	R1, [R2, #0]
-LDR	R3, [SP, #8]
-ADDS	R2, R3, #1
-ADDS	R1, R3, #3
-LDRB	R1, [R1, #0]
-STRB	R1, [R2, #0]
-;InternalRTC.c,432 :: 		UART2_Write_Text(txt);
-MOV	R0, R3
-BL	_UART2_Write_Text+0
-;InternalRTC.c,433 :: 		ByteToStr(RTC_DateStruct->RTC_Month_Units, txt);
-ADD	R2, SP, #4
-ADDS	R1, R7, #4
 LDRB	R1, [R1, #0]
 UXTB	R0, R1
 MOV	R1, R2
@@ -1221,19 +1201,14 @@ STRB	R1, [R2, #0]
 ;InternalRTC.c,435 :: 		UART2_Write_Text(txt);
 MOV	R0, R3
 BL	_UART2_Write_Text+0
-;InternalRTC.c,436 :: 		UART2_Write_Text("/");
-MOVW	R1, #lo_addr(?lstr14_InternalRTC+0)
-MOVT	R1, #hi_addr(?lstr14_InternalRTC+0)
-MOV	R0, R1
-BL	_UART2_Write_Text+0
-;InternalRTC.c,437 :: 		ByteToStr(RTC_DateStruct->RTC_Year_Tens, txt);
+;InternalRTC.c,436 :: 		ByteToStr(RTC_DateStruct->RTC_Month_Units, txt);
 ADD	R2, SP, #4
-ADDS	R1, R7, #5
+ADDS	R1, R7, #4
 LDRB	R1, [R1, #0]
 UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
-;InternalRTC.c,438 :: 		txt[0] = txt[2];    txt[1] = txt[3];
+;InternalRTC.c,437 :: 		txt[0] = txt[2];    txt[1] = txt[3];
 ADD	R2, SP, #4
 ADDS	R1, R2, #2
 LDRB	R1, [R1, #0]
@@ -1243,13 +1218,17 @@ ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
 STRB	R1, [R2, #0]
-;InternalRTC.c,439 :: 		UART2_Write_Text(txt);
+;InternalRTC.c,438 :: 		UART2_Write_Text(txt);
 MOV	R0, R3
 BL	_UART2_Write_Text+0
-;InternalRTC.c,440 :: 		ByteToStr(RTC_DateStruct->RTC_Year_Units, txt);
+;InternalRTC.c,439 :: 		UART2_Write_Text("/");
+MOVW	R1, #lo_addr(?lstr14_InternalRTC+0)
+MOVT	R1, #hi_addr(?lstr14_InternalRTC+0)
+MOV	R0, R1
+BL	_UART2_Write_Text+0
+;InternalRTC.c,440 :: 		ByteToStr(RTC_DateStruct->RTC_Year_Tens, txt);
 ADD	R2, SP, #4
-ADDS	R1, R7, #6
-; RTC_DateStruct end address is: 28 (R7)
+ADDS	R1, R7, #5
 LDRB	R1, [R1, #0]
 UXTB	R0, R1
 MOV	R1, R2
@@ -1267,51 +1246,72 @@ STRB	R1, [R2, #0]
 ;InternalRTC.c,442 :: 		UART2_Write_Text(txt);
 MOV	R0, R3
 BL	_UART2_Write_Text+0
-;InternalRTC.c,444 :: 		UART2_Write(13);
+;InternalRTC.c,443 :: 		ByteToStr(RTC_DateStruct->RTC_Year_Units, txt);
+ADD	R2, SP, #4
+ADDS	R1, R7, #6
+; RTC_DateStruct end address is: 28 (R7)
+LDRB	R1, [R1, #0]
+UXTB	R0, R1
+MOV	R1, R2
+BL	_ByteToStr+0
+;InternalRTC.c,444 :: 		txt[0] = txt[2];    txt[1] = txt[3];
+ADD	R2, SP, #4
+ADDS	R1, R2, #2
+LDRB	R1, [R1, #0]
+STRB	R1, [R2, #0]
+LDR	R3, [SP, #8]
+ADDS	R2, R3, #1
+ADDS	R1, R3, #3
+LDRB	R1, [R1, #0]
+STRB	R1, [R2, #0]
+;InternalRTC.c,445 :: 		UART2_Write_Text(txt);
+MOV	R0, R3
+BL	_UART2_Write_Text+0
+;InternalRTC.c,447 :: 		UART2_Write(13);
 MOVS	R0, #13
 BL	_UART2_Write+0
-;InternalRTC.c,445 :: 		UART2_Write(10);
+;InternalRTC.c,448 :: 		UART2_Write(10);
 MOVS	R0, #10
 BL	_UART2_Write+0
-;InternalRTC.c,446 :: 		}
+;InternalRTC.c,450 :: 		}
 L_end_RTC_PrintDate:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _RTC_PrintDate
 _Print_Sub_Secs:
-;InternalRTC.c,455 :: 		void Print_Sub_Secs (unsigned Value)
+;InternalRTC.c,459 :: 		void Print_Sub_Secs (unsigned Value)
 ; Value start address is: 0 (R0)
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
 ; Value end address is: 0 (R0)
 ; Value start address is: 0 (R0)
-;InternalRTC.c,458 :: 		WordToStr(Value, txt);
+;InternalRTC.c,462 :: 		WordToStr(Value, txt);
 ADD	R1, SP, #4
 ; Value end address is: 0 (R0)
 BL	_WordToStr+0
-;InternalRTC.c,459 :: 		UART2_Write(13);
-MOVS	R0, #13
-BL	_UART2_Write+0
-;InternalRTC.c,460 :: 		UART2_Write(10);
-MOVS	R0, #10
-BL	_UART2_Write+0
-;InternalRTC.c,461 :: 		UART2_Write_Text(txt);
-ADD	R1, SP, #4
-MOV	R0, R1
-BL	_UART2_Write_Text+0
-;InternalRTC.c,462 :: 		UART2_Write_Text("  ms");
-MOVW	R1, #lo_addr(?lstr15_InternalRTC+0)
-MOVT	R1, #hi_addr(?lstr15_InternalRTC+0)
-MOV	R0, R1
-BL	_UART2_Write_Text+0
 ;InternalRTC.c,463 :: 		UART2_Write(13);
 MOVS	R0, #13
 BL	_UART2_Write+0
 ;InternalRTC.c,464 :: 		UART2_Write(10);
 MOVS	R0, #10
 BL	_UART2_Write+0
-;InternalRTC.c,465 :: 		}
+;InternalRTC.c,465 :: 		UART2_Write_Text(txt);
+ADD	R1, SP, #4
+MOV	R0, R1
+BL	_UART2_Write_Text+0
+;InternalRTC.c,466 :: 		UART2_Write_Text("  ms");
+MOVW	R1, #lo_addr(?lstr15_InternalRTC+0)
+MOVT	R1, #hi_addr(?lstr15_InternalRTC+0)
+MOV	R0, R1
+BL	_UART2_Write_Text+0
+;InternalRTC.c,467 :: 		UART2_Write(13);
+MOVS	R0, #13
+BL	_UART2_Write+0
+;InternalRTC.c,468 :: 		UART2_Write(10);
+MOVS	R0, #10
+BL	_UART2_Write+0
+;InternalRTC.c,469 :: 		}
 L_end_Print_Sub_Secs:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12

@@ -5,12 +5,10 @@ SUB	SP, SP, #8
 STR	LR, [SP, #0]
 ; pressure end address is: 0 (R0)
 ; pressure start address is: 0 (R0)
-;Gauge.c,41 :: 		HP_pressure = pressure*10.0 + 5;
+;Gauge.c,41 :: 		HP_pressure = pressure*1.0 + 5;
 VMOV	S1, R0
 VCVT.F32	#1, S1, S1
 ; pressure end address is: 0 (R0)
-VMOV.F32	S0, #10
-VMUL.F32	S1, S1, S0
 VMOV.F32	S0, #5
 VADD.F32	S1, S1, S0
 ; HP_pressure start address is: 8 (R2)
@@ -351,12 +349,12 @@ SUB	SP, SP, #8
 STR	LR, [SP, #0]
 ; pressure end address is: 0 (R0)
 ; pressure start address is: 0 (R0)
-;Gauge.c,94 :: 		LP_pressure = pressure * 33.3 + 42;
+;Gauge.c,94 :: 		LP_pressure = pressure * 3.33 + 42;
 VMOV	S1, R0
 VCVT.F32	#1, S1, S1
 ; pressure end address is: 0 (R0)
-MOVW	R1, #13107
-MOVT	R1, #16901
+MOVW	R1, #7864
+MOVT	R1, #16469
 VMOV	S0, R1
 VMUL.F32	S1, S1, S0
 MOVW	R1, #0

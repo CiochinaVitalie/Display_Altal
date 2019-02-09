@@ -351,6 +351,7 @@ void RTC_GetDate(RTC_DateTypeDef *RTC_DateStruct)
     RTC_DateStruct->RTC_Year_Tens     =  (unsigned short) RTC_DRbits.YT;
     RTC_DateStruct->RTC_Year_Units    =  (unsigned short) RTC_DRbits.YU;
 }
+ //-------------------------------------------------------
 
 
 
@@ -403,6 +404,8 @@ void RTC_PrintTime(RTC_TimeTypeDef *RTC_TimeStruct)
 *************************************************************/
 void RTC_PrintDate(RTC_DateTypeDef *RTC_DateStruct)
 {
+
+
     char txt[4];
     unsigned short Temp_Day;
 
@@ -443,6 +446,7 @@ void RTC_PrintDate(RTC_DateTypeDef *RTC_DateStruct)
 
     UART2_Write(13);
     UART2_Write(10);
+
 }
 
 

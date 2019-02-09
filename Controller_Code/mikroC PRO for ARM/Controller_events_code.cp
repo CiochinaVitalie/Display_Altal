@@ -1,6 +1,6 @@
-#line 1 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
-#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -69,8 +69,8 @@ enum _system {
 ELECT_HEAT,
 PROG_REL,
 TIME_REL,
-TRV_CORRECT_1,
-TRV_CORRECT_2,
+TRV_CORRECT_1=391,
+TRV_CORRECT_2=392,
 NUM_P_HEAT_1,
 NUM_P_SOURS_1,
 NUM_REV_1,
@@ -95,17 +95,18 @@ CURR_C=520,
 TRV_STEPS_1=61, TRV_STEPS_2=62,
 BAC_TEMP=71,
 DHW_TEMP=81,
-CONDENS_TEMP_1=91,CONDENS_TEMP_2=92,
-SUCT_TEMP_1=101, SUCT_TEMP_2=102,
-S_COOL_1=111,S_COOL_2=112,
-S_HEAT_1=121,S_HEAT_2=122,
-HEAT_IN_1=131,HEAT_IN_2=132,
-HEAT_OUT_1=141,HEAT_OUT_2=142,
-SOURC_IN_1=151, SOURC_IN_2=152,
-SOURC_OUT_1=161,SOURC_OUT_2=162,
-HIGH_PRESS_1=171, HIGH_PRESS_2 =172,
-LOW_PRESS_1=181,LOW_PRESS_2=182,
-ERRORS_1=191,ERRORS_2=192,
+SOURC_IN_1=91, SOURC_IN_2=92,
+SOURC_OUT_1=101,SOURC_OUT_2=102,
+ERRORS_1=111,ERRORS_2=112,
+
+CONDENS_TEMP_1=121,CONDENS_TEMP_2=122,
+SUCT_TEMP_1=131, SUCT_TEMP_2=132,
+S_COOL_1=141,S_COOL_2=142,
+S_HEAT_1=151,S_HEAT_2=152,
+HEAT_IN_1=161,HEAT_IN_2=162,
+HEAT_OUT_1=171,HEAT_OUT_2=172,
+HIGH_PRESS_1=181, HIGH_PRESS_2 =182,
+LOW_PRESS_1=191,LOW_PRESS_2=192,
 EXAUST_TEMP_1=201,EXAUST_TEMP_2=202,
 
 
@@ -125,6 +126,7 @@ PUMP_SOURS_STATE_1=21, PUMP_SOURS_STATE_2=22,
 PUMP_HEAT_STATE_1=31, PUMP_HEAT_STATE_2=32,
 REV_STATE_1=41,REV_STATE_2=42,
 THREE_STATE=51,
+PUSH_DEFROS=393,
 
 COMP_DEL=10,
 HEAT_DEL=20,
@@ -171,7 +173,9 @@ TRV_DEL=420,
 SOURS_MAX=430,
 SOURS_MIN=440,
 DEL_DHW_MAX=450,
-DEL_DHW_MIN=460
+DEL_DHW_MIN=460,
+POWER_380=470,
+TIME_BETWEEN_DEF=480
 };
 
 
@@ -522,6 +526,7 @@ struct Screen {
 };
 
 extern TScreen HOME;
+extern TBox_Round BoxRound8;
 extern TBox Set_Heat_Box;
 extern TBox Set_Dhw_Box;
 extern TImage background;
@@ -566,7 +571,6 @@ extern TImage dhw_icon;
 extern TLabel Label25;
 extern TImage cool_icon;
 extern TImage Image28;
-extern TLabel DateTime;
 extern TLabel dhw_celc;
 extern TLabel dhw_point;
 extern TLabel heat_point;
@@ -580,6 +584,10 @@ extern TImage Image168;
 extern TImage Image169;
 extern TImage Image26;
 extern TImage Image170;
+
+extern TButton_Round dhw_T;
+extern TButton_Round heat_T;
+
 extern TButton_Round DHW_UP;
 extern TButton_Round DHW_DOWN;
 extern TButton_Round HEAT_Down;
@@ -593,28 +601,30 @@ extern TImage heat_icon;
 extern TImage MainBut1;
 extern TImage MainBut2;
 extern TImage MainBut5;
-extern TBox_Round heatBox;
-extern TLabel heat_temp_main;
-extern TBox_Round BoxRound2;
-extern TLabel dhw_temp_main;
-extern TBox_Round BoxRound3;
-extern TLabel sourse_temp_input_main;
-extern TBox_Round BoxRound4;
-extern TLabel sourse_temp_output_main;
 extern TBox_Round BoxRound5;
 extern TLabel weather_temp_main;
 extern TBox_Round BoxRound6;
 extern TLabel humedity_main;
 extern TBox_Round BoxRound7;
 extern TLabel prassure_main;
+extern TButton_Round dhw_T;
+extern TButton_Round heat_T;
+extern TButton_Round sourc_out_TEMP;
+extern TButton_Round sign_OUT;
+extern TButton_Round sourc_in_T;
+extern TButton_Round sign_IN;
+extern TButton_Round dhw_dec;
+extern TButton_Round heat_dec;
+extern TButton_Round sourc_in_dec;
+extern TButton_Round source_out_dec;
 extern TBox_Round Messages_Box;
-extern TLabel Messages_Label;
-extern TButton_Round * const code Screen1_Buttons_Round[12];
-extern TLabel * const code Screen1_Labels[23];
+extern TLabel DateTime;
+extern TButton_Round * const code Screen1_Buttons_Round[22];
+extern TLabel * const code Screen1_Labels[18];
 extern TImage * const code Screen1_Images[30];
 extern TCircle * const code Screen1_Circles[4];
 extern TBox * const code Screen1_Boxes[4];
-extern TBox_Round * const code Screen1_Boxes_Round[12];
+extern TBox_Round * const code Screen1_Boxes_Round[9];
 extern TLine * const code Screen1_Lines[2];
 
 extern TScreen USER_MENU;
@@ -744,10 +754,8 @@ extern TScreen SetRTC;
 extern TImage Image32;
 extern TButton Ten_minutesUp;
 extern TButton Ten_minutesDwn;
-extern TLabel Ten_minutes;
 extern TButton Unit_minutesUp;
 extern TButton Unit_minutesDwn;
-extern TLabel Unit_minutes;
 extern TButton SetDateAndTime;
 extern TLabel Year_word;
 extern TLabel Month_Word;
@@ -758,31 +766,32 @@ extern TButton Day_unitUp;
 extern TButton Day_unitDwn;
 extern TButton Unit_hoursUp;
 extern TButton Unit_hoursDwn;
-extern TLabel Unit_hours;
-extern TLabel Day_unit;
 extern TButton OneDayUp;
 extern TButton OneDayDwn;
 extern TLine LineSlash;
 extern TButton TenDayUp;
 extern TButton TenDayDwn;
-extern TLabel TenDay;
-extern TLabel OneDay;
 extern TButton MonthDateUp;
 extern TButton MonthDateDwn;
-extern TLabel MonthDate;
 extern TButton TenYearUp;
 extern TButton TenYearDwn;
 extern TButton OneYearUp;
 extern TButton OneYearDwn;
-extern TLabel OneYear;
-extern TLabel TenYear;
-extern TButton DayOfWeek;
 extern TLabel Time_setting_label;
 extern TButton_Round home_b4;
 extern TButton_Round Back_b3;
-extern TButton * const code Screen5_Buttons[20];
+extern TButton Button1;
+extern TButton Button3;
+extern TButton Button4;
+extern TButton Button8;
+extern TButton Button12;
+extern TButton Button21;
+extern TButton Button24;
+extern TButton Button40;
+extern TButton Button43;
+extern TButton * const code Screen5_Buttons[28];
 extern TButton_Round * const code Screen5_Buttons_Round[2];
-extern TLabel * const code Screen5_Labels[15];
+extern TLabel * const code Screen5_Labels[6];
 extern TImage * const code Screen5_Images[1];
 extern TLine * const code Screen5_Lines[1];
 
@@ -1108,7 +1117,12 @@ extern TLabel Label72;
 extern TButton_Round Next_b6;
 extern TLabel Label27;
 extern TLabel Label35;
-extern TButton_Round * const code Screen14_Buttons_Round[18];
+extern TButton_Round BrineIN_sign;
+extern TButton_Round BrineOUT_sign;
+extern TButton_Round Super_sign;
+extern TButton_Round Cond_sign;
+extern TButton_Round Cool_sign;
+extern TButton_Round * const code Screen14_Buttons_Round[23];
 extern TLabel * const code Screen14_Labels[42];
 extern TImage * const code Screen14_Images[1];
 extern TCircleButton * const code Screen14_CircleButtons[1];
@@ -1819,7 +1833,8 @@ extern TLabel Label51;
 extern TImage humidity_down;
 extern TImage humidity_up;
 extern TImage humidity_set;
-extern TButton_Round * const code Screen33_Buttons_Round[7];
+extern TButton_Round ButtonRound2;
+extern TButton_Round * const code Screen33_Buttons_Round[8];
 extern TLabel * const code Screen33_Labels[1];
 extern TImage * const code Screen33_Images[31];
 
@@ -1935,7 +1950,6 @@ extern TCircleButton * const code Screen37_CircleButtons[1];
 
 
 
-
 void BackToHome();
 void goToBack();
 void nextPage();
@@ -1985,7 +1999,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2016 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2030 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -2417,7 +2431,33 @@ void Set_13_OnDown();
 
 
 
+void dec_def();
+void time_def_dec();
+void temp_on_dec();
+void temp_off_dec();
+void hum_dec();
 
+void inc_def();
+void time_def_inc();
+void temp_on_inc();
+void temp_off_inc();
+void hum_inc();
+void temp_off_set();
+void temp_on_set();
+void hum_set();
+void SetUPttimDef();
+void SetdownttimDef();
+void Setdownintdef();
+void Setupintdef();
+void Setuptempdef();
+void Setdowntempdef();
+void Mode_ground_onOnClick ();
+void pushDEF();
+
+
+
+
+extern char BoxRound8_Caption[];
 extern char Set_Heat_Box_Caption[];
 extern char Set_Dhw_Box_Caption[];
 extern char background_Caption[];
@@ -2462,7 +2502,6 @@ extern char dhw_icon_Caption[];
 extern char Label25_Caption[];
 extern char cool_icon_Caption[];
 extern char Image28_Caption[];
-extern char DateTime_Caption[];
 extern char dhw_celc_Caption[];
 extern char dhw_point_Caption[];
 extern char heat_point_Caption[];
@@ -2503,8 +2542,18 @@ extern char BoxRound6_Caption[];
 extern char humedity_main_Caption[];
 extern char BoxRound7_Caption[];
 extern char prassure_main_Caption[];
+extern char dhw_T_Caption[];
+extern char heat_T_Caption[];
+extern char sourc_out_TEMP_Caption[];
+extern char sign_OUT_Caption[];
+extern char sourc_in_T_Caption[];
+extern char sign_IN_Caption[];
+extern char dhw_dec_Caption[];
+extern char heat_dec_Caption[];
+extern char sourc_in_dec_Caption[];
+extern char source_out_dec_Caption[];
 extern char Messages_Box_Caption[];
-extern char Messages_Label_Caption[];
+extern char DateTime_Caption[];
 extern char Image30_Caption[];
 extern char Image105_Caption[];
 extern char Image60_Caption[];
@@ -2613,10 +2662,8 @@ extern char Home_b3_Caption[];
 extern char Image32_Caption[];
 extern char Ten_minutesUp_Caption[];
 extern char Ten_minutesDwn_Caption[];
-extern char Ten_minutes_Caption[];
 extern char Unit_minutesUp_Caption[];
 extern char Unit_minutesDwn_Caption[];
-extern char Unit_minutes_Caption[];
 extern char SetDateAndTime_Caption[];
 extern char Year_word_Caption[];
 extern char Month_Word_Caption[];
@@ -2627,28 +2674,29 @@ extern char Day_unitUp_Caption[];
 extern char Day_unitDwn_Caption[];
 extern char Unit_hoursUp_Caption[];
 extern char Unit_hoursDwn_Caption[];
-extern char Unit_hours_Caption[];
-extern char Day_unit_Caption[];
 extern char OneDayUp_Caption[];
 extern char OneDayDwn_Caption[];
 extern char LineSlash_Caption[];
 extern char TenDayUp_Caption[];
 extern char TenDayDwn_Caption[];
-extern char TenDay_Caption[];
-extern char OneDay_Caption[];
 extern char MonthDateUp_Caption[];
 extern char MonthDateDwn_Caption[];
-extern char MonthDate_Caption[];
 extern char TenYearUp_Caption[];
 extern char TenYearDwn_Caption[];
 extern char OneYearUp_Caption[];
 extern char OneYearDwn_Caption[];
-extern char OneYear_Caption[];
-extern char TenYear_Caption[];
-extern char DayOfWeek_Caption[];
 extern char Time_setting_label_Caption[];
 extern char home_b4_Caption[];
 extern char Back_b3_Caption[];
+extern char Button1_Caption[];
+extern char Button3_Caption[];
+extern char Button4_Caption[];
+extern char Button8_Caption[];
+extern char Button12_Caption[];
+extern char Button21_Caption[];
+extern char Button24_Caption[];
+extern char Button40_Caption[];
+extern char Button43_Caption[];
 extern char Image45_Caption[];
 extern char Error_label_Caption[];
 extern char Error_message_Caption[];
@@ -2923,6 +2971,11 @@ extern char Label72_Caption[];
 extern char Next_b6_Caption[];
 extern char Label27_Caption[];
 extern char Label35_Caption[];
+extern char BrineIN_sign_Caption[];
+extern char BrineOUT_sign_Caption[];
+extern char Super_sign_Caption[];
+extern char Cond_sign_Caption[];
+extern char Cool_sign_Caption[];
 extern char Image192_Caption[];
 extern char Image33_Caption[];
 extern char Image34_Caption[];
@@ -3522,6 +3575,7 @@ extern char Label51_Caption[];
 extern char humidity_down_Caption[];
 extern char humidity_up_Caption[];
 extern char humidity_set_Caption[];
+extern char ButtonRound2_Caption[];
 extern char Image63_Caption[];
 extern char Home_b30_Caption[];
 extern char BoxRound1_Caption[];
@@ -3629,8 +3683,8 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_resources.h"
-#line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_resources.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdint.h"
 
 
 
@@ -3679,18 +3733,19 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 1 "e:/mikroc/mikroc pro for arm/include/stdbool.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 7 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 7 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
 unsigned char tenYearU;
 unsigned char oneYearU;
 unsigned char oneMonth;
 unsigned char tenDayU;
 unsigned char oneDayU;
 unsigned char tenHour;
+unsigned char oneHour;
 unsigned char tenMinute;
 unsigned char oneMinute;
 unsigned char countPacket;
@@ -3699,6 +3754,7 @@ extern RTC_TimeTypeDef My_Time;
 extern RTC_TimeTypeDef Read_Time;
 extern RTC_DateTypeDef My_Date;
 extern RTC_DateTypeDef Read_Date;
+
 extern float old_HP_pressure;
 extern float old_LP_pressure;
 
@@ -3716,6 +3772,11 @@ extern int system_reg[600];
  _Bool  two_compressors_mode,ground_heat_pump,SYSTEM_ON;
 extern  _Bool  sendMessage;
 unsigned char num_page;
+int incTRV=0;
+
+ RTC_TimeTypeDef My_Time;
+ RTC_DateTypeDef My_Date;
+
 void Tone1() {
  Sound_Play(659, 35);
 }
@@ -3763,7 +3824,9 @@ if( num_page==0)
  else if (CurrentScreen==&SENSOR1) {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
  else if (CurrentScreen==&SETTINGS) {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
  else if (CurrentScreen==&ENERGY) {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
+ else if (CurrentScreen==&DEFROST) {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
  else if(CurrentScreen == &EEV) {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In();}
+ else if(CurrentScreen == &MODE) {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In();}
  else if(CurrentScreen == &DELAY_MENU) {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In(); }
  else if(CurrentScreen == &LIMITS1) {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In();}
  else if(CurrentScreen == &SYSTEM_EVENTS) {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In(); }
@@ -3801,9 +3864,13 @@ if (CurrentScreen==&HOME)
  main_page();
  switch(countPacket)
  {
- case 1:reciev_data_packet(BAC_TEMP,2); break;
- case 2:reciev_data_packet(SOURC_IN_1,2);break;
- case 3:countPacket=1;break;
+ case 1:reciev_data_packet(BAC_TEMP,5); break;
+
+
+
+
+
+ case 2:countPacket=1;break;
  }
  }
 
@@ -3815,9 +3882,9 @@ else if(CurrentScreen==&SENSOR1)
  {
  switch(countPacket)
  {
- case 1: reciev_data_packet(BAC_TEMP,2);break;
- case 2: reciev_data_packet(CONDENS_TEMP_1,12);break;
- case 3: countPacket=1;break;
+ case 1: reciev_data_packet(BAC_TEMP,14);break;
+
+ case 2: countPacket=1;break;
  }
  if(strcmp(CircleButton10.Caption,"1")!=0){CircleButton10.Caption="1";DrawCircleButton(&CircleButton10); }
  }
@@ -3826,7 +3893,7 @@ else if(CurrentScreen==&SENSOR1)
  switch(countPacket)
  {
  case 1: reciev_data_packet(BAC_TEMP,2);break;
- case 2: reciev_data_packet(CONDENS_TEMP_2,12);break;
+ case 2: reciev_data_packet(SOURC_IN_2,11);break;
  case 3: countPacket=1;break;
  }
  if(strcmp(CircleButton10.Caption,"2")!=0) {CircleButton10.Caption="2";DrawCircleButton(&CircleButton10);Back_b10.OnClickPtr=goToBack;}
@@ -3856,8 +3923,10 @@ else if(CurrentScreen==&EEV)
  {
  case 1:reciev_data_packet(TRV_STEPS_1,1); break;
  case 2:reciev_data_packet(S_HEAT_1,1); break;
- case 3: countPacket=1;break;
+ case 3:reciev_data_packet(TRV_CORRECT_1,1); break;
+ case 4: countPacket=1;break;
  }
+ if(strcmp(CircleButton9.Caption,"1")!=0) {CircleButton9.Caption="1";DrawCircleButton(&CircleButton9);}
  }
  else
  {
@@ -3865,8 +3934,10 @@ else if(CurrentScreen==&EEV)
  {
  case 1:reciev_data_packet(TRV_STEPS_2,1); break;
  case 2:reciev_data_packet(S_HEAT_2,1); break;
- case 3: countPacket=1;break;
+ case 3:reciev_data_packet(TRV_CORRECT_2,1); break;
+ case 4: countPacket=1;break;
  }
+ if(strcmp(CircleButton9.Caption,"2")!=0) {CircleButton9.Caption="2";DrawCircleButton(&CircleButton9);Back_b2.OnClickPtr=goToBack;}
  }
  }
 
@@ -3874,11 +3945,11 @@ else if(CurrentScreen==&SYSTEM_EVENTS)
 {
  working_time(num_page);
  if(num_page==0) {
- reciev_data_packet(TIM_P_HEAT_1,4);
+ reciev_data_packet(TIM_COM_1,4);
  if(strcmp(CircleButton6.Caption,"1")!=0) {CircleButton6.Caption="1";DrawCircleButton(&CircleButton6);}
  }
  else {
- reciev_data_packet(TIM_P_HEAT_2,4);
+ reciev_data_packet(TIM_COM_2,4);
  if(strcmp(CircleButton6.Caption,"2")!=0) {CircleButton6.Caption="2";DrawCircleButton(&CircleButton6);Back_b7.OnClickPtr=goToBack;}
  }
 
@@ -3911,23 +3982,23 @@ else if (CurrentScreen==&Schema2)
 
 void Main_OFFOnClick()
 {
- if ((unsigned long)Main_OFF.Picture_Name ==  0x00081F90 )
+ if ((unsigned long)Main_OFF.Picture_Name ==  0x00084B44 )
  {
- Main_OFF.Picture_Name =  0x0007FBEE ;
+ Main_OFF.Picture_Name =  0x000827A2 ;
  DrawImage(&Main_ON);
- DrawRoundBox (&Messages_Box);
- Messages_Label.Caption = "SYSTEM  ON";
- DrawLabel (&Messages_Label);
+
+
+
  SYSTEM_ON= 1 ;
  system_reg[POWER]=1;
 
  }
  else {
- Main_OFF.Picture_Name =  0x00081F90 ;
+ Main_OFF.Picture_Name =  0x00084B44 ;
  DrawImage(&Main_OFF);
- DrawRoundBox (&Messages_Box);
- Messages_Label.Caption = "SYSTEM  OFF";
- DrawLabel (&Messages_Label);
+
+
+
  SYSTEM_ON= 0 ;
  system_reg[POWER]=0;
  }
@@ -3976,16 +4047,16 @@ void DHW_SetingOnClick()
  DHW_DOWN.Active = 1;
  DHW_Setting_value.Visible = 1;
  DHW_Setting_value.Active = 1;
- dhw_temp_main.Visible = 0;
- dhw_temp_main.Active = 0;
+ dhw_T.Visible = 0;
+ dhw_T.Active = 0;
  dhw_point.Active = 0;
  dhw_point.Visible = 0;
  dhw_celc.Visible = 0;
  dhw_celc.Active = 0;
  dhw_led.Visible = 0;
  dhw_led.Active = 0;
- BoxRound2.Visible = 0;
- BoxRound2.Active = 0;
+ dhw_dec.Visible = 0;
+ dhw_dec.Active = 0;
  IntToStr(system_reg[SET_DHW], txt);
 
  Ltrim(txt);
@@ -4009,16 +4080,16 @@ void DHW_SetingOnClick()
  DHW_DOWN.Active = 0;
  DHW_Setting_value.Visible = 0;
  DHW_Setting_value.Active = 0;
- dhw_temp_main.Visible = 1;
- dhw_temp_main.Active = 1;
+ dhw_T.Visible = 1;
+ dhw_T.Active = 1;
  dhw_point.Active = 1;
  dhw_point.Visible = 1;
  dhw_celc.Visible = 1;
  dhw_celc.Active = 1;
  dhw_led.Visible = 1;
  dhw_led.Active = 1;
- BoxRound2.Visible = 1;
- BoxRound2.Active = 1;
+ dhw_dec.Visible = 1;
+ dhw_dec.Active = 1;
  DHW_Seting.Caption = "SET";
 
  count_push=0;
@@ -4027,7 +4098,9 @@ void DHW_SetingOnClick()
  DrawRoundButton (& ON_OFF_DHW);
  DrawImage(&dhw_icon);
  DrawRoundButton(&bar_DHW);
- DrawLabel (&dhw_temp_main);
+ DrawRoundButton(&dhw_T);
+ DrawRoundButton(&dhw_dec);
+
  DrawCircle(&dhw_led);
  DrawLabel(&dhw_point);
  DrawLabel(&dhw_celc);
@@ -4052,16 +4125,16 @@ void Heat_SettingOnClick(){
  HEAT_Down.Active = 1;
  TEMP_Setting_value.Visible = 1;
  TEMP_Setting_value.Active = 1;
- heat_temp_main.Visible = 0;
- heat_temp_main.Active = 0;
+ heat_T.Visible = 0;
+ heat_T.Active = 0;
  heat_point.Active = 0;
  heat_point.Visible = 0;
  heat_celc.Visible = 0;
  heat_celc.Active = 0;
  heat_led.Visible = 0;
  heat_led.Active = 0;
- heatBox.Visible = 0;
- heatBox.Active = 0;
+ heat_dec.Active = 0;
+ heat_dec.Visible = 0;
  if(strcmp(bar_heating.Caption,"HEATING")==0 )IntToStr(system_reg[SET_HEAT], txt);
  else if(strcmp(bar_heating.Caption,"COOLING")==0) IntToStr(system_reg[SET_COOL], txt);
  Ltrim(txt);
@@ -4084,30 +4157,32 @@ void Heat_SettingOnClick(){
  HEAT_Down.Active = 0;
  TEMP_Setting_value.Visible = 0;
  TEMP_Setting_value.Active = 0;
- heat_temp_main.Visible = 1;
- heat_temp_main.Active = 1;
+ heat_T.Visible = 1;
+ heat_T.Active = 1;
  heat_point.Active = 1;
  heat_point.Visible = 1;
  heat_celc.Visible = 1;
  heat_celc.Active = 1;
  heat_led.Visible = 1;
  heat_led.Active = 1;
- heatBox.Visible = 1;
- heatBox.Active = 1;
-
+ heat_dec.Active = 1;
+ heat_dec.Visible = 1;
  Heat_Setting.Caption = "SET";
  count_push=0;
  DrawRoundBox(&Heat_Windows);
  DrawRoundButton(&Heat_Setting);
  DrawRoundButton (& ON_OFF_Heat_Cool);
  DrawRoundButton(&bar_heating);
- DrawLabel (&heat_temp_main);
+ DrawRoundButton(&heat_T);
+ DrawRoundButton(&heat_dec);
+
  DrawCircle(&heat_led);
  DrawLabel(&heat_point);
  DrawLabel(&heat_celc);
  if ( strcmp(bar_heating.Caption,"HEATING")==0 ){ DrawImage(&heat_icon);send_data_packet(SET_HEAT,1); }
  else {DrawImage(&cool_icon);send_data_packet(SET_COOL,1); }
  }
+
 
 
 }
@@ -4445,34 +4520,53 @@ void user_defrostOnPress(){
  Image57.Visible = 1;
  DrawImage(&Image57);
 }
-#line 818 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 839 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
 void DEC_EEV1OnPress() {
-
+ char txt[7];
  Tone1();
+ incTRV--;
 
- if(Red_bar.Position >= Red_bar.Min + 5) {
+ if(incTRV<0)incTRV=0;
+ IntToStr(incTRV, txt);Ltrim(txt);
+ strcpy(EEV1_value.Caption, txt);
+ DrawRoundButton(&EEV1_value);
 
 
- Red_bar.Position -= 5;
 
- DrawProgressBar(&Red_bar);
+
+
+
+
  Delay_ms (50);
- }
+
  }
 void INC_EEV1OnPress() {
+ char txt[7];
+
  Tone1();
- if(Red_bar.Position <= Red_bar.Max - 5) {
- Red_bar.Position += 5;
- UpdatePBPosition(&Red_bar);
+ incTRV++;
+
+ if(incTRV>240)incTRV=240;
+ IntToStr(incTRV, txt);Ltrim(txt);
+ strcpy(EEV1_value.Caption, txt);
+ DrawRoundButton(&EEV1_value);
+
+
+
  Delay_ms (50);
- }
+
 }
 
 void Set_Trv() {
-
- system_reg[TRV_CORRECT_1]=Red_bar.Position - system_reg[TRV_STEPS_1];
-#line 846 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+ if(num_page==0)
+ {
+ system_reg[TRV_CORRECT_1]= incTRV;
  send_data_packet(TRV_CORRECT_1,1);
+ }
+ else{
+ system_reg[TRV_CORRECT_2]= incTRV;
+ send_data_packet(TRV_CORRECT_2,1);
+ }
 }
 
 
@@ -4654,56 +4748,85 @@ void ENTEROnClick() {
 
  void SetDateAndTimeOnClick(){
 
+
+ My_Date.RTC_Date_Tens = tenDayU;
+ My_Date.RTC_Date_Units = oneDayU;
+ My_Date.RTC_Month_Tens = oneMonth/10;
+ My_Date.RTC_Month_Units = oneMonth%10;
+ My_Date.RTC_Year_Tens = oneYearU;
+ My_Date.RTC_Year_Units = tenYearU;
+
+
+
+ My_Time.RTC_Hour_Tens = tenHour;
+ My_Time.RTC_Hour_Units = oneHour;
+ My_Time.RTC_Min_Tens = tenMinute;
+ My_Time.RTC_Min_Units = oneMinute;
+
+
+
+ RTC_SetTime(&My_Time, -37);
+ RTC_SetDate(&My_Date);
  }
  void OneYearUpOnClick(){
- char temp[4];
- char *res;
- Tone2();
- tenYearU++;
- if (tenYearU > 9)
- tenYearU = 0;
- ByteToStr(tenYearU, temp);
- res = Ltrim(temp);
- strcpy(OneYear.Caption, res);
- DrawButton(&OneYearUp);
- DrawButton(&OneYearDwn);
- DrawLabel(&OneYear);
+
 }
 void OneYearDwnOnClick(){
- char temp[4];
- char *res;
- Tone2();
- tenYearU--;
- if (My_Date.RTC_Year_Tens < 0)
- tenYearU = 9;
- ByteToStr(tenYearU, temp);
- res = Ltrim(temp);
- strcpy(OneYear.Caption, res);
- DrawButton(&OneYearUp);
- DrawButton(&OneYearDwn);
- DrawLabel(&OneYear);
+
 }
 void OneYearUpOnUp(){
- DrawLabel(&OneYear);
+
+ char txt[4];
+ char *res;
+ oneYearU++;
+ if (oneYearU > 9)oneYearU=0;
+ ByteToStr(oneYearU, txt);
+ res=Ltrim(txt);
+ strcpy(Button1.Caption,res );
+ DrawButton(&Button1);
 }
 void OneYearUpOnPress(){
- DrawLabel(&OneYear);
+
 }
 void OneYearDwnOnUp() {
- DrawLabel(&OneYear);
+ char txt[4];
+ char *res;
+ oneYearU--;
+ if (oneYearU >9)oneYearU=0;
+ ByteToStr(tenYearU, txt);
+ res = Ltrim(txt);
+ strcpy(Button1.Caption, res);
+ DrawButton(&Button1);
 }
 void OneYearDwnOnPress() {
- DrawLabel(&OneYear);
+
 }
 
 void TenYearUpOnClick() {
-}
-void TenYearDwnOnClick() {
-}
-void TenYearUpOnUp() {
 
 }
+void TenYearDwnOnClick() {
+
+}
+void TenYearUpOnUp() {
+ char txt[4];
+ char *res;
+ tenYearU++;
+ if (tenYearU > 9)tenYearU=0;
+ ByteToStr(tenYearU, txt);
+ res =Ltrim(txt);
+ strcpy(Button3.Caption,res);
+ DrawButton(&Button3);
+}
 void TenYearDwnOnUp() {
+ char txt[4];
+ char *res;
+ tenYearU--;
+ if (tenYearU > 9)tenYearU=0;
+ ByteToStr(tenYearU, txt);
+ res = Ltrim(txt);
+ strcpy(Button3.Caption,res);
+ DrawButton(&Button3);
 }
 void TenYearDwnOnPress() {
 }
@@ -4716,18 +4839,59 @@ void MonthDateUpOnClick() {
 }
 void MonthDateUpOnUp() {
 
+
+ oneMonth++;
+ if (oneMonth > 12)oneMonth=1;
+switch (oneMonth) {
+ case 1 : strcpy(Button4.Caption,"JAN");break;
+ case 2 : strcpy(Button4.Caption,"FAB");break;
+ case 3 : strcpy(Button4.Caption,"MAR");break;
+ case 4 : strcpy(Button4.Caption,"APR");break;
+ case 5 : strcpy(Button4.Caption,"MAY");break;
+ case 6 : strcpy(Button4.Caption,"JUN");break;
+ case 7 : strcpy(Button4.Caption,"JUL");break;
+ case 8 : strcpy(Button4.Caption,"AUG");break;
+ case 9 : strcpy(Button4.Caption,"SEP");break;
+ case 10 : strcpy(Button4.Caption,"OCT");break;
+ case 11 : strcpy(Button4.Caption,"NOV");break;
+ case 12 : strcpy(Button4.Caption,"DEC");break;
+ }
+
+ DrawButton(&Button4);
 }
 void MonthDateUpOnPress() {
 
 }
 void MonthDateDwnOnClick() {
 
+
+
+
 }
 void MonthDateDwnOnUp() {
 
+ oneMonth--;
+ if (oneMonth > 12)oneMonth=1;
+ strcpy(Button4.Caption,"SEP");
+ switch (oneMonth) {
+ case 1 : strcpy(Button4.Caption,"JAN");break;
+ case 2 : strcpy(Button4.Caption,"FAB");break;
+ case 3 : strcpy(Button4.Caption,"MAR");break;
+ case 4 : strcpy(Button4.Caption,"APR");break;
+ case 5 : strcpy(Button4.Caption,"MAY");break;
+ case 6 : strcpy(Button4.Caption,"JUN");break;
+ case 7 : strcpy(Button4.Caption,"JUL");break;
+ case 8 : strcpy(Button4.Caption,"AUG");break;
+ case 9 : strcpy(Button4.Caption,"SEP");break;
+ case 10 : strcpy(Button4.Caption,"OCT");break;
+ case 11 : strcpy(Button4.Caption,"NOV");break;
+ case 12 : strcpy(Button4.Caption,"DEC");break;
+ }
+ DrawButton(&Button4);
 }
 void MonthDateDwnOnPress() {
 }
+
 void TenDayUpOnClick() {
 
 }
@@ -4736,11 +4900,21 @@ void TenDayDwnOnClick() {
 }
 
 void TenDayUpOnUp() {
-
+ char txt[4];
+ tenDayU++;
+ if (tenDayU > 9)tenDayU=0;
+ ByteToStr(tenDayU, txt);
+ strcpy(Button8.Caption,Ltrim(txt));
+ DrawButton(&Button8);
 }
 
 void TenDayDwnOnUp() {
-
+ char txt[4];
+ tenDayU--;
+ if (tenDayU > 9)tenDayU=0;
+ ByteToStr(tenDayU, txt);
+ strcpy(Button8.Caption,Ltrim(txt));
+ DrawButton(&Button8);
 }
 
 void TenDayUpOnPress() {
@@ -4750,6 +4924,7 @@ void TenDayUpOnPress() {
 void TenDayDwnOnPress() {
 
 }
+
 void OneDayUpOnClick() {
 
 }
@@ -4759,11 +4934,21 @@ void OneDayDwnOnClick() {
 }
 
 void OneDayUpOnUp() {
-
+ char txt[4];
+ oneDayU++;
+ if (oneDayU > 9)oneDayU=0;
+ ByteToStr(oneDayU, txt);
+ strcpy(Button12.Caption,Ltrim(txt));
+ DrawButton(&Button12);
 }
 
 void OneDayDwnOnUp() {
-
+ char txt[4];
+ oneDayU--;
+ if (oneDayU > 9)oneDayU=0;
+ ByteToStr(oneDayU, txt);
+ strcpy(Button12.Caption,Ltrim(txt));
+ DrawButton(&Button12);
 }
 
 void OneDayUpOnPress() {
@@ -4773,6 +4958,7 @@ void OneDayUpOnPress() {
 void OneDayDwnOnPress() {
 
 }
+
 void Day_unitUpOnClick() {
 
 }
@@ -4782,11 +4968,21 @@ void Day_unitDwnOnClick() {
 }
 
 void Day_unitUpOnUp() {
-
+ char txt[4];
+ tenHour++;
+ if (tenHour > 9)tenHour=0;
+ ByteToStr(tenHour, txt);
+ strcpy(Button21.Caption,Ltrim(txt));
+ DrawButton(&Button21);
 }
 
 void Day_unitDwnOnUp() {
-
+ char txt[4];
+ tenHour--;
+ if (tenHour > 9)tenHour=0;
+ ByteToStr(tenHour, txt);
+ strcpy(Button21.Caption,Ltrim(txt));
+ DrawButton(&Button21);
 }
 
 void Day_unitUpOnPress() {
@@ -4805,10 +5001,20 @@ void Unit_hoursDwnOnClick() {
 
 }
 void Unit_hoursUpOnUp() {
-
+ char txt[4];
+ oneHour++;
+ if (oneHour > 9)oneHour=0;
+ ByteToStr(oneHour, txt);
+ strcpy(Button24.Caption,Ltrim(txt));
+ DrawButton(&Button24);
  }
 void Unit_hoursDwnOnUp() {
-
+ char txt[4];
+ oneHour--;
+ if (oneHour > 9)oneHour=0;
+ ByteToStr(oneHour, txt);
+ strcpy(Button24.Caption,Ltrim(txt));
+ DrawButton(&Button24);
 }
 void Unit_hoursUpOnPress() {
 
@@ -4816,6 +5022,7 @@ void Unit_hoursUpOnPress() {
 void Unit_hoursDwnOnPress() {
 
 }
+
 void Ten_minutesUpOnClick() {
 
 }
@@ -4823,10 +5030,20 @@ void Ten_minutesDwnOnClick() {
 
 }
 void Ten_minutesUpOnUp() {
-
+ char txt[4];
+ tenMinute++;
+ if (tenMinute > 9)tenMinute=0;
+ ByteToStr(tenMinute, txt);
+ strcpy(Button40.Caption,Ltrim(txt));
+ DrawButton(&Button40);
 }
 void Ten_minutesDwnOnUp() {
-
+ char txt[4];
+ tenMinute--;
+ if (tenMinute > 9)tenMinute=0;
+ ByteToStr(tenMinute, txt);
+ strcpy(Button40.Caption,Ltrim(txt));
+ DrawButton(&Button40);
 }
 void Ten_minutesUpOnPress() {
 
@@ -4834,6 +5051,7 @@ void Ten_minutesUpOnPress() {
 void Ten_minutesDwnOnPress() {
 
 }
+
 void Unit_minutesUpOnClick() {
 
 }
@@ -4843,11 +5061,21 @@ void Unit_minutesDwnOnClick() {
 }
 
 void Unit_minutesUpOnUp(){
-
+ char txt[4];
+ oneMinute++;
+ if (oneMinute > 9)oneMinute=0;
+ ByteToStr(oneMinute, txt);
+ strcpy(Button43.Caption,Ltrim(txt));
+ DrawButton(&Button43);
 }
 
 void Unit_minutesDwnOnUp(){
-
+ char txt[4];
+ oneMinute--;
+ if (oneMinute > 9)oneMinute=0;
+ ByteToStr(oneMinute, txt);
+ strcpy(Button43.Caption,Ltrim(txt));
+ DrawButton(&Button43);
 }
 
 void Unit_minutesUpOnPress() {
@@ -4900,12 +5128,17 @@ void ModeSetOnDown() {
 void system_EEVOnDown() {
  Image89.Visible = 1;
  DrawImage(&Image89);
+ reciev_data_packet(TRV_CORRECT_1,1);
+ Delay_ms(300);
 }
 
 void system_EEVOnUp() {
+ char txt[7];
  Tone2();
  BLED_Fade_Out();
-
+ incTRV = system_reg[TRV_CORRECT_1];
+ IntToStr(incTRV, txt);Ltrim(txt);
+ strcpy(EEV1_value.Caption, txt);
  Image89.Visible = 0;
  DrawScreen(&EEV);
  BLED_Fade_In();
@@ -5054,7 +5287,7 @@ void Delay_Source_SETOnUp() {
 }
 void Delay_Source_SETOnDown() {
  Tone1();
-#line 1431 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1608 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(SOURS_DEL,1);
  Delay_Source_SET.Visible = 0;
  Image344.Visible = 1;
@@ -5074,7 +5307,7 @@ void Delay_heat_pump_DOWNOnPress() {
  Image307.Visible = 1;
  Delay_heat_pump_DOWN.Visible = 0;
  DrawImage(&Image307);
-#line 1452 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1629 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[HEAT_DEL]--;
  if (system_reg[HEAT_DEL] <0) system_reg[HEAT_DEL]=0;
  IntToStr(system_reg[HEAT_DEL], txt);
@@ -5095,7 +5328,7 @@ void Delay_heat_pump_upOnPress() {
  Image313.Visible = 1;
  Delay_heat_pump_up.Visible = 0;
  DrawImage(&Image313);
-#line 1474 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1651 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[HEAT_DEL]++;
  if (system_reg[HEAT_DEL] >99)
  system_reg[HEAT_DEL] = 99;
@@ -5113,7 +5346,7 @@ void Delay_heat_pump_SETOnUp() {
 }
 void Delay_heat_pump_SETOnDown() {
  Tone1();
-#line 1494 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1671 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(HEAT_DEL,1);
  Delay_heat_pump_SET.Visible = 0;
  Image345.Visible = 1;
@@ -5132,7 +5365,7 @@ void Delay_reversing_DOWNOnPress() {
  Image308.Visible = 1;
  Delay_reversing_DOWN.Visible = 0;
  DrawImage(&Image308);
-#line 1514 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1691 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[REVERS_DEL]--;
  if (system_reg[REVERS_DEL] <0)
  system_reg[REVERS_DEL] = 0;
@@ -5154,7 +5387,7 @@ void Delay_reversing_UPOnPress() {
  Image314.Visible = 1;
  Delay_reversing_UP.Visible = 0;
  DrawImage(&Image314);
-#line 1537 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1714 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[REVERS_DEL]++;
  if (system_reg[REVERS_DEL] >99)
  system_reg[REVERS_DEL] = 99 ;
@@ -5171,7 +5404,7 @@ void Delay_reversing_SETOnUp() {
 }
 void Delay_reversing_SETOnDown() {
  Tone1();
-#line 1556 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1733 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(REVERS_DEL,1);
  Delay_reversing_SET.Visible = 0;
  Image346.Visible = 1;
@@ -5190,7 +5423,7 @@ void Delay_trv_DOWNOnPress() {
  Image309.Visible = 1;
  Delay_trv_DOWN.Visible = 0;
  DrawImage(&Image309);
-#line 1576 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1753 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[TRV_DEL]--;
  if (system_reg[TRV_DEL] < 0)
  system_reg[TRV_DEL] = 0;
@@ -5212,7 +5445,7 @@ void Delay_trv_UPOnPress(){
  Image315.Visible = 1;
  Delay_trv_up.Visible = 0;
  DrawImage(&Image315);
-#line 1599 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1776 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[TRV_DEL]++;
  if (system_reg[TRV_DEL] >99)
  system_reg[TRV_DEL] = 99;
@@ -5229,7 +5462,7 @@ void Delay_EEV_SETOnUp() {
 }
 void Delay_EEV_SETOnDown() {
  Tone1();
-#line 1618 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1795 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(TRV_DEL,1);
  Delay_EEV_SET.Visible = 0;
  Image347.Visible = 1;
@@ -5248,7 +5481,7 @@ void Delay_DHW_valve_DOWNOnPress() {
  Image310.Visible = 1;
  Delay_DHW_valve_DOWN.Visible = 0;
  DrawImage(&Image310);
-#line 1638 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1815 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[THREE_WAY_DEL]--;
  if (system_reg[THREE_WAY_DEL] < 0)
  system_reg[THREE_WAY_DEL] = 0;
@@ -5270,7 +5503,7 @@ void Delay_DHW_valve_UPOnPress() {
  Image316.Visible = 1;
  Delay_DHW_valve_UP.Visible = 0;
  DrawImage(&Image316);
-#line 1661 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1838 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[THREE_WAY_DEL]++;
  if (system_reg[THREE_WAY_DEL] >99)
  system_reg[THREE_WAY_DEL] = 99;
@@ -5287,7 +5520,7 @@ void Delay_DHW_valve_SETOnUp() {
 }
 void Delay_DHW_valve_SETOnDown() {
  Tone1();
-#line 1680 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1857 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(THREE_WAY_DEL,1);
  Delay_DHW_valve_SET.Visible = 0;
  Image348.Visible = 1;
@@ -5306,7 +5539,7 @@ void Delay_compressor_DOWNOnPress() {
  Image311.Visible = 1;
  Delay_compressor_DOWN.Visible = 0;
  DrawImage(&Image311);
-#line 1700 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1877 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[COMP_DEL]--;
  if (system_reg[COMP_DEL] < 0)
  system_reg[COMP_DEL] = 0;
@@ -5328,7 +5561,7 @@ void Delay_compressor_UPOnPress() {
  Image317.Visible = 1;
  Delay_compressor_UP.Visible = 0;
  DrawImage(&Image317);
-#line 1723 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1900 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  system_reg[COMP_DEL]++;
  if (system_reg[COMP_DEL] >99)
  system_reg[COMP_DEL] = 99;
@@ -5345,7 +5578,7 @@ void Delay_compressor_SETOnUp() {
 }
 void Delay_compressor_SETOnDown() {
  Tone1();
-#line 1742 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 1919 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(COMP_DEL,1);
  Delay_compressor_SET.Visible = 0;
  Image349.Visible = 1;
@@ -5486,8 +5719,8 @@ void Down_4_OnPress() {
  DrawImage(&Image207);
 
  system_reg[SOURS_MIN]--;
- if (system_reg[SOURS_MIN] < -10)
- system_reg[SOURS_MIN] = -10;
+ if (system_reg[SOURS_MIN] < -30)
+ system_reg[SOURS_MIN] = -30;
  IntToStr(system_reg[SOURS_MIN], txt);
  Ltrim (txt);
  strncpy(Set_min_source_temp.Caption, txt, 3);
@@ -5603,7 +5836,7 @@ void Up_6_OnUp() {
 }
 void Set_1_OnDown() {
  Tone1();
-#line 2002 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2179 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(HEAT_MIN,1);
  Set_1_.Visible = 0;
  Image246.Visible = 1;
@@ -5616,7 +5849,7 @@ void Set_1_OnUp() {
 }
 void Set_2_OnDown() {
  Tone1();
-#line 2017 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2194 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(HEAT_MAX,1);
  Set_2_.Visible = 0;
  Image247.Visible = 1;
@@ -5630,7 +5863,7 @@ void Set_2_OnUp(){
 
 void Set_3_OnDown() {
  Tone1();
-#line 2033 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2210 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(EXAUST_MAX,1);
  Set_3_.Visible = 0;
  Image248.Visible = 1;
@@ -5643,7 +5876,7 @@ void Set_3_OnUp() {
 }
 void Set_4_OnDown() {
  Tone1();
-#line 2048 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2225 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(SOURS_MIN,1);
  Set_4_.Visible = 0;
  Image249.Visible = 1;
@@ -5658,7 +5891,7 @@ void Set_4_OnUp() {
 
 void Set_5_OnDown() {
  Tone1();
-#line 2065 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2242 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(SOURS_MAX,1);
  Set_5_.Visible = 0;
  Image250.Visible = 1;
@@ -5679,7 +5912,7 @@ void Furnance_HP_OFF_save_ondown() {
 }
 void Set_6_OnDown(){
  Tone1();
-#line 2088 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2265 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(DEL_HEAT_MIN,1);
  Set_6_.Visible = 0;
  Image251.Visible = 1;
@@ -5931,7 +6164,7 @@ void Set_7_OnUp() {
 }
 void Set_7_OnDown(){
  Tone1();
-#line 2342 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2519 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(DEL_HEAT_MAX,1);
  Set_7_.Visible = 0;
  Image252.Visible = 1;
@@ -5940,7 +6173,7 @@ void Set_7_OnDown(){
 
 void Set_8_OnDown() {
  Tone1();
-#line 2353 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2530 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(DEL_DHW_MIN,1);
  Set_8_.Visible = 0;
  Image253.Visible = 1;
@@ -5960,7 +6193,7 @@ void Set_8_OnUp() {
 }
 void Set_9_OnDown() {
  Tone1();
-#line 2375 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2552 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(DEL_DHW_MAX,1);
  Set_9_.Visible = 0;
  Image256.Visible = 1;
@@ -5968,7 +6201,7 @@ void Set_9_OnDown() {
 }
  void Set_10_OnDown() {
  Tone1();
-#line 2385 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2562 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(DEL_SOURS_MIN,1);
  Set_10_.Visible = 0;
  Image254.Visible = 1;
@@ -5982,7 +6215,7 @@ void Set_10_OnUp() {
 }
 void Set_11_OnDown() {
  Tone1();
-#line 2401 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2578 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(DEL_SOURS_MAX,1);
  Set_11_.Visible = 0;
  Image255.Visible = 1;
@@ -6210,7 +6443,7 @@ void Set_19_OnUp() {
 }
 void void Set_19_OnDown(){
  Tone1();
-#line 2631 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2808 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(S_HEAT_MAX,1);
  Set_19_.Visible = 0;
  Image264.Visible = 1;
@@ -6218,7 +6451,7 @@ void void Set_19_OnDown(){
 }
 void Set_20_OnDown() {
  Tone1();
-#line 2641 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2818 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(S_COOL_MIN,1);
  Set_20_.Visible = 0;
  Image265.Visible = 1;
@@ -6231,7 +6464,7 @@ void Set_20_OnUp() {
 }
 void Set_21_OnDown() {
  Tone1();
-#line 2656 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2833 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(S_COOL_MAX,1);
  Set_21_.Visible = 0;
  Image266.Visible = 1;
@@ -6244,7 +6477,7 @@ void Set_21_OnUp() {
 }
 void Set_22_OnDown(){
  Tone1();
-#line 2671 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2848 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(HP_MAX,1);
  Set_22_.Visible = 0;
  Image34.Visible = 1;
@@ -6259,7 +6492,7 @@ void Set_22_OnUp(){
 }
 void Set_23_OnDown(){
  Tone1();
-#line 2688 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 2865 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(HP_MIN,1);
  Set_23_.Visible = 0;
  Image33.Visible = 1;
@@ -6275,16 +6508,16 @@ void Set_23_OnUp(){
 
 void One_CompressorsOnClick() {
 num_page=0;
- if ((unsigned long)One_Compressors.Picture_Name ==  0x00325F58 )
+ if ((unsigned long)One_Compressors.Picture_Name ==  0x00328B0C )
  {
- One_Compressors.Picture_Name =  0x003247DC ;
+ One_Compressors.Picture_Name =  0x00327390 ;
  Two_Compressors.Visible = 1;
  DrawImage(&Two_Compressors);
  system_reg[NOMB_COMPRESSORS]=2;
  two_compressors_mode= 1 ;
  }
  else {
- One_Compressors.Picture_Name =  0x00325F58 ;
+ One_Compressors.Picture_Name =  0x00328B0C ;
  One_Compressors.Visible = 1;
  DrawImage(&One_Compressors);
  system_reg[NOMB_COMPRESSORS]=1;
@@ -6297,15 +6530,17 @@ num_page=0;
 }
 
 void Reversing_ON_HEATOnClick() {
- if ((unsigned long)Reversing_ON_HEAT.Picture_Name ==  0x00326B16 )
+ if ((unsigned long)Reversing_ON_HEAT.Picture_Name ==  0x003296CA )
  {
- Reversing_ON_HEAT.Picture_Name =  0x0032539A ;
+ Reversing_ON_HEAT.Picture_Name =  0x00327F4E ;
+ Reversing_Heat_OFF.Visible = 1;
  DrawImage(&Reversing_Heat_OFF);
  system_reg[REVERS_MOD]=0;
 
  }
  else {
- Reversing_ON_HEAT.Picture_Name =  0x00326B16 ;
+ Reversing_ON_HEAT.Picture_Name =  0x003296CA ;
+ Reversing_ON_HEAT.Visible = 1;
  DrawImage(&Reversing_ON_HEAT);
  system_reg[REVERS_MOD]=1;
  }
@@ -6322,6 +6557,24 @@ void Flow_Source__Heat2_ONOnClick() {
 
 }
 void Power_380VOnClick() {
+ if ((unsigned long)Power_380V.Picture_Name ==  0x0032A288 )
+ {
+ Power_380V.Picture_Name =  0x0032689A ;
+ Power_220V.Visible = 1;
+ DrawImage(&Power_220V);
+ system_reg[POWER_380]=0;
+
+ }
+ else {
+ Power_380V.Picture_Name =  0x0032A288 ;
+ Power_380V.Visible = 1;
+ DrawImage(&Power_380V);
+ system_reg[POWER_380]=1;
+ }
+ send_data_packet(POWER_380,1);
+ Delay_ms (300);
+
+
 
 }
 
@@ -6584,7 +6837,7 @@ void Set_heat_onup(){
 }
 void Set_heat_OnDown(){
  Tone1();
-#line 3015 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 3212 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet (DIFF_HEAT,1);
  Image135.Visible = 0;
  Image128.Visible = 1;
@@ -6598,7 +6851,7 @@ void Set_cool_OnUp(){
 }
 void Set_cool_OnDown(){
  Tone1();
-#line 3031 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 3228 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet (DIFF_COOL,1);
  Image138.Visible = 0;
  Image129.Visible = 1;
@@ -6612,7 +6865,7 @@ void Set_dhw_OnUp(){
 }
 void Set_dhw_OnDown(){
  Tone1();
-#line 3047 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 3244 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet (DIFF_DHW,1);
  Set_DHW_HY.Visible = 0;
  Image130.Visible = 1;
@@ -6644,15 +6897,17 @@ void EEV2_AutoOnClick() {
 }
 
 void Mode_ground_onOnClick () {
- if ((unsigned long)Mode_ground_on.Picture_Name ==  0x0041E932 )
+ if ((unsigned long)Mode_ground_on.Picture_Name ==  0x004214E6 )
  {
- Mode_ground_on.Picture_Name =  0x0041CB2C ;
+ Mode_ground_on.Picture_Name =  0x0041F6E0 ;
+ Mode_air_on.Visible= 1;
  DrawImage(&Mode_air_on);
  system_reg[AIRE_TO_WATER]=1;
  ground_heat_pump= 0 ;
  }
  else {
- Mode_ground_on.Picture_Name =  0x0041E932 ;
+ Mode_ground_on.Picture_Name =  0x004214E6 ;
+ Mode_ground_on.Visible= 1;
  DrawImage(&Mode_ground_on);
  system_reg[AIRE_TO_WATER]=0;
  ground_heat_pump= 1 ;
@@ -6760,7 +7015,7 @@ void UP_26_OnUp() {
 }
 void Set_24_OnDown(){
  Tone1();
-#line 3197 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 3396 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(LP_MAX,1);
  Image279.Visible = 0;
  Image29.Visible = 1;
@@ -6774,7 +7029,7 @@ void Set_24_OnUp(){
 }
 void Set_25_OnDown(){
 Tone1();
-#line 3213 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
+#line 3412 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_events_code.c"
  send_data_packet(LP_MIN,1);
  Image282.Visible = 0;
  Image22.Visible = 1;
@@ -6941,4 +7196,182 @@ void Set_13_OnUp() {
 }
 void Set_13_OnDown() {
 
+}
+
+
+
+
+
+
+
+void dec_def() {
+ char txt[7];
+ system_reg[TIME_BETWEEN_DEF]--;
+ if (system_reg[TIME_BETWEEN_DEF] < 0)
+ system_reg[TIME_BETWEEN_DEF] = 0;
+ IntToStr(system_reg[TIME_BETWEEN_DEF], txt);
+ Ltrim (txt);
+ strncpy(Defrost_on_time.Caption, txt, 2);
+ DrawRoundButton(&Defrost_on_time);
+ Delay_ms (100);
+}
+
+void time_def_dec() {
+ char txt[7];
+ system_reg[TIME_DEFROST]--;
+ if (system_reg[TIME_DEFROST] < 0)
+ system_reg[TIME_DEFROST] = 0;
+ IntToStr(system_reg[TIME_DEFROST], txt);
+ Ltrim (txt);
+ strncpy(Defrost_off_time.Caption, txt, 2);
+ DrawRoundButton(&Defrost_off_time);
+ Delay_ms (100);
+}
+
+void temp_on_dec() {
+ char txt[7];
+ system_reg[TEMP_DEFROST]--;
+ if (system_reg[TEMP_DEFROST] < 0)
+ system_reg[TEMP_DEFROST] = 0;
+ IntToStr(system_reg[TEMP_DEFROST], txt);
+ Ltrim (txt);
+ strncpy(Defrost_on_temperature.Caption, txt, 2);
+ DrawRoundButton(&Defrost_on_temperature);
+ Delay_ms (100);
+}
+
+void temp_off_dec() {
+ char txt[7];
+ system_reg[TEMP_STOP_DEFROST]--;
+ if (system_reg[TEMP_STOP_DEFROST] < 0)
+ system_reg[TEMP_STOP_DEFROST] = 0;
+ IntToStr(system_reg[TEMP_STOP_DEFROST], txt);
+ Ltrim (txt);
+ strncpy(Defrost_off_temperature.Caption, txt, 2);
+ DrawRoundButton(&Defrost_off_temperature);
+ Delay_ms (100);
+}
+
+void hum_dec() {
+
+}
+
+void inc_def() {
+ char txt[7];
+ system_reg[TIME_BETWEEN_DEF]++;
+ if (system_reg[TIME_BETWEEN_DEF] > 99)
+ system_reg[TIME_BETWEEN_DEF] = 99;
+ IntToStr(system_reg[TIME_BETWEEN_DEF], txt);
+ Ltrim (txt);
+ strncpy(Defrost_on_time.Caption, txt, 2);
+ DrawRoundButton(&Defrost_on_time);
+ Delay_ms (100);
+}
+
+void time_def_inc() {
+ char txt[7];
+ system_reg[TIME_DEFROST]++;
+ if (system_reg[TIME_DEFROST] >99)
+ system_reg[TIME_BETWEEN_DEF] = 99;
+ IntToStr(system_reg[TIME_DEFROST], txt);
+ Ltrim (txt);
+ strncpy(Defrost_off_time.Caption, txt, 2);
+ DrawRoundButton(&Defrost_off_time);
+ Delay_ms (100);
+}
+
+void temp_on_inc() {
+ char txt[7];
+ system_reg[TEMP_DEFROST]++;
+ if (system_reg[TEMP_DEFROST] >99)
+ system_reg[TEMP_DEFROST] = 99;
+ IntToStr(system_reg[TEMP_DEFROST], txt);
+ Ltrim (txt);
+ strncpy(Defrost_on_temperature.Caption, txt, 2);
+ DrawRoundButton(&Defrost_on_temperature);
+ Delay_ms (100);
+}
+
+void temp_off_inc() {
+ char txt[7];
+ system_reg[TEMP_STOP_DEFROST]++;
+ if (system_reg[TEMP_STOP_DEFROST] >99)
+ system_reg[TEMP_STOP_DEFROST] = 99;
+ IntToStr(system_reg[TEMP_STOP_DEFROST], txt);
+ Ltrim (txt);
+ strncpy(Defrost_off_temperature.Caption, txt, 2);
+ DrawRoundButton(&Defrost_off_temperature);
+}
+
+void hum_inc() {
+
+}
+
+
+
+
+
+void hum_set() {
+
+}
+
+void SetUPttimDef() {
+
+ Defrost_set1.Visible = 1;
+ Image355.Visible = 0;
+ DrawImage (&Defrost_set1);
+}
+
+void SetdownttimDef() {
+ Defrost_set1.Visible = 0;
+ Image355.Visible = 1;
+ DrawImage (&Image355);
+ send_data_packet(TIME_BETWEEN_DEF,1);
+}
+
+void Setdownintdef() {
+ Defrost_set2.Visible = 0;
+ Image381.Visible = 1;
+ DrawImage (&Image381);
+ send_data_packet(TIME_DEFROST,1);
+
+}
+
+void Setupintdef() {
+ Defrost_set2.Visible = 1;
+ Image381.Visible = 0;
+ DrawImage (&Defrost_set2);
+
+}
+
+void Setuptempdef() {
+ Defrost_set3.Visible = 1;
+ Image384.Visible = 0;
+ DrawImage (&Defrost_set3);
+
+}
+
+void Setdowntempdef() {
+ Defrost_set3.Visible = 0;
+ Image384.Visible = 1;
+ DrawImage (&Image384);
+ send_data_packet(TEMP_DEFROST,1);
+}
+
+void temp_off_set() {
+ Defrost_set4.Visible = 0;
+ Image388.Visible = 1;
+ DrawImage (&Image388);
+ send_data_packet(TEMP_STOP_DEFROST,1);
+}
+
+void temp_on_set() {
+ Defrost_set4.Visible = 1;
+ Image388.Visible = 0;
+ DrawImage (&Defrost_set4);
+
+}
+void pushDEF(){
+ system_reg[PUSH_DEFROS]=1;
+ send_data_packet(PUSH_DEFROS,1);
 }

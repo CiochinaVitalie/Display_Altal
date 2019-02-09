@@ -1,6 +1,6 @@
-#line 1 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
-#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 1 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -69,8 +69,8 @@ enum _system {
 ELECT_HEAT,
 PROG_REL,
 TIME_REL,
-TRV_CORRECT_1,
-TRV_CORRECT_2,
+TRV_CORRECT_1=391,
+TRV_CORRECT_2=392,
 NUM_P_HEAT_1,
 NUM_P_SOURS_1,
 NUM_REV_1,
@@ -95,17 +95,18 @@ CURR_C=520,
 TRV_STEPS_1=61, TRV_STEPS_2=62,
 BAC_TEMP=71,
 DHW_TEMP=81,
-CONDENS_TEMP_1=91,CONDENS_TEMP_2=92,
-SUCT_TEMP_1=101, SUCT_TEMP_2=102,
-S_COOL_1=111,S_COOL_2=112,
-S_HEAT_1=121,S_HEAT_2=122,
-HEAT_IN_1=131,HEAT_IN_2=132,
-HEAT_OUT_1=141,HEAT_OUT_2=142,
-SOURC_IN_1=151, SOURC_IN_2=152,
-SOURC_OUT_1=161,SOURC_OUT_2=162,
-HIGH_PRESS_1=171, HIGH_PRESS_2 =172,
-LOW_PRESS_1=181,LOW_PRESS_2=182,
-ERRORS_1=191,ERRORS_2=192,
+SOURC_IN_1=91, SOURC_IN_2=92,
+SOURC_OUT_1=101,SOURC_OUT_2=102,
+ERRORS_1=111,ERRORS_2=112,
+
+CONDENS_TEMP_1=121,CONDENS_TEMP_2=122,
+SUCT_TEMP_1=131, SUCT_TEMP_2=132,
+S_COOL_1=141,S_COOL_2=142,
+S_HEAT_1=151,S_HEAT_2=152,
+HEAT_IN_1=161,HEAT_IN_2=162,
+HEAT_OUT_1=171,HEAT_OUT_2=172,
+HIGH_PRESS_1=181, HIGH_PRESS_2 =182,
+LOW_PRESS_1=191,LOW_PRESS_2=192,
 EXAUST_TEMP_1=201,EXAUST_TEMP_2=202,
 
 
@@ -125,6 +126,7 @@ PUMP_SOURS_STATE_1=21, PUMP_SOURS_STATE_2=22,
 PUMP_HEAT_STATE_1=31, PUMP_HEAT_STATE_2=32,
 REV_STATE_1=41,REV_STATE_2=42,
 THREE_STATE=51,
+PUSH_DEFROS=393,
 
 COMP_DEL=10,
 HEAT_DEL=20,
@@ -171,7 +173,9 @@ TRV_DEL=420,
 SOURS_MAX=430,
 SOURS_MIN=440,
 DEL_DHW_MAX=450,
-DEL_DHW_MIN=460
+DEL_DHW_MIN=460,
+POWER_380=470,
+TIME_BETWEEN_DEF=480
 };
 
 
@@ -522,6 +526,7 @@ struct Screen {
 };
 
 extern TScreen HOME;
+extern TBox_Round BoxRound8;
 extern TBox Set_Heat_Box;
 extern TBox Set_Dhw_Box;
 extern TImage background;
@@ -566,7 +571,6 @@ extern TImage dhw_icon;
 extern TLabel Label25;
 extern TImage cool_icon;
 extern TImage Image28;
-extern TLabel DateTime;
 extern TLabel dhw_celc;
 extern TLabel dhw_point;
 extern TLabel heat_point;
@@ -580,6 +584,10 @@ extern TImage Image168;
 extern TImage Image169;
 extern TImage Image26;
 extern TImage Image170;
+
+extern TButton_Round dhw_T;
+extern TButton_Round heat_T;
+
 extern TButton_Round DHW_UP;
 extern TButton_Round DHW_DOWN;
 extern TButton_Round HEAT_Down;
@@ -593,28 +601,30 @@ extern TImage heat_icon;
 extern TImage MainBut1;
 extern TImage MainBut2;
 extern TImage MainBut5;
-extern TBox_Round heatBox;
-extern TLabel heat_temp_main;
-extern TBox_Round BoxRound2;
-extern TLabel dhw_temp_main;
-extern TBox_Round BoxRound3;
-extern TLabel sourse_temp_input_main;
-extern TBox_Round BoxRound4;
-extern TLabel sourse_temp_output_main;
 extern TBox_Round BoxRound5;
 extern TLabel weather_temp_main;
 extern TBox_Round BoxRound6;
 extern TLabel humedity_main;
 extern TBox_Round BoxRound7;
 extern TLabel prassure_main;
+extern TButton_Round dhw_T;
+extern TButton_Round heat_T;
+extern TButton_Round sourc_out_TEMP;
+extern TButton_Round sign_OUT;
+extern TButton_Round sourc_in_T;
+extern TButton_Round sign_IN;
+extern TButton_Round dhw_dec;
+extern TButton_Round heat_dec;
+extern TButton_Round sourc_in_dec;
+extern TButton_Round source_out_dec;
 extern TBox_Round Messages_Box;
-extern TLabel Messages_Label;
-extern TButton_Round * const code Screen1_Buttons_Round[12];
-extern TLabel * const code Screen1_Labels[23];
+extern TLabel DateTime;
+extern TButton_Round * const code Screen1_Buttons_Round[22];
+extern TLabel * const code Screen1_Labels[18];
 extern TImage * const code Screen1_Images[30];
 extern TCircle * const code Screen1_Circles[4];
 extern TBox * const code Screen1_Boxes[4];
-extern TBox_Round * const code Screen1_Boxes_Round[12];
+extern TBox_Round * const code Screen1_Boxes_Round[9];
 extern TLine * const code Screen1_Lines[2];
 
 extern TScreen USER_MENU;
@@ -744,10 +754,8 @@ extern TScreen SetRTC;
 extern TImage Image32;
 extern TButton Ten_minutesUp;
 extern TButton Ten_minutesDwn;
-extern TLabel Ten_minutes;
 extern TButton Unit_minutesUp;
 extern TButton Unit_minutesDwn;
-extern TLabel Unit_minutes;
 extern TButton SetDateAndTime;
 extern TLabel Year_word;
 extern TLabel Month_Word;
@@ -758,31 +766,32 @@ extern TButton Day_unitUp;
 extern TButton Day_unitDwn;
 extern TButton Unit_hoursUp;
 extern TButton Unit_hoursDwn;
-extern TLabel Unit_hours;
-extern TLabel Day_unit;
 extern TButton OneDayUp;
 extern TButton OneDayDwn;
 extern TLine LineSlash;
 extern TButton TenDayUp;
 extern TButton TenDayDwn;
-extern TLabel TenDay;
-extern TLabel OneDay;
 extern TButton MonthDateUp;
 extern TButton MonthDateDwn;
-extern TLabel MonthDate;
 extern TButton TenYearUp;
 extern TButton TenYearDwn;
 extern TButton OneYearUp;
 extern TButton OneYearDwn;
-extern TLabel OneYear;
-extern TLabel TenYear;
-extern TButton DayOfWeek;
 extern TLabel Time_setting_label;
 extern TButton_Round home_b4;
 extern TButton_Round Back_b3;
-extern TButton * const code Screen5_Buttons[20];
+extern TButton Button1;
+extern TButton Button3;
+extern TButton Button4;
+extern TButton Button8;
+extern TButton Button12;
+extern TButton Button21;
+extern TButton Button24;
+extern TButton Button40;
+extern TButton Button43;
+extern TButton * const code Screen5_Buttons[28];
 extern TButton_Round * const code Screen5_Buttons_Round[2];
-extern TLabel * const code Screen5_Labels[15];
+extern TLabel * const code Screen5_Labels[6];
 extern TImage * const code Screen5_Images[1];
 extern TLine * const code Screen5_Lines[1];
 
@@ -1108,7 +1117,12 @@ extern TLabel Label72;
 extern TButton_Round Next_b6;
 extern TLabel Label27;
 extern TLabel Label35;
-extern TButton_Round * const code Screen14_Buttons_Round[18];
+extern TButton_Round BrineIN_sign;
+extern TButton_Round BrineOUT_sign;
+extern TButton_Round Super_sign;
+extern TButton_Round Cond_sign;
+extern TButton_Round Cool_sign;
+extern TButton_Round * const code Screen14_Buttons_Round[23];
 extern TLabel * const code Screen14_Labels[42];
 extern TImage * const code Screen14_Images[1];
 extern TCircleButton * const code Screen14_CircleButtons[1];
@@ -1819,7 +1833,8 @@ extern TLabel Label51;
 extern TImage humidity_down;
 extern TImage humidity_up;
 extern TImage humidity_set;
-extern TButton_Round * const code Screen33_Buttons_Round[7];
+extern TButton_Round ButtonRound2;
+extern TButton_Round * const code Screen33_Buttons_Round[8];
 extern TLabel * const code Screen33_Labels[1];
 extern TImage * const code Screen33_Images[31];
 
@@ -1935,7 +1950,6 @@ extern TCircleButton * const code Screen37_CircleButtons[1];
 
 
 
-
 void BackToHome();
 void goToBack();
 void nextPage();
@@ -1985,7 +1999,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2016 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2030 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -2417,7 +2431,33 @@ void Set_13_OnDown();
 
 
 
+void dec_def();
+void time_def_dec();
+void temp_on_dec();
+void temp_off_dec();
+void hum_dec();
 
+void inc_def();
+void time_def_inc();
+void temp_on_inc();
+void temp_off_inc();
+void hum_inc();
+void temp_off_set();
+void temp_on_set();
+void hum_set();
+void SetUPttimDef();
+void SetdownttimDef();
+void Setdownintdef();
+void Setupintdef();
+void Setuptempdef();
+void Setdowntempdef();
+void Mode_ground_onOnClick ();
+void pushDEF();
+
+
+
+
+extern char BoxRound8_Caption[];
 extern char Set_Heat_Box_Caption[];
 extern char Set_Dhw_Box_Caption[];
 extern char background_Caption[];
@@ -2462,7 +2502,6 @@ extern char dhw_icon_Caption[];
 extern char Label25_Caption[];
 extern char cool_icon_Caption[];
 extern char Image28_Caption[];
-extern char DateTime_Caption[];
 extern char dhw_celc_Caption[];
 extern char dhw_point_Caption[];
 extern char heat_point_Caption[];
@@ -2503,8 +2542,18 @@ extern char BoxRound6_Caption[];
 extern char humedity_main_Caption[];
 extern char BoxRound7_Caption[];
 extern char prassure_main_Caption[];
+extern char dhw_T_Caption[];
+extern char heat_T_Caption[];
+extern char sourc_out_TEMP_Caption[];
+extern char sign_OUT_Caption[];
+extern char sourc_in_T_Caption[];
+extern char sign_IN_Caption[];
+extern char dhw_dec_Caption[];
+extern char heat_dec_Caption[];
+extern char sourc_in_dec_Caption[];
+extern char source_out_dec_Caption[];
 extern char Messages_Box_Caption[];
-extern char Messages_Label_Caption[];
+extern char DateTime_Caption[];
 extern char Image30_Caption[];
 extern char Image105_Caption[];
 extern char Image60_Caption[];
@@ -2613,10 +2662,8 @@ extern char Home_b3_Caption[];
 extern char Image32_Caption[];
 extern char Ten_minutesUp_Caption[];
 extern char Ten_minutesDwn_Caption[];
-extern char Ten_minutes_Caption[];
 extern char Unit_minutesUp_Caption[];
 extern char Unit_minutesDwn_Caption[];
-extern char Unit_minutes_Caption[];
 extern char SetDateAndTime_Caption[];
 extern char Year_word_Caption[];
 extern char Month_Word_Caption[];
@@ -2627,28 +2674,29 @@ extern char Day_unitUp_Caption[];
 extern char Day_unitDwn_Caption[];
 extern char Unit_hoursUp_Caption[];
 extern char Unit_hoursDwn_Caption[];
-extern char Unit_hours_Caption[];
-extern char Day_unit_Caption[];
 extern char OneDayUp_Caption[];
 extern char OneDayDwn_Caption[];
 extern char LineSlash_Caption[];
 extern char TenDayUp_Caption[];
 extern char TenDayDwn_Caption[];
-extern char TenDay_Caption[];
-extern char OneDay_Caption[];
 extern char MonthDateUp_Caption[];
 extern char MonthDateDwn_Caption[];
-extern char MonthDate_Caption[];
 extern char TenYearUp_Caption[];
 extern char TenYearDwn_Caption[];
 extern char OneYearUp_Caption[];
 extern char OneYearDwn_Caption[];
-extern char OneYear_Caption[];
-extern char TenYear_Caption[];
-extern char DayOfWeek_Caption[];
 extern char Time_setting_label_Caption[];
 extern char home_b4_Caption[];
 extern char Back_b3_Caption[];
+extern char Button1_Caption[];
+extern char Button3_Caption[];
+extern char Button4_Caption[];
+extern char Button8_Caption[];
+extern char Button12_Caption[];
+extern char Button21_Caption[];
+extern char Button24_Caption[];
+extern char Button40_Caption[];
+extern char Button43_Caption[];
 extern char Image45_Caption[];
 extern char Error_label_Caption[];
 extern char Error_message_Caption[];
@@ -2923,6 +2971,11 @@ extern char Label72_Caption[];
 extern char Next_b6_Caption[];
 extern char Label27_Caption[];
 extern char Label35_Caption[];
+extern char BrineIN_sign_Caption[];
+extern char BrineOUT_sign_Caption[];
+extern char Super_sign_Caption[];
+extern char Cond_sign_Caption[];
+extern char Cool_sign_Caption[];
 extern char Image192_Caption[];
 extern char Image33_Caption[];
 extern char Image34_Caption[];
@@ -3522,6 +3575,7 @@ extern char Label51_Caption[];
 extern char humidity_down_Caption[];
 extern char humidity_up_Caption[];
 extern char humidity_set_Caption[];
+extern char ButtonRound2_Caption[];
 extern char Image63_Caption[];
 extern char Home_b30_Caption[];
 extern char BoxRound1_Caption[];
@@ -3629,14 +3683,14 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_resources.h"
-#line 1 "e:/mikroc/mikroc pro for arm/include/stdbool.h"
+#line 1 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_resources.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 1 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
-#line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdint.h"
 
 
 
@@ -3685,57 +3739,173 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 25 "c:/users/user/desktop/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
+#line 25 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/systick.h"
  void InitSysTick();
  uint32_t millis();
-#line 1 "e:/mikroc/mikroc pro for arm/include/stdint.h"
-#line 1 "e:/mikroc/mikroc pro for arm/include/built_in.h"
-#line 8 "C:/Users/User/Desktop/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/built_in.h"
+#line 8 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
  extern int system_reg[600];
+ extern  _Bool  two_compressors_mode;
 
  void main_page(){
  int convert_temp;
  static unsigned char state_mod;
  static unsigned char state_switch;
-
- char txt[7];
+ char txt[15];
 
  IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);
-
- if(strncmp(txt,dhw_temp_main.Caption,2)!=0){
- strncpy(dhw_temp_main.Caption, txt, 2);
- if(system_reg[DHW_TEMP]<10 && system_reg[DHW_TEMP]>=0){dhw_temp_main.Caption[1]=dhw_temp_main.Caption[0];dhw_temp_main.Caption[0]='0';}
- DrawRoundBox(&BoxRound2);
- DrawLabel (&dhw_temp_main);
+ if(system_reg[DHW_TEMP]>=10 && system_reg[DHW_TEMP]<100 )
+ {
+#line 23 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
+ if(strcmp(dhw_T.Caption[1], txt[0])!=0 || strcmp(dhw_T.Caption[0], '0')!=0)
+ {
+ strncpy(dhw_T.Caption, txt, 1);
+ dhw_T.Caption[1]=dhw_T.Caption[0];
+ dhw_T.Caption[0]='0';
+ DrawRoundButton(&dhw_T);
+ }
+ if(dhw_dec.Caption[0]!=txt[1])
+ {
+ dhw_dec.Caption[0]=txt[1];
+ DrawRoundButton(&dhw_dec);
+ }
+ }
+ else if(system_reg[DHW_TEMP]>=0 && system_reg[DHW_TEMP]<10 )
+ {
+ if( strncmp("00",dhw_T.Caption,2)!=0){
+ dhw_T.Caption[1]='0';
+ dhw_T.Caption[0]='0';
+ DrawRoundButton(&dhw_T);}
+ if(strncmp(txt,dhw_dec.Caption,1)!=0)
+ {
+ strncpy(dhw_dec.Caption, txt, 1);
+ DrawRoundButton(&dhw_dec);
+ }
  }
 
+
+
+ else
+ {
+ if(strncmp(txt,dhw_T.Caption,2)!=0){strncpy(dhw_T.Caption, txt, 2);DrawRoundButton(&dhw_T);}
+ if(strncmp(txt+2,dhw_dec.Caption,1)!=0){strncpy(dhw_dec.Caption, txt+2, 1);DrawRoundButton(&dhw_dec);}
+ }
  IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);
-
- if(strncmp(txt,heat_temp_main.Caption,2)!=0){
- strncpy(heat_temp_main.Caption, txt, 2);
- if(system_reg[BAC_TEMP]<10 && system_reg[BAC_TEMP]>=0){heat_temp_main.Caption[1]=heat_temp_main.Caption[0];heat_temp_main.Caption[0]='0';}
- DrawRoundBox(&heatBox);
- DrawLabel (&heat_temp_main);
+ if(system_reg[BAC_TEMP]>=10 && system_reg[BAC_TEMP]<100 )
+ {
+#line 62 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
+ if(strcmp(heat_T.Caption[1], txt[0])!=0 || strcmp(heat_T.Caption[0], '0')!=0)
+ {
+ strncpy(heat_T.Caption, txt, 1);
+ heat_T.Caption[1]=heat_T.Caption[0];
+ heat_T.Caption[0]='0';
+ DrawRoundButton(&heat_T);
+ }
+ if(heat_dec.Caption[0]!=txt[1])
+ {
+ heat_dec.Caption[0]=txt[1];
+ DrawRoundButton(&heat_dec);
+ }
  }
 
- IntToStr(system_reg[SOURC_OUT_1], txt);Ltrim(txt);
-
- if(strncmp(txt,sourse_temp_output_main.Caption,2)!=0){
- strncpy(sourse_temp_output_main.Caption, txt, 2);
- if(system_reg[SOURC_OUT_1]<10 && system_reg[SOURC_OUT_1]>=0){sourse_temp_output_main.Caption[1]=sourse_temp_output_main.Caption[0];sourse_temp_output_main.Caption[0]='0';}
- DrawRoundBox(&BoxRound4);
- DrawLabel (&sourse_temp_output_main);
+ else if(system_reg[BAC_TEMP]>=0 && system_reg[BAC_TEMP]<10 )
+ {
+ if( strncmp("00",heat_T.Caption,2)!=0){
+ heat_T.Caption[1]='0';
+ heat_T.Caption[0]='0';
+ DrawRoundButton(&heat_T); }
+ if(strncmp(txt,heat_dec.Caption,1)!=0)
+ {
+ strncpy(heat_dec.Caption, txt, 1);
+ DrawRoundButton(&heat_dec);
+ }
  }
 
- IntToStr(system_reg[SOURC_IN_1], txt);Ltrim(txt);
 
- if(strncmp(txt,sourse_temp_input_main.Caption,2)!=0){
- strncpy(sourse_temp_input_main.Caption, txt, 2);
- if(system_reg[SOURC_IN_1]<10 && system_reg[SOURC_IN_1]>=0){sourse_temp_input_main.Caption[1]=sourse_temp_input_main.Caption[0];sourse_temp_input_main.Caption[0]='0';}
- DrawRoundBox(&BoxRound3);
- DrawLabel (&sourse_temp_input_main);
+
+ else
+ {
+ if(strncmp(txt,heat_T.Caption,2)!=0){strncpy(heat_T.Caption, txt, 2);DrawRoundButton(&heat_T);}
+ if(strncmp(txt+2,heat_dec.Caption,1)!=0){strncpy(heat_dec.Caption, txt+2, 1);DrawRoundButton(&heat_dec);}
+ }
+ IntToStr((int)fabs(system_reg[SOURC_OUT_1]), txt);Ltrim(txt);
+ if(system_reg[SOURC_OUT_1]<0 && strncmp("-",sign_OUT.Caption,1)!=0){sign_OUT.Caption="-";DrawRoundButton(&sign_OUT);}
+ else if(system_reg[SOURC_OUT_1]>0 && strncmp("+",sign_OUT.Caption,1)!=0){sign_OUT.Caption="+";DrawRoundButton(&sign_OUT);}
+ if((int)fabs(system_reg[SOURC_OUT_1])>=10 && (int)fabs(system_reg[SOURC_OUT_1])<100)
+ {
+#line 103 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
+ if(strcmp(sourc_out_TEMP.Caption[1], txt[0])!=0 || strcmp(sourc_out_TEMP.Caption[0], '0')!=0)
+ {
+ strncpy(sourc_out_TEMP.Caption, txt, 1);
+ sourc_out_TEMP.Caption[1]=sourc_out_TEMP.Caption[0];
+ sourc_out_TEMP.Caption[0]='0';
+ DrawRoundButton(&sourc_out_TEMP);
+ }
+ if(source_out_dec.Caption[0]!=txt[1])
+ {
+ source_out_dec.Caption[0]=txt[1];
+ DrawRoundButton(&source_out_dec);
+ }
+ }
+ else if((int)fabs(system_reg[SOURC_OUT_1])>=0 && (int)fabs(system_reg[SOURC_OUT_1])<10)
+ {
+ if( strncmp("00",sourc_out_TEMP.Caption,2)!=0){
+ sourc_out_TEMP.Caption[1]='0';
+ sourc_out_TEMP.Caption[0]='0';
+ DrawRoundButton(&sourc_out_TEMP);}
+ if(strncmp(txt,source_out_dec.Caption,1)!=0)
+ {
+ strncpy(source_out_dec.Caption, txt, 1);
+ DrawRoundButton(&source_out_dec);
+ }
+ }
+#line 138 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
+ else{
+ if(strncmp(txt,sourc_out_TEMP.Caption,2)!=0){strncpy(sourc_out_TEMP.Caption, txt, 2);DrawRoundButton(&sourc_out_TEMP);}
+ if(strncmp(txt+2,source_out_dec.Caption,1)!=0){strncpy(source_out_dec.Caption, txt+2, 1);DrawRoundButton(&source_out_dec);}
  }
 
+ IntToStr((int)fabs(system_reg[SOURC_IN_1]), txt);Ltrim(txt);
+ if(system_reg[SOURC_IN_1]<0 && strncmp("-",sign_IN.Caption,1)!=0){sign_IN.Caption="-";DrawRoundButton(&sign_IN);}
+ else if(system_reg[SOURC_IN_1]>0 && strncmp("+",sign_IN.Caption,1)!=0){sign_IN.Caption="+";DrawRoundButton(&sign_IN);}
+
+ if((int)fabs(system_reg[SOURC_IN_1])>=10 && (int)fabs(system_reg[SOURC_IN_1])<100)
+ {
+#line 152 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
+ if(strcmp(sourc_in_T.Caption[1], txt[0])!=0 || strcmp(sourc_in_T.Caption[0], '0')!=0)
+ {
+ strncpy(sourc_in_T.Caption, txt, 1);
+ sourc_in_T.Caption[1]=sourc_in_T.Caption[0];
+ sourc_in_T.Caption[0]='0';
+ DrawRoundButton(&sourc_in_T);
+ }
+ if(sourc_in_dec.Caption[0]!=txt[1])
+ {
+ sourc_in_dec.Caption[0]=txt[1];
+ DrawRoundButton(&sourc_in_dec);
+ }
+ }
+
+ else if((int)fabs(system_reg[SOURC_IN_1])>=0 && (int)fabs(system_reg[SOURC_IN_1])<10)
+ {
+ if( strncmp("00",sourc_in_T.Caption,2)!=0){
+ sourc_in_T.Caption[1]='0';
+ sourc_in_T.Caption[0]='0';
+ DrawRoundButton(&sourc_in_T); }
+ if(strncmp(txt,source_out_dec.Caption,1)!=0)
+ {
+ strncpy(source_out_dec.Caption, txt, 1);
+ DrawRoundButton(&source_out_dec);
+ }
+ }
+
+
+
+ else{
+ if(strncmp(txt,sourc_in_T.Caption,2)!=0){strncpy(sourc_in_T.Caption, txt, 2);DrawRoundButton(&sourc_in_T);}
+ if(strncmp(txt+2,sourc_in_dec.Caption,1)!=0){strncpy(sourc_in_dec.Caption, txt+2, 1);DrawRoundButton(&sourc_in_dec);}
+ }
  if(system_reg[THREE_STATE]==1){
  dhw_led.Gradient_Start_Color = 0xFFFF;
  dhw_led.Gradient_End_Color = 0xF800;
@@ -3759,8 +3929,8 @@ typedef unsigned long long uintmax_t;
 
  void startPage(){
 
- if(system_reg[POWER]==1) {Main_OFF.Picture_Name =  0x0007FBEE ;DrawImage(&Main_ON); }
- if(system_reg[POWER]==0){Main_OFF.Picture_Name =  0x00081F90 ;DrawImage(&Main_OFF);}
+ if(system_reg[POWER]==1) {Main_OFF.Picture_Name =  0x000827A2 ;DrawImage(&Main_ON); }
+ if(system_reg[POWER]==0){Main_OFF.Picture_Name =  0x00084B44 ;DrawImage(&Main_OFF);}
  if(system_reg[HEAT]==0 && system_reg[COOL]==1) {ON_OFF_Heat_Cool.Caption = "ON"; bar_heating.Caption = "COOLING";DrawRoundButton(&bar_heating);DrawImage(&cool_icon);}
  if(system_reg[HEAT]==1 && system_reg[COOL]==0) {ON_OFF_Heat_Cool.Caption = "ON"; bar_heating.Caption = "HEATING";DrawRoundButton(&bar_heating);DrawImage(&heat_icon);}
  if(system_reg[HEAT]==0 && system_reg[COOL]==0) ON_OFF_Heat_Cool.Caption = "OFF";
@@ -3773,19 +3943,91 @@ typedef unsigned long long uintmax_t;
 
 
  void sensor_1(unsigned char num_page){
- int convert_temp;
- char txt[7];
+ static int convert_temp;
+ char txt[15];
  if(num_page==0)
  {
- IntToStr(system_reg[SOURC_IN_1], txt);Ltrim(txt);
- if(strncmp(txt,S_Brine_Inlet_1.Caption,2)!=0){strncpy(S_Brine_Inlet_1.Caption, txt, 2);DrawRoundButton(&S_Brine_Inlet_1);}
- IntToStr(system_reg[SOURC_OUT_1], txt);Ltrim(txt);
- if(strncmp(txt,S_Brine_Outlet_1.Caption,2)!=0){strncpy(S_Brine_Outlet_1.Caption, txt, 2);DrawRoundButton(&S_Brine_Outlet_1);}
- IntToStr(system_reg[HEAT_IN_1], txt);Ltrim(txt);
- if(strncmp(txt,S_Heat_Inlet_1.Caption,2)!=0){strncpy(S_Heat_Inlet_1.Caption, txt, 2);DrawRoundButton(&S_Heat_Inlet_1);}
- IntToStr(system_reg[HEAT_OUT_1], txt);Ltrim(txt);
- if(strncmp(txt,S_Heat_Outlet_1.Caption,2)!=0){strncpy(S_Heat_Outlet_1.Caption, txt, 2);DrawRoundButton(&S_Heat_Outlet_1);}
+ IntToStr((int)fabs(system_reg[SOURC_IN_1]), txt); Ltrim(txt);
+ if(strncmp(txt,S_Brine_Inlet_1.Caption,3)!=0)
+ {
+ if((int)fabs(system_reg[SOURC_IN_1])>=0 && (int)fabs(system_reg[SOURC_IN_1])<10)
+ {
+
+ S_Brine_Inlet_1.Caption[0]='0';
+ S_Brine_Inlet_1.Caption[1]='0';
+ S_Brine_Inlet_1.Caption[2]='.';
+ S_Brine_Inlet_1.Caption[3]=txt[0];
+ DrawRoundButton(&S_Brine_Inlet_1);
+
+ }
+
+ else if((int)fabs(system_reg[SOURC_IN_1])>=10 && (int)fabs(system_reg[SOURC_IN_1])<100)
+ {
+
+ S_Brine_Inlet_1.Caption[0]='0';
+ S_Brine_Inlet_1.Caption[1]=txt[0];
+ S_Brine_Inlet_1.Caption[2]='.';
+ S_Brine_Inlet_1.Caption[3]=txt[1];
+ DrawRoundButton(&S_Brine_Inlet_1);
+
+ }
+ else
+ {
+ S_Brine_Inlet_1.Caption[0]=txt[0];
+ S_Brine_Inlet_1.Caption[1]=txt[1];
+ S_Brine_Inlet_1.Caption[2]='.';
+ S_Brine_Inlet_1.Caption[3]=txt[2];
+ DrawRoundButton(&S_Brine_Inlet_1);
+
+ }
+ }
+ if(system_reg[SOURC_IN_1]<0 && strncmp("-",BrineIN_sign.Caption,1)!=0){BrineIN_sign.Caption="-";DrawRoundButton(&BrineIN_sign);}
+ if(system_reg[SOURC_IN_1]>0 && strncmp("+",BrineIN_sign.Caption,1)!=0){BrineIN_sign.Caption="+";DrawRoundButton(&BrineIN_sign);}
+
+ IntToStr((int)fabs(system_reg[SOURC_OUT_1]), txt);Ltrim(txt);
+
+ if(strncmp(txt,S_Brine_Outlet_1.Caption,3)!=0)
+ {
+ if((int)fabs(system_reg[SOURC_OUT_1])>=0 && (int)fabs(system_reg[SOURC_OUT_1])<10)
+ {
+
+ S_Brine_Outlet_1.Caption[0]='0';
+ S_Brine_Outlet_1.Caption[1]='0';
+ S_Brine_Outlet_1.Caption[2]='.';
+ S_Brine_Outlet_1.Caption[3]=txt[0];
+ DrawRoundButton(&S_Brine_Outlet_1);
+
+ }
+
+ else if((int)fabs(system_reg[SOURC_OUT_1])>=10 && (int)fabs(system_reg[SOURC_OUT_1])<100)
+ {
+
+ S_Brine_Outlet_1.Caption[0]='0';
+ S_Brine_Outlet_1.Caption[1]=txt[0];
+ S_Brine_Outlet_1.Caption[2]='.';
+ S_Brine_Outlet_1.Caption[3]=txt[1];
+ DrawRoundButton(&S_Brine_Outlet_1);
+
+ }
+ else
+ {
+ S_Brine_Outlet_1.Caption[0]=txt[0];
+ S_Brine_Outlet_1.Caption[1]=txt[1];
+ S_Brine_Outlet_1.Caption[2]='.';
+ S_Brine_Outlet_1.Caption[3]=txt[2];
+ DrawRoundButton(&S_Brine_Outlet_1);
+
+ }
+ }
+ if(system_reg[SOURC_OUT_1]<0 && strncmp("-",BrineOUT_sign.Caption,1)!=0){BrineOUT_sign.Caption="-";DrawRoundButton(&BrineOUT_sign);}
+ if(system_reg[SOURC_OUT_1]>0 && strncmp("+",BrineOUT_sign.Caption,1)!=0){BrineOUT_sign.Caption="+";DrawRoundButton(&BrineOUT_sign);}
+ FloatToStr(system_reg[HEAT_IN_1]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,S_Heat_Inlet_1.Caption,4)!=0){strncpy(S_Heat_Inlet_1.Caption, txt,4);DrawRoundButton(&S_Heat_Inlet_1);}
+ FloatToStr(system_reg[HEAT_OUT_1]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,S_Heat_Outlet_1.Caption,4)!=0){strncpy(S_Heat_Outlet_1.Caption, txt, 4);DrawRoundButton(&S_Heat_Outlet_1);}
+
  IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);
+
  if(system_reg[EXAUST_TEMP_1]<100){
  if(strncmp(txt,S_Compressor_1.Caption,2)!=0){strncpy(S_Compressor_1.Caption, txt, 2);
  S_Compressor_1.Caption[2]=S_Compressor_1.Caption[1];S_Compressor_1.Caption[1]=S_Compressor_1.Caption[0];S_Compressor_1.Caption[0]='0';
@@ -3794,35 +4036,217 @@ typedef unsigned long long uintmax_t;
  }
  }
  else{if(strncmp(txt,S_Compressor_1.Caption,3)!=0){strncpy(S_Compressor_1.Caption, txt, 3);DrawRoundButton(&S_Compressor_1);} }
- IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);
- if(strncmp(txt,S_Superheat_1.Caption,2)!=0){strncpy(S_Superheat_1.Caption, txt, 2);DrawRoundButton(&S_Superheat_1);}
- IntToStr(system_reg[S_COOL_1], txt);Ltrim(txt);
- if(strncmp(txt,S_Subcool_1.Caption,2)!=0){strncpy(S_Subcool_1.Caption, txt, 2);DrawRoundButton(&S_Subcool_1);}
- IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);
- if(strncmp(txt,S_DHW.Caption,2)!=0){strncpy(S_DHW.Caption, txt, 2);DrawRoundButton(&S_DHW);}
- IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);
- if(strncmp(txt,SS_tank.Caption,2)!=0){strncpy(SS_tank.Caption, txt, 2);DrawRoundButton(&SS_tank);}
- IntToStr(system_reg[CONDENS_TEMP_1], txt);Ltrim(txt);
- if(strncmp(txt,S_condenser_1.Caption,2)!=0){strncpy(S_condenser_1.Caption, txt, 2);DrawRoundButton(&S_condenser_1);}
- IntToStr(system_reg[SUCT_TEMP_1], txt);Ltrim(txt);
- if(strncmp(txt,S_suction_1.Caption,2)!=0){strncpy(S_suction_1.Caption, txt, 2);DrawRoundButton(&S_suction_1);}
- IntToStr(system_reg[HIGH_PRESS_1], txt);Ltrim(txt);
- if(strncmp(txt,S_High_Pressure_1.Caption,2)!=0){strncpy(S_High_Pressure_1.Caption, txt, 2);DrawRoundButton(&S_High_Pressure_1);}
- IntToStr(system_reg[LOW_PRESS_1], txt);Ltrim(txt);
- if(strncmp(txt,S_Low_Pressure_1.Caption,2)!=0){strncpy(S_Low_Pressure_1.Caption, txt, 2);DrawRoundButton(&S_Low_Pressure_1);}
+
+ IntToStr((int)fabs(system_reg[S_HEAT_1]), txt);Ltrim(txt);
+
+ if(strncmp(txt,S_Superheat_1.Caption,3)!=0)
+ {
+ if((int)fabs(system_reg[S_HEAT_1])>=0 && (int)fabs(system_reg[S_HEAT_1])<10)
+ {
+
+ S_Superheat_1.Caption[0]='0';
+ S_Superheat_1.Caption[1]='0';
+ S_Superheat_1.Caption[2]='.';
+ S_Superheat_1.Caption[3]=txt[0];
+ DrawRoundButton(&S_Superheat_1);
+
+ }
+
+ else if((int)fabs(system_reg[S_HEAT_1])>=10 && (int)fabs(system_reg[S_HEAT_1])<100)
+ {
+
+ S_Superheat_1.Caption[0]='0';
+ S_Superheat_1.Caption[1]=txt[0];
+ S_Superheat_1.Caption[2]='.';
+ S_Superheat_1.Caption[3]=txt[1];
+ DrawRoundButton(&S_Superheat_1);
+
+ }
+ else
+ {
+ S_Superheat_1.Caption[0]=txt[0];
+ S_Superheat_1.Caption[1]=txt[1];
+ S_Superheat_1.Caption[2]='.';
+ S_Superheat_1.Caption[3]=txt[2];
+ DrawRoundButton(&S_Superheat_1);
+
+ }
+ }
+ if(system_reg[S_HEAT_1]<0 && strncmp("-",Super_sign.Caption,1)!=0){Super_sign.Caption="-";DrawRoundButton(&Super_sign);}
+ if(system_reg[S_HEAT_1]>0 && strncmp("+",Super_sign.Caption,1)!=0){Super_sign.Caption="+";DrawRoundButton(&Super_sign);}
+
+ IntToStr(fabs(system_reg[S_COOL_1]), txt);Ltrim(txt);
+
+ if(strncmp(txt,S_Subcool_1.Caption,3)!=0)
+ {
+ if((int)fabs(system_reg[S_COOL_1])>=0 && (int)fabs(system_reg[S_COOL_1])<10)
+ {
+
+ S_Subcool_1.Caption[0]='0';
+ S_Subcool_1.Caption[1]='0';
+ S_Subcool_1.Caption[2]='.';
+ S_Subcool_1.Caption[3]=txt[0];
+ DrawRoundButton(&S_Subcool_1);
+
+ }
+
+ else if((int)fabs(system_reg[S_COOL_1])>=10 && (int)fabs(system_reg[S_COOL_1])<100)
+ {
+
+ S_Subcool_1.Caption[0]='0';
+ S_Subcool_1.Caption[1]=txt[0];
+ S_Subcool_1.Caption[2]='.';
+ S_Subcool_1.Caption[3]=txt[1];
+ DrawRoundButton(&S_Subcool_1);
+
+ }
+ else
+ {
+ S_Subcool_1.Caption[0]=txt[0];
+ S_Subcool_1.Caption[1]=txt[1];
+ S_Subcool_1.Caption[2]='.';
+ S_Subcool_1.Caption[3]=txt[2];
+ DrawRoundButton(&S_Subcool_1);
+
+ }
+ }
+ if(system_reg[S_COOL_1]<0 && strncmp("-",Cool_sign.Caption,1)!=0){Cool_sign.Caption="-";DrawRoundButton(&Cool_sign);}
+ if(system_reg[S_COOL_1]>0 && strncmp("+",Cool_sign.Caption,1)!=0){Cool_sign.Caption="+";DrawRoundButton(&Cool_sign);}
+
+
+ FloatToStr(system_reg[DHW_TEMP]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,S_DHW.Caption,4)!=0){strncpy(S_DHW.Caption, txt, 4);DrawRoundButton(&S_DHW);}
+ FloatToStr(system_reg[BAC_TEMP]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,SS_tank.Caption,4)!=0){strncpy(SS_tank.Caption, txt, 4);DrawRoundButton(&SS_tank);}
+
+ IntToStr(fabs(system_reg[CONDENS_TEMP_1]), txt);Ltrim(txt);
+
+ if(strncmp(txt,S_condenser_1.Caption,3)!=0)
+ {
+ if((int)fabs(system_reg[CONDENS_TEMP_1])>=0 && (int)fabs(system_reg[CONDENS_TEMP_1])<10)
+ {
+
+ S_condenser_1.Caption[0]='0';
+ S_condenser_1.Caption[1]='0';
+ S_condenser_1.Caption[2]='.';
+ S_condenser_1.Caption[3]=txt[0];
+ DrawRoundButton(&S_condenser_1);
+
+ }
+
+ else if((int)fabs(system_reg[CONDENS_TEMP_1])>=10 && (int)fabs(system_reg[CONDENS_TEMP_1])<100)
+ {
+
+ S_condenser_1.Caption[0]='0';
+ S_condenser_1.Caption[1]=txt[0];
+ S_condenser_1.Caption[2]='.';
+ S_condenser_1.Caption[3]=txt[1];
+ DrawRoundButton(&S_condenser_1);
+
+ }
+ else
+ {
+ S_condenser_1.Caption[0]=txt[0];
+ S_condenser_1.Caption[1]=txt[1];
+ S_condenser_1.Caption[2]='.';
+ S_condenser_1.Caption[3]=txt[2];
+ DrawRoundButton(&S_condenser_1);
+
+ }
+ }
+ if(system_reg[CONDENS_TEMP_1]<0 && strncmp("-",Cond_sign.Caption,1)!=0){Cond_sign.Caption="-";DrawRoundButton(&Cond_sign);}
+ if(system_reg[CONDENS_TEMP_1]>0 && strncmp("+",Cond_sign.Caption,1)!=0){Cond_sign.Caption="+";DrawRoundButton(&Cond_sign);}
+
+ FloatToStr(system_reg[SUCT_TEMP_1]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,S_suction_1.Caption,4)!=0){strncpy(S_suction_1.Caption, txt, 4);DrawRoundButton(&S_suction_1);}
+ FloatToStr(system_reg[HIGH_PRESS_1]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,S_High_Pressure_1.Caption,4)!=0){strncpy(S_High_Pressure_1.Caption, txt, 4);DrawRoundButton(&S_High_Pressure_1);}
+ FloatToStr(system_reg[LOW_PRESS_1]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,S_Low_Pressure_1.Caption,4)!=0){strncpy(S_Low_Pressure_1.Caption, txt, 4);DrawRoundButton(&S_Low_Pressure_1);}
  }
  else if(num_page==1)
  {
- IntToStr(system_reg[SOURC_IN_2], txt);Ltrim(txt);
- if(strncmp(txt,S_Brine_Inlet_1.Caption,2)!=0){strncpy(S_Brine_Inlet_1.Caption, txt, 2);DrawRoundButton(&S_Brine_Inlet_1);}
- IntToStr(system_reg[SOURC_OUT_2], txt);Ltrim(txt);
- if(strncmp(txt,S_Brine_Outlet_1.Caption,2)!=0){strncpy(S_Brine_Outlet_1.Caption, txt, 2);DrawRoundButton(&S_Brine_Outlet_1);}
- IntToStr(system_reg[HEAT_IN_2], txt);Ltrim(txt);
- if(strncmp(txt,S_Heat_Inlet_1.Caption,2)!=0){strncpy(S_Heat_Inlet_1.Caption, txt, 2);DrawRoundButton(&S_Heat_Inlet_1);}
- IntToStr(system_reg[HEAT_OUT_2], txt);Ltrim(txt);
- if(strncmp(txt,S_Heat_Outlet_1.Caption,2)!=0){strncpy(S_Heat_Outlet_1.Caption, txt, 2);DrawRoundButton(&S_Heat_Outlet_1);}
- IntToStr(system_reg[EXAUST_TEMP_2], txt);Ltrim(txt);
- if(system_reg[EXAUST_TEMP_2]<100){
+ IntToStr((int)fabs(system_reg[SOURC_IN_2]), txt); Ltrim(txt);
+ if(strncmp(txt,S_Brine_Inlet_1.Caption,3)!=0)
+ {
+ if((int)fabs(system_reg[SOURC_IN_2])>=0 && (int)fabs(system_reg[SOURC_IN_2])<10)
+ {
+
+ S_Brine_Inlet_1.Caption[0]='0';
+ S_Brine_Inlet_1.Caption[1]='0';
+ S_Brine_Inlet_1.Caption[2]='.';
+ S_Brine_Inlet_1.Caption[3]=txt[0];
+ DrawRoundButton(&S_Brine_Inlet_1);
+
+ }
+
+ else if((int)fabs(system_reg[SOURC_IN_2])>=10 && (int)fabs(system_reg[SOURC_IN_2])<100)
+ {
+
+ S_Brine_Inlet_1.Caption[0]='0';
+ S_Brine_Inlet_1.Caption[1]=txt[0];
+ S_Brine_Inlet_1.Caption[2]='.';
+ S_Brine_Inlet_1.Caption[3]=txt[1];
+ DrawRoundButton(&S_Brine_Inlet_1);
+
+ }
+ else
+ {
+ S_Brine_Inlet_1.Caption[0]=txt[0];
+ S_Brine_Inlet_1.Caption[1]=txt[1];
+ S_Brine_Inlet_1.Caption[2]='.';
+ S_Brine_Inlet_1.Caption[3]=txt[2];
+ DrawRoundButton(&S_Brine_Inlet_1);
+
+ }
+ }
+ if(system_reg[SOURC_IN_2]<0 && strncmp("-",BrineIN_sign.Caption,1)!=0){BrineIN_sign.Caption="-";DrawRoundButton(&BrineIN_sign);}
+ if(system_reg[SOURC_IN_2]>0 && strncmp("+",BrineIN_sign.Caption,1)!=0){BrineIN_sign.Caption="+";DrawRoundButton(&BrineIN_sign);}
+
+ IntToStr((int)fabs(system_reg[SOURC_OUT_2]), txt);Ltrim(txt);
+
+ if(strncmp(txt,S_Brine_Outlet_1.Caption,3)!=0)
+ {
+ if((int)fabs(system_reg[SOURC_OUT_2])>=0 && (int)fabs(system_reg[SOURC_OUT_2])<10)
+ {
+
+ S_Brine_Outlet_1.Caption[0]='0';
+ S_Brine_Outlet_1.Caption[1]='0';
+ S_Brine_Outlet_1.Caption[2]='.';
+ S_Brine_Outlet_1.Caption[3]=txt[0];
+ DrawRoundButton(&S_Brine_Outlet_1);
+
+ }
+
+ else if((int)fabs(system_reg[SOURC_OUT_2])>=10 && (int)fabs(system_reg[SOURC_OUT_2])<100)
+ {
+
+ S_Brine_Outlet_1.Caption[0]='0';
+ S_Brine_Outlet_1.Caption[1]=txt[0];
+ S_Brine_Outlet_1.Caption[2]='.';
+ S_Brine_Outlet_1.Caption[3]=txt[1];
+ DrawRoundButton(&S_Brine_Outlet_1);
+
+ }
+ else
+ {
+ S_Brine_Outlet_1.Caption[0]=txt[0];
+ S_Brine_Outlet_1.Caption[1]=txt[1];
+ S_Brine_Outlet_1.Caption[2]='.';
+ S_Brine_Outlet_1.Caption[3]=txt[2];
+ DrawRoundButton(&S_Brine_Outlet_1);
+
+ }
+ }
+ if(system_reg[SOURC_OUT_2]<0 && strncmp("-",BrineOUT_sign.Caption,1)!=0){BrineOUT_sign.Caption="-";DrawRoundButton(&BrineOUT_sign);}
+ if(system_reg[SOURC_OUT_2]>0 && strncmp("+",BrineOUT_sign.Caption,1)!=0){BrineOUT_sign.Caption="+";DrawRoundButton(&BrineOUT_sign);}
+ FloatToStr(system_reg[HEAT_IN_2]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,S_Heat_Inlet_1.Caption,4)!=0){strncpy(S_Heat_Inlet_1.Caption, txt,4);DrawRoundButton(&S_Heat_Inlet_1);}
+ FloatToStr(system_reg[HEAT_OUT_2]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,S_Heat_Outlet_1.Caption,4)!=0){strncpy(S_Heat_Outlet_1.Caption, txt, 4);DrawRoundButton(&S_Heat_Outlet_1);}
+
+ IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);
+ if(system_reg[EXAUST_TEMP_2]/10<10){
  if(strncmp(txt,S_Compressor_1.Caption,2)!=0){strncpy(S_Compressor_1.Caption, txt, 2);
  S_Compressor_1.Caption[2]=S_Compressor_1.Caption[1];S_Compressor_1.Caption[1]=S_Compressor_1.Caption[0];S_Compressor_1.Caption[0]='0';
  DrawRoundButton(&S_Compressor_1);
@@ -3830,22 +4254,134 @@ typedef unsigned long long uintmax_t;
  }
  }
  else{if(strncmp(txt,S_Compressor_1.Caption,3)!=0){strncpy(S_Compressor_1.Caption, txt, 3);DrawRoundButton(&S_Compressor_1);} }
- IntToStr(system_reg[S_HEAT_2], txt);Ltrim(txt);
- if(strncmp(txt,S_Superheat_1.Caption,2)!=0){strncpy(S_Superheat_1.Caption, txt, 2);DrawRoundButton(&S_Superheat_1);}
- IntToStr(system_reg[S_COOL_2], txt);Ltrim(txt);
- if(strncmp(txt,S_Subcool_1.Caption,2)!=0){strncpy(S_Subcool_1.Caption, txt, 2);DrawRoundButton(&S_Subcool_1);}
- IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);
- if(strncmp(txt,S_DHW.Caption,2)!=0){strncpy(S_DHW.Caption, txt, 2);DrawRoundButton(&S_DHW);}
- IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);
- if(strncmp(txt,SS_tank.Caption,2)!=0){strncpy(SS_tank.Caption, txt, 2);DrawRoundButton(&SS_tank);}
- IntToStr(system_reg[CONDENS_TEMP_2], txt);Ltrim(txt);
- if(strncmp(txt,S_condenser_1.Caption,2)!=0){strncpy(S_condenser_1.Caption, txt, 2);DrawRoundButton(&S_condenser_1);}
- IntToStr(system_reg[SUCT_TEMP_2], txt);Ltrim(txt);
- if(strncmp(txt,S_suction_1.Caption,2)!=0){strncpy(S_suction_1.Caption, txt, 2);DrawRoundButton(&S_suction_1);}
- IntToStr(system_reg[HIGH_PRESS_2], txt);Ltrim(txt);
- if(strncmp(txt,S_High_Pressure_1.Caption,2)!=0){strncpy(S_High_Pressure_1.Caption, txt, 2);DrawRoundButton(&S_High_Pressure_1);}
- IntToStr(system_reg[LOW_PRESS_2], txt);Ltrim(txt);
- if(strncmp(txt,S_Low_Pressure_1.Caption,2)!=0){strncpy(S_Low_Pressure_1.Caption, txt, 2);DrawRoundButton(&S_Low_Pressure_1);}
+
+ IntToStr((int)fabs(system_reg[S_HEAT_2]), txt);Ltrim(txt);
+
+ if(strncmp(txt,S_Superheat_1.Caption,3)!=0)
+ {
+ if((int)fabs(system_reg[S_HEAT_2])>=0 && (int)fabs(system_reg[S_HEAT_2])<10)
+ {
+
+ S_Superheat_1.Caption[0]='0';
+ S_Superheat_1.Caption[1]='0';
+ S_Superheat_1.Caption[2]='.';
+ S_Superheat_1.Caption[3]=txt[0];
+ DrawRoundButton(&S_Superheat_1);
+
+ }
+
+ else if((int)fabs(system_reg[S_HEAT_2])>=10 && (int)fabs(system_reg[S_HEAT_2])<100)
+ {
+
+ S_Superheat_1.Caption[0]='0';
+ S_Superheat_1.Caption[1]=txt[0];
+ S_Superheat_1.Caption[2]='.';
+ S_Superheat_1.Caption[3]=txt[1];
+ DrawRoundButton(&S_Superheat_1);
+
+ }
+ else
+ {
+ S_Superheat_1.Caption[0]=txt[0];
+ S_Superheat_1.Caption[1]=txt[1];
+ S_Superheat_1.Caption[2]='.';
+ S_Superheat_1.Caption[3]=txt[2];
+ DrawRoundButton(&S_Superheat_1);
+
+ }
+ }
+ if(system_reg[S_HEAT_2]<0 && strncmp("-",Super_sign.Caption,1)!=0){Super_sign.Caption="-";DrawRoundButton(&Super_sign);}
+ if(system_reg[S_HEAT_2]>0 && strncmp("+",Super_sign.Caption,1)!=0){Super_sign.Caption="+";DrawRoundButton(&Super_sign);}
+
+ IntToStr(fabs(system_reg[S_COOL_2]), txt);Ltrim(txt);
+
+ if(strncmp(txt,S_Subcool_1.Caption,3)!=0)
+ {
+ if((int)fabs(system_reg[S_COOL_2])>=0 && (int)fabs(system_reg[S_COOL_1])<10)
+ {
+
+ S_Subcool_1.Caption[0]='0';
+ S_Subcool_1.Caption[1]='0';
+ S_Subcool_1.Caption[2]='.';
+ S_Subcool_1.Caption[3]=txt[0];
+ DrawRoundButton(&S_Subcool_1);
+
+ }
+
+ else if((int)fabs(system_reg[S_COOL_2])>=10 && (int)fabs(system_reg[S_COOL_1])<100)
+ {
+
+ S_Subcool_1.Caption[0]='0';
+ S_Subcool_1.Caption[1]=txt[0];
+ S_Subcool_1.Caption[2]='.';
+ S_Subcool_1.Caption[3]=txt[1];
+ DrawRoundButton(&S_Subcool_1);
+
+ }
+ else
+ {
+ S_Subcool_1.Caption[0]=txt[0];
+ S_Subcool_1.Caption[1]=txt[1];
+ S_Subcool_1.Caption[2]='.';
+ S_Subcool_1.Caption[3]=txt[2];
+ DrawRoundButton(&S_Subcool_1);
+
+ }
+ }
+ if(system_reg[S_COOL_2]<0 && strncmp("-",Cool_sign.Caption,1)!=0){Cool_sign.Caption="-";DrawRoundButton(&Cool_sign);}
+ if(system_reg[S_COOL_2]>0 && strncmp("+",Cool_sign.Caption,1)!=0){Cool_sign.Caption="+";DrawRoundButton(&Cool_sign);}
+
+
+ FloatToStr(system_reg[DHW_TEMP]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,S_DHW.Caption,4)!=0){strncpy(S_DHW.Caption, txt, 4);DrawRoundButton(&S_DHW);}
+ FloatToStr(system_reg[BAC_TEMP]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,SS_tank.Caption,4)!=0){strncpy(SS_tank.Caption, txt, 4);DrawRoundButton(&SS_tank);}
+
+ IntToStr(fabs(system_reg[CONDENS_TEMP_2]), txt);Ltrim(txt);
+
+ if(strncmp(txt,S_condenser_1.Caption,3)!=0)
+ {
+ if((int)fabs(system_reg[CONDENS_TEMP_2])>=0 && (int)fabs(system_reg[CONDENS_TEMP_2])<10)
+ {
+
+ S_condenser_1.Caption[0]='0';
+ S_condenser_1.Caption[1]='0';
+ S_condenser_1.Caption[2]='.';
+ S_condenser_1.Caption[3]=txt[0];
+ DrawRoundButton(&S_condenser_1);
+
+ }
+
+ else if((int)fabs(system_reg[CONDENS_TEMP_2])>=10 && (int)fabs(system_reg[CONDENS_TEMP_2])<100)
+ {
+
+ S_condenser_1.Caption[0]='0';
+ S_condenser_1.Caption[1]=txt[0];
+ S_condenser_1.Caption[2]='.';
+ S_condenser_1.Caption[3]=txt[1];
+ DrawRoundButton(&S_condenser_1);
+
+ }
+ else
+ {
+ S_condenser_1.Caption[0]=txt[0];
+ S_condenser_1.Caption[1]=txt[1];
+ S_condenser_1.Caption[2]='.';
+ S_condenser_1.Caption[3]=txt[2];
+ DrawRoundButton(&S_condenser_1);
+
+ }
+ }
+ if(system_reg[CONDENS_TEMP_2]<0 && strncmp("-",Cond_sign.Caption,1)!=0){Cond_sign.Caption="-";DrawRoundButton(&Cond_sign);}
+ if(system_reg[CONDENS_TEMP_2]>0 && strncmp("+",Cond_sign.Caption,1)!=0){Cond_sign.Caption="+";DrawRoundButton(&Cond_sign);}
+
+ FloatToStr(system_reg[SUCT_TEMP_2]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,S_suction_1.Caption,4)!=0){strncpy(S_suction_1.Caption, txt, 4);DrawRoundButton(&S_suction_1);}
+ FloatToStr(system_reg[HIGH_PRESS_2]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,S_High_Pressure_1.Caption,4)!=0){strncpy(S_High_Pressure_1.Caption, txt, 4);DrawRoundButton(&S_High_Pressure_1);}
+ FloatToStr(system_reg[LOW_PRESS_2]/10.0, txt);Ltrim(txt);
+ if(strncmp(txt,S_Low_Pressure_1.Caption,4)!=0){strncpy(S_Low_Pressure_1.Caption, txt, 4);DrawRoundButton(&S_Low_Pressure_1);}
+
  }
  }
  void data_eeprom(){
@@ -3915,6 +4451,18 @@ typedef unsigned long long uintmax_t;
  IntToStr(system_reg[DIFF_DHW], txt);Ltrim(txt);
  strncpy(Hysteresis_DHW.Caption, txt, 2);
 
+ IntToStr(system_reg[AIRE_TO_WATER], txt);Ltrim(txt);
+
+ IntToStr(system_reg[TIME_BETWEEN_DEF], txt);Ltrim(txt);
+ strncpy(Defrost_on_time.Caption, txt, 2);
+ IntToStr(system_reg[TIME_DEFROST], txt);Ltrim(txt);
+ strncpy(Defrost_off_time.Caption, txt, 2);
+ IntToStr(system_reg[TEMP_DEFROST], txt);Ltrim(txt);
+ strncpy(Defrost_on_temperature.Caption, txt, 2);
+ IntToStr(system_reg[TEMP_STOP_DEFROST], txt);Ltrim(txt);
+ strncpy(Defrost_off_temperature.Caption, txt, 2);
+
+
 
  if(system_reg[POWER]==1){
  DrawImage(&Main_ON);
@@ -3954,36 +4502,44 @@ typedef unsigned long long uintmax_t;
  DrawRoundButton(&ON_OFF_DHW);
 
  }
- if(system_reg[NOMB_COMPRESSORS]==1){ Two_Compressors.Visible= 0;One_Compressors.Visible = 1; }
- else if(system_reg[NOMB_COMPRESSORS]==2) { Two_Compressors.Visible= 1;One_Compressors.Visible = 0; }
+ if(system_reg[NOMB_COMPRESSORS]==1){two_compressors_mode= 0 ; Two_Compressors.Visible= 0;One_Compressors.Visible = 1; }
+ else if(system_reg[NOMB_COMPRESSORS]==2) {two_compressors_mode= 1 ; Two_Compressors.Visible= 1;One_Compressors.Visible = 0; }
+
+ if(system_reg[REVERS_MOD]==0){Reversing_Heat_OFF.Visible= 1;Reversing_ON_HEAT.Visible = 0; }
+ else if(system_reg[REVERS_MOD]==1) {Reversing_ON_HEAT.Visible= 1;Reversing_Heat_OFF.Visible = 0; }
+
+ if(system_reg[POWER_380]==0){Power_220V.Visible= 1;Power_380V.Visible = 0; }
+ else if(system_reg[POWER_380]==1) {Power_380V.Visible= 1;Power_220V.Visible = 0; }
+
+ if(system_reg[AIRE_TO_WATER]==0){ Mode_ground_on.Visible= 1;Mode_air_on.Visible = 0; }
+ else if(system_reg[AIRE_TO_WATER]==1) {Mode_air_on.Visible= 1;Mode_ground_on.Visible = 0; }
  }
+
  void count_steps(unsigned char num_page){
  char txt[7];
+ static int old_steps_1 =0;
+ static int old_steps_2 =0;
  if(num_page==0)
  {
- IntToStr(system_reg[TRV_STEPS_1], txt);Ltrim(txt);
- if(system_reg[TRV_STEPS_1]<100){
- if(strncmp(txt,EEV1_value.Caption,2)!=0){strncpy(EEV1_value.Caption, txt, 2);
- EEV1_value.Caption[2]=EEV1_value.Caption[1];EEV1_value.Caption[1]=EEV1_value.Caption[0];EEV1_value.Caption[0]='0';
- DrawRoundButton(&EEV1_value);
- strncpy(EEV1_value.Caption, txt, 3);
- }}
- else{if(strncmp(txt,EEV1_value.Caption,3)!=0){strncpy(EEV1_value.Caption, txt, 3);DrawRoundButton(&EEV1_value);} }
- IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);
+ IntToStr(system_reg[S_HEAT_1]/10, txt);Ltrim(txt);
  if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
+ if(old_steps_1!=system_reg[TRV_STEPS_1]){
+ old_steps_1=system_reg[TRV_STEPS_1];
+ Red_bar.Position = system_reg[TRV_STEPS_1]; UpdatePBPosition(&Red_bar);
+
+
+
+ }
  }
  else
  {
- IntToStr(system_reg[TRV_STEPS_2], txt);Ltrim(txt);
- if(system_reg[TRV_STEPS_2]<100){
- if(strncmp(txt,EEV1_value.Caption,2)!=0){strncpy(EEV1_value.Caption, txt, 2);
- EEV1_value.Caption[2]=EEV1_value.Caption[1];EEV1_value.Caption[1]=EEV1_value.Caption[0];EEV1_value.Caption[0]='0';
- DrawRoundButton(&EEV1_value);
- strncpy(EEV1_value.Caption, txt, 3);
- }}
- else{if(strncmp(txt,EEV1_value.Caption,3)!=0){strncpy(EEV1_value.Caption, txt, 3);DrawRoundButton(&EEV1_value);} }
- IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);
+ IntToStr(system_reg[S_HEAT_2]/10, txt);Ltrim(txt);
  if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
+ if(old_steps_2!=system_reg[TRV_STEPS_2]){
+ old_steps_2=system_reg[TRV_STEPS_2];
+ Red_bar.Position = system_reg[TRV_STEPS_2]; UpdatePBPosition(&Red_bar);
+ }
+
  }
  }
 
@@ -4026,16 +4582,16 @@ typedef unsigned long long uintmax_t;
  else DrawImage(&Image118);
  if(system_reg[THREE_STATE]==1) DrawImage(&Image77);
  else DrawImage(&Image120);
- IntToStr(system_reg[SOURC_IN_1], txt);Ltrim(txt);
+ IntToStr(system_reg[SOURC_IN_1]/10, txt);Ltrim(txt);
  if(strncmp(txt,S_Brine_In_1.Caption,2)!=0){strncpy(S_Brine_In_1.Caption, txt, 2);DrawButton(&S_Brine_In_1);}
- IntToStr(system_reg[SOURC_OUT_1], txt);Ltrim(txt);
+ IntToStr(system_reg[SOURC_OUT_1]/10, txt);Ltrim(txt);
  if(strncmp(txt,S_Brine_Out_1.Caption,2)!=0){strncpy(S_Brine_Out_1.Caption, txt, 2);DrawButton(&S_Brine_Out_1);}
- IntToStr(system_reg[HEAT_IN_1], txt);Ltrim(txt);
+ IntToStr(system_reg[HEAT_IN_1]/10, txt);Ltrim(txt);
  if(strncmp(txt,S_Heat_In_1.Caption,2)!=0){strncpy(S_Heat_In_1.Caption, txt, 2);DrawButton(&S_Heat_In_1);}
- IntToStr(system_reg[HEAT_OUT_1], txt);Ltrim(txt);
+ IntToStr(system_reg[HEAT_OUT_1]/10, txt);Ltrim(txt);
  if(strncmp(txt,S_Heat_Out_1.Caption,2)!=0){strncpy(S_Heat_Out_1.Caption, txt, 2);DrawButton(&S_Heat_Out_1);}
  IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);
- if(system_reg[HEAT_OUT_1]<100){
+ if(system_reg[EXAUST_TEMP_1]/10<10){
  if(strncmp(txt,S_ComprEx_1.Caption,2)!=0){strncpy(S_ComprEx_1.Caption, txt, 2);
  S_ComprEx_1.Caption[2]=S_ComprEx_1.Caption[1];S_ComprEx_1.Caption[1]=S_ComprEx_1.Caption[0];S_ComprEx_1.Caption[0]='0';
  DrawRoundButton(&S_ComprEx_1);
@@ -4048,13 +4604,13 @@ typedef unsigned long long uintmax_t;
 
 
 
- IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);
+ IntToStr(system_reg[DHW_TEMP]/10, txt);Ltrim(txt);
  if(strncmp(txt,Sens_DHW.Caption,2)!=0){strncpy(Sens_DHW.Caption, txt, 2);DrawButton(&Sens_DHW);}
- IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);
+ IntToStr(system_reg[BAC_TEMP]/10, txt);Ltrim(txt);
  if(strncmp(txt,S_tank.Caption,2)!=0){strncpy(S_tank.Caption, txt, 2);DrawButton(&S_tank);}
- IntToStr(system_reg[HIGH_PRESS_1], txt);Ltrim(txt);
+ IntToStr(system_reg[HIGH_PRESS_1]/10, txt);Ltrim(txt);
  if(strncmp(txt,S_High_Press_1.Caption,2)!=0){strncpy(S_High_Press_1.Caption, txt, 2);DrawButton(&S_High_Press_1);}
- IntToStr(system_reg[LOW_PRESS_1], txt);Ltrim(txt);
+ IntToStr(system_reg[LOW_PRESS_1]/10, txt);Ltrim(txt);
  if(strncmp(txt,S_Low_Press_1.Caption,2)!=0){strncpy(S_Low_Press_1.Caption, txt, 2);DrawButton(&S_Low_Press_1);}
  }
 
@@ -4073,34 +4629,55 @@ typedef unsigned long long uintmax_t;
  else DrawImage(&Image118);
  if(system_reg[THREE_STATE]==1) DrawImage(&Image77);
  else DrawImage(&Image120);
- IntToStr(system_reg[SOURC_IN_1], txt);Ltrim(txt);
- if(strncmp(txt,S_Brine_In_1.Caption,2)!=0){strncpy(S_Brine_In_1.Caption, txt, 2);DrawButton(&S_Brine_In_1);}
- IntToStr(system_reg[SOURC_OUT_1], txt);Ltrim(txt);
- if(strncmp(txt,S_Brine_Out_1.Caption,2)!=0){strncpy(S_Brine_Out_1.Caption, txt, 2);DrawButton(&S_Brine_Out_1);}
- IntToStr(system_reg[HEAT_IN_1], txt);Ltrim(txt);
- if(strncmp(txt,S_Heat_In_1.Caption,2)!=0){strncpy(S_Heat_In_1.Caption, txt, 2);DrawButton(&S_Heat_In_1);}
- IntToStr(system_reg[HEAT_OUT_1], txt);Ltrim(txt);
- if(strncmp(txt,S_Heat_Out_1.Caption,2)!=0){strncpy(S_Heat_Out_1.Caption, txt, 2);DrawButton(&S_Heat_Out_1);}
- IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);
- if(system_reg[HEAT_OUT_1]<100){
- if(strncmp(txt,S_ComprEx_1.Caption,2)!=0){strncpy(S_ComprEx_1.Caption, txt, 2);
- S_ComprEx_1.Caption[2]=S_ComprEx_1.Caption[1];S_ComprEx_1.Caption[1]=S_ComprEx_1.Caption[0];S_ComprEx_1.Caption[0]='0';
- DrawRoundButton(&S_ComprEx_1);
- strncpy(S_ComprEx_1.Caption, txt, 3);
+ IntToStr(system_reg[SOURC_IN_1]/10, txt);Ltrim(txt);
+ if(strncmp(txt,Module1_br_inlet.Caption,2)!=0){strncpy(Module1_br_inlet.Caption, txt, 2);DrawButton(&Module1_br_inlet);}
+ IntToStr(system_reg[SOURC_OUT_1]/10, txt);Ltrim(txt);
+ if(strncmp(txt,Module1_br_outlet.Caption,2)!=0){strncpy(Module1_br_outlet.Caption, txt, 2);DrawButton(&Module1_br_outlet);}
+ IntToStr(system_reg[HEAT_IN_1]/10, txt);Ltrim(txt);
+ if(strncmp(txt,Module1_heat_inlet.Caption,2)!=0){strncpy(Module1_heat_inlet.Caption, txt, 2);DrawButton(&Module1_heat_inlet);}
+ IntToStr(system_reg[HEAT_OUT_1]/10, txt);Ltrim(txt);
+ if(strncmp(txt,Module1_heat_outlet.Caption,2)!=0){strncpy(Module1_heat_outlet.Caption, txt, 2);DrawButton(&Module1_heat_outlet);}
+ IntToStr(system_reg[EXAUST_TEMP_1]/10, txt);Ltrim(txt);
+ if(system_reg[EXAUST_TEMP_1]/10<100){
+ if(strncmp(txt,Module1_exhaust.Caption,2)!=0){strncpy(Module1_exhaust.Caption, txt, 2);
+ Module1_exhaust.Caption[2]=Module1_exhaust.Caption[1];Module1_exhaust.Caption[1]=Module1_exhaust.Caption[0];Module1_exhaust.Caption[0]='0';
+ DrawRoundButton(&Module1_exhaust);
+ strncpy(Module1_exhaust.Caption, txt, 3);
  }
  }
- else{if(strncmp(txt,S_ComprEx_1.Caption,3)!=0){strncpy(S_ComprEx_1.Caption, txt, 3);DrawButton(&S_ComprEx_1);} }
- IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);
- if(strncmp(txt,S_SH_1.Caption,2)!=0){strncpy(S_SH_1.Caption, txt, 2);DrawButton(&S_SH_1);}
+ else{if(strncmp(txt,Module1_exhaust.Caption,3)!=0){strncpy(Module1_exhaust.Caption, txt, 3);DrawButton(&Module1_exhaust);} }
+ IntToStr(system_reg[S_HEAT_1]/10, txt);Ltrim(txt);
+ if(strncmp(txt,Module1_superheat.Caption,2)!=0){strncpy(Module1_superheat.Caption, txt, 2);DrawButton(&Module1_superheat);}
 
 
 
- IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);
- if(strncmp(txt,Sens_DHW.Caption,2)!=0){strncpy(Sens_DHW.Caption, txt, 2);DrawButton(&Sens_DHW);}
- IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);
- if(strncmp(txt,S_tank.Caption,2)!=0){strncpy(S_tank.Caption, txt, 2);DrawButton(&S_tank);}
- IntToStr(system_reg[HIGH_PRESS_1], txt);Ltrim(txt);
- if(strncmp(txt,S_High_Press_1.Caption,2)!=0){strncpy(S_High_Press_1.Caption, txt, 2);DrawButton(&S_High_Press_1);}
- IntToStr(system_reg[LOW_PRESS_1], txt);Ltrim(txt);
- if(strncmp(txt,S_Low_Press_1.Caption,2)!=0){strncpy(S_Low_Press_1.Caption, txt, 2);DrawButton(&S_Low_Press_1);}
+
+ IntToStr(system_reg[SOURC_IN_2]/10, txt);Ltrim(txt);
+ if(strncmp(txt,Button7.Caption,2)!=0){strncpy(Button7.Caption, txt, 2);DrawButton(&Button7);}
+ IntToStr(system_reg[SOURC_OUT_2]/10, txt);Ltrim(txt);
+ if(strncmp(txt,Button9.Caption,2)!=0){strncpy(Button9.Caption, txt, 2);DrawButton(&Button9);}
+ IntToStr(system_reg[HEAT_IN_2]/10, txt);Ltrim(txt);
+ if(strncmp(txt,Button11.Caption,2)!=0){strncpy(Button11.Caption, txt, 2);DrawButton(&Button11);}
+ IntToStr(system_reg[HEAT_OUT_2]/10, txt);Ltrim(txt);
+ if(strncmp(txt,Button10.Caption,2)!=0){strncpy(Button10.Caption, txt, 2);DrawButton(&Button10);}
+ IntToStr(system_reg[EXAUST_TEMP_2]/10, txt);Ltrim(txt);
+ if(system_reg[EXAUST_TEMP_2]/10<100){
+ if(strncmp(txt,Module2_exhaust.Caption,2)!=0){strncpy(Module2_exhaust.Caption, txt, 2);
+ Module2_exhaust.Caption[2]=Module2_exhaust.Caption[1];Module2_exhaust.Caption[1]=Module2_exhaust.Caption[0];Module2_exhaust.Caption[0]='0';
+ DrawRoundButton(&Module2_exhaust);
+ strncpy(Module2_exhaust.Caption, txt, 3);
+ }
+ }
+ else{if(strncmp(txt,Module2_exhaust.Caption,3)!=0){strncpy(Module2_exhaust.Caption, txt, 3);DrawButton(&Module2_exhaust);} }
+ IntToStr(system_reg[S_HEAT_2]/10, txt);Ltrim(txt);
+ if(strncmp(txt,Module2_superheat.Caption,2)!=0){strncpy(Module2_superheat.Caption, txt, 2);DrawButton(&Module2_superheat);}
+
+
+
+
+ IntToStr(system_reg[DHW_TEMP]/10, txt);Ltrim(txt);
+ if(strncmp(txt,DHW.Caption,2)!=0){strncpy(DHW.Caption, txt, 2);DrawButton(&DHW);}
+ IntToStr(system_reg[BAC_TEMP]/10, txt);Ltrim(txt);
+ if(strncmp(txt,TANK.Caption,2)!=0){strncpy(TANK.Caption, txt, 2);DrawButton(&TANK);}
+#line 962 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
  }

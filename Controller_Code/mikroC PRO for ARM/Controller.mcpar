@@ -1,6 +1,6 @@
 [DEVICE]
 Name=STM32F407ZG
-Clock=120000000
+Clock=150000000
 [MEMORY_MODEL]
 Value=0
 [BUILD_TYPE]
@@ -25,25 +25,24 @@ File4=modbus.c
 File5=Systick.c
 File6=InternalRTC.c
 File7=DataConvertor.c
-File8=Pages.c
-File9=Gauge.c
-File10=Errors.c
+File8=Gauge.c
+File9=Errors.c
+File10=Pages.c
 [BINARIES]
 Count=0
 [IMAGES]
 Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
-Count=9
+Count=8
 File0=Controller_main.c
 File1=Controller_events_code.c
-File2=modbus.c
-File3=Controller_objects.h
-File4=Pages.c
-File5=Gauge.c
-File6=Errors.c
-File7=Controller_resources.h
-File8=Controller_driver.c
+File2=Controller_objects.h
+File3=Gauge.c
+File4=Errors.c
+File5=Pages.c
+File6=modbus.c
+File7=InternalRTC.c
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -51,14 +50,18 @@ Count=0
 [OTHER_FILES]
 Count=0
 [SEARCH_PATH]
-Count=4
-Path0=E:\mikroC\mikroC PRO for ARM\Defs\
-Path1=E:\mikroC\mikroC PRO for ARM\Uses\
-Path2=C:\Users\User\Desktop\alta_2_compressor_display\Controller_Code\mikroC PRO for ARM\
-Path3=E:\mikroC\mikroC PRO for ARM\Uses\ST M4\
+Count=6
+Path0=C:\MikroC\mikroC PRO for ARM\Defs\
+Path1=C:\MikroC\mikroC PRO for ARM\Uses\
+Path2=C:\Users\Dumitru\Desktop\dima\alta_2_compressor_display\Controller_Code\mikroC PRO for ARM\
+Path3=C:\Users\Dumitru\Desktop\copy_altal\alta_2_compressor_display\Controller_Code\mikroC PRO for ARM\
+Path4=C:\mikroC\mikroC PRO for ARM\Uses\ST M4\
+Path5=C:\MikroC\mikroC PRO for ARM\include\
 [HEADER_PATH]
-Count=1
-Path0=C:\Users\User\Desktop\alta_2_compressor_display\Controller_Code\mikroC PRO for ARM\
+Count=3
+Path0=C:\Users\Dumitru\Desktop\copy_altal\alta_2_compressor_display\Controller_Code\mikroC PRO for ARM\
+Path1=C:\Users\Dumitru\Desktop\dima\alta_2_compressor_display\Controller_Code\mikroC PRO for ARM\
+Path2=C:\MikroC\mikroC PRO for ARM\include\
 [HEADERS]
 Count=3
 File0=Controller_objects.h
@@ -68,26 +71,26 @@ File2=Systick.h
 Count=0
 [Useses]
 Count=20
-File0=Conversions
-File1=C_String
-File2=TFT
-File3=TFT_Defs
-File4=TFT_Fonts
-File5=STMPE610
-File6=I2C
-File7=Mmc
-File8=Mmc_FAT16
-File9=Mmc_FAT16_Config
-File10=Mmc_FAT16_Defs
-File11=Spi
-File12=SDIO
-File13=C_Type
-File14=TFT_TouchPanel
-File15=TouchPanel
-File16=Sound
-File17=UART
-File18=C_Stdlib
-File19=C_Math
+File0=C_Math
+File1=C_Stdlib
+File2=UART
+File3=Sound
+File4=TouchPanel
+File5=TFT_TouchPanel
+File6=C_Type
+File7=SDIO
+File8=Spi
+File9=Mmc_FAT16_Defs
+File10=Mmc_FAT16_Config
+File11=Mmc_FAT16
+File12=Mmc
+File13=I2C
+File14=STMPE610
+File15=TFT_Fonts
+File16=TFT_Defs
+File17=TFT
+File18=C_String
+File19=Conversions
 [EXPANDED_NODES]
 Node0=Sources
 Node1=Header Files

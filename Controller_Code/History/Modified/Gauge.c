@@ -38,7 +38,7 @@ void HP_display(int pressure)
   float convert_press;
   
   //convert_press = ReadHighPressure(system_reg[HIGH_PRESS_1]);
-  HP_pressure = pressure*10.0 + 5;
+  HP_pressure = pressure*1.0 + 5;
  if(old_HP_pressure !=HP_pressure){ old_HP_pressure= HP_pressure;}
  else return;
 
@@ -91,7 +91,7 @@ void LP_display(int pressure)
    float  LP_pressure;
    float convert_press;
    //convert_press = ReadLowPressure(system_reg[LOW_PRESS_1]);
-   LP_pressure = pressure * 33.3 + 42;
+   LP_pressure = pressure * 3.33 + 42;
    if( old_LP_pressure != LP_pressure){ old_LP_pressure= LP_pressure;}
      else return;
 
