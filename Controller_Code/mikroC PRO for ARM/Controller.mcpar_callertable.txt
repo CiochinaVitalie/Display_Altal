@@ -848,7 +848,6 @@ main
 	startPage
 		DrawImage
 		DrawRoundButton
-	DrawRoundBox
 	DrawLabel
 	find_errors
 		memset
@@ -861,6 +860,7 @@ main
 		Ltrim
 		strcpy
 		strcat
+	DrawRoundBox
 	selectPage
 		main_page
 			IntToStr

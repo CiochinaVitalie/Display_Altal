@@ -730,16 +730,6 @@ MOVW	R1, #63488
 MOVW	R0, #lo_addr(_DateTime+24)
 MOVT	R0, #hi_addr(_DateTime+24)
 STRH	R1, [R0, #0]
-;Controller_main.c,209 :: 		DrawRoundBox (&Messages_Box);
-MOVW	R0, #lo_addr(_Messages_Box+0)
-MOVT	R0, #hi_addr(_Messages_Box+0)
-BL	_DrawRoundBox+0
-;Controller_main.c,210 :: 		DateTime.Caption = "ERROR";
-MOVW	R1, #lo_addr(?lstr15_Controller_main+0)
-MOVT	R1, #hi_addr(?lstr15_Controller_main+0)
-MOVW	R0, #lo_addr(_DateTime+16)
-MOVT	R0, #hi_addr(_DateTime+16)
-STR	R1, [R0, #0]
 ;Controller_main.c,211 :: 		DrawLabel (&DateTime);
 MOVW	R0, #lo_addr(_DateTime+0)
 MOVT	R0, #hi_addr(_DateTime+0)
@@ -768,16 +758,6 @@ MOVW	R1, #2016
 MOVW	R0, #lo_addr(_DateTime+24)
 MOVT	R0, #hi_addr(_DateTime+24)
 STRH	R1, [R0, #0]
-;Controller_main.c,215 :: 		DrawRoundBox (&Messages_Box);
-MOVW	R0, #lo_addr(_Messages_Box+0)
-MOVT	R0, #hi_addr(_Messages_Box+0)
-BL	_DrawRoundBox+0
-;Controller_main.c,216 :: 		DateTime.Caption = "_OK";
-MOVW	R1, #lo_addr(?lstr16_Controller_main+0)
-MOVT	R1, #hi_addr(?lstr16_Controller_main+0)
-MOVW	R0, #lo_addr(_DateTime+16)
-MOVT	R0, #hi_addr(_DateTime+16)
-STR	R1, [R0, #0]
 ;Controller_main.c,217 :: 		DrawLabel (&DateTime);
 MOVW	R0, #lo_addr(_DateTime+0)
 MOVT	R0, #hi_addr(_DateTime+0)
@@ -925,8 +905,8 @@ STRB	R0, [R1, #0]
 CMP	R0, #5
 IT	LS
 BLS	L_main47
-MOVW	R1, #lo_addr(?lstr17_Controller_main+0)
-MOVT	R1, #hi_addr(?lstr17_Controller_main+0)
+MOVW	R1, #lo_addr(?lstr15_Controller_main+0)
+MOVT	R1, #hi_addr(?lstr15_Controller_main+0)
 MOVW	R0, #lo_addr(_DateTime+16)
 MOVT	R0, #hi_addr(_DateTime+16)
 STR	R1, [R0, #0]

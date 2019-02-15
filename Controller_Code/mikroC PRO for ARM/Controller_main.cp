@@ -3924,14 +3924,14 @@ void main() {
  else er_2=system_reg[ERRORS_2];
  if(er_1>0 || er_2>0 ){
  DateTime.Font_Color= 0xF800;
- DrawRoundBox (&Messages_Box);
- DateTime.Caption = "ERROR";
+
+
  DrawLabel (&DateTime);
  find_errors();}
  else if(er_1==0 && er_2==0) {
  DateTime.Font_Color= 0x07E0;
- DrawRoundBox (&Messages_Box);
- DateTime.Caption = "_OK";
+
+
  DrawLabel (&DateTime);
 
  }

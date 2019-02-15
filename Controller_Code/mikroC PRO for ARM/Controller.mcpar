@@ -6,7 +6,7 @@ Value=0
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=Controller_events_code.c
+Value=Controller_main.c
 [USE_EEPROM]
 Value=0
 [EEPROM_DEFINITION]
@@ -34,7 +34,7 @@ Count=0
 Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
-Count=8
+Count=9
 File0=Controller_main.c
 File1=Controller_events_code.c
 File2=Controller_objects.h
@@ -43,6 +43,7 @@ File4=modbus.c
 File5=Controller_driver.c
 File6=InternalRTC.c
 File7=..\..\..\..\..\..\..\MikroC\mikroC PRO for ARM\include\stdint.h
+File8=Errors.c
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
