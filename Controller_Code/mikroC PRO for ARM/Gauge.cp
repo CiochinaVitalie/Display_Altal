@@ -303,9 +303,27 @@ typedef struct
  unsigned short RTC_Year_Units;
 }RTC_DateTypeDef;
 
-extern short RTC_Init (unsigned PREDIV_Sync, unsigned short PREDIV_Async, int HR_Format);
-extern short RTC_SetTime (RTC_TimeTypeDef *RTC_TimeStruct, int Calibration_Value);
-extern short RTC_SetDate(RTC_DateTypeDef *RTC_DateStruct);
+ typedef struct Time {
+ short ampm;
+ short seconds;
+ short minutes;
+ short hours;
+ short day;
+ short month;
+ short weekday;
+ short year;
+} TTime;
+
+
+
+extern void RTC_Init();
+extern char RTCC_Read(TTime *RTCC_Time);
+extern void Set_RTC(TTime *RTCC_Time);
+extern char Set_MyRTCC();
+
+
+
+
 extern void Message (char arg[]);
 extern void RTC_GetTime(RTC_TimeTypeDef *RTC_TimeStruct);
 extern void RTC_GetDate(RTC_DateTypeDef *RTC_DateStruct);
@@ -2041,6 +2059,7 @@ extern TCircleButton * const code Screen37_CircleButtons[1];
 
 
 
+
 void BackToHome();
 void goToBack();
 void nextPage();
@@ -2090,7 +2109,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2030 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2049 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -2544,6 +2563,18 @@ void Setuptempdef();
 void Setdowntempdef();
 void Mode_ground_onOnClick ();
 void pushDEF();
+
+
+
+
+void user_set_LANOnUp();
+void user_set_timeOnPress();
+void user_set_timeOnUp();
+void user_set_timersOnPress();
+void user_set_timersOnUp();
+void user_settingOnPress();
+void user_settingOnUp();
+void void Set_19_OnDown();
 
 
 

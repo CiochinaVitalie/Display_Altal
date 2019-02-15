@@ -212,9 +212,27 @@ typedef struct
  unsigned short RTC_Year_Units;
 }RTC_DateTypeDef;
 
-extern short RTC_Init (unsigned PREDIV_Sync, unsigned short PREDIV_Async, int HR_Format);
-extern short RTC_SetTime (RTC_TimeTypeDef *RTC_TimeStruct, int Calibration_Value);
-extern short RTC_SetDate(RTC_DateTypeDef *RTC_DateStruct);
+ typedef struct Time {
+ short ampm;
+ short seconds;
+ short minutes;
+ short hours;
+ short day;
+ short month;
+ short weekday;
+ short year;
+} TTime;
+
+
+
+extern void RTC_Init();
+extern char RTCC_Read(TTime *RTCC_Time);
+extern void Set_RTC(TTime *RTCC_Time);
+extern char Set_MyRTCC();
+
+
+
+
 extern void Message (char arg[]);
 extern void RTC_GetTime(RTC_TimeTypeDef *RTC_TimeStruct);
 extern void RTC_GetDate(RTC_DateTypeDef *RTC_DateStruct);
@@ -1950,6 +1968,7 @@ extern TCircleButton * const code Screen37_CircleButtons[1];
 
 
 
+
 void BackToHome();
 void goToBack();
 void nextPage();
@@ -1999,7 +2018,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2030 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2049 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -2453,6 +2472,18 @@ void Setuptempdef();
 void Setdowntempdef();
 void Mode_ground_onOnClick ();
 void pushDEF();
+
+
+
+
+void user_set_LANOnUp();
+void user_set_timeOnPress();
+void user_set_timeOnUp();
+void user_set_timersOnPress();
+void user_set_timersOnUp();
+void user_settingOnPress();
+void user_settingOnUp();
+void void Set_19_OnDown();
 
 
 
@@ -3732,7 +3763,19 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 31 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 27 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+unsigned long RTC_Time, old_RTC_Time;
+unsigned long RTC_Date, old_RTC_Date;
+ TTime MyTime;
+ int8_t oneMinute, tenMinute, oneHour, tenHour, oneDayU, tenDayU, oneWeekday, oneMonth, tenMonth, oneYearU, tenYearU;
+
+ static short RTC_Bcd2ToByte(short Value)
+{
+ short tmp = 0;
+ tmp = ((short)(Value & (short)0xF0) >> (short)0x4) * 10;
+ return (tmp + (Value & (short)0x0F));
+}
+#line 44 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void Message (char arg[])
 {
  UART2_Write(13);
@@ -3741,76 +3784,33 @@ void Message (char arg[])
  UART2_Write(13);
  UART2_Write(10);
 }
-#line 50 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
-short RTC_Init (unsigned PREDIV_Sync, unsigned short PREDIV_Async, int HR_Format)
-{
- unsigned short RTC_Wait_ctr = 0;
+#line 63 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+ void RTC_Init(){
+ RCC_APB1ENR|=0x10000000;
+ PWR_CR|=0x0100;
+ RCC_CSR|=0x01;
+ while(!(RCC_CSR&0x02));
 
 
+ RCC_BDCR|=0x00000200;
+ RCC_BDCR|=0x00008000;
 
- PWREN_bit = 1;
- DBP_bit = 1;
- RTCSEL1_bit = 0; RTCSEL0_bit = 1;
- LSEBYP_bit = 0;
- LSEON_bit = 1;
- RTCEN_bit = 1;
+ RTC_WPR=0xca;
+ RTC_WPR=0x53;
+ RTC_ISR&=0xffffffdf;
+ while(!(RTC_ISR&0xffffffdf));
 
+ RTC_ISR|=0x80;
+ while((RTC_ISR&0x40)==0);
 
+ RTC_PRER|=0x007f0000;
+ RTC_PRER|=0x000000ff;
 
- DBP_bit = 1;
- RTC_WPR = 0xCA;
- RTC_WPR = 0x53;
+ RTC_ISR&=~0x80;
 
-
- while ((LSERDY_bit == 0) && (RTC_Wait_ctr < 150));
- {
- delay_us(1);
- RTC_Wait_ctr++;
- }
-
-
-
-
- RTC_Wait_ctr = 0;
-
-
-
- if (INITF_bit == 0)
- {
- RTC_ISR.B7 = 1;
- while ((INITF_bit == 0) && (RTC_Wait_ctr < 8))
- {
- delay_us(10);
- RTC_Wait_ctr++;
- }
-
- if (INITF_bit == 0)
- {
-
- RTC_ISR.B7 = 0;
- RTC_WPR = 0xFF;
- return 0;
- }
- }
-
-
- RTC_PRERbits.PREDIV_S = PREDIV_Sync;
- RTC_PRERbits.PREDIV_A = PREDIV_Async;
-
-
- FMT_bit = HR_Format;
-
-
- RTC_ISR.B7 = 0;
-
-
-
-
- RTC_WPR = 0xFF;
-#line 118 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
- return 1;
+ RTC_WPR=0xff;
 }
-#line 140 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 107 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void Calibrate_RTC_Crystal (int Cal_Value)
 {
  unsigned long recalpfcount = 0;
@@ -3841,102 +3841,71 @@ void Calibrate_RTC_Crystal (int Cal_Value)
  }
 
 }
-#line 179 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
-short RTC_SetTime (RTC_TimeTypeDef *RTC_TimeStruct, int Calibration_Value)
-{
- short Func_Status;
- unsigned short RTC_Wait_ctr = 0;
- unsigned long Temp_Time_Reg = 0;
-#line 191 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
- Temp_Time_Reg = (((unsigned long) (RTC_TimeStruct->RTC_H12) << 22) | ((unsigned long) (RTC_TimeStruct->RTC_Hour_Tens) << 20) | ((unsigned long) (RTC_TimeStruct->RTC_Hour_Units) << 16) | ((unsigned long) (RTC_TimeStruct->RTC_Min_Tens) << 12) | ((unsigned long) (RTC_TimeStruct->RTC_Min_Units) << 8) | ((unsigned long) (RTC_TimeStruct->RTC_Sec_Tens) << 4) | ((unsigned long) (RTC_TimeStruct->RTC_Sec_Units)));
+#line 145 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+void Set_RTC(TTime *RTCC_Time){
+unsigned long temp;
 
-
+ PWR_CR.DBP = 1;
 
  RTC_WPR = 0xCA;
  RTC_WPR = 0x53;
- DBP_bit = 1;
+ RTC_ISR = 0x00000080;
+ while(RTC_ISR.INITF != 1){};
 
+ RTC_PRER = 0x7f00ff;
 
- if (INITF_bit == 0) {
+ temp = (unsigned long)Dec2Bcd(RTCC_Time->hours) << 16;
+ temp += (unsigned long)Dec2BCD(RTCC_Time->minutes) << 8;
+ temp += (unsigned long)Dec2BCD(RTCC_Time->seconds);
+ temp += (unsigned long)(RTCC_Time->ampm) << 22;
 
- RTC_ISR.B7 = 1;
+ RTC_TR = temp;
 
- while ((INITF_bit == 0) && (RTC_Wait_ctr < 8))
- {
- delay_us(10);
- RTC_Wait_ctr++;
- }
+ temp = (unsigned long)Dec2Bcd(RTCC_Time->day);
+ temp += (unsigned long)Dec2BCD(RTCC_Time->month) << 8;
+ temp += (unsigned long)Dec2BCD(RTCC_Time->weekday) << 13;
+ temp += (unsigned long)Dec2BCD(RTCC_Time->year) << 16;
 
- if (INITF_bit == 0)
- {
- Func_Status = 0;
- }
- }
+ RTC_DR = temp;
+ RTC_CRbits.FMT = 0;
+ RTC_CRbits.WCKSEL = 0;
 
-
- Calibrate_RTC_Crystal(Calibration_Value);
-
-
- RTC_TR = Temp_Time_Reg;
-
-
- RTC_ISR.B7 = 0;
-
-
-
+ RTC_ISR = 0x00000000;
 
  RTC_WPR = 0xFF;
-
- return Func_Status;
 }
-#line 240 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
-short RTC_SetDate(RTC_DateTypeDef *RTC_DateStruct)
-{
- short Func_Status;
- unsigned short RTC_Wait_ctr = 0;
- unsigned long Temp_Date_Reg = 0;
-#line 252 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
- Temp_Date_Reg = (((unsigned long) (RTC_DateStruct->RTC_Year_Tens) << 20) | ((unsigned long) (RTC_DateStruct->RTC_Year_Units) << 16) | ((unsigned long) (RTC_DateStruct->RTC_DayofWeek) << 13) | ((unsigned long) (RTC_DateStruct->RTC_Month_Tens) << 12) | ((unsigned long) (RTC_DateStruct->RTC_Month_Units) << 8) | ((unsigned long) (RTC_DateStruct->RTC_Date_Tens) << 4) | ((unsigned long) (RTC_DateStruct->RTC_Date_Units)));
+#line 185 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+char RTCC_Read(TTime *RTCC_Time){
+ char temp = 0;
+ unsigned long time;
 
- Temp_Date_Reg = Temp_Date_Reg & 0x00FFFFFF;
+ RTC_Time = RTC_TR;
+ RTC_Date = RTC_DR;
 
+ if(RTC_Time != old_RTC_Time){
+ old_RTC_Time = RTC_Time;
 
- RTC_WPR = 0xCA;
- RTC_WPR = 0x53;
- DBP_bit = 1;
+ RTCC_Time->ampm = (short)((RTC_Time & 0x400000) >> 22);
+ RTCC_Time->hours = Bcd2Dec((short)((RTC_Time & 0x3f0000) >> 16));
+ RTCC_Time->minutes = Bcd2Dec((short)((RTC_Time & 0x007f00) >> 8));
+ RTCC_Time->seconds = Bcd2Dec((short)(RTC_Time & 0x0000ff));
 
-
- if (INITF_bit == 0) {
-
- RTC_ISR.B7 = 1;
-
- while ((INITF_bit == 0) && (RTC_Wait_ctr < 8))
- {
- delay_us(10);
- RTC_Wait_ctr++;
+ temp = 1;
  }
 
- if (INITF_bit == 0)
- {
- Message("Failed to enter INIT mode.");
- Func_Status = 0;
+ if(RTC_Date != old_RTC_Date){
+ old_RTC_Date = RTC_Date;
+
+ RTCC_Time->year = Bcd2Dec((short)((RTC_Date & 0x3f0000) >> 16));
+ RTCC_Time->weekday = Bcd2Dec((short)((RTC_Date & 0x00e000) >> 13));
+ RTCC_Time->month = Bcd2Dec((short)((RTC_Date & 0x00001F00) >> 8));
+ RTCC_Time->day = Bcd2Dec((short)(RTC_Date & 0x0000ff));
+
+ temp = 1;
  }
- }
- RTC_Wait_ctr = 0;
-
-
- RTC_DR = Temp_Date_Reg;
-
-
- RTC_ISR.B7 = 0;
-
-
-
-
- RTC_WPR = 0xFF;
-
+ return temp;
 }
-#line 301 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 223 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 unsigned RTC_GetSubSeconds (void)
 {
  unsigned long Temp_RTC_SSR;
@@ -3953,7 +3922,7 @@ unsigned RTC_GetSubSeconds (void)
 
  return (unsigned) Temp_float;
 }
-#line 324 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 246 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void RTC_GetTime(RTC_TimeTypeDef *RTC_TimeStruct)
 {
 
@@ -3965,7 +3934,7 @@ void RTC_GetTime(RTC_TimeTypeDef *RTC_TimeStruct)
  RTC_TimeStruct->RTC_Sec_Tens = (unsigned short) RTC_TRbits.ST;
  RTC_TimeStruct->RTC_Sec_Units = (unsigned short) RTC_TRbits.SU;
 }
-#line 343 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 265 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void RTC_GetDate(RTC_DateTypeDef *RTC_DateStruct)
 {
 
@@ -3977,7 +3946,7 @@ void RTC_GetDate(RTC_DateTypeDef *RTC_DateStruct)
  RTC_DateStruct->RTC_Year_Tens = (unsigned short) RTC_DRbits.YT;
  RTC_DateStruct->RTC_Year_Units = (unsigned short) RTC_DRbits.YU;
 }
-#line 363 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 285 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void RTC_PrintTime(RTC_TimeTypeDef *RTC_TimeStruct)
 {
  char txt[4];
@@ -4012,7 +3981,7 @@ void RTC_PrintTime(RTC_TimeTypeDef *RTC_TimeStruct)
  UART2_Write(13);
  UART2_Write(10);
 }
-#line 405 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 327 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void RTC_PrintDate(RTC_DateTypeDef *RTC_DateStruct)
 {
 
@@ -4059,7 +4028,7 @@ void RTC_PrintDate(RTC_DateTypeDef *RTC_DateStruct)
  UART2_Write(10);
 
 }
-#line 459 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+#line 381 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
 void Print_Sub_Secs (unsigned Value)
 {
  char txt[6];
@@ -4070,4 +4039,39 @@ void Print_Sub_Secs (unsigned Value)
  UART2_Write_Text("  ms");
  UART2_Write(13);
  UART2_Write(10);
+}
+#line 464 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/InternalRTC.c"
+ char Set_MyRTCC(){
+ char temp;
+ uint8_t minutesTemp, hoursTemp;
+ int yearTemp;
+ int8_t finalDayOfWeek;
+ int a, y, m;
+
+ RTCC_Read(&MyTime);
+
+ MyTime.hours = tenHour * 10 + oneHour;
+ MyTime.minutes = tenMinute * 10 + oneMinute;
+ MyTime.day = tenDayU * 10 + oneDayU;
+ MyTime.month = oneMonth;
+ MyTime.year = tenYearU*10 + oneYearU;
+ MyTime.ampm = 0;
+ a = (14 - MyTime.month) / 12;
+ y = MyTime.year - a;
+ m = MyTime.month + 12 * a - 2;
+ finalDayOfWeek = (short)((7000 + (MyTime.day + y + y / 4 - y / 100 + y / 400 + (31 * m) / 12)) % 7);
+ switch(finalDayOfWeek){
+ case 0:{
+ finalDayOfWeek = 7;
+ break;
+ }
+ }
+ MyTime.weekday = finalDayOfWeek;
+
+ Set_RTC(&MyTime);
+ if (MyTime.day == 0)
+ return 0;
+ if (MyTime.year > 30)
+ return 0;
+ return 1;
 }

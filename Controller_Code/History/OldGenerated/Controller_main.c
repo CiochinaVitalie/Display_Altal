@@ -128,7 +128,7 @@ void printTime(RTC_TimeTypeDef *RTC_TimeStruct,RTC_DateTypeDef *RTC_DateStruct)
       strcat(DateTime.Caption,txt);
       ByteToStr(RTC_TimeStruct->RTC_Min_Units,txt);
       strcat(DateTime.Caption,txt);
-      strcat(DateTime.Caption," ");
+      strcat(DateTime.Caption,"/");
       ByteToStr(RTC_DateStruct->RTC_Date_Tens,txt);
       strcat(DateTime.Caption,txt);
       ByteToStr(RTC_DateStruct->RTC_Date_Units,txt);
@@ -154,42 +154,19 @@ void printTime(RTC_TimeTypeDef *RTC_TimeStruct,RTC_DateTypeDef *RTC_DateStruct)
 
 //------------------------------------------------------------------------------
 void main() {
-    RTC_TimeTypeDef      My_Time;
+
     RTC_TimeTypeDef      Read_Time;
-    RTC_DateTypeDef      My_Date;
     RTC_DateTypeDef      Read_Date;
-    // init date
-    My_Date.RTC_DayofWeek     = 5;
-    My_Date.RTC_Date_Tens     = 3;
-    My_Date.RTC_Date_Units    = 1;
-    My_Date.RTC_Month_Tens    = 1;
-    My_Date.RTC_Month_Units   = 2;
-    My_Date.RTC_Year_Tens     = 1;
-    My_Date.RTC_Year_Units    = 5;
 
-
-    //09:59:30pm
-    My_Time.RTC_Hour_Tens     = 0;
-    My_Time.RTC_Hour_Units    = 9;
-    My_Time.RTC_Min_Tens      = 5;
-    My_Time.RTC_Min_Units     = 9;
-    My_Time.RTC_Sec_Tens      = 3;
-    My_Time.RTC_Sec_Units     = 0;
-    My_Time.RTC_H12           = 1;
-    
-     if (RTC_Init(255, 127, 1))
-         My_Time.RTC_Hour_Tens     = 1;
-    else
-        My_Time.RTC_Hour_Tens     = 0;
-
-    Delay_ms(2000);
+    RTC_Init(255, 127, 1);
+/*Delay_ms(2000);
      if (RTC_SetTime(&My_Time, -37))
           My_Time.RTC_Hour_Units    = 1;
     else
           My_Time.RTC_Hour_Units    = 0;
     Delay_ms(2000);
      // Set the Date.
-    RTC_SetDate(&My_Date);
+    RTC_SetDate(&My_Date);*/
   //---------------
   InitSysTick();
   USART_init();

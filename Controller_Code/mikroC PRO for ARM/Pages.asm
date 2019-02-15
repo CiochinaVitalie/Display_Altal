@@ -16,14 +16,14 @@ MOVT	R0, #hi_addr(_system_reg+162)
 LDRSH	R0, [R0, #0]
 CMP	R0, #10
 IT	LT
-BLT	L__main_page385
+BLT	L__main_page387
 MOVW	R0, #lo_addr(_system_reg+162)
 MOVT	R0, #hi_addr(_system_reg+162)
 LDRSH	R0, [R0, #0]
 CMP	R0, #100
 IT	GE
-BGE	L__main_page384
-L__main_page381:
+BGE	L__main_page386
+L__main_page383:
 ;Pages.c,23 :: 		if(strcmp(dhw_T.Caption[1], txt[0])!=0 || strcmp(dhw_T.Caption[0], '0')!=0)// sourc_in_T.Caption[1]!=txt[0]//
 ADD	R0, SP, #8
 LDRB	R0, [R0, #0]
@@ -36,7 +36,7 @@ LDRB	R0, [R0, #0]
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
-BNE	L__main_page383
+BNE	L__main_page385
 MOVW	R0, #lo_addr(_dhw_T+24)
 MOVT	R0, #hi_addr(_dhw_T+24)
 LDR	R0, [R0, #0]
@@ -45,11 +45,11 @@ MOVS	R1, #48
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
-BNE	L__main_page382
+BNE	L__main_page384
 IT	AL
 BAL	L_main_page5
-L__main_page383:
-L__main_page382:
+L__main_page385:
+L__main_page384:
 ;Pages.c,25 :: 		strncpy(dhw_T.Caption, txt, 1);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_dhw_T+24)
@@ -108,22 +108,22 @@ L_main_page6:
 IT	AL
 BAL	L_main_page7
 ;Pages.c,18 :: 		if(system_reg[DHW_TEMP]>=10 && system_reg[DHW_TEMP]<100 )
-L__main_page385:
-L__main_page384:
+L__main_page387:
+L__main_page386:
 ;Pages.c,36 :: 		else  if(system_reg[DHW_TEMP]>=0 && system_reg[DHW_TEMP]<10 )
 MOVW	R0, #lo_addr(_system_reg+162)
 MOVT	R0, #hi_addr(_system_reg+162)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LT
-BLT	L__main_page387
+BLT	L__main_page389
 MOVW	R0, #lo_addr(_system_reg+162)
 MOVT	R0, #hi_addr(_system_reg+162)
 LDRSH	R0, [R0, #0]
 CMP	R0, #10
 IT	GE
-BGE	L__main_page386
-L__main_page379:
+BGE	L__main_page388
+L__main_page381:
 ;Pages.c,38 :: 		if( strncmp("00",dhw_T.Caption,2)!=0){
 MOVW	R0, #lo_addr(_dhw_T+24)
 MOVT	R0, #hi_addr(_dhw_T+24)
@@ -180,8 +180,8 @@ L_main_page12:
 IT	AL
 BAL	L_main_page13
 ;Pages.c,36 :: 		else  if(system_reg[DHW_TEMP]>=0 && system_reg[DHW_TEMP]<10 )
-L__main_page387:
-L__main_page386:
+L__main_page389:
+L__main_page388:
 ;Pages.c,53 :: 		if(strncmp(txt,dhw_T.Caption,2)!=0){strncpy(dhw_T.Caption, txt, 2);DrawRoundButton(&dhw_T);}
 MOVW	R0, #lo_addr(_dhw_T+24)
 MOVT	R0, #hi_addr(_dhw_T+24)
@@ -243,14 +243,14 @@ MOVT	R0, #hi_addr(_system_reg+142)
 LDRSH	R0, [R0, #0]
 CMP	R0, #10
 IT	LT
-BLT	L__main_page391
+BLT	L__main_page393
 MOVW	R0, #lo_addr(_system_reg+142)
 MOVT	R0, #hi_addr(_system_reg+142)
 LDRSH	R0, [R0, #0]
 CMP	R0, #100
 IT	GE
-BGE	L__main_page390
-L__main_page378:
+BGE	L__main_page392
+L__main_page380:
 ;Pages.c,62 :: 		if(strcmp(heat_T.Caption[1], txt[0])!=0 || strcmp(heat_T.Caption[0], '0')!=0)// sourc_in_T.Caption[1]!=txt[0]//
 ADD	R0, SP, #8
 LDRB	R0, [R0, #0]
@@ -263,7 +263,7 @@ LDRB	R0, [R0, #0]
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
-BNE	L__main_page389
+BNE	L__main_page391
 MOVW	R0, #lo_addr(_heat_T+24)
 MOVT	R0, #hi_addr(_heat_T+24)
 LDR	R0, [R0, #0]
@@ -272,11 +272,11 @@ MOVS	R1, #48
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
-BNE	L__main_page388
+BNE	L__main_page390
 IT	AL
 BAL	L_main_page21
-L__main_page389:
-L__main_page388:
+L__main_page391:
+L__main_page390:
 ;Pages.c,64 :: 		strncpy(heat_T.Caption, txt, 1);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_heat_T+24)
@@ -335,22 +335,22 @@ L_main_page22:
 IT	AL
 BAL	L_main_page23
 ;Pages.c,57 :: 		if(system_reg[BAC_TEMP]>=10 && system_reg[BAC_TEMP]<100 )
-L__main_page391:
-L__main_page390:
+L__main_page393:
+L__main_page392:
 ;Pages.c,76 :: 		else if(system_reg[BAC_TEMP]>=0 && system_reg[BAC_TEMP]<10 )
 MOVW	R0, #lo_addr(_system_reg+142)
 MOVT	R0, #hi_addr(_system_reg+142)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LT
-BLT	L__main_page393
+BLT	L__main_page395
 MOVW	R0, #lo_addr(_system_reg+142)
 MOVT	R0, #hi_addr(_system_reg+142)
 LDRSH	R0, [R0, #0]
 CMP	R0, #10
 IT	GE
-BGE	L__main_page392
-L__main_page376:
+BGE	L__main_page394
+L__main_page378:
 ;Pages.c,78 :: 		if( strncmp("00",heat_T.Caption,2)!=0){
 MOVW	R0, #lo_addr(_heat_T+24)
 MOVT	R0, #hi_addr(_heat_T+24)
@@ -407,8 +407,8 @@ L_main_page28:
 IT	AL
 BAL	L_main_page29
 ;Pages.c,76 :: 		else if(system_reg[BAC_TEMP]>=0 && system_reg[BAC_TEMP]<10 )
-L__main_page393:
-L__main_page392:
+L__main_page395:
+L__main_page394:
 ;Pages.c,93 :: 		if(strncmp(txt,heat_T.Caption,2)!=0){strncpy(heat_T.Caption, txt, 2);DrawRoundButton(&heat_T);}
 MOVW	R0, #lo_addr(_heat_T+24)
 MOVT	R0, #hi_addr(_heat_T+24)
@@ -481,7 +481,7 @@ MOVT	R0, #hi_addr(_system_reg+202)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	GE
-BGE	L__main_page395
+BGE	L__main_page397
 MOVW	R0, #lo_addr(_sign_OUT+24)
 MOVT	R0, #hi_addr(_sign_OUT+24)
 LDR	R1, [R0, #0]
@@ -491,8 +491,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__main_page394
-L__main_page375:
+BEQ	L__main_page396
+L__main_page377:
 MOVW	R1, #lo_addr(?lstr4_Pages+0)
 MOVT	R1, #hi_addr(?lstr4_Pages+0)
 MOVW	R0, #lo_addr(_sign_OUT+24)
@@ -503,15 +503,15 @@ MOVT	R0, #hi_addr(_sign_OUT+0)
 BL	_DrawRoundButton+0
 IT	AL
 BAL	L_main_page35
-L__main_page395:
-L__main_page394:
+L__main_page397:
+L__main_page396:
 ;Pages.c,98 :: 		else if(system_reg[SOURC_OUT_1]>0 && strncmp("+",sign_OUT.Caption,1)!=0){sign_OUT.Caption="+";DrawRoundButton(&sign_OUT);}
 MOVW	R0, #lo_addr(_system_reg+202)
 MOVT	R0, #hi_addr(_system_reg+202)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LE
-BLE	L__main_page397
+BLE	L__main_page399
 MOVW	R0, #lo_addr(_sign_OUT+24)
 MOVT	R0, #hi_addr(_sign_OUT+24)
 LDR	R1, [R0, #0]
@@ -521,8 +521,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__main_page396
-L__main_page374:
+BEQ	L__main_page398
+L__main_page376:
 MOVW	R1, #lo_addr(?lstr6_Pages+0)
 MOVT	R1, #hi_addr(?lstr6_Pages+0)
 MOVW	R0, #lo_addr(_sign_OUT+24)
@@ -531,8 +531,8 @@ STR	R1, [R0, #0]
 MOVW	R0, #lo_addr(_sign_OUT+0)
 MOVT	R0, #hi_addr(_sign_OUT+0)
 BL	_DrawRoundButton+0
-L__main_page397:
-L__main_page396:
+L__main_page399:
+L__main_page398:
 L_main_page35:
 ;Pages.c,99 :: 		if((int)fabs(system_reg[SOURC_OUT_1])>=10 && (int)fabs(system_reg[SOURC_OUT_1])<100)
 MOVW	R0, #lo_addr(_system_reg+202)
@@ -546,7 +546,7 @@ VMOV	R0, S0
 SXTH	R0, R0
 CMP	R0, #10
 IT	LT
-BLT	L__main_page401
+BLT	L__main_page403
 MOVW	R0, #lo_addr(_system_reg+202)
 MOVT	R0, #hi_addr(_system_reg+202)
 LDRSH	R0, [R0, #0]
@@ -558,8 +558,8 @@ VMOV	R0, S0
 SXTH	R0, R0
 CMP	R0, #100
 IT	GE
-BGE	L__main_page400
-L__main_page373:
+BGE	L__main_page402
+L__main_page375:
 ;Pages.c,103 :: 		if(strcmp(sourc_out_TEMP.Caption[1], txt[0])!=0 || strcmp(sourc_out_TEMP.Caption[0], '0')!=0)// sourc_in_T.Caption[1]!=txt[0]//
 ADD	R0, SP, #8
 LDRB	R0, [R0, #0]
@@ -572,7 +572,7 @@ LDRB	R0, [R0, #0]
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
-BNE	L__main_page399
+BNE	L__main_page401
 MOVW	R0, #lo_addr(_sourc_out_TEMP+24)
 MOVT	R0, #hi_addr(_sourc_out_TEMP+24)
 LDR	R0, [R0, #0]
@@ -581,11 +581,11 @@ MOVS	R1, #48
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
-BNE	L__main_page398
+BNE	L__main_page400
 IT	AL
 BAL	L_main_page44
-L__main_page399:
-L__main_page398:
+L__main_page401:
+L__main_page400:
 ;Pages.c,105 :: 		strncpy(sourc_out_TEMP.Caption, txt, 1);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_sourc_out_TEMP+24)
@@ -644,8 +644,8 @@ L_main_page45:
 IT	AL
 BAL	L_main_page46
 ;Pages.c,99 :: 		if((int)fabs(system_reg[SOURC_OUT_1])>=10 && (int)fabs(system_reg[SOURC_OUT_1])<100)
-L__main_page401:
-L__main_page400:
+L__main_page403:
+L__main_page402:
 ;Pages.c,116 :: 		else  if((int)fabs(system_reg[SOURC_OUT_1])>=0 && (int)fabs(system_reg[SOURC_OUT_1])<10)
 MOVW	R0, #lo_addr(_system_reg+202)
 MOVT	R0, #hi_addr(_system_reg+202)
@@ -658,7 +658,7 @@ VMOV	R0, S0
 SXTH	R0, R0
 CMP	R0, #0
 IT	LT
-BLT	L__main_page403
+BLT	L__main_page405
 MOVW	R0, #lo_addr(_system_reg+202)
 MOVT	R0, #hi_addr(_system_reg+202)
 LDRSH	R0, [R0, #0]
@@ -670,8 +670,8 @@ VMOV	R0, S0
 SXTH	R0, R0
 CMP	R0, #10
 IT	GE
-BGE	L__main_page402
-L__main_page371:
+BGE	L__main_page404
+L__main_page373:
 ;Pages.c,118 :: 		if( strncmp("00",sourc_out_TEMP.Caption,2)!=0){
 MOVW	R0, #lo_addr(_sourc_out_TEMP+24)
 MOVT	R0, #hi_addr(_sourc_out_TEMP+24)
@@ -728,8 +728,8 @@ L_main_page51:
 IT	AL
 BAL	L_main_page52
 ;Pages.c,116 :: 		else  if((int)fabs(system_reg[SOURC_OUT_1])>=0 && (int)fabs(system_reg[SOURC_OUT_1])<10)
-L__main_page403:
-L__main_page402:
+L__main_page405:
+L__main_page404:
 ;Pages.c,139 :: 		if(strncmp(txt,sourc_out_TEMP.Caption,2)!=0){strncpy(sourc_out_TEMP.Caption, txt, 2);DrawRoundButton(&sourc_out_TEMP);}
 MOVW	R0, #lo_addr(_sourc_out_TEMP+24)
 MOVT	R0, #hi_addr(_sourc_out_TEMP+24)
@@ -802,7 +802,7 @@ MOVT	R0, #hi_addr(_system_reg+182)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	GE
-BGE	L__main_page405
+BGE	L__main_page407
 MOVW	R0, #lo_addr(_sign_IN+24)
 MOVT	R0, #hi_addr(_sign_IN+24)
 LDR	R1, [R0, #0]
@@ -812,8 +812,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__main_page404
-L__main_page370:
+BEQ	L__main_page406
+L__main_page372:
 MOVW	R1, #lo_addr(?lstr9_Pages+0)
 MOVT	R1, #hi_addr(?lstr9_Pages+0)
 MOVW	R0, #lo_addr(_sign_IN+24)
@@ -824,15 +824,15 @@ MOVT	R0, #hi_addr(_sign_IN+0)
 BL	_DrawRoundButton+0
 IT	AL
 BAL	L_main_page58
-L__main_page405:
-L__main_page404:
+L__main_page407:
+L__main_page406:
 ;Pages.c,145 :: 		else if(system_reg[SOURC_IN_1]>0 && strncmp("+",sign_IN.Caption,1)!=0){sign_IN.Caption="+";DrawRoundButton(&sign_IN);}
 MOVW	R0, #lo_addr(_system_reg+182)
 MOVT	R0, #hi_addr(_system_reg+182)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LE
-BLE	L__main_page407
+BLE	L__main_page409
 MOVW	R0, #lo_addr(_sign_IN+24)
 MOVT	R0, #hi_addr(_sign_IN+24)
 LDR	R1, [R0, #0]
@@ -842,8 +842,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__main_page406
-L__main_page369:
+BEQ	L__main_page408
+L__main_page371:
 MOVW	R1, #lo_addr(?lstr11_Pages+0)
 MOVT	R1, #hi_addr(?lstr11_Pages+0)
 MOVW	R0, #lo_addr(_sign_IN+24)
@@ -852,8 +852,8 @@ STR	R1, [R0, #0]
 MOVW	R0, #lo_addr(_sign_IN+0)
 MOVT	R0, #hi_addr(_sign_IN+0)
 BL	_DrawRoundButton+0
-L__main_page407:
-L__main_page406:
+L__main_page409:
+L__main_page408:
 L_main_page58:
 ;Pages.c,147 :: 		if((int)fabs(system_reg[SOURC_IN_1])>=10 && (int)fabs(system_reg[SOURC_IN_1])<100)
 MOVW	R0, #lo_addr(_system_reg+182)
@@ -867,7 +867,7 @@ VMOV	R0, S0
 SXTH	R0, R0
 CMP	R0, #10
 IT	LT
-BLT	L__main_page411
+BLT	L__main_page413
 MOVW	R0, #lo_addr(_system_reg+182)
 MOVT	R0, #hi_addr(_system_reg+182)
 LDRSH	R0, [R0, #0]
@@ -879,8 +879,8 @@ VMOV	R0, S0
 SXTH	R0, R0
 CMP	R0, #100
 IT	GE
-BGE	L__main_page410
-L__main_page368:
+BGE	L__main_page412
+L__main_page370:
 ;Pages.c,152 :: 		if(strcmp(sourc_in_T.Caption[1], txt[0])!=0 || strcmp(sourc_in_T.Caption[0], '0')!=0)// sourc_in_T.Caption[1]!=txt[0]//
 ADD	R0, SP, #8
 LDRB	R0, [R0, #0]
@@ -893,7 +893,7 @@ LDRB	R0, [R0, #0]
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
-BNE	L__main_page409
+BNE	L__main_page411
 MOVW	R0, #lo_addr(_sourc_in_T+24)
 MOVT	R0, #hi_addr(_sourc_in_T+24)
 LDR	R0, [R0, #0]
@@ -902,11 +902,11 @@ MOVS	R1, #48
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
-BNE	L__main_page408
+BNE	L__main_page410
 IT	AL
 BAL	L_main_page67
-L__main_page409:
-L__main_page408:
+L__main_page411:
+L__main_page410:
 ;Pages.c,154 :: 		strncpy(sourc_in_T.Caption, txt, 1);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_sourc_in_T+24)
@@ -965,8 +965,8 @@ L_main_page68:
 IT	AL
 BAL	L_main_page69
 ;Pages.c,147 :: 		if((int)fabs(system_reg[SOURC_IN_1])>=10 && (int)fabs(system_reg[SOURC_IN_1])<100)
-L__main_page411:
-L__main_page410:
+L__main_page413:
+L__main_page412:
 ;Pages.c,166 :: 		else if((int)fabs(system_reg[SOURC_IN_1])>=0 && (int)fabs(system_reg[SOURC_IN_1])<10)
 MOVW	R0, #lo_addr(_system_reg+182)
 MOVT	R0, #hi_addr(_system_reg+182)
@@ -979,7 +979,7 @@ VMOV	R0, S0
 SXTH	R0, R0
 CMP	R0, #0
 IT	LT
-BLT	L__main_page413
+BLT	L__main_page415
 MOVW	R0, #lo_addr(_system_reg+182)
 MOVT	R0, #hi_addr(_system_reg+182)
 LDRSH	R0, [R0, #0]
@@ -991,8 +991,8 @@ VMOV	R0, S0
 SXTH	R0, R0
 CMP	R0, #10
 IT	GE
-BGE	L__main_page412
-L__main_page366:
+BGE	L__main_page414
+L__main_page368:
 ;Pages.c,168 :: 		if( strncmp("00",sourc_in_T.Caption,2)!=0){
 MOVW	R0, #lo_addr(_sourc_in_T+24)
 MOVT	R0, #hi_addr(_sourc_in_T+24)
@@ -1049,8 +1049,8 @@ L_main_page74:
 IT	AL
 BAL	L_main_page75
 ;Pages.c,166 :: 		else if((int)fabs(system_reg[SOURC_IN_1])>=0 && (int)fabs(system_reg[SOURC_IN_1])<10)
-L__main_page413:
-L__main_page412:
+L__main_page415:
+L__main_page414:
 ;Pages.c,182 :: 		if(strncmp(txt,sourc_in_T.Caption,2)!=0){strncpy(sourc_in_T.Caption, txt, 2);DrawRoundButton(&sourc_in_T);}
 MOVW	R0, #lo_addr(_sourc_in_T+24)
 MOVT	R0, #hi_addr(_sourc_in_T+24)
@@ -1233,14 +1233,14 @@ MOVT	R0, #hi_addr(_system_reg+400)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__startPage418
+BNE	L__startPage420
 MOVW	R0, #lo_addr(_system_reg+380)
 MOVT	R0, #hi_addr(_system_reg+380)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L__startPage417
-L__startPage416:
+BNE	L__startPage419
+L__startPage418:
 MOVW	R1, #lo_addr(?lstr13_Pages+0)
 MOVT	R1, #hi_addr(?lstr13_Pages+0)
 MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+24)
@@ -1257,22 +1257,22 @@ BL	_DrawRoundButton+0
 MOVW	R0, #lo_addr(_cool_icon+0)
 MOVT	R0, #hi_addr(_cool_icon+0)
 BL	_DrawImage+0
-L__startPage418:
-L__startPage417:
+L__startPage420:
+L__startPage419:
 ;Pages.c,211 :: 		if(system_reg[HEAT]==1 && system_reg[COOL]==0) {ON_OFF_Heat_Cool.Caption = "ON"; bar_heating.Caption = "HEATING";DrawRoundButton(&bar_heating);DrawImage(&heat_icon);}
 MOVW	R0, #lo_addr(_system_reg+400)
 MOVT	R0, #hi_addr(_system_reg+400)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L__startPage420
+BNE	L__startPage422
 MOVW	R0, #lo_addr(_system_reg+380)
 MOVT	R0, #hi_addr(_system_reg+380)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__startPage419
-L__startPage415:
+BNE	L__startPage421
+L__startPage417:
 MOVW	R1, #lo_addr(?lstr15_Pages+0)
 MOVT	R1, #hi_addr(?lstr15_Pages+0)
 MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+24)
@@ -1289,29 +1289,29 @@ BL	_DrawRoundButton+0
 MOVW	R0, #lo_addr(_heat_icon+0)
 MOVT	R0, #hi_addr(_heat_icon+0)
 BL	_DrawImage+0
-L__startPage420:
-L__startPage419:
+L__startPage422:
+L__startPage421:
 ;Pages.c,212 :: 		if(system_reg[HEAT]==0 && system_reg[COOL]==0) ON_OFF_Heat_Cool.Caption = "OFF";
 MOVW	R0, #lo_addr(_system_reg+400)
 MOVT	R0, #hi_addr(_system_reg+400)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__startPage422
+BNE	L__startPage424
 MOVW	R0, #lo_addr(_system_reg+380)
 MOVT	R0, #hi_addr(_system_reg+380)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__startPage421
-L__startPage414:
+BNE	L__startPage423
+L__startPage416:
 MOVW	R1, #lo_addr(?lstr17_Pages+0)
 MOVT	R1, #hi_addr(?lstr17_Pages+0)
 MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+24)
 MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+24)
 STR	R1, [R0, #0]
-L__startPage422:
-L__startPage421:
+L__startPage424:
+L__startPage423:
 ;Pages.c,213 :: 		if(system_reg[HEATWATER]==0)ON_OFF_DHW.Caption = "OFF";
 MOVW	R0, #lo_addr(_system_reg+420)
 MOVT	R0, #hi_addr(_system_reg+420)
@@ -1406,7 +1406,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #0
 IT	LT
-BLT	L__sensor_1464
+BLT	L__sensor_1466
 MOVW	R1, #lo_addr(_system_reg+182)
 MOVT	R1, #hi_addr(_system_reg+182)
 LDRSH	R1, [R1, #0]
@@ -1418,8 +1418,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	GE
-BGE	L__sensor_1463
-L__sensor_1462:
+BGE	L__sensor_1465
+L__sensor_1464:
 ;Pages.c,232 :: 		S_Brine_Inlet_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R3, #lo_addr(_S_Brine_Inlet_1+24)
@@ -1453,8 +1453,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_198
 ;Pages.c,229 :: 		if((int)fabs(system_reg[SOURC_IN_1])>=0 && (int)fabs(system_reg[SOURC_IN_1])<10)
-L__sensor_1464:
-L__sensor_1463:
+L__sensor_1466:
+L__sensor_1465:
 ;Pages.c,240 :: 		else if((int)fabs(system_reg[SOURC_IN_1])>=10 && (int)fabs(system_reg[SOURC_IN_1])<100)
 MOVW	R1, #lo_addr(_system_reg+182)
 MOVT	R1, #hi_addr(_system_reg+182)
@@ -1467,7 +1467,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	LT
-BLT	L__sensor_1466
+BLT	L__sensor_1468
 MOVW	R1, #lo_addr(_system_reg+182)
 MOVT	R1, #hi_addr(_system_reg+182)
 LDRSH	R1, [R1, #0]
@@ -1479,8 +1479,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #100
 IT	GE
-BGE	L__sensor_1465
-L__sensor_1461:
+BGE	L__sensor_1467
+L__sensor_1463:
 ;Pages.c,243 :: 		S_Brine_Inlet_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R4, #lo_addr(_S_Brine_Inlet_1+24)
@@ -1515,8 +1515,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1102
 ;Pages.c,240 :: 		else if((int)fabs(system_reg[SOURC_IN_1])>=10 && (int)fabs(system_reg[SOURC_IN_1])<100)
-L__sensor_1466:
-L__sensor_1465:
+L__sensor_1468:
+L__sensor_1467:
 ;Pages.c,252 :: 		S_Brine_Inlet_1.Caption[0]=txt[0];
 ADD	R4, SP, #4
 LDRB	R2, [R4, #0]
@@ -1559,7 +1559,7 @@ MOVT	R1, #hi_addr(_system_reg+182)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	GE
-BGE	L__sensor_1468
+BGE	L__sensor_1470
 MOVW	R1, #lo_addr(_BrineIN_sign+24)
 MOVT	R1, #hi_addr(_BrineIN_sign+24)
 LDR	R2, [R1, #0]
@@ -1571,8 +1571,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1467
-L__sensor_1460:
+BEQ	L__sensor_1469
+L__sensor_1462:
 MOVW	R2, #lo_addr(?lstr21_Pages+0)
 MOVT	R2, #hi_addr(?lstr21_Pages+0)
 MOVW	R1, #lo_addr(_BrineIN_sign+24)
@@ -1581,15 +1581,15 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_BrineIN_sign+0)
 MOVT	R0, #hi_addr(_BrineIN_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1468:
-L__sensor_1467:
+L__sensor_1470:
+L__sensor_1469:
 ;Pages.c,261 :: 		if(system_reg[SOURC_IN_1]>0 && strncmp("+",BrineIN_sign.Caption,1)!=0){BrineIN_sign.Caption="+";DrawRoundButton(&BrineIN_sign);}
 MOVW	R1, #lo_addr(_system_reg+182)
 MOVT	R1, #hi_addr(_system_reg+182)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	LE
-BLE	L__sensor_1470
+BLE	L__sensor_1472
 MOVW	R1, #lo_addr(_BrineIN_sign+24)
 MOVT	R1, #hi_addr(_BrineIN_sign+24)
 LDR	R2, [R1, #0]
@@ -1601,8 +1601,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1469
-L__sensor_1459:
+BEQ	L__sensor_1471
+L__sensor_1461:
 MOVW	R2, #lo_addr(?lstr23_Pages+0)
 MOVT	R2, #hi_addr(?lstr23_Pages+0)
 MOVW	R1, #lo_addr(_BrineIN_sign+24)
@@ -1611,8 +1611,8 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_BrineIN_sign+0)
 MOVT	R0, #hi_addr(_BrineIN_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1470:
-L__sensor_1469:
+L__sensor_1472:
+L__sensor_1471:
 ;Pages.c,263 :: 		IntToStr((int)fabs(system_reg[SOURC_OUT_1]), txt);Ltrim(txt);//
 ADD	R1, SP, #4
 STR	R1, [SP, #20]
@@ -1655,7 +1655,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #0
 IT	LT
-BLT	L__sensor_1472
+BLT	L__sensor_1474
 MOVW	R1, #lo_addr(_system_reg+202)
 MOVT	R1, #hi_addr(_system_reg+202)
 LDRSH	R1, [R1, #0]
@@ -1667,8 +1667,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	GE
-BGE	L__sensor_1471
-L__sensor_1458:
+BGE	L__sensor_1473
+L__sensor_1460:
 ;Pages.c,270 :: 		S_Brine_Outlet_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R3, #lo_addr(_S_Brine_Outlet_1+24)
@@ -1702,8 +1702,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1113
 ;Pages.c,267 :: 		if((int)fabs(system_reg[SOURC_OUT_1])>=0 && (int)fabs(system_reg[SOURC_OUT_1])<10)
-L__sensor_1472:
-L__sensor_1471:
+L__sensor_1474:
+L__sensor_1473:
 ;Pages.c,278 :: 		else if((int)fabs(system_reg[SOURC_OUT_1])>=10 && (int)fabs(system_reg[SOURC_OUT_1])<100)
 MOVW	R1, #lo_addr(_system_reg+202)
 MOVT	R1, #hi_addr(_system_reg+202)
@@ -1716,7 +1716,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	LT
-BLT	L__sensor_1474
+BLT	L__sensor_1476
 MOVW	R1, #lo_addr(_system_reg+202)
 MOVT	R1, #hi_addr(_system_reg+202)
 LDRSH	R1, [R1, #0]
@@ -1728,8 +1728,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #100
 IT	GE
-BGE	L__sensor_1473
-L__sensor_1457:
+BGE	L__sensor_1475
+L__sensor_1459:
 ;Pages.c,281 :: 		S_Brine_Outlet_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R4, #lo_addr(_S_Brine_Outlet_1+24)
@@ -1764,8 +1764,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1117
 ;Pages.c,278 :: 		else if((int)fabs(system_reg[SOURC_OUT_1])>=10 && (int)fabs(system_reg[SOURC_OUT_1])<100)
-L__sensor_1474:
-L__sensor_1473:
+L__sensor_1476:
+L__sensor_1475:
 ;Pages.c,290 :: 		S_Brine_Outlet_1.Caption[0]=txt[0];
 ADD	R4, SP, #4
 LDRB	R2, [R4, #0]
@@ -1808,7 +1808,7 @@ MOVT	R1, #hi_addr(_system_reg+202)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	GE
-BGE	L__sensor_1476
+BGE	L__sensor_1478
 MOVW	R1, #lo_addr(_BrineOUT_sign+24)
 MOVT	R1, #hi_addr(_BrineOUT_sign+24)
 LDR	R2, [R1, #0]
@@ -1820,8 +1820,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1475
-L__sensor_1456:
+BEQ	L__sensor_1477
+L__sensor_1458:
 MOVW	R2, #lo_addr(?lstr25_Pages+0)
 MOVT	R2, #hi_addr(?lstr25_Pages+0)
 MOVW	R1, #lo_addr(_BrineOUT_sign+24)
@@ -1830,15 +1830,15 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_BrineOUT_sign+0)
 MOVT	R0, #hi_addr(_BrineOUT_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1476:
-L__sensor_1475:
+L__sensor_1478:
+L__sensor_1477:
 ;Pages.c,299 :: 		if(system_reg[SOURC_OUT_1]>0 && strncmp("+",BrineOUT_sign.Caption,1)!=0){BrineOUT_sign.Caption="+";DrawRoundButton(&BrineOUT_sign);}
 MOVW	R1, #lo_addr(_system_reg+202)
 MOVT	R1, #hi_addr(_system_reg+202)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	LE
-BLE	L__sensor_1478
+BLE	L__sensor_1480
 MOVW	R1, #lo_addr(_BrineOUT_sign+24)
 MOVT	R1, #hi_addr(_BrineOUT_sign+24)
 LDR	R2, [R1, #0]
@@ -1850,8 +1850,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1477
-L__sensor_1455:
+BEQ	L__sensor_1479
+L__sensor_1457:
 MOVW	R2, #lo_addr(?lstr27_Pages+0)
 MOVT	R2, #hi_addr(?lstr27_Pages+0)
 MOVW	R1, #lo_addr(_BrineOUT_sign+24)
@@ -1860,8 +1860,8 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_BrineOUT_sign+0)
 MOVT	R0, #hi_addr(_BrineOUT_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1478:
-L__sensor_1477:
+L__sensor_1480:
+L__sensor_1479:
 ;Pages.c,300 :: 		FloatToStr(system_reg[HEAT_IN_1]/10.0, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_system_reg+322)
@@ -2090,7 +2090,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #0
 IT	LT
-BLT	L__sensor_1480
+BLT	L__sensor_1482
 MOVW	R1, #lo_addr(_system_reg+302)
 MOVT	R1, #hi_addr(_system_reg+302)
 LDRSH	R1, [R1, #0]
@@ -2102,8 +2102,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	GE
-BGE	L__sensor_1479
-L__sensor_1454:
+BGE	L__sensor_1481
+L__sensor_1456:
 ;Pages.c,323 :: 		S_Superheat_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R3, #lo_addr(_S_Superheat_1+24)
@@ -2137,8 +2137,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1134
 ;Pages.c,320 :: 		if((int)fabs(system_reg[S_HEAT_1])>=0 && (int)fabs(system_reg[S_HEAT_1])<10)
-L__sensor_1480:
-L__sensor_1479:
+L__sensor_1482:
+L__sensor_1481:
 ;Pages.c,331 :: 		else if((int)fabs(system_reg[S_HEAT_1])>=10 && (int)fabs(system_reg[S_HEAT_1])<100)
 MOVW	R1, #lo_addr(_system_reg+302)
 MOVT	R1, #hi_addr(_system_reg+302)
@@ -2151,7 +2151,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	LT
-BLT	L__sensor_1482
+BLT	L__sensor_1484
 MOVW	R1, #lo_addr(_system_reg+302)
 MOVT	R1, #hi_addr(_system_reg+302)
 LDRSH	R1, [R1, #0]
@@ -2163,8 +2163,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #100
 IT	GE
-BGE	L__sensor_1481
-L__sensor_1453:
+BGE	L__sensor_1483
+L__sensor_1455:
 ;Pages.c,334 :: 		S_Superheat_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R4, #lo_addr(_S_Superheat_1+24)
@@ -2199,8 +2199,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1138
 ;Pages.c,331 :: 		else if((int)fabs(system_reg[S_HEAT_1])>=10 && (int)fabs(system_reg[S_HEAT_1])<100)
-L__sensor_1482:
-L__sensor_1481:
+L__sensor_1484:
+L__sensor_1483:
 ;Pages.c,343 :: 		S_Superheat_1.Caption[0]=txt[0];
 ADD	R4, SP, #4
 LDRB	R2, [R4, #0]
@@ -2243,7 +2243,7 @@ MOVT	R1, #hi_addr(_system_reg+302)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	GE
-BGE	L__sensor_1484
+BGE	L__sensor_1486
 MOVW	R1, #lo_addr(_Super_sign+24)
 MOVT	R1, #hi_addr(_Super_sign+24)
 LDR	R2, [R1, #0]
@@ -2255,8 +2255,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1483
-L__sensor_1452:
+BEQ	L__sensor_1485
+L__sensor_1454:
 MOVW	R2, #lo_addr(?lstr29_Pages+0)
 MOVT	R2, #hi_addr(?lstr29_Pages+0)
 MOVW	R1, #lo_addr(_Super_sign+24)
@@ -2265,15 +2265,15 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Super_sign+0)
 MOVT	R0, #hi_addr(_Super_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1484:
-L__sensor_1483:
+L__sensor_1486:
+L__sensor_1485:
 ;Pages.c,352 :: 		if(system_reg[S_HEAT_1]>0 && strncmp("+",Super_sign.Caption,1)!=0){Super_sign.Caption="+";DrawRoundButton(&Super_sign);}
 MOVW	R1, #lo_addr(_system_reg+302)
 MOVT	R1, #hi_addr(_system_reg+302)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	LE
-BLE	L__sensor_1486
+BLE	L__sensor_1488
 MOVW	R1, #lo_addr(_Super_sign+24)
 MOVT	R1, #hi_addr(_Super_sign+24)
 LDR	R2, [R1, #0]
@@ -2285,8 +2285,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1485
-L__sensor_1451:
+BEQ	L__sensor_1487
+L__sensor_1453:
 MOVW	R2, #lo_addr(?lstr31_Pages+0)
 MOVT	R2, #hi_addr(?lstr31_Pages+0)
 MOVW	R1, #lo_addr(_Super_sign+24)
@@ -2295,8 +2295,8 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Super_sign+0)
 MOVT	R0, #hi_addr(_Super_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1486:
-L__sensor_1485:
+L__sensor_1488:
+L__sensor_1487:
 ;Pages.c,354 :: 		IntToStr(fabs(system_reg[S_COOL_1]), txt);Ltrim(txt);//
 ADD	R1, SP, #4
 STR	R1, [SP, #20]
@@ -2339,7 +2339,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #0
 IT	LT
-BLT	L__sensor_1488
+BLT	L__sensor_1490
 MOVW	R1, #lo_addr(_system_reg+282)
 MOVT	R1, #hi_addr(_system_reg+282)
 LDRSH	R1, [R1, #0]
@@ -2351,8 +2351,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	GE
-BGE	L__sensor_1487
-L__sensor_1450:
+BGE	L__sensor_1489
+L__sensor_1452:
 ;Pages.c,361 :: 		S_Subcool_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R3, #lo_addr(_S_Subcool_1+24)
@@ -2386,8 +2386,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1149
 ;Pages.c,358 :: 		if((int)fabs(system_reg[S_COOL_1])>=0 && (int)fabs(system_reg[S_COOL_1])<10)
-L__sensor_1488:
-L__sensor_1487:
+L__sensor_1490:
+L__sensor_1489:
 ;Pages.c,369 :: 		else if((int)fabs(system_reg[S_COOL_1])>=10 && (int)fabs(system_reg[S_COOL_1])<100)
 MOVW	R1, #lo_addr(_system_reg+282)
 MOVT	R1, #hi_addr(_system_reg+282)
@@ -2400,7 +2400,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	LT
-BLT	L__sensor_1490
+BLT	L__sensor_1492
 MOVW	R1, #lo_addr(_system_reg+282)
 MOVT	R1, #hi_addr(_system_reg+282)
 LDRSH	R1, [R1, #0]
@@ -2412,8 +2412,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #100
 IT	GE
-BGE	L__sensor_1489
-L__sensor_1449:
+BGE	L__sensor_1491
+L__sensor_1451:
 ;Pages.c,372 :: 		S_Subcool_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R4, #lo_addr(_S_Subcool_1+24)
@@ -2448,8 +2448,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1153
 ;Pages.c,369 :: 		else if((int)fabs(system_reg[S_COOL_1])>=10 && (int)fabs(system_reg[S_COOL_1])<100)
-L__sensor_1490:
-L__sensor_1489:
+L__sensor_1492:
+L__sensor_1491:
 ;Pages.c,381 :: 		S_Subcool_1.Caption[0]=txt[0];
 ADD	R4, SP, #4
 LDRB	R2, [R4, #0]
@@ -2492,7 +2492,7 @@ MOVT	R1, #hi_addr(_system_reg+282)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	GE
-BGE	L__sensor_1492
+BGE	L__sensor_1494
 MOVW	R1, #lo_addr(_Cool_sign+24)
 MOVT	R1, #hi_addr(_Cool_sign+24)
 LDR	R2, [R1, #0]
@@ -2504,8 +2504,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1491
-L__sensor_1448:
+BEQ	L__sensor_1493
+L__sensor_1450:
 MOVW	R2, #lo_addr(?lstr33_Pages+0)
 MOVT	R2, #hi_addr(?lstr33_Pages+0)
 MOVW	R1, #lo_addr(_Cool_sign+24)
@@ -2514,15 +2514,15 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Cool_sign+0)
 MOVT	R0, #hi_addr(_Cool_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1492:
-L__sensor_1491:
+L__sensor_1494:
+L__sensor_1493:
 ;Pages.c,390 :: 		if(system_reg[S_COOL_1]>0 && strncmp("+",Cool_sign.Caption,1)!=0){Cool_sign.Caption="+";DrawRoundButton(&Cool_sign);}
 MOVW	R1, #lo_addr(_system_reg+282)
 MOVT	R1, #hi_addr(_system_reg+282)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	LE
-BLE	L__sensor_1494
+BLE	L__sensor_1496
 MOVW	R1, #lo_addr(_Cool_sign+24)
 MOVT	R1, #hi_addr(_Cool_sign+24)
 LDR	R2, [R1, #0]
@@ -2534,8 +2534,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1493
-L__sensor_1447:
+BEQ	L__sensor_1495
+L__sensor_1449:
 MOVW	R2, #lo_addr(?lstr35_Pages+0)
 MOVT	R2, #hi_addr(?lstr35_Pages+0)
 MOVW	R1, #lo_addr(_Cool_sign+24)
@@ -2544,8 +2544,8 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Cool_sign+0)
 MOVT	R0, #hi_addr(_Cool_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1494:
-L__sensor_1493:
+L__sensor_1496:
+L__sensor_1495:
 ;Pages.c,393 :: 		FloatToStr(system_reg[DHW_TEMP]/10.0, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_system_reg+162)
@@ -2666,7 +2666,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #0
 IT	LT
-BLT	L__sensor_1496
+BLT	L__sensor_1498
 MOVW	R1, #lo_addr(_system_reg+242)
 MOVT	R1, #hi_addr(_system_reg+242)
 LDRSH	R1, [R1, #0]
@@ -2678,8 +2678,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	GE
-BGE	L__sensor_1495
-L__sensor_1446:
+BGE	L__sensor_1497
+L__sensor_1448:
 ;Pages.c,405 :: 		S_condenser_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R3, #lo_addr(_S_condenser_1+24)
@@ -2713,8 +2713,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1166
 ;Pages.c,402 :: 		if((int)fabs(system_reg[CONDENS_TEMP_1])>=0 && (int)fabs(system_reg[CONDENS_TEMP_1])<10)
-L__sensor_1496:
-L__sensor_1495:
+L__sensor_1498:
+L__sensor_1497:
 ;Pages.c,413 :: 		else if((int)fabs(system_reg[CONDENS_TEMP_1])>=10 && (int)fabs(system_reg[CONDENS_TEMP_1])<100)
 MOVW	R1, #lo_addr(_system_reg+242)
 MOVT	R1, #hi_addr(_system_reg+242)
@@ -2727,7 +2727,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	LT
-BLT	L__sensor_1498
+BLT	L__sensor_1500
 MOVW	R1, #lo_addr(_system_reg+242)
 MOVT	R1, #hi_addr(_system_reg+242)
 LDRSH	R1, [R1, #0]
@@ -2739,8 +2739,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #100
 IT	GE
-BGE	L__sensor_1497
-L__sensor_1445:
+BGE	L__sensor_1499
+L__sensor_1447:
 ;Pages.c,416 :: 		S_condenser_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R4, #lo_addr(_S_condenser_1+24)
@@ -2775,8 +2775,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1170
 ;Pages.c,413 :: 		else if((int)fabs(system_reg[CONDENS_TEMP_1])>=10 && (int)fabs(system_reg[CONDENS_TEMP_1])<100)
-L__sensor_1498:
-L__sensor_1497:
+L__sensor_1500:
+L__sensor_1499:
 ;Pages.c,425 :: 		S_condenser_1.Caption[0]=txt[0];
 ADD	R4, SP, #4
 LDRB	R2, [R4, #0]
@@ -2819,7 +2819,7 @@ MOVT	R1, #hi_addr(_system_reg+242)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	GE
-BGE	L__sensor_1500
+BGE	L__sensor_1502
 MOVW	R1, #lo_addr(_Cond_sign+24)
 MOVT	R1, #hi_addr(_Cond_sign+24)
 LDR	R2, [R1, #0]
@@ -2831,8 +2831,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1499
-L__sensor_1444:
+BEQ	L__sensor_1501
+L__sensor_1446:
 MOVW	R2, #lo_addr(?lstr37_Pages+0)
 MOVT	R2, #hi_addr(?lstr37_Pages+0)
 MOVW	R1, #lo_addr(_Cond_sign+24)
@@ -2841,15 +2841,15 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Cond_sign+0)
 MOVT	R0, #hi_addr(_Cond_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1500:
-L__sensor_1499:
+L__sensor_1502:
+L__sensor_1501:
 ;Pages.c,434 :: 		if(system_reg[CONDENS_TEMP_1]>0 && strncmp("+",Cond_sign.Caption,1)!=0){Cond_sign.Caption="+";DrawRoundButton(&Cond_sign);}
 MOVW	R1, #lo_addr(_system_reg+242)
 MOVT	R1, #hi_addr(_system_reg+242)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	LE
-BLE	L__sensor_1502
+BLE	L__sensor_1504
 MOVW	R1, #lo_addr(_Cond_sign+24)
 MOVT	R1, #hi_addr(_Cond_sign+24)
 LDR	R2, [R1, #0]
@@ -2861,8 +2861,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1501
-L__sensor_1443:
+BEQ	L__sensor_1503
+L__sensor_1445:
 MOVW	R2, #lo_addr(?lstr39_Pages+0)
 MOVT	R2, #hi_addr(?lstr39_Pages+0)
 MOVW	R1, #lo_addr(_Cond_sign+24)
@@ -2871,8 +2871,8 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Cond_sign+0)
 MOVT	R0, #hi_addr(_Cond_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1502:
-L__sensor_1501:
+L__sensor_1504:
+L__sensor_1503:
 ;Pages.c,436 :: 		FloatToStr(system_reg[SUCT_TEMP_1]/10.0, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_system_reg+262)
@@ -3042,7 +3042,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #0
 IT	LT
-BLT	L__sensor_1504
+BLT	L__sensor_1506
 MOVW	R1, #lo_addr(_system_reg+184)
 MOVT	R1, #hi_addr(_system_reg+184)
 LDRSH	R1, [R1, #0]
@@ -3054,8 +3054,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	GE
-BGE	L__sensor_1503
-L__sensor_1442:
+BGE	L__sensor_1505
+L__sensor_1444:
 ;Pages.c,451 :: 		S_Brine_Inlet_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R3, #lo_addr(_S_Brine_Inlet_1+24)
@@ -3089,8 +3089,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1186
 ;Pages.c,448 :: 		if((int)fabs(system_reg[SOURC_IN_2])>=0 && (int)fabs(system_reg[SOURC_IN_2])<10)
-L__sensor_1504:
-L__sensor_1503:
+L__sensor_1506:
+L__sensor_1505:
 ;Pages.c,459 :: 		else if((int)fabs(system_reg[SOURC_IN_2])>=10 && (int)fabs(system_reg[SOURC_IN_2])<100)
 MOVW	R1, #lo_addr(_system_reg+184)
 MOVT	R1, #hi_addr(_system_reg+184)
@@ -3103,7 +3103,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	LT
-BLT	L__sensor_1506
+BLT	L__sensor_1508
 MOVW	R1, #lo_addr(_system_reg+184)
 MOVT	R1, #hi_addr(_system_reg+184)
 LDRSH	R1, [R1, #0]
@@ -3115,8 +3115,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #100
 IT	GE
-BGE	L__sensor_1505
-L__sensor_1441:
+BGE	L__sensor_1507
+L__sensor_1443:
 ;Pages.c,462 :: 		S_Brine_Inlet_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R4, #lo_addr(_S_Brine_Inlet_1+24)
@@ -3151,8 +3151,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1190
 ;Pages.c,459 :: 		else if((int)fabs(system_reg[SOURC_IN_2])>=10 && (int)fabs(system_reg[SOURC_IN_2])<100)
-L__sensor_1506:
-L__sensor_1505:
+L__sensor_1508:
+L__sensor_1507:
 ;Pages.c,471 :: 		S_Brine_Inlet_1.Caption[0]=txt[0];
 ADD	R4, SP, #4
 LDRB	R2, [R4, #0]
@@ -3195,7 +3195,7 @@ MOVT	R1, #hi_addr(_system_reg+184)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	GE
-BGE	L__sensor_1508
+BGE	L__sensor_1510
 MOVW	R1, #lo_addr(_BrineIN_sign+24)
 MOVT	R1, #hi_addr(_BrineIN_sign+24)
 LDR	R2, [R1, #0]
@@ -3207,8 +3207,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1507
-L__sensor_1440:
+BEQ	L__sensor_1509
+L__sensor_1442:
 MOVW	R2, #lo_addr(?lstr41_Pages+0)
 MOVT	R2, #hi_addr(?lstr41_Pages+0)
 MOVW	R1, #lo_addr(_BrineIN_sign+24)
@@ -3217,15 +3217,15 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_BrineIN_sign+0)
 MOVT	R0, #hi_addr(_BrineIN_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1508:
-L__sensor_1507:
+L__sensor_1510:
+L__sensor_1509:
 ;Pages.c,480 :: 		if(system_reg[SOURC_IN_2]>0 && strncmp("+",BrineIN_sign.Caption,1)!=0){BrineIN_sign.Caption="+";DrawRoundButton(&BrineIN_sign);}
 MOVW	R1, #lo_addr(_system_reg+184)
 MOVT	R1, #hi_addr(_system_reg+184)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	LE
-BLE	L__sensor_1510
+BLE	L__sensor_1512
 MOVW	R1, #lo_addr(_BrineIN_sign+24)
 MOVT	R1, #hi_addr(_BrineIN_sign+24)
 LDR	R2, [R1, #0]
@@ -3237,8 +3237,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1509
-L__sensor_1439:
+BEQ	L__sensor_1511
+L__sensor_1441:
 MOVW	R2, #lo_addr(?lstr43_Pages+0)
 MOVT	R2, #hi_addr(?lstr43_Pages+0)
 MOVW	R1, #lo_addr(_BrineIN_sign+24)
@@ -3247,8 +3247,8 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_BrineIN_sign+0)
 MOVT	R0, #hi_addr(_BrineIN_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1510:
-L__sensor_1509:
+L__sensor_1512:
+L__sensor_1511:
 ;Pages.c,482 :: 		IntToStr((int)fabs(system_reg[SOURC_OUT_2]), txt);Ltrim(txt);//
 ADD	R1, SP, #4
 STR	R1, [SP, #20]
@@ -3291,7 +3291,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #0
 IT	LT
-BLT	L__sensor_1512
+BLT	L__sensor_1514
 MOVW	R1, #lo_addr(_system_reg+204)
 MOVT	R1, #hi_addr(_system_reg+204)
 LDRSH	R1, [R1, #0]
@@ -3303,8 +3303,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	GE
-BGE	L__sensor_1511
-L__sensor_1438:
+BGE	L__sensor_1513
+L__sensor_1440:
 ;Pages.c,489 :: 		S_Brine_Outlet_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R3, #lo_addr(_S_Brine_Outlet_1+24)
@@ -3338,8 +3338,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1201
 ;Pages.c,486 :: 		if((int)fabs(system_reg[SOURC_OUT_2])>=0 && (int)fabs(system_reg[SOURC_OUT_2])<10)
-L__sensor_1512:
-L__sensor_1511:
+L__sensor_1514:
+L__sensor_1513:
 ;Pages.c,497 :: 		else if((int)fabs(system_reg[SOURC_OUT_2])>=10 && (int)fabs(system_reg[SOURC_OUT_2])<100)
 MOVW	R1, #lo_addr(_system_reg+204)
 MOVT	R1, #hi_addr(_system_reg+204)
@@ -3352,7 +3352,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	LT
-BLT	L__sensor_1514
+BLT	L__sensor_1516
 MOVW	R1, #lo_addr(_system_reg+204)
 MOVT	R1, #hi_addr(_system_reg+204)
 LDRSH	R1, [R1, #0]
@@ -3364,8 +3364,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #100
 IT	GE
-BGE	L__sensor_1513
-L__sensor_1437:
+BGE	L__sensor_1515
+L__sensor_1439:
 ;Pages.c,500 :: 		S_Brine_Outlet_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R4, #lo_addr(_S_Brine_Outlet_1+24)
@@ -3400,8 +3400,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1205
 ;Pages.c,497 :: 		else if((int)fabs(system_reg[SOURC_OUT_2])>=10 && (int)fabs(system_reg[SOURC_OUT_2])<100)
-L__sensor_1514:
-L__sensor_1513:
+L__sensor_1516:
+L__sensor_1515:
 ;Pages.c,509 :: 		S_Brine_Outlet_1.Caption[0]=txt[0];
 ADD	R4, SP, #4
 LDRB	R2, [R4, #0]
@@ -3444,7 +3444,7 @@ MOVT	R1, #hi_addr(_system_reg+204)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	GE
-BGE	L__sensor_1516
+BGE	L__sensor_1518
 MOVW	R1, #lo_addr(_BrineOUT_sign+24)
 MOVT	R1, #hi_addr(_BrineOUT_sign+24)
 LDR	R2, [R1, #0]
@@ -3456,8 +3456,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1515
-L__sensor_1436:
+BEQ	L__sensor_1517
+L__sensor_1438:
 MOVW	R2, #lo_addr(?lstr45_Pages+0)
 MOVT	R2, #hi_addr(?lstr45_Pages+0)
 MOVW	R1, #lo_addr(_BrineOUT_sign+24)
@@ -3466,15 +3466,15 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_BrineOUT_sign+0)
 MOVT	R0, #hi_addr(_BrineOUT_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1516:
-L__sensor_1515:
+L__sensor_1518:
+L__sensor_1517:
 ;Pages.c,518 :: 		if(system_reg[SOURC_OUT_2]>0 && strncmp("+",BrineOUT_sign.Caption,1)!=0){BrineOUT_sign.Caption="+";DrawRoundButton(&BrineOUT_sign);}
 MOVW	R1, #lo_addr(_system_reg+204)
 MOVT	R1, #hi_addr(_system_reg+204)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	LE
-BLE	L__sensor_1518
+BLE	L__sensor_1520
 MOVW	R1, #lo_addr(_BrineOUT_sign+24)
 MOVT	R1, #hi_addr(_BrineOUT_sign+24)
 LDR	R2, [R1, #0]
@@ -3486,8 +3486,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1517
-L__sensor_1435:
+BEQ	L__sensor_1519
+L__sensor_1437:
 MOVW	R2, #lo_addr(?lstr47_Pages+0)
 MOVT	R2, #hi_addr(?lstr47_Pages+0)
 MOVW	R1, #lo_addr(_BrineOUT_sign+24)
@@ -3496,8 +3496,8 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_BrineOUT_sign+0)
 MOVT	R0, #hi_addr(_BrineOUT_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1518:
-L__sensor_1517:
+L__sensor_1520:
+L__sensor_1519:
 ;Pages.c,519 :: 		FloatToStr(system_reg[HEAT_IN_2]/10.0, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_system_reg+324)
@@ -3730,7 +3730,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #0
 IT	LT
-BLT	L__sensor_1520
+BLT	L__sensor_1522
 MOVW	R1, #lo_addr(_system_reg+304)
 MOVT	R1, #hi_addr(_system_reg+304)
 LDRSH	R1, [R1, #0]
@@ -3742,8 +3742,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	GE
-BGE	L__sensor_1519
-L__sensor_1434:
+BGE	L__sensor_1521
+L__sensor_1436:
 ;Pages.c,541 :: 		S_Superheat_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R3, #lo_addr(_S_Superheat_1+24)
@@ -3777,8 +3777,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1222
 ;Pages.c,538 :: 		if((int)fabs(system_reg[S_HEAT_2])>=0 && (int)fabs(system_reg[S_HEAT_2])<10)
-L__sensor_1520:
-L__sensor_1519:
+L__sensor_1522:
+L__sensor_1521:
 ;Pages.c,549 :: 		else if((int)fabs(system_reg[S_HEAT_2])>=10 && (int)fabs(system_reg[S_HEAT_2])<100)
 MOVW	R1, #lo_addr(_system_reg+304)
 MOVT	R1, #hi_addr(_system_reg+304)
@@ -3791,7 +3791,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	LT
-BLT	L__sensor_1522
+BLT	L__sensor_1524
 MOVW	R1, #lo_addr(_system_reg+304)
 MOVT	R1, #hi_addr(_system_reg+304)
 LDRSH	R1, [R1, #0]
@@ -3803,8 +3803,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #100
 IT	GE
-BGE	L__sensor_1521
-L__sensor_1433:
+BGE	L__sensor_1523
+L__sensor_1435:
 ;Pages.c,552 :: 		S_Superheat_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R4, #lo_addr(_S_Superheat_1+24)
@@ -3839,8 +3839,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1226
 ;Pages.c,549 :: 		else if((int)fabs(system_reg[S_HEAT_2])>=10 && (int)fabs(system_reg[S_HEAT_2])<100)
-L__sensor_1522:
-L__sensor_1521:
+L__sensor_1524:
+L__sensor_1523:
 ;Pages.c,561 :: 		S_Superheat_1.Caption[0]=txt[0];
 ADD	R4, SP, #4
 LDRB	R2, [R4, #0]
@@ -3883,7 +3883,7 @@ MOVT	R1, #hi_addr(_system_reg+304)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	GE
-BGE	L__sensor_1524
+BGE	L__sensor_1526
 MOVW	R1, #lo_addr(_Super_sign+24)
 MOVT	R1, #hi_addr(_Super_sign+24)
 LDR	R2, [R1, #0]
@@ -3895,8 +3895,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1523
-L__sensor_1432:
+BEQ	L__sensor_1525
+L__sensor_1434:
 MOVW	R2, #lo_addr(?lstr49_Pages+0)
 MOVT	R2, #hi_addr(?lstr49_Pages+0)
 MOVW	R1, #lo_addr(_Super_sign+24)
@@ -3905,15 +3905,15 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Super_sign+0)
 MOVT	R0, #hi_addr(_Super_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1524:
-L__sensor_1523:
+L__sensor_1526:
+L__sensor_1525:
 ;Pages.c,570 :: 		if(system_reg[S_HEAT_2]>0 && strncmp("+",Super_sign.Caption,1)!=0){Super_sign.Caption="+";DrawRoundButton(&Super_sign);}
 MOVW	R1, #lo_addr(_system_reg+304)
 MOVT	R1, #hi_addr(_system_reg+304)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	LE
-BLE	L__sensor_1526
+BLE	L__sensor_1528
 MOVW	R1, #lo_addr(_Super_sign+24)
 MOVT	R1, #hi_addr(_Super_sign+24)
 LDR	R2, [R1, #0]
@@ -3925,8 +3925,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1525
-L__sensor_1431:
+BEQ	L__sensor_1527
+L__sensor_1433:
 MOVW	R2, #lo_addr(?lstr51_Pages+0)
 MOVT	R2, #hi_addr(?lstr51_Pages+0)
 MOVW	R1, #lo_addr(_Super_sign+24)
@@ -3935,8 +3935,8 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Super_sign+0)
 MOVT	R0, #hi_addr(_Super_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1526:
-L__sensor_1525:
+L__sensor_1528:
+L__sensor_1527:
 ;Pages.c,572 :: 		IntToStr(fabs(system_reg[S_COOL_2]), txt);Ltrim(txt);//
 ADD	R1, SP, #4
 STR	R1, [SP, #20]
@@ -3979,7 +3979,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #0
 IT	LT
-BLT	L__sensor_1528
+BLT	L__sensor_1530
 MOVW	R1, #lo_addr(_system_reg+282)
 MOVT	R1, #hi_addr(_system_reg+282)
 LDRSH	R1, [R1, #0]
@@ -3991,8 +3991,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	GE
-BGE	L__sensor_1527
-L__sensor_1430:
+BGE	L__sensor_1529
+L__sensor_1432:
 ;Pages.c,579 :: 		S_Subcool_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R3, #lo_addr(_S_Subcool_1+24)
@@ -4026,8 +4026,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1237
 ;Pages.c,576 :: 		if((int)fabs(system_reg[S_COOL_2])>=0 && (int)fabs(system_reg[S_COOL_1])<10)
-L__sensor_1528:
-L__sensor_1527:
+L__sensor_1530:
+L__sensor_1529:
 ;Pages.c,587 :: 		else if((int)fabs(system_reg[S_COOL_2])>=10 && (int)fabs(system_reg[S_COOL_1])<100)
 MOVW	R1, #lo_addr(_system_reg+284)
 MOVT	R1, #hi_addr(_system_reg+284)
@@ -4040,7 +4040,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	LT
-BLT	L__sensor_1530
+BLT	L__sensor_1532
 MOVW	R1, #lo_addr(_system_reg+282)
 MOVT	R1, #hi_addr(_system_reg+282)
 LDRSH	R1, [R1, #0]
@@ -4052,8 +4052,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #100
 IT	GE
-BGE	L__sensor_1529
-L__sensor_1429:
+BGE	L__sensor_1531
+L__sensor_1431:
 ;Pages.c,590 :: 		S_Subcool_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R4, #lo_addr(_S_Subcool_1+24)
@@ -4088,8 +4088,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1241
 ;Pages.c,587 :: 		else if((int)fabs(system_reg[S_COOL_2])>=10 && (int)fabs(system_reg[S_COOL_1])<100)
-L__sensor_1530:
-L__sensor_1529:
+L__sensor_1532:
+L__sensor_1531:
 ;Pages.c,599 :: 		S_Subcool_1.Caption[0]=txt[0];
 ADD	R4, SP, #4
 LDRB	R2, [R4, #0]
@@ -4132,7 +4132,7 @@ MOVT	R1, #hi_addr(_system_reg+284)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	GE
-BGE	L__sensor_1532
+BGE	L__sensor_1534
 MOVW	R1, #lo_addr(_Cool_sign+24)
 MOVT	R1, #hi_addr(_Cool_sign+24)
 LDR	R2, [R1, #0]
@@ -4144,8 +4144,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1531
-L__sensor_1428:
+BEQ	L__sensor_1533
+L__sensor_1430:
 MOVW	R2, #lo_addr(?lstr53_Pages+0)
 MOVT	R2, #hi_addr(?lstr53_Pages+0)
 MOVW	R1, #lo_addr(_Cool_sign+24)
@@ -4154,15 +4154,15 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Cool_sign+0)
 MOVT	R0, #hi_addr(_Cool_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1532:
-L__sensor_1531:
+L__sensor_1534:
+L__sensor_1533:
 ;Pages.c,608 :: 		if(system_reg[S_COOL_2]>0 && strncmp("+",Cool_sign.Caption,1)!=0){Cool_sign.Caption="+";DrawRoundButton(&Cool_sign);}
 MOVW	R1, #lo_addr(_system_reg+284)
 MOVT	R1, #hi_addr(_system_reg+284)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	LE
-BLE	L__sensor_1534
+BLE	L__sensor_1536
 MOVW	R1, #lo_addr(_Cool_sign+24)
 MOVT	R1, #hi_addr(_Cool_sign+24)
 LDR	R2, [R1, #0]
@@ -4174,8 +4174,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1533
-L__sensor_1427:
+BEQ	L__sensor_1535
+L__sensor_1429:
 MOVW	R2, #lo_addr(?lstr55_Pages+0)
 MOVT	R2, #hi_addr(?lstr55_Pages+0)
 MOVW	R1, #lo_addr(_Cool_sign+24)
@@ -4184,8 +4184,8 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Cool_sign+0)
 MOVT	R0, #hi_addr(_Cool_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1534:
-L__sensor_1533:
+L__sensor_1536:
+L__sensor_1535:
 ;Pages.c,611 :: 		FloatToStr(system_reg[DHW_TEMP]/10.0, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_system_reg+162)
@@ -4306,7 +4306,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #0
 IT	LT
-BLT	L__sensor_1536
+BLT	L__sensor_1538
 MOVW	R1, #lo_addr(_system_reg+244)
 MOVT	R1, #hi_addr(_system_reg+244)
 LDRSH	R1, [R1, #0]
@@ -4318,8 +4318,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	GE
-BGE	L__sensor_1535
-L__sensor_1426:
+BGE	L__sensor_1537
+L__sensor_1428:
 ;Pages.c,623 :: 		S_condenser_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R3, #lo_addr(_S_condenser_1+24)
@@ -4353,8 +4353,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1254
 ;Pages.c,620 :: 		if((int)fabs(system_reg[CONDENS_TEMP_2])>=0 && (int)fabs(system_reg[CONDENS_TEMP_2])<10)
-L__sensor_1536:
-L__sensor_1535:
+L__sensor_1538:
+L__sensor_1537:
 ;Pages.c,631 :: 		else if((int)fabs(system_reg[CONDENS_TEMP_2])>=10 && (int)fabs(system_reg[CONDENS_TEMP_2])<100)
 MOVW	R1, #lo_addr(_system_reg+244)
 MOVT	R1, #hi_addr(_system_reg+244)
@@ -4367,7 +4367,7 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #10
 IT	LT
-BLT	L__sensor_1538
+BLT	L__sensor_1540
 MOVW	R1, #lo_addr(_system_reg+244)
 MOVT	R1, #hi_addr(_system_reg+244)
 LDRSH	R1, [R1, #0]
@@ -4379,8 +4379,8 @@ VMOV	R1, S0
 SXTH	R1, R1
 CMP	R1, #100
 IT	GE
-BGE	L__sensor_1537
-L__sensor_1425:
+BGE	L__sensor_1539
+L__sensor_1427:
 ;Pages.c,634 :: 		S_condenser_1.Caption[0]='0';
 MOVS	R2, #48
 MOVW	R4, #lo_addr(_S_condenser_1+24)
@@ -4415,8 +4415,8 @@ BL	_DrawRoundButton+0
 IT	AL
 BAL	L_sensor_1258
 ;Pages.c,631 :: 		else if((int)fabs(system_reg[CONDENS_TEMP_2])>=10 && (int)fabs(system_reg[CONDENS_TEMP_2])<100)
-L__sensor_1538:
-L__sensor_1537:
+L__sensor_1540:
+L__sensor_1539:
 ;Pages.c,643 :: 		S_condenser_1.Caption[0]=txt[0];
 ADD	R4, SP, #4
 LDRB	R2, [R4, #0]
@@ -4459,7 +4459,7 @@ MOVT	R1, #hi_addr(_system_reg+244)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	GE
-BGE	L__sensor_1540
+BGE	L__sensor_1542
 MOVW	R1, #lo_addr(_Cond_sign+24)
 MOVT	R1, #hi_addr(_Cond_sign+24)
 LDR	R2, [R1, #0]
@@ -4471,8 +4471,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1539
-L__sensor_1424:
+BEQ	L__sensor_1541
+L__sensor_1426:
 MOVW	R2, #lo_addr(?lstr57_Pages+0)
 MOVT	R2, #hi_addr(?lstr57_Pages+0)
 MOVW	R1, #lo_addr(_Cond_sign+24)
@@ -4481,15 +4481,15 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Cond_sign+0)
 MOVT	R0, #hi_addr(_Cond_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1540:
-L__sensor_1539:
+L__sensor_1542:
+L__sensor_1541:
 ;Pages.c,652 :: 		if(system_reg[CONDENS_TEMP_2]>0 && strncmp("+",Cond_sign.Caption,1)!=0){Cond_sign.Caption="+";DrawRoundButton(&Cond_sign);}
 MOVW	R1, #lo_addr(_system_reg+244)
 MOVT	R1, #hi_addr(_system_reg+244)
 LDRSH	R1, [R1, #0]
 CMP	R1, #0
 IT	LE
-BLE	L__sensor_1542
+BLE	L__sensor_1544
 MOVW	R1, #lo_addr(_Cond_sign+24)
 MOVT	R1, #hi_addr(_Cond_sign+24)
 LDR	R2, [R1, #0]
@@ -4501,8 +4501,8 @@ MOVS	R2, #1
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L__sensor_1541
-L__sensor_1423:
+BEQ	L__sensor_1543
+L__sensor_1425:
 MOVW	R2, #lo_addr(?lstr59_Pages+0)
 MOVT	R2, #hi_addr(?lstr59_Pages+0)
 MOVW	R1, #lo_addr(_Cond_sign+24)
@@ -4511,8 +4511,8 @@ STR	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Cond_sign+0)
 MOVT	R0, #hi_addr(_Cond_sign+0)
 BL	_DrawRoundButton+0
-L__sensor_1542:
-L__sensor_1541:
+L__sensor_1544:
+L__sensor_1543:
 ;Pages.c,654 :: 		FloatToStr(system_reg[SUCT_TEMP_2]/10.0, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_system_reg+264)
@@ -5239,17 +5239,17 @@ MOVT	R0, #hi_addr(_system_reg+400)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	EQ
-BEQ	L__data_eeprom546
+BEQ	L__data_eeprom548
 MOVW	R0, #lo_addr(_system_reg+380)
 MOVT	R0, #hi_addr(_system_reg+380)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	EQ
-BEQ	L__data_eeprom545
+BEQ	L__data_eeprom547
 IT	AL
 BAL	L_data_eeprom275
-L__data_eeprom546:
-L__data_eeprom545:
+L__data_eeprom548:
+L__data_eeprom547:
 ;Pages.c,764 :: 		ON_OFF_Heat_Cool.Caption = "ON";
 MOVW	R1, #lo_addr(?lstr62_Pages+0)
 MOVT	R1, #hi_addr(?lstr62_Pages+0)
@@ -5270,14 +5270,14 @@ MOVT	R0, #hi_addr(_system_reg+400)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__data_eeprom548
+BNE	L__data_eeprom550
 MOVW	R0, #lo_addr(_system_reg+380)
 MOVT	R0, #hi_addr(_system_reg+380)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__data_eeprom547
-L__data_eeprom543:
+BNE	L__data_eeprom549
+L__data_eeprom545:
 ;Pages.c,768 :: 		ON_OFF_Heat_Cool.Caption = "OFF";
 MOVW	R1, #lo_addr(?lstr63_Pages+0)
 MOVT	R1, #hi_addr(?lstr63_Pages+0)
@@ -5289,8 +5289,8 @@ MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+0)
 MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+0)
 BL	_DrawRoundButton+0
 ;Pages.c,767 :: 		else if(system_reg[HEAT]==0 && system_reg[COOL]==0){
-L__data_eeprom548:
-L__data_eeprom547:
+L__data_eeprom550:
+L__data_eeprom549:
 ;Pages.c,770 :: 		}
 L_data_eeprom276:
 ;Pages.c,772 :: 		if(system_reg[HEATWATER]==0){
@@ -5495,12 +5495,12 @@ SUB	SP, SP, #12
 STR	LR, [SP, #0]
 ; num_page end address is: 0 (R0)
 ; num_page start address is: 0 (R0)
-;Pages.c,798 :: 		if(num_page==0)
+;Pages.c,801 :: 		if(num_page==0)
 CMP	R0, #0
 IT	NE
 BNE	L_count_steps295
 ; num_page end address is: 0 (R0)
-;Pages.c,800 :: 		IntToStr(system_reg[S_HEAT_1]/10, txt);Ltrim(txt);//
+;Pages.c,803 :: 		IntToStr(system_reg[S_HEAT_1]/10, txt);Ltrim(txt);//
 ADD	R3, SP, #4
 MOVW	R1, #lo_addr(_system_reg+302)
 MOVT	R1, #hi_addr(_system_reg+302)
@@ -5514,7 +5514,7 @@ BL	_IntToStr+0
 ADD	R1, SP, #4
 MOV	R0, R1
 BL	_Ltrim+0
-;Pages.c,801 :: 		if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
+;Pages.c,804 :: 		if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
 MOVW	R1, #lo_addr(_EEV1_superheat+24)
 MOVT	R1, #hi_addr(_EEV1_superheat+24)
 LDR	R2, [R1, #0]
@@ -5539,7 +5539,7 @@ MOVW	R0, #lo_addr(_EEV1_superheat+0)
 MOVT	R0, #hi_addr(_EEV1_superheat+0)
 BL	_DrawRoundButton+0
 L_count_steps296:
-;Pages.c,802 :: 		if(old_steps_1!=system_reg[TRV_STEPS_1]){
+;Pages.c,812 :: 		if(old_steps_1!=system_reg[TRV_STEPS_1]){
 MOVW	R1, #lo_addr(_system_reg+122)
 MOVT	R1, #hi_addr(_system_reg+122)
 LDRSH	R2, [R1, #0]
@@ -5549,14 +5549,14 @@ LDRSH	R1, [R1, #0]
 CMP	R1, R2
 IT	EQ
 BEQ	L_count_steps297
-;Pages.c,803 :: 		old_steps_1=system_reg[TRV_STEPS_1];
+;Pages.c,813 :: 		old_steps_1=system_reg[TRV_STEPS_1];
 MOVW	R3, #lo_addr(_system_reg+122)
 MOVT	R3, #hi_addr(_system_reg+122)
 LDRSH	R2, [R3, #0]
 MOVW	R1, #lo_addr(count_steps_old_steps_1_L0+0)
 MOVT	R1, #hi_addr(count_steps_old_steps_1_L0+0)
 STRH	R2, [R1, #0]
-;Pages.c,804 :: 		Red_bar.Position = system_reg[TRV_STEPS_1]; UpdatePBPosition(&Red_bar);
+;Pages.c,814 :: 		Red_bar.Position = system_reg[TRV_STEPS_1]; UpdatePBPosition(&Red_bar);
 MOV	R1, R3
 LDRSH	R2, [R1, #0]
 MOVW	R1, #lo_addr(_Red_bar+44)
@@ -5565,13 +5565,54 @@ STRH	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Red_bar+0)
 MOVT	R0, #hi_addr(_Red_bar+0)
 BL	_UpdatePBPosition+0
-;Pages.c,808 :: 		}
+;Pages.c,815 :: 		}
 L_count_steps297:
-;Pages.c,809 :: 		}
+;Pages.c,817 :: 		if(old_corect_1!=system_reg[TRV_CORRECT_1]){
+MOVW	R1, #lo_addr(_system_reg+782)
+MOVT	R1, #hi_addr(_system_reg+782)
+LDRSH	R2, [R1, #0]
+MOVW	R1, #lo_addr(count_steps_old_corect_1_L0+0)
+MOVT	R1, #hi_addr(count_steps_old_corect_1_L0+0)
+LDRSH	R1, [R1, #0]
+CMP	R1, R2
+IT	EQ
+BEQ	L_count_steps298
+;Pages.c,818 :: 		old_corect_1=system_reg[TRV_CORRECT_1];
+MOVW	R3, #lo_addr(_system_reg+782)
+MOVT	R3, #hi_addr(_system_reg+782)
+LDRSH	R2, [R3, #0]
+MOVW	R1, #lo_addr(count_steps_old_corect_1_L0+0)
+MOVT	R1, #hi_addr(count_steps_old_corect_1_L0+0)
+STRH	R2, [R1, #0]
+;Pages.c,819 :: 		IntToStr(system_reg[TRV_CORRECT_1], txt);Ltrim(txt);
+ADD	R2, SP, #4
+MOV	R1, R3
+LDRSH	R1, [R1, #0]
+SXTH	R0, R1
+MOV	R1, R2
+BL	_IntToStr+0
+ADD	R1, SP, #4
+MOV	R0, R1
+BL	_Ltrim+0
+;Pages.c,820 :: 		strcpy(EEV1_value.Caption, txt);
+ADD	R2, SP, #4
+MOVW	R1, #lo_addr(_EEV1_value+24)
+MOVT	R1, #hi_addr(_EEV1_value+24)
+LDR	R1, [R1, #0]
+MOV	R0, R1
+MOV	R1, R2
+BL	_strcpy+0
+;Pages.c,821 :: 		DrawRoundButton(&EEV1_value);
+MOVW	R0, #lo_addr(_EEV1_value+0)
+MOVT	R0, #hi_addr(_EEV1_value+0)
+BL	_DrawRoundButton+0
+;Pages.c,822 :: 		}
+L_count_steps298:
+;Pages.c,831 :: 		}
 IT	AL
-BAL	L_count_steps298
+BAL	L_count_steps299
 L_count_steps295:
-;Pages.c,812 :: 		IntToStr(system_reg[S_HEAT_2]/10, txt);Ltrim(txt);//
+;Pages.c,834 :: 		IntToStr(system_reg[S_HEAT_2]/10, txt);Ltrim(txt);//
 ADD	R3, SP, #4
 MOVW	R1, #lo_addr(_system_reg+304)
 MOVT	R1, #hi_addr(_system_reg+304)
@@ -5585,7 +5626,7 @@ BL	_IntToStr+0
 ADD	R1, SP, #4
 MOV	R0, R1
 BL	_Ltrim+0
-;Pages.c,813 :: 		if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
+;Pages.c,835 :: 		if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
 MOVW	R1, #lo_addr(_EEV1_superheat+24)
 MOVT	R1, #hi_addr(_EEV1_superheat+24)
 LDR	R2, [R1, #0]
@@ -5596,7 +5637,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_count_steps299
+BEQ	L_count_steps300
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_EEV1_superheat+24)
 MOVT	R1, #hi_addr(_EEV1_superheat+24)
@@ -5609,8 +5650,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_EEV1_superheat+0)
 MOVT	R0, #hi_addr(_EEV1_superheat+0)
 BL	_DrawRoundButton+0
-L_count_steps299:
-;Pages.c,814 :: 		if(old_steps_2!=system_reg[TRV_STEPS_2]){
+L_count_steps300:
+;Pages.c,837 :: 		if(old_steps_2!=system_reg[TRV_STEPS_2]){
 MOVW	R1, #lo_addr(_system_reg+124)
 MOVT	R1, #hi_addr(_system_reg+124)
 LDRSH	R2, [R1, #0]
@@ -5619,15 +5660,15 @@ MOVT	R1, #hi_addr(count_steps_old_steps_2_L0+0)
 LDRSH	R1, [R1, #0]
 CMP	R1, R2
 IT	EQ
-BEQ	L_count_steps300
-;Pages.c,815 :: 		old_steps_2=system_reg[TRV_STEPS_2];
+BEQ	L_count_steps301
+;Pages.c,838 :: 		old_steps_2=system_reg[TRV_STEPS_2];
 MOVW	R3, #lo_addr(_system_reg+124)
 MOVT	R3, #hi_addr(_system_reg+124)
 LDRSH	R2, [R3, #0]
 MOVW	R1, #lo_addr(count_steps_old_steps_2_L0+0)
 MOVT	R1, #hi_addr(count_steps_old_steps_2_L0+0)
 STRH	R2, [R1, #0]
-;Pages.c,816 :: 		Red_bar.Position = system_reg[TRV_STEPS_2]; UpdatePBPosition(&Red_bar);
+;Pages.c,839 :: 		Red_bar.Position = system_reg[TRV_STEPS_2]; UpdatePBPosition(&Red_bar);
 MOV	R1, R3
 LDRSH	R2, [R1, #0]
 MOVW	R1, #lo_addr(_Red_bar+44)
@@ -5636,29 +5677,70 @@ STRH	R2, [R1, #0]
 MOVW	R0, #lo_addr(_Red_bar+0)
 MOVT	R0, #hi_addr(_Red_bar+0)
 BL	_UpdatePBPosition+0
-;Pages.c,817 :: 		}
-L_count_steps300:
-;Pages.c,819 :: 		}
-L_count_steps298:
-;Pages.c,820 :: 		}
+;Pages.c,840 :: 		}
+L_count_steps301:
+;Pages.c,843 :: 		if(old_corect_2!=system_reg[TRV_CORRECT_2]){
+MOVW	R1, #lo_addr(_system_reg+784)
+MOVT	R1, #hi_addr(_system_reg+784)
+LDRSH	R2, [R1, #0]
+MOVW	R1, #lo_addr(count_steps_old_corect_2_L0+0)
+MOVT	R1, #hi_addr(count_steps_old_corect_2_L0+0)
+LDRSH	R1, [R1, #0]
+CMP	R1, R2
+IT	EQ
+BEQ	L_count_steps302
+;Pages.c,844 :: 		old_corect_2=system_reg[TRV_CORRECT_2];
+MOVW	R3, #lo_addr(_system_reg+784)
+MOVT	R3, #hi_addr(_system_reg+784)
+LDRSH	R2, [R3, #0]
+MOVW	R1, #lo_addr(count_steps_old_corect_2_L0+0)
+MOVT	R1, #hi_addr(count_steps_old_corect_2_L0+0)
+STRH	R2, [R1, #0]
+;Pages.c,845 :: 		IntToStr(system_reg[TRV_CORRECT_2], txt);Ltrim(txt);
+ADD	R2, SP, #4
+MOV	R1, R3
+LDRSH	R1, [R1, #0]
+SXTH	R0, R1
+MOV	R1, R2
+BL	_IntToStr+0
+ADD	R1, SP, #4
+MOV	R0, R1
+BL	_Ltrim+0
+;Pages.c,846 :: 		strcpy(EEV1_value.Caption, txt);
+ADD	R2, SP, #4
+MOVW	R1, #lo_addr(_EEV1_value+24)
+MOVT	R1, #hi_addr(_EEV1_value+24)
+LDR	R1, [R1, #0]
+MOV	R0, R1
+MOV	R1, R2
+BL	_strcpy+0
+;Pages.c,847 :: 		DrawRoundButton(&EEV1_value);
+MOVW	R0, #lo_addr(_EEV1_value+0)
+MOVT	R0, #hi_addr(_EEV1_value+0)
+BL	_DrawRoundButton+0
+;Pages.c,848 :: 		}
+L_count_steps302:
+;Pages.c,857 :: 		}
+L_count_steps299:
+;Pages.c,858 :: 		}
 L_end_count_steps:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _count_steps
 _working_time:
-;Pages.c,822 :: 		void working_time(unsigned char num_page){
+;Pages.c,860 :: 		void working_time(unsigned char num_page){
 ; num_page start address is: 0 (R0)
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
 ; num_page end address is: 0 (R0)
 ; num_page start address is: 0 (R0)
-;Pages.c,824 :: 		if(num_page==0)
+;Pages.c,862 :: 		if(num_page==0)
 CMP	R0, #0
 IT	NE
-BNE	L_working_time301
+BNE	L_working_time303
 ; num_page end address is: 0 (R0)
-;Pages.c,826 :: 		IntToStr(system_reg[TIM_COM_1], txt);Ltrim(txt);//
+;Pages.c,864 :: 		IntToStr(system_reg[TIM_COM_1], txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_system_reg+682)
 MOVT	R1, #hi_addr(_system_reg+682)
@@ -5669,77 +5751,9 @@ BL	_IntToStr+0
 ADD	R1, SP, #4
 MOV	R0, R1
 BL	_Ltrim+0
-;Pages.c,827 :: 		if(strncmp(txt,Time_compressor1.Caption,7)!=0){strcpy(Time_compressor1.Caption, txt);DrawRoundButton(&Time_compressor1);}
+;Pages.c,865 :: 		if(strncmp(txt,Time_compressor1.Caption,7)!=0){strcpy(Time_compressor1.Caption, txt);DrawRoundButton(&Time_compressor1);}
 MOVW	R1, #lo_addr(_Time_compressor1+24)
 MOVT	R1, #hi_addr(_Time_compressor1+24)
-LDR	R2, [R1, #0]
-ADD	R1, SP, #4
-MOV	R0, R1
-MOV	R1, R2
-MOVS	R2, #7
-BL	_strncmp+0
-CMP	R0, #0
-IT	EQ
-BEQ	L_working_time302
-ADD	R2, SP, #4
-MOVW	R1, #lo_addr(_Time_compressor1+24)
-MOVT	R1, #hi_addr(_Time_compressor1+24)
-LDR	R1, [R1, #0]
-MOV	R0, R1
-MOV	R1, R2
-BL	_strcpy+0
-MOVW	R0, #lo_addr(_Time_compressor1+0)
-MOVT	R0, #hi_addr(_Time_compressor1+0)
-BL	_DrawRoundButton+0
-L_working_time302:
-;Pages.c,828 :: 		IntToStr(system_reg[TIM_REV_1], txt);Ltrim(txt);//
-ADD	R2, SP, #4
-MOVW	R1, #lo_addr(_system_reg+762)
-MOVT	R1, #hi_addr(_system_reg+762)
-LDRSH	R1, [R1, #0]
-SXTH	R0, R1
-MOV	R1, R2
-BL	_IntToStr+0
-ADD	R1, SP, #4
-MOV	R0, R1
-BL	_Ltrim+0
-;Pages.c,829 :: 		if(strncmp(txt,Time_reversing1.Caption,7)!=0){strcpy(Time_reversing1.Caption, txt);DrawRoundButton(&Time_reversing1);}
-MOVW	R1, #lo_addr(_Time_reversing1+24)
-MOVT	R1, #hi_addr(_Time_reversing1+24)
-LDR	R2, [R1, #0]
-ADD	R1, SP, #4
-MOV	R0, R1
-MOV	R1, R2
-MOVS	R2, #7
-BL	_strncmp+0
-CMP	R0, #0
-IT	EQ
-BEQ	L_working_time303
-ADD	R2, SP, #4
-MOVW	R1, #lo_addr(_Time_reversing1+24)
-MOVT	R1, #hi_addr(_Time_reversing1+24)
-LDR	R1, [R1, #0]
-MOV	R0, R1
-MOV	R1, R2
-BL	_strcpy+0
-MOVW	R0, #lo_addr(_Time_reversing1+0)
-MOVT	R0, #hi_addr(_Time_reversing1+0)
-BL	_DrawRoundButton+0
-L_working_time303:
-;Pages.c,830 :: 		IntToStr(system_reg[TIM_P_SOURS_1], txt);Ltrim(txt);//
-ADD	R2, SP, #4
-MOVW	R1, #lo_addr(_system_reg+742)
-MOVT	R1, #hi_addr(_system_reg+742)
-LDRSH	R1, [R1, #0]
-SXTH	R0, R1
-MOV	R1, R2
-BL	_IntToStr+0
-ADD	R1, SP, #4
-MOV	R0, R1
-BL	_Ltrim+0
-;Pages.c,831 :: 		if(strncmp(txt,Time_source1.Caption,7)!=0){strcpy(Time_source1.Caption, txt);DrawRoundButton(&Time_source1);}
-MOVW	R1, #lo_addr(_Time_source1+24)
-MOVT	R1, #hi_addr(_Time_source1+24)
 LDR	R2, [R1, #0]
 ADD	R1, SP, #4
 MOV	R0, R1
@@ -5750,20 +5764,20 @@ CMP	R0, #0
 IT	EQ
 BEQ	L_working_time304
 ADD	R2, SP, #4
-MOVW	R1, #lo_addr(_Time_source1+24)
-MOVT	R1, #hi_addr(_Time_source1+24)
+MOVW	R1, #lo_addr(_Time_compressor1+24)
+MOVT	R1, #hi_addr(_Time_compressor1+24)
 LDR	R1, [R1, #0]
 MOV	R0, R1
 MOV	R1, R2
 BL	_strcpy+0
-MOVW	R0, #lo_addr(_Time_source1+0)
-MOVT	R0, #hi_addr(_Time_source1+0)
+MOVW	R0, #lo_addr(_Time_compressor1+0)
+MOVT	R0, #hi_addr(_Time_compressor1+0)
 BL	_DrawRoundButton+0
 L_working_time304:
-;Pages.c,832 :: 		IntToStr(system_reg[TIM_P_HEAT_1], txt);Ltrim(txt);//
+;Pages.c,866 :: 		IntToStr(system_reg[TIM_REV_1], txt);Ltrim(txt);//
 ADD	R2, SP, #4
-MOVW	R1, #lo_addr(_system_reg+702)
-MOVT	R1, #hi_addr(_system_reg+702)
+MOVW	R1, #lo_addr(_system_reg+762)
+MOVT	R1, #hi_addr(_system_reg+762)
 LDRSH	R1, [R1, #0]
 SXTH	R0, R1
 MOV	R1, R2
@@ -5771,9 +5785,9 @@ BL	_IntToStr+0
 ADD	R1, SP, #4
 MOV	R0, R1
 BL	_Ltrim+0
-;Pages.c,833 :: 		if(strncmp(txt,Time_heat1.Caption,7)!=0){strcpy(Time_heat1.Caption, txt);DrawRoundButton(&Time_heat1);}
-MOVW	R1, #lo_addr(_Time_heat1+24)
-MOVT	R1, #hi_addr(_Time_heat1+24)
+;Pages.c,867 :: 		if(strncmp(txt,Time_reversing1.Caption,7)!=0){strcpy(Time_reversing1.Caption, txt);DrawRoundButton(&Time_reversing1);}
+MOVW	R1, #lo_addr(_Time_reversing1+24)
+MOVT	R1, #hi_addr(_Time_reversing1+24)
 LDR	R2, [R1, #0]
 ADD	R1, SP, #4
 MOV	R0, R1
@@ -5784,78 +5798,6 @@ CMP	R0, #0
 IT	EQ
 BEQ	L_working_time305
 ADD	R2, SP, #4
-MOVW	R1, #lo_addr(_Time_heat1+24)
-MOVT	R1, #hi_addr(_Time_heat1+24)
-LDR	R1, [R1, #0]
-MOV	R0, R1
-MOV	R1, R2
-BL	_strcpy+0
-MOVW	R0, #lo_addr(_Time_heat1+0)
-MOVT	R0, #hi_addr(_Time_heat1+0)
-BL	_DrawRoundButton+0
-L_working_time305:
-;Pages.c,834 :: 		}
-IT	AL
-BAL	L_working_time306
-L_working_time301:
-;Pages.c,837 :: 		IntToStr(system_reg[TIM_COM_2], txt);Ltrim(txt);//
-ADD	R2, SP, #4
-MOVW	R1, #lo_addr(_system_reg+684)
-MOVT	R1, #hi_addr(_system_reg+684)
-LDRSH	R1, [R1, #0]
-SXTH	R0, R1
-MOV	R1, R2
-BL	_IntToStr+0
-ADD	R1, SP, #4
-MOV	R0, R1
-BL	_Ltrim+0
-;Pages.c,838 :: 		if(strncmp(txt,Time_compressor1.Caption,7)!=0){strcpy(Time_compressor1.Caption, txt);DrawRoundButton(&Time_compressor1);}
-MOVW	R1, #lo_addr(_Time_compressor1+24)
-MOVT	R1, #hi_addr(_Time_compressor1+24)
-LDR	R2, [R1, #0]
-ADD	R1, SP, #4
-MOV	R0, R1
-MOV	R1, R2
-MOVS	R2, #7
-BL	_strncmp+0
-CMP	R0, #0
-IT	EQ
-BEQ	L_working_time307
-ADD	R2, SP, #4
-MOVW	R1, #lo_addr(_Time_compressor1+24)
-MOVT	R1, #hi_addr(_Time_compressor1+24)
-LDR	R1, [R1, #0]
-MOV	R0, R1
-MOV	R1, R2
-BL	_strcpy+0
-MOVW	R0, #lo_addr(_Time_compressor1+0)
-MOVT	R0, #hi_addr(_Time_compressor1+0)
-BL	_DrawRoundButton+0
-L_working_time307:
-;Pages.c,839 :: 		IntToStr(system_reg[TIM_REV_2], txt);Ltrim(txt);//
-ADD	R2, SP, #4
-MOVW	R1, #lo_addr(_system_reg+764)
-MOVT	R1, #hi_addr(_system_reg+764)
-LDRSH	R1, [R1, #0]
-SXTH	R0, R1
-MOV	R1, R2
-BL	_IntToStr+0
-ADD	R1, SP, #4
-MOV	R0, R1
-BL	_Ltrim+0
-;Pages.c,840 :: 		if(strncmp(txt,Time_reversing1.Caption,7)!=0){strcpy(Time_reversing1.Caption, txt);DrawRoundButton(&Time_reversing1);}
-MOVW	R1, #lo_addr(_Time_reversing1+24)
-MOVT	R1, #hi_addr(_Time_reversing1+24)
-LDR	R2, [R1, #0]
-ADD	R1, SP, #4
-MOV	R0, R1
-MOV	R1, R2
-MOVS	R2, #7
-BL	_strncmp+0
-CMP	R0, #0
-IT	EQ
-BEQ	L_working_time308
-ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_Time_reversing1+24)
 MOVT	R1, #hi_addr(_Time_reversing1+24)
 LDR	R1, [R1, #0]
@@ -5865,11 +5807,11 @@ BL	_strcpy+0
 MOVW	R0, #lo_addr(_Time_reversing1+0)
 MOVT	R0, #hi_addr(_Time_reversing1+0)
 BL	_DrawRoundButton+0
-L_working_time308:
-;Pages.c,841 :: 		IntToStr(system_reg[TIM_P_SOURS_2], txt);Ltrim(txt);//
+L_working_time305:
+;Pages.c,868 :: 		IntToStr(system_reg[TIM_P_SOURS_1], txt);Ltrim(txt);//
 ADD	R2, SP, #4
-MOVW	R1, #lo_addr(_system_reg+744)
-MOVT	R1, #hi_addr(_system_reg+744)
+MOVW	R1, #lo_addr(_system_reg+742)
+MOVT	R1, #hi_addr(_system_reg+742)
 LDRSH	R1, [R1, #0]
 SXTH	R0, R1
 MOV	R1, R2
@@ -5877,7 +5819,7 @@ BL	_IntToStr+0
 ADD	R1, SP, #4
 MOV	R0, R1
 BL	_Ltrim+0
-;Pages.c,842 :: 		if(strncmp(txt,Time_source1.Caption,7)!=0){strcpy(Time_source1.Caption, txt);DrawRoundButton(&Time_source1);}
+;Pages.c,869 :: 		if(strncmp(txt,Time_source1.Caption,7)!=0){strcpy(Time_source1.Caption, txt);DrawRoundButton(&Time_source1);}
 MOVW	R1, #lo_addr(_Time_source1+24)
 MOVT	R1, #hi_addr(_Time_source1+24)
 LDR	R2, [R1, #0]
@@ -5888,7 +5830,7 @@ MOVS	R2, #7
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_working_time309
+BEQ	L_working_time306
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_Time_source1+24)
 MOVT	R1, #hi_addr(_Time_source1+24)
@@ -5899,11 +5841,11 @@ BL	_strcpy+0
 MOVW	R0, #lo_addr(_Time_source1+0)
 MOVT	R0, #hi_addr(_Time_source1+0)
 BL	_DrawRoundButton+0
-L_working_time309:
-;Pages.c,843 :: 		IntToStr(system_reg[TIM_P_HEAT_2], txt);Ltrim(txt);//
+L_working_time306:
+;Pages.c,870 :: 		IntToStr(system_reg[TIM_P_HEAT_1], txt);Ltrim(txt);//
 ADD	R2, SP, #4
-MOVW	R1, #lo_addr(_system_reg+704)
-MOVT	R1, #hi_addr(_system_reg+704)
+MOVW	R1, #lo_addr(_system_reg+702)
+MOVT	R1, #hi_addr(_system_reg+702)
 LDRSH	R1, [R1, #0]
 SXTH	R0, R1
 MOV	R1, R2
@@ -5911,7 +5853,7 @@ BL	_IntToStr+0
 ADD	R1, SP, #4
 MOV	R0, R1
 BL	_Ltrim+0
-;Pages.c,844 :: 		if(strncmp(txt,Time_heat1.Caption,7)!=0){strcpy(Time_heat1.Caption, txt);DrawRoundButton(&Time_heat1);}
+;Pages.c,871 :: 		if(strncmp(txt,Time_heat1.Caption,7)!=0){strcpy(Time_heat1.Caption, txt);DrawRoundButton(&Time_heat1);}
 MOVW	R1, #lo_addr(_Time_heat1+24)
 MOVT	R1, #hi_addr(_Time_heat1+24)
 LDR	R2, [R1, #0]
@@ -5922,7 +5864,7 @@ MOVS	R2, #7
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_working_time310
+BEQ	L_working_time307
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_Time_heat1+24)
 MOVT	R1, #hi_addr(_Time_heat1+24)
@@ -5933,110 +5875,250 @@ BL	_strcpy+0
 MOVW	R0, #lo_addr(_Time_heat1+0)
 MOVT	R0, #hi_addr(_Time_heat1+0)
 BL	_DrawRoundButton+0
+L_working_time307:
+;Pages.c,872 :: 		}
+IT	AL
+BAL	L_working_time308
+L_working_time303:
+;Pages.c,875 :: 		IntToStr(system_reg[TIM_COM_2], txt);Ltrim(txt);//
+ADD	R2, SP, #4
+MOVW	R1, #lo_addr(_system_reg+684)
+MOVT	R1, #hi_addr(_system_reg+684)
+LDRSH	R1, [R1, #0]
+SXTH	R0, R1
+MOV	R1, R2
+BL	_IntToStr+0
+ADD	R1, SP, #4
+MOV	R0, R1
+BL	_Ltrim+0
+;Pages.c,876 :: 		if(strncmp(txt,Time_compressor1.Caption,7)!=0){strcpy(Time_compressor1.Caption, txt);DrawRoundButton(&Time_compressor1);}
+MOVW	R1, #lo_addr(_Time_compressor1+24)
+MOVT	R1, #hi_addr(_Time_compressor1+24)
+LDR	R2, [R1, #0]
+ADD	R1, SP, #4
+MOV	R0, R1
+MOV	R1, R2
+MOVS	R2, #7
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_working_time309
+ADD	R2, SP, #4
+MOVW	R1, #lo_addr(_Time_compressor1+24)
+MOVT	R1, #hi_addr(_Time_compressor1+24)
+LDR	R1, [R1, #0]
+MOV	R0, R1
+MOV	R1, R2
+BL	_strcpy+0
+MOVW	R0, #lo_addr(_Time_compressor1+0)
+MOVT	R0, #hi_addr(_Time_compressor1+0)
+BL	_DrawRoundButton+0
+L_working_time309:
+;Pages.c,877 :: 		IntToStr(system_reg[TIM_REV_2], txt);Ltrim(txt);//
+ADD	R2, SP, #4
+MOVW	R1, #lo_addr(_system_reg+764)
+MOVT	R1, #hi_addr(_system_reg+764)
+LDRSH	R1, [R1, #0]
+SXTH	R0, R1
+MOV	R1, R2
+BL	_IntToStr+0
+ADD	R1, SP, #4
+MOV	R0, R1
+BL	_Ltrim+0
+;Pages.c,878 :: 		if(strncmp(txt,Time_reversing1.Caption,7)!=0){strcpy(Time_reversing1.Caption, txt);DrawRoundButton(&Time_reversing1);}
+MOVW	R1, #lo_addr(_Time_reversing1+24)
+MOVT	R1, #hi_addr(_Time_reversing1+24)
+LDR	R2, [R1, #0]
+ADD	R1, SP, #4
+MOV	R0, R1
+MOV	R1, R2
+MOVS	R2, #7
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_working_time310
+ADD	R2, SP, #4
+MOVW	R1, #lo_addr(_Time_reversing1+24)
+MOVT	R1, #hi_addr(_Time_reversing1+24)
+LDR	R1, [R1, #0]
+MOV	R0, R1
+MOV	R1, R2
+BL	_strcpy+0
+MOVW	R0, #lo_addr(_Time_reversing1+0)
+MOVT	R0, #hi_addr(_Time_reversing1+0)
+BL	_DrawRoundButton+0
 L_working_time310:
-;Pages.c,845 :: 		}
-L_working_time306:
-;Pages.c,846 :: 		}
+;Pages.c,879 :: 		IntToStr(system_reg[TIM_P_SOURS_2], txt);Ltrim(txt);//
+ADD	R2, SP, #4
+MOVW	R1, #lo_addr(_system_reg+744)
+MOVT	R1, #hi_addr(_system_reg+744)
+LDRSH	R1, [R1, #0]
+SXTH	R0, R1
+MOV	R1, R2
+BL	_IntToStr+0
+ADD	R1, SP, #4
+MOV	R0, R1
+BL	_Ltrim+0
+;Pages.c,880 :: 		if(strncmp(txt,Time_source1.Caption,7)!=0){strcpy(Time_source1.Caption, txt);DrawRoundButton(&Time_source1);}
+MOVW	R1, #lo_addr(_Time_source1+24)
+MOVT	R1, #hi_addr(_Time_source1+24)
+LDR	R2, [R1, #0]
+ADD	R1, SP, #4
+MOV	R0, R1
+MOV	R1, R2
+MOVS	R2, #7
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_working_time311
+ADD	R2, SP, #4
+MOVW	R1, #lo_addr(_Time_source1+24)
+MOVT	R1, #hi_addr(_Time_source1+24)
+LDR	R1, [R1, #0]
+MOV	R0, R1
+MOV	R1, R2
+BL	_strcpy+0
+MOVW	R0, #lo_addr(_Time_source1+0)
+MOVT	R0, #hi_addr(_Time_source1+0)
+BL	_DrawRoundButton+0
+L_working_time311:
+;Pages.c,881 :: 		IntToStr(system_reg[TIM_P_HEAT_2], txt);Ltrim(txt);//
+ADD	R2, SP, #4
+MOVW	R1, #lo_addr(_system_reg+704)
+MOVT	R1, #hi_addr(_system_reg+704)
+LDRSH	R1, [R1, #0]
+SXTH	R0, R1
+MOV	R1, R2
+BL	_IntToStr+0
+ADD	R1, SP, #4
+MOV	R0, R1
+BL	_Ltrim+0
+;Pages.c,882 :: 		if(strncmp(txt,Time_heat1.Caption,7)!=0){strcpy(Time_heat1.Caption, txt);DrawRoundButton(&Time_heat1);}
+MOVW	R1, #lo_addr(_Time_heat1+24)
+MOVT	R1, #hi_addr(_Time_heat1+24)
+LDR	R2, [R1, #0]
+ADD	R1, SP, #4
+MOV	R0, R1
+MOV	R1, R2
+MOVS	R2, #7
+BL	_strncmp+0
+CMP	R0, #0
+IT	EQ
+BEQ	L_working_time312
+ADD	R2, SP, #4
+MOVW	R1, #lo_addr(_Time_heat1+24)
+MOVT	R1, #hi_addr(_Time_heat1+24)
+LDR	R1, [R1, #0]
+MOV	R0, R1
+MOV	R1, R2
+BL	_strcpy+0
+MOVW	R0, #lo_addr(_Time_heat1+0)
+MOVT	R0, #hi_addr(_Time_heat1+0)
+BL	_DrawRoundButton+0
+L_working_time312:
+;Pages.c,883 :: 		}
+L_working_time308:
+;Pages.c,884 :: 		}
 L_end_working_time:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _working_time
 _schema1_page:
-;Pages.c,848 :: 		void schema1_page(){
+;Pages.c,886 :: 		void schema1_page(){
 SUB	SP, SP, #16
 STR	LR, [SP, #0]
-;Pages.c,851 :: 		if(system_reg[COM_STATE_1]==1) DrawImage(&Image76);
+;Pages.c,889 :: 		if(system_reg[COM_STATE_1]==1) DrawImage(&Image76);
 MOVW	R0, #lo_addr(_system_reg+22)
 MOVT	R0, #hi_addr(_system_reg+22)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L_schema1_page311
+BNE	L_schema1_page313
 MOVW	R0, #lo_addr(_Image76+0)
 MOVT	R0, #hi_addr(_Image76+0)
 BL	_DrawImage+0
 IT	AL
-BAL	L_schema1_page312
-L_schema1_page311:
-;Pages.c,852 :: 		else DrawImage(&Image119);
+BAL	L_schema1_page314
+L_schema1_page313:
+;Pages.c,890 :: 		else DrawImage(&Image119);
 MOVW	R0, #lo_addr(_Image119+0)
 MOVT	R0, #hi_addr(_Image119+0)
 BL	_DrawImage+0
-L_schema1_page312:
-;Pages.c,853 :: 		if(system_reg[PUMP_HEAT_STATE_1]==1) DrawImage(&Image75);
+L_schema1_page314:
+;Pages.c,891 :: 		if(system_reg[PUMP_HEAT_STATE_1]==1) DrawImage(&Image75);
 MOVW	R0, #lo_addr(_system_reg+62)
 MOVT	R0, #hi_addr(_system_reg+62)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L_schema1_page313
+BNE	L_schema1_page315
 MOVW	R0, #lo_addr(_Image75+0)
 MOVT	R0, #hi_addr(_Image75+0)
 BL	_DrawImage+0
 IT	AL
-BAL	L_schema1_page314
-L_schema1_page313:
-;Pages.c,854 :: 		else DrawImage(&Image124);
+BAL	L_schema1_page316
+L_schema1_page315:
+;Pages.c,892 :: 		else DrawImage(&Image124);
 MOVW	R0, #lo_addr(_Image124+0)
 MOVT	R0, #hi_addr(_Image124+0)
 BL	_DrawImage+0
-L_schema1_page314:
-;Pages.c,855 :: 		if(system_reg[PUMP_SOURS_STATE_1]==1) DrawImage(&Image74);
+L_schema1_page316:
+;Pages.c,893 :: 		if(system_reg[PUMP_SOURS_STATE_1]==1) DrawImage(&Image74);
 MOVW	R0, #lo_addr(_system_reg+42)
 MOVT	R0, #hi_addr(_system_reg+42)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L_schema1_page315
+BNE	L_schema1_page317
 MOVW	R0, #lo_addr(_Image74+0)
 MOVT	R0, #hi_addr(_Image74+0)
 BL	_DrawImage+0
 IT	AL
-BAL	L_schema1_page316
-L_schema1_page315:
-;Pages.c,856 :: 		else DrawImage(&Image117);
+BAL	L_schema1_page318
+L_schema1_page317:
+;Pages.c,894 :: 		else DrawImage(&Image117);
 MOVW	R0, #lo_addr(_Image117+0)
 MOVT	R0, #hi_addr(_Image117+0)
 BL	_DrawImage+0
-L_schema1_page316:
-;Pages.c,857 :: 		if(system_reg[REV_STATE_1]==1) DrawImage(&Image73);
+L_schema1_page318:
+;Pages.c,895 :: 		if(system_reg[REV_STATE_1]==1) DrawImage(&Image73);
 MOVW	R0, #lo_addr(_system_reg+82)
 MOVT	R0, #hi_addr(_system_reg+82)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L_schema1_page317
+BNE	L_schema1_page319
 MOVW	R0, #lo_addr(_Image73+0)
 MOVT	R0, #hi_addr(_Image73+0)
 BL	_DrawImage+0
 IT	AL
-BAL	L_schema1_page318
-L_schema1_page317:
-;Pages.c,858 :: 		else DrawImage(&Image118);
+BAL	L_schema1_page320
+L_schema1_page319:
+;Pages.c,896 :: 		else DrawImage(&Image118);
 MOVW	R0, #lo_addr(_Image118+0)
 MOVT	R0, #hi_addr(_Image118+0)
 BL	_DrawImage+0
-L_schema1_page318:
-;Pages.c,859 :: 		if(system_reg[THREE_STATE]==1) DrawImage(&Image77);
+L_schema1_page320:
+;Pages.c,897 :: 		if(system_reg[THREE_STATE]==1) DrawImage(&Image77);
 MOVW	R0, #lo_addr(_system_reg+102)
 MOVT	R0, #hi_addr(_system_reg+102)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L_schema1_page319
+BNE	L_schema1_page321
 MOVW	R0, #lo_addr(_Image77+0)
 MOVT	R0, #hi_addr(_Image77+0)
 BL	_DrawImage+0
 IT	AL
-BAL	L_schema1_page320
-L_schema1_page319:
-;Pages.c,860 :: 		else DrawImage(&Image120);
+BAL	L_schema1_page322
+L_schema1_page321:
+;Pages.c,898 :: 		else DrawImage(&Image120);
 MOVW	R0, #lo_addr(_Image120+0)
 MOVT	R0, #hi_addr(_Image120+0)
 BL	_DrawImage+0
-L_schema1_page320:
-;Pages.c,861 :: 		IntToStr(system_reg[SOURC_IN_1]/10, txt);Ltrim(txt);//
+L_schema1_page322:
+;Pages.c,899 :: 		IntToStr(system_reg[SOURC_IN_1]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+182)
 MOVT	R0, #hi_addr(_system_reg+182)
@@ -6048,7 +6130,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,862 :: 		if(strncmp(txt,S_Brine_In_1.Caption,2)!=0){strncpy(S_Brine_In_1.Caption, txt, 2);DrawButton(&S_Brine_In_1);}
+;Pages.c,900 :: 		if(strncmp(txt,S_Brine_In_1.Caption,2)!=0){strncpy(S_Brine_In_1.Caption, txt, 2);DrawButton(&S_Brine_In_1);}
 MOVW	R0, #lo_addr(_S_Brine_In_1+24)
 MOVT	R0, #hi_addr(_S_Brine_In_1+24)
 LDR	R1, [R0, #0]
@@ -6057,7 +6139,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema1_page321
+BEQ	L_schema1_page323
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_S_Brine_In_1+24)
 MOVT	R0, #hi_addr(_S_Brine_In_1+24)
@@ -6068,8 +6150,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_S_Brine_In_1+0)
 MOVT	R0, #hi_addr(_S_Brine_In_1+0)
 BL	_DrawButton+0
-L_schema1_page321:
-;Pages.c,863 :: 		IntToStr(system_reg[SOURC_OUT_1]/10, txt);Ltrim(txt);//
+L_schema1_page323:
+;Pages.c,901 :: 		IntToStr(system_reg[SOURC_OUT_1]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+202)
 MOVT	R0, #hi_addr(_system_reg+202)
@@ -6081,7 +6163,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,864 :: 		if(strncmp(txt,S_Brine_Out_1.Caption,2)!=0){strncpy(S_Brine_Out_1.Caption, txt, 2);DrawButton(&S_Brine_Out_1);}
+;Pages.c,902 :: 		if(strncmp(txt,S_Brine_Out_1.Caption,2)!=0){strncpy(S_Brine_Out_1.Caption, txt, 2);DrawButton(&S_Brine_Out_1);}
 MOVW	R0, #lo_addr(_S_Brine_Out_1+24)
 MOVT	R0, #hi_addr(_S_Brine_Out_1+24)
 LDR	R1, [R0, #0]
@@ -6090,7 +6172,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema1_page322
+BEQ	L_schema1_page324
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_S_Brine_Out_1+24)
 MOVT	R0, #hi_addr(_S_Brine_Out_1+24)
@@ -6101,8 +6183,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_S_Brine_Out_1+0)
 MOVT	R0, #hi_addr(_S_Brine_Out_1+0)
 BL	_DrawButton+0
-L_schema1_page322:
-;Pages.c,865 :: 		IntToStr(system_reg[HEAT_IN_1]/10, txt);Ltrim(txt);//
+L_schema1_page324:
+;Pages.c,903 :: 		IntToStr(system_reg[HEAT_IN_1]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+322)
 MOVT	R0, #hi_addr(_system_reg+322)
@@ -6114,7 +6196,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,866 :: 		if(strncmp(txt,S_Heat_In_1.Caption,2)!=0){strncpy(S_Heat_In_1.Caption, txt, 2);DrawButton(&S_Heat_In_1);}
+;Pages.c,904 :: 		if(strncmp(txt,S_Heat_In_1.Caption,2)!=0){strncpy(S_Heat_In_1.Caption, txt, 2);DrawButton(&S_Heat_In_1);}
 MOVW	R0, #lo_addr(_S_Heat_In_1+24)
 MOVT	R0, #hi_addr(_S_Heat_In_1+24)
 LDR	R1, [R0, #0]
@@ -6123,7 +6205,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema1_page323
+BEQ	L_schema1_page325
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_S_Heat_In_1+24)
 MOVT	R0, #hi_addr(_S_Heat_In_1+24)
@@ -6134,8 +6216,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_S_Heat_In_1+0)
 MOVT	R0, #hi_addr(_S_Heat_In_1+0)
 BL	_DrawButton+0
-L_schema1_page323:
-;Pages.c,867 :: 		IntToStr(system_reg[HEAT_OUT_1]/10, txt);Ltrim(txt);//
+L_schema1_page325:
+;Pages.c,905 :: 		IntToStr(system_reg[HEAT_OUT_1]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+342)
 MOVT	R0, #hi_addr(_system_reg+342)
@@ -6147,7 +6229,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,868 :: 		if(strncmp(txt,S_Heat_Out_1.Caption,2)!=0){strncpy(S_Heat_Out_1.Caption, txt, 2);DrawButton(&S_Heat_Out_1);}
+;Pages.c,906 :: 		if(strncmp(txt,S_Heat_Out_1.Caption,2)!=0){strncpy(S_Heat_Out_1.Caption, txt, 2);DrawButton(&S_Heat_Out_1);}
 MOVW	R0, #lo_addr(_S_Heat_Out_1+24)
 MOVT	R0, #hi_addr(_S_Heat_Out_1+24)
 LDR	R1, [R0, #0]
@@ -6156,7 +6238,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema1_page324
+BEQ	L_schema1_page326
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_S_Heat_Out_1+24)
 MOVT	R0, #hi_addr(_S_Heat_Out_1+24)
@@ -6167,8 +6249,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_S_Heat_Out_1+0)
 MOVT	R0, #hi_addr(_S_Heat_Out_1+0)
 BL	_DrawButton+0
-L_schema1_page324:
-;Pages.c,869 :: 		IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);//
+L_schema1_page326:
+;Pages.c,907 :: 		IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);//
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+402)
 MOVT	R0, #hi_addr(_system_reg+402)
@@ -6176,7 +6258,7 @@ LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,870 :: 		if(system_reg[EXAUST_TEMP_1]/10<10){
+;Pages.c,908 :: 		if(system_reg[EXAUST_TEMP_1]/10<10){
 MOVW	R0, #lo_addr(_system_reg+402)
 MOVT	R0, #hi_addr(_system_reg+402)
 LDRSH	R1, [R0, #0]
@@ -6186,8 +6268,8 @@ SDIV	R0, R1, R0
 SXTH	R0, R0
 CMP	R0, #10
 IT	GE
-BGE	L_schema1_page325
-;Pages.c,871 :: 		if(strncmp(txt,S_ComprEx_1.Caption,2)!=0){strncpy(S_ComprEx_1.Caption, txt, 2);
+BGE	L_schema1_page327
+;Pages.c,909 :: 		if(strncmp(txt,S_ComprEx_1.Caption,2)!=0){strncpy(S_ComprEx_1.Caption, txt, 2);
 MOVW	R0, #lo_addr(_S_ComprEx_1+24)
 MOVT	R0, #hi_addr(_S_ComprEx_1+24)
 LDR	R1, [R0, #0]
@@ -6196,7 +6278,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema1_page326
+BEQ	L_schema1_page328
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_S_ComprEx_1+24)
 MOVT	R0, #hi_addr(_S_ComprEx_1+24)
@@ -6205,7 +6287,7 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Pages.c,872 :: 		S_ComprEx_1.Caption[2]=S_ComprEx_1.Caption[1];S_ComprEx_1.Caption[1]=S_ComprEx_1.Caption[0];S_ComprEx_1.Caption[0]='0';
+;Pages.c,910 :: 		S_ComprEx_1.Caption[2]=S_ComprEx_1.Caption[1];S_ComprEx_1.Caption[1]=S_ComprEx_1.Caption[0];S_ComprEx_1.Caption[0]='0';
 MOVW	R2, #lo_addr(_S_ComprEx_1+24)
 MOVT	R2, #hi_addr(_S_ComprEx_1+24)
 LDR	R0, [R2, #0]
@@ -6227,11 +6309,11 @@ MOVS	R1, #48
 MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
-;Pages.c,873 :: 		DrawRoundButton(&S_ComprEx_1);
+;Pages.c,911 :: 		DrawRoundButton(&S_ComprEx_1);
 MOVW	R0, #lo_addr(_S_ComprEx_1+0)
 MOVT	R0, #hi_addr(_S_ComprEx_1+0)
 BL	_DrawRoundButton+0
-;Pages.c,874 :: 		strncpy(S_ComprEx_1.Caption, txt, 3);
+;Pages.c,912 :: 		strncpy(S_ComprEx_1.Caption, txt, 3);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_S_ComprEx_1+24)
 MOVT	R0, #hi_addr(_S_ComprEx_1+24)
@@ -6239,13 +6321,13 @@ LDR	R0, [R0, #0]
 MOVS	R2, #3
 SXTH	R2, R2
 BL	_strncpy+0
-;Pages.c,875 :: 		}
-L_schema1_page326:
-;Pages.c,876 :: 		}
+;Pages.c,913 :: 		}
+L_schema1_page328:
+;Pages.c,914 :: 		}
 IT	AL
-BAL	L_schema1_page327
-L_schema1_page325:
-;Pages.c,877 :: 		else{if(strncmp(txt,S_ComprEx_1.Caption,3)!=0){strncpy(S_ComprEx_1.Caption, txt, 3);DrawButton(&S_ComprEx_1);} }
+BAL	L_schema1_page329
+L_schema1_page327:
+;Pages.c,915 :: 		else{if(strncmp(txt,S_ComprEx_1.Caption,3)!=0){strncpy(S_ComprEx_1.Caption, txt, 3);DrawButton(&S_ComprEx_1);} }
 MOVW	R0, #lo_addr(_S_ComprEx_1+24)
 MOVT	R0, #hi_addr(_S_ComprEx_1+24)
 LDR	R1, [R0, #0]
@@ -6254,7 +6336,7 @@ MOVS	R2, #3
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema1_page328
+BEQ	L_schema1_page330
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_S_ComprEx_1+24)
 MOVT	R0, #hi_addr(_S_ComprEx_1+24)
@@ -6265,9 +6347,9 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_S_ComprEx_1+0)
 MOVT	R0, #hi_addr(_S_ComprEx_1+0)
 BL	_DrawButton+0
-L_schema1_page328:
-L_schema1_page327:
-;Pages.c,878 :: 		IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);//
+L_schema1_page330:
+L_schema1_page329:
+;Pages.c,916 :: 		IntToStr(system_reg[S_HEAT_1], txt);Ltrim(txt);//
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+302)
 MOVT	R0, #hi_addr(_system_reg+302)
@@ -6275,7 +6357,7 @@ LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,879 :: 		if(strncmp(txt,S_SH_1.Caption,2)!=0){strncpy(S_SH_1.Caption, txt, 2);DrawButton(&S_SH_1);}
+;Pages.c,917 :: 		if(strncmp(txt,S_SH_1.Caption,2)!=0){strncpy(S_SH_1.Caption, txt, 2);DrawButton(&S_SH_1);}
 MOVW	R0, #lo_addr(_S_SH_1+24)
 MOVT	R0, #hi_addr(_S_SH_1+24)
 LDR	R1, [R0, #0]
@@ -6284,7 +6366,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema1_page329
+BEQ	L_schema1_page331
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_S_SH_1+24)
 MOVT	R0, #hi_addr(_S_SH_1+24)
@@ -6295,8 +6377,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_S_SH_1+0)
 MOVT	R0, #hi_addr(_S_SH_1+0)
 BL	_DrawButton+0
-L_schema1_page329:
-;Pages.c,883 :: 		IntToStr(system_reg[DHW_TEMP]/10, txt);Ltrim(txt);//
+L_schema1_page331:
+;Pages.c,921 :: 		IntToStr(system_reg[DHW_TEMP]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+162)
 MOVT	R0, #hi_addr(_system_reg+162)
@@ -6308,7 +6390,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,884 :: 		if(strncmp(txt,Sens_DHW.Caption,2)!=0){strncpy(Sens_DHW.Caption, txt, 2);DrawButton(&Sens_DHW);}
+;Pages.c,922 :: 		if(strncmp(txt,Sens_DHW.Caption,2)!=0){strncpy(Sens_DHW.Caption, txt, 2);DrawButton(&Sens_DHW);}
 MOVW	R0, #lo_addr(_Sens_DHW+24)
 MOVT	R0, #hi_addr(_Sens_DHW+24)
 LDR	R1, [R0, #0]
@@ -6317,7 +6399,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema1_page330
+BEQ	L_schema1_page332
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Sens_DHW+24)
 MOVT	R0, #hi_addr(_Sens_DHW+24)
@@ -6328,8 +6410,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Sens_DHW+0)
 MOVT	R0, #hi_addr(_Sens_DHW+0)
 BL	_DrawButton+0
-L_schema1_page330:
-;Pages.c,885 :: 		IntToStr(system_reg[BAC_TEMP]/10, txt);Ltrim(txt);//
+L_schema1_page332:
+;Pages.c,923 :: 		IntToStr(system_reg[BAC_TEMP]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+142)
 MOVT	R0, #hi_addr(_system_reg+142)
@@ -6341,7 +6423,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,886 :: 		if(strncmp(txt,S_tank.Caption,2)!=0){strncpy(S_tank.Caption, txt, 2);DrawButton(&S_tank);}
+;Pages.c,924 :: 		if(strncmp(txt,S_tank.Caption,2)!=0){strncpy(S_tank.Caption, txt, 2);DrawButton(&S_tank);}
 MOVW	R0, #lo_addr(_S_tank+24)
 MOVT	R0, #hi_addr(_S_tank+24)
 LDR	R1, [R0, #0]
@@ -6350,7 +6432,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema1_page331
+BEQ	L_schema1_page333
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_S_tank+24)
 MOVT	R0, #hi_addr(_S_tank+24)
@@ -6361,8 +6443,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_S_tank+0)
 MOVT	R0, #hi_addr(_S_tank+0)
 BL	_DrawButton+0
-L_schema1_page331:
-;Pages.c,887 :: 		IntToStr(system_reg[HIGH_PRESS_1]/10, txt);Ltrim(txt);//
+L_schema1_page333:
+;Pages.c,925 :: 		IntToStr(system_reg[HIGH_PRESS_1]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+362)
 MOVT	R0, #hi_addr(_system_reg+362)
@@ -6374,7 +6456,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,888 :: 		if(strncmp(txt,S_High_Press_1.Caption,2)!=0){strncpy(S_High_Press_1.Caption, txt, 2);DrawButton(&S_High_Press_1);}
+;Pages.c,926 :: 		if(strncmp(txt,S_High_Press_1.Caption,2)!=0){strncpy(S_High_Press_1.Caption, txt, 2);DrawButton(&S_High_Press_1);}
 MOVW	R0, #lo_addr(_S_High_Press_1+24)
 MOVT	R0, #hi_addr(_S_High_Press_1+24)
 LDR	R1, [R0, #0]
@@ -6383,7 +6465,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema1_page332
+BEQ	L_schema1_page334
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_S_High_Press_1+24)
 MOVT	R0, #hi_addr(_S_High_Press_1+24)
@@ -6394,8 +6476,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_S_High_Press_1+0)
 MOVT	R0, #hi_addr(_S_High_Press_1+0)
 BL	_DrawButton+0
-L_schema1_page332:
-;Pages.c,889 :: 		IntToStr(system_reg[LOW_PRESS_1]/10, txt);Ltrim(txt);//
+L_schema1_page334:
+;Pages.c,927 :: 		IntToStr(system_reg[LOW_PRESS_1]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+382)
 MOVT	R0, #hi_addr(_system_reg+382)
@@ -6407,7 +6489,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,890 :: 		if(strncmp(txt,S_Low_Press_1.Caption,2)!=0){strncpy(S_Low_Press_1.Caption, txt, 2);DrawButton(&S_Low_Press_1);}
+;Pages.c,928 :: 		if(strncmp(txt,S_Low_Press_1.Caption,2)!=0){strncpy(S_Low_Press_1.Caption, txt, 2);DrawButton(&S_Low_Press_1);}
 MOVW	R0, #lo_addr(_S_Low_Press_1+24)
 MOVT	R0, #hi_addr(_S_Low_Press_1+24)
 LDR	R1, [R0, #0]
@@ -6416,7 +6498,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema1_page333
+BEQ	L_schema1_page335
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_S_Low_Press_1+24)
 MOVT	R0, #hi_addr(_S_Low_Press_1+24)
@@ -6427,126 +6509,126 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_S_Low_Press_1+0)
 MOVT	R0, #hi_addr(_S_Low_Press_1+0)
 BL	_DrawButton+0
-L_schema1_page333:
-;Pages.c,891 :: 		}
+L_schema1_page335:
+;Pages.c,929 :: 		}
 L_end_schema1_page:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #16
 BX	LR
 ; end of _schema1_page
 _schema2_page:
-;Pages.c,893 :: 		void schema2_page(){
+;Pages.c,931 :: 		void schema2_page(){
 SUB	SP, SP, #16
 STR	LR, [SP, #0]
-;Pages.c,896 :: 		if(system_reg[COM_STATE_1]==1) DrawImage(&Image166);
+;Pages.c,934 :: 		if(system_reg[COM_STATE_1]==1) DrawImage(&Image166);
 MOVW	R0, #lo_addr(_system_reg+22)
 MOVT	R0, #hi_addr(_system_reg+22)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L_schema2_page334
+BNE	L_schema2_page336
 MOVW	R0, #lo_addr(_Image166+0)
 MOVT	R0, #hi_addr(_Image166+0)
 BL	_DrawImage+0
 IT	AL
-BAL	L_schema2_page335
-L_schema2_page334:
-;Pages.c,897 :: 		else DrawImage(&Image181);
+BAL	L_schema2_page337
+L_schema2_page336:
+;Pages.c,935 :: 		else DrawImage(&Image181);
 MOVW	R0, #lo_addr(_Image181+0)
 MOVT	R0, #hi_addr(_Image181+0)
 BL	_DrawImage+0
-L_schema2_page335:
-;Pages.c,898 :: 		if(system_reg[COM_STATE_2]==1) DrawImage(&Image276);
+L_schema2_page337:
+;Pages.c,936 :: 		if(system_reg[COM_STATE_2]==1) DrawImage(&Image276);
 MOVW	R0, #lo_addr(_system_reg+24)
 MOVT	R0, #hi_addr(_system_reg+24)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L_schema2_page336
+BNE	L_schema2_page338
 MOVW	R0, #lo_addr(_Image276+0)
 MOVT	R0, #hi_addr(_Image276+0)
 BL	_DrawImage+0
 IT	AL
-BAL	L_schema2_page337
-L_schema2_page336:
-;Pages.c,899 :: 		else DrawImage(&Image275);
+BAL	L_schema2_page339
+L_schema2_page338:
+;Pages.c,937 :: 		else DrawImage(&Image275);
 MOVW	R0, #lo_addr(_Image275+0)
 MOVT	R0, #hi_addr(_Image275+0)
 BL	_DrawImage+0
-L_schema2_page337:
-;Pages.c,900 :: 		if(system_reg[PUMP_HEAT_STATE_1]==1) DrawImage(&Image75);
+L_schema2_page339:
+;Pages.c,938 :: 		if(system_reg[PUMP_HEAT_STATE_1]==1) DrawImage(&Image75);
 MOVW	R0, #lo_addr(_system_reg+62)
 MOVT	R0, #hi_addr(_system_reg+62)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L_schema2_page338
+BNE	L_schema2_page340
 MOVW	R0, #lo_addr(_Image75+0)
 MOVT	R0, #hi_addr(_Image75+0)
 BL	_DrawImage+0
 IT	AL
-BAL	L_schema2_page339
-L_schema2_page338:
-;Pages.c,901 :: 		else DrawImage(&Image124);
+BAL	L_schema2_page341
+L_schema2_page340:
+;Pages.c,939 :: 		else DrawImage(&Image124);
 MOVW	R0, #lo_addr(_Image124+0)
 MOVT	R0, #hi_addr(_Image124+0)
 BL	_DrawImage+0
-L_schema2_page339:
-;Pages.c,902 :: 		if(system_reg[PUMP_SOURS_STATE_1]==1) DrawImage(&Image74);
+L_schema2_page341:
+;Pages.c,940 :: 		if(system_reg[PUMP_SOURS_STATE_1]==1) DrawImage(&Image74);
 MOVW	R0, #lo_addr(_system_reg+42)
 MOVT	R0, #hi_addr(_system_reg+42)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L_schema2_page340
+BNE	L_schema2_page342
 MOVW	R0, #lo_addr(_Image74+0)
 MOVT	R0, #hi_addr(_Image74+0)
 BL	_DrawImage+0
 IT	AL
-BAL	L_schema2_page341
-L_schema2_page340:
-;Pages.c,903 :: 		else DrawImage(&Image117);
+BAL	L_schema2_page343
+L_schema2_page342:
+;Pages.c,941 :: 		else DrawImage(&Image117);
 MOVW	R0, #lo_addr(_Image117+0)
 MOVT	R0, #hi_addr(_Image117+0)
 BL	_DrawImage+0
-L_schema2_page341:
-;Pages.c,904 :: 		if(system_reg[REV_STATE_1]==1) DrawImage(&Image73);
+L_schema2_page343:
+;Pages.c,942 :: 		if(system_reg[REV_STATE_1]==1) DrawImage(&Image73);
 MOVW	R0, #lo_addr(_system_reg+82)
 MOVT	R0, #hi_addr(_system_reg+82)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L_schema2_page342
+BNE	L_schema2_page344
 MOVW	R0, #lo_addr(_Image73+0)
 MOVT	R0, #hi_addr(_Image73+0)
 BL	_DrawImage+0
 IT	AL
-BAL	L_schema2_page343
-L_schema2_page342:
-;Pages.c,905 :: 		else DrawImage(&Image118);
+BAL	L_schema2_page345
+L_schema2_page344:
+;Pages.c,943 :: 		else DrawImage(&Image118);
 MOVW	R0, #lo_addr(_Image118+0)
 MOVT	R0, #hi_addr(_Image118+0)
 BL	_DrawImage+0
-L_schema2_page343:
-;Pages.c,906 :: 		if(system_reg[THREE_STATE]==1) DrawImage(&Image77);
+L_schema2_page345:
+;Pages.c,944 :: 		if(system_reg[THREE_STATE]==1) DrawImage(&Image77);
 MOVW	R0, #lo_addr(_system_reg+102)
 MOVT	R0, #hi_addr(_system_reg+102)
 LDRSH	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L_schema2_page344
+BNE	L_schema2_page346
 MOVW	R0, #lo_addr(_Image77+0)
 MOVT	R0, #hi_addr(_Image77+0)
 BL	_DrawImage+0
 IT	AL
-BAL	L_schema2_page345
-L_schema2_page344:
-;Pages.c,907 :: 		else DrawImage(&Image120);
+BAL	L_schema2_page347
+L_schema2_page346:
+;Pages.c,945 :: 		else DrawImage(&Image120);
 MOVW	R0, #lo_addr(_Image120+0)
 MOVT	R0, #hi_addr(_Image120+0)
 BL	_DrawImage+0
-L_schema2_page345:
-;Pages.c,908 :: 		IntToStr(system_reg[SOURC_IN_1]/10, txt);Ltrim(txt);//
+L_schema2_page347:
+;Pages.c,946 :: 		IntToStr(system_reg[SOURC_IN_1]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+182)
 MOVT	R0, #hi_addr(_system_reg+182)
@@ -6558,7 +6640,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,909 :: 		if(strncmp(txt,Module1_br_inlet.Caption,2)!=0){strncpy(Module1_br_inlet.Caption, txt, 2);DrawButton(&Module1_br_inlet);}
+;Pages.c,947 :: 		if(strncmp(txt,Module1_br_inlet.Caption,2)!=0){strncpy(Module1_br_inlet.Caption, txt, 2);DrawButton(&Module1_br_inlet);}
 MOVW	R0, #lo_addr(_Module1_br_inlet+24)
 MOVT	R0, #hi_addr(_Module1_br_inlet+24)
 LDR	R1, [R0, #0]
@@ -6567,7 +6649,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page346
+BEQ	L_schema2_page348
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module1_br_inlet+24)
 MOVT	R0, #hi_addr(_Module1_br_inlet+24)
@@ -6578,8 +6660,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Module1_br_inlet+0)
 MOVT	R0, #hi_addr(_Module1_br_inlet+0)
 BL	_DrawButton+0
-L_schema2_page346:
-;Pages.c,910 :: 		IntToStr(system_reg[SOURC_OUT_1]/10, txt);Ltrim(txt);//
+L_schema2_page348:
+;Pages.c,948 :: 		IntToStr(system_reg[SOURC_OUT_1]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+202)
 MOVT	R0, #hi_addr(_system_reg+202)
@@ -6591,7 +6673,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,911 :: 		if(strncmp(txt,Module1_br_outlet.Caption,2)!=0){strncpy(Module1_br_outlet.Caption, txt, 2);DrawButton(&Module1_br_outlet);}
+;Pages.c,949 :: 		if(strncmp(txt,Module1_br_outlet.Caption,2)!=0){strncpy(Module1_br_outlet.Caption, txt, 2);DrawButton(&Module1_br_outlet);}
 MOVW	R0, #lo_addr(_Module1_br_outlet+24)
 MOVT	R0, #hi_addr(_Module1_br_outlet+24)
 LDR	R1, [R0, #0]
@@ -6600,7 +6682,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page347
+BEQ	L_schema2_page349
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module1_br_outlet+24)
 MOVT	R0, #hi_addr(_Module1_br_outlet+24)
@@ -6611,8 +6693,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Module1_br_outlet+0)
 MOVT	R0, #hi_addr(_Module1_br_outlet+0)
 BL	_DrawButton+0
-L_schema2_page347:
-;Pages.c,912 :: 		IntToStr(system_reg[HEAT_IN_1]/10, txt);Ltrim(txt);//
+L_schema2_page349:
+;Pages.c,950 :: 		IntToStr(system_reg[HEAT_IN_1]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+322)
 MOVT	R0, #hi_addr(_system_reg+322)
@@ -6624,7 +6706,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,913 :: 		if(strncmp(txt,Module1_heat_inlet.Caption,2)!=0){strncpy(Module1_heat_inlet.Caption, txt, 2);DrawButton(&Module1_heat_inlet);}
+;Pages.c,951 :: 		if(strncmp(txt,Module1_heat_inlet.Caption,2)!=0){strncpy(Module1_heat_inlet.Caption, txt, 2);DrawButton(&Module1_heat_inlet);}
 MOVW	R0, #lo_addr(_Module1_heat_inlet+24)
 MOVT	R0, #hi_addr(_Module1_heat_inlet+24)
 LDR	R1, [R0, #0]
@@ -6633,7 +6715,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page348
+BEQ	L_schema2_page350
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module1_heat_inlet+24)
 MOVT	R0, #hi_addr(_Module1_heat_inlet+24)
@@ -6644,8 +6726,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Module1_heat_inlet+0)
 MOVT	R0, #hi_addr(_Module1_heat_inlet+0)
 BL	_DrawButton+0
-L_schema2_page348:
-;Pages.c,914 :: 		IntToStr(system_reg[HEAT_OUT_1]/10, txt);Ltrim(txt);//
+L_schema2_page350:
+;Pages.c,952 :: 		IntToStr(system_reg[HEAT_OUT_1]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+342)
 MOVT	R0, #hi_addr(_system_reg+342)
@@ -6657,7 +6739,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,915 :: 		if(strncmp(txt,Module1_heat_outlet.Caption,2)!=0){strncpy(Module1_heat_outlet.Caption, txt, 2);DrawButton(&Module1_heat_outlet);}
+;Pages.c,953 :: 		if(strncmp(txt,Module1_heat_outlet.Caption,2)!=0){strncpy(Module1_heat_outlet.Caption, txt, 2);DrawButton(&Module1_heat_outlet);}
 MOVW	R0, #lo_addr(_Module1_heat_outlet+24)
 MOVT	R0, #hi_addr(_Module1_heat_outlet+24)
 LDR	R1, [R0, #0]
@@ -6666,7 +6748,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page349
+BEQ	L_schema2_page351
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module1_heat_outlet+24)
 MOVT	R0, #hi_addr(_Module1_heat_outlet+24)
@@ -6677,8 +6759,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Module1_heat_outlet+0)
 MOVT	R0, #hi_addr(_Module1_heat_outlet+0)
 BL	_DrawButton+0
-L_schema2_page349:
-;Pages.c,916 :: 		IntToStr(system_reg[EXAUST_TEMP_1]/10, txt);Ltrim(txt);//
+L_schema2_page351:
+;Pages.c,954 :: 		IntToStr(system_reg[EXAUST_TEMP_1]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+402)
 MOVT	R0, #hi_addr(_system_reg+402)
@@ -6690,7 +6772,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,917 :: 		if(system_reg[EXAUST_TEMP_1]/10<100){
+;Pages.c,955 :: 		if(system_reg[EXAUST_TEMP_1]/10<100){
 MOVW	R0, #lo_addr(_system_reg+402)
 MOVT	R0, #hi_addr(_system_reg+402)
 LDRSH	R1, [R0, #0]
@@ -6700,8 +6782,8 @@ SDIV	R0, R1, R0
 SXTH	R0, R0
 CMP	R0, #100
 IT	GE
-BGE	L_schema2_page350
-;Pages.c,918 :: 		if(strncmp(txt,Module1_exhaust.Caption,2)!=0){strncpy(Module1_exhaust.Caption, txt, 2);
+BGE	L_schema2_page352
+;Pages.c,956 :: 		if(strncmp(txt,Module1_exhaust.Caption,2)!=0){strncpy(Module1_exhaust.Caption, txt, 2);
 MOVW	R0, #lo_addr(_Module1_exhaust+24)
 MOVT	R0, #hi_addr(_Module1_exhaust+24)
 LDR	R1, [R0, #0]
@@ -6710,7 +6792,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page351
+BEQ	L_schema2_page353
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module1_exhaust+24)
 MOVT	R0, #hi_addr(_Module1_exhaust+24)
@@ -6719,7 +6801,7 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Pages.c,919 :: 		Module1_exhaust.Caption[2]=Module1_exhaust.Caption[1];Module1_exhaust.Caption[1]=Module1_exhaust.Caption[0];Module1_exhaust.Caption[0]='0';
+;Pages.c,957 :: 		Module1_exhaust.Caption[2]=Module1_exhaust.Caption[1];Module1_exhaust.Caption[1]=Module1_exhaust.Caption[0];Module1_exhaust.Caption[0]='0';
 MOVW	R2, #lo_addr(_Module1_exhaust+24)
 MOVT	R2, #hi_addr(_Module1_exhaust+24)
 LDR	R0, [R2, #0]
@@ -6741,11 +6823,11 @@ MOVS	R1, #48
 MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
-;Pages.c,920 :: 		DrawRoundButton(&Module1_exhaust);
+;Pages.c,958 :: 		DrawRoundButton(&Module1_exhaust);
 MOVW	R0, #lo_addr(_Module1_exhaust+0)
 MOVT	R0, #hi_addr(_Module1_exhaust+0)
 BL	_DrawRoundButton+0
-;Pages.c,921 :: 		strncpy(Module1_exhaust.Caption, txt, 3);
+;Pages.c,959 :: 		strncpy(Module1_exhaust.Caption, txt, 3);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module1_exhaust+24)
 MOVT	R0, #hi_addr(_Module1_exhaust+24)
@@ -6753,13 +6835,13 @@ LDR	R0, [R0, #0]
 MOVS	R2, #3
 SXTH	R2, R2
 BL	_strncpy+0
-;Pages.c,922 :: 		}
-L_schema2_page351:
-;Pages.c,923 :: 		}
+;Pages.c,960 :: 		}
+L_schema2_page353:
+;Pages.c,961 :: 		}
 IT	AL
-BAL	L_schema2_page352
-L_schema2_page350:
-;Pages.c,924 :: 		else{if(strncmp(txt,Module1_exhaust.Caption,3)!=0){strncpy(Module1_exhaust.Caption, txt, 3);DrawButton(&Module1_exhaust);} }
+BAL	L_schema2_page354
+L_schema2_page352:
+;Pages.c,962 :: 		else{if(strncmp(txt,Module1_exhaust.Caption,3)!=0){strncpy(Module1_exhaust.Caption, txt, 3);DrawButton(&Module1_exhaust);} }
 MOVW	R0, #lo_addr(_Module1_exhaust+24)
 MOVT	R0, #hi_addr(_Module1_exhaust+24)
 LDR	R1, [R0, #0]
@@ -6768,7 +6850,7 @@ MOVS	R2, #3
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page353
+BEQ	L_schema2_page355
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module1_exhaust+24)
 MOVT	R0, #hi_addr(_Module1_exhaust+24)
@@ -6779,9 +6861,9 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Module1_exhaust+0)
 MOVT	R0, #hi_addr(_Module1_exhaust+0)
 BL	_DrawButton+0
-L_schema2_page353:
-L_schema2_page352:
-;Pages.c,925 :: 		IntToStr(system_reg[S_HEAT_1]/10, txt);Ltrim(txt);//
+L_schema2_page355:
+L_schema2_page354:
+;Pages.c,963 :: 		IntToStr(system_reg[S_HEAT_1]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+302)
 MOVT	R0, #hi_addr(_system_reg+302)
@@ -6793,7 +6875,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,926 :: 		if(strncmp(txt,Module1_superheat.Caption,2)!=0){strncpy(Module1_superheat.Caption, txt, 2);DrawButton(&Module1_superheat);}
+;Pages.c,964 :: 		if(strncmp(txt,Module1_superheat.Caption,2)!=0){strncpy(Module1_superheat.Caption, txt, 2);DrawButton(&Module1_superheat);}
 MOVW	R0, #lo_addr(_Module1_superheat+24)
 MOVT	R0, #hi_addr(_Module1_superheat+24)
 LDR	R1, [R0, #0]
@@ -6802,7 +6884,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page354
+BEQ	L_schema2_page356
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module1_superheat+24)
 MOVT	R0, #hi_addr(_Module1_superheat+24)
@@ -6813,8 +6895,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Module1_superheat+0)
 MOVT	R0, #hi_addr(_Module1_superheat+0)
 BL	_DrawButton+0
-L_schema2_page354:
-;Pages.c,931 :: 		IntToStr(system_reg[SOURC_IN_2]/10, txt);Ltrim(txt);//
+L_schema2_page356:
+;Pages.c,969 :: 		IntToStr(system_reg[SOURC_IN_2]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+184)
 MOVT	R0, #hi_addr(_system_reg+184)
@@ -6826,7 +6908,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,932 :: 		if(strncmp(txt,Button7.Caption,2)!=0){strncpy(Button7.Caption, txt, 2);DrawButton(&Button7);}
+;Pages.c,970 :: 		if(strncmp(txt,Button7.Caption,2)!=0){strncpy(Button7.Caption, txt, 2);DrawButton(&Button7);}
 MOVW	R0, #lo_addr(_Button7+24)
 MOVT	R0, #hi_addr(_Button7+24)
 LDR	R1, [R0, #0]
@@ -6835,7 +6917,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page355
+BEQ	L_schema2_page357
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Button7+24)
 MOVT	R0, #hi_addr(_Button7+24)
@@ -6846,8 +6928,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Button7+0)
 MOVT	R0, #hi_addr(_Button7+0)
 BL	_DrawButton+0
-L_schema2_page355:
-;Pages.c,933 :: 		IntToStr(system_reg[SOURC_OUT_2]/10, txt);Ltrim(txt);//
+L_schema2_page357:
+;Pages.c,971 :: 		IntToStr(system_reg[SOURC_OUT_2]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+204)
 MOVT	R0, #hi_addr(_system_reg+204)
@@ -6859,7 +6941,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,934 :: 		if(strncmp(txt,Button9.Caption,2)!=0){strncpy(Button9.Caption, txt, 2);DrawButton(&Button9);}
+;Pages.c,972 :: 		if(strncmp(txt,Button9.Caption,2)!=0){strncpy(Button9.Caption, txt, 2);DrawButton(&Button9);}
 MOVW	R0, #lo_addr(_Button9+24)
 MOVT	R0, #hi_addr(_Button9+24)
 LDR	R1, [R0, #0]
@@ -6868,7 +6950,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page356
+BEQ	L_schema2_page358
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Button9+24)
 MOVT	R0, #hi_addr(_Button9+24)
@@ -6879,8 +6961,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Button9+0)
 MOVT	R0, #hi_addr(_Button9+0)
 BL	_DrawButton+0
-L_schema2_page356:
-;Pages.c,935 :: 		IntToStr(system_reg[HEAT_IN_2]/10, txt);Ltrim(txt);//
+L_schema2_page358:
+;Pages.c,973 :: 		IntToStr(system_reg[HEAT_IN_2]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+324)
 MOVT	R0, #hi_addr(_system_reg+324)
@@ -6892,7 +6974,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,936 :: 		if(strncmp(txt,Button11.Caption,2)!=0){strncpy(Button11.Caption, txt, 2);DrawButton(&Button11);}
+;Pages.c,974 :: 		if(strncmp(txt,Button11.Caption,2)!=0){strncpy(Button11.Caption, txt, 2);DrawButton(&Button11);}
 MOVW	R0, #lo_addr(_Button11+24)
 MOVT	R0, #hi_addr(_Button11+24)
 LDR	R1, [R0, #0]
@@ -6901,7 +6983,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page357
+BEQ	L_schema2_page359
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Button11+24)
 MOVT	R0, #hi_addr(_Button11+24)
@@ -6912,8 +6994,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Button11+0)
 MOVT	R0, #hi_addr(_Button11+0)
 BL	_DrawButton+0
-L_schema2_page357:
-;Pages.c,937 :: 		IntToStr(system_reg[HEAT_OUT_2]/10, txt);Ltrim(txt);//
+L_schema2_page359:
+;Pages.c,975 :: 		IntToStr(system_reg[HEAT_OUT_2]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+344)
 MOVT	R0, #hi_addr(_system_reg+344)
@@ -6925,7 +7007,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,938 :: 		if(strncmp(txt,Button10.Caption,2)!=0){strncpy(Button10.Caption, txt, 2);DrawButton(&Button10);}
+;Pages.c,976 :: 		if(strncmp(txt,Button10.Caption,2)!=0){strncpy(Button10.Caption, txt, 2);DrawButton(&Button10);}
 MOVW	R0, #lo_addr(_Button10+24)
 MOVT	R0, #hi_addr(_Button10+24)
 LDR	R1, [R0, #0]
@@ -6934,7 +7016,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page358
+BEQ	L_schema2_page360
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Button10+24)
 MOVT	R0, #hi_addr(_Button10+24)
@@ -6945,8 +7027,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Button10+0)
 MOVT	R0, #hi_addr(_Button10+0)
 BL	_DrawButton+0
-L_schema2_page358:
-;Pages.c,939 :: 		IntToStr(system_reg[EXAUST_TEMP_2]/10, txt);Ltrim(txt);//
+L_schema2_page360:
+;Pages.c,977 :: 		IntToStr(system_reg[EXAUST_TEMP_2]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+404)
 MOVT	R0, #hi_addr(_system_reg+404)
@@ -6958,7 +7040,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,940 :: 		if(system_reg[EXAUST_TEMP_2]/10<100){
+;Pages.c,978 :: 		if(system_reg[EXAUST_TEMP_2]/10<100){
 MOVW	R0, #lo_addr(_system_reg+404)
 MOVT	R0, #hi_addr(_system_reg+404)
 LDRSH	R1, [R0, #0]
@@ -6968,8 +7050,8 @@ SDIV	R0, R1, R0
 SXTH	R0, R0
 CMP	R0, #100
 IT	GE
-BGE	L_schema2_page359
-;Pages.c,941 :: 		if(strncmp(txt,Module2_exhaust.Caption,2)!=0){strncpy(Module2_exhaust.Caption, txt, 2);
+BGE	L_schema2_page361
+;Pages.c,979 :: 		if(strncmp(txt,Module2_exhaust.Caption,2)!=0){strncpy(Module2_exhaust.Caption, txt, 2);
 MOVW	R0, #lo_addr(_Module2_exhaust+24)
 MOVT	R0, #hi_addr(_Module2_exhaust+24)
 LDR	R1, [R0, #0]
@@ -6978,7 +7060,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page360
+BEQ	L_schema2_page362
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module2_exhaust+24)
 MOVT	R0, #hi_addr(_Module2_exhaust+24)
@@ -6987,7 +7069,7 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Pages.c,942 :: 		Module2_exhaust.Caption[2]=Module2_exhaust.Caption[1];Module2_exhaust.Caption[1]=Module2_exhaust.Caption[0];Module2_exhaust.Caption[0]='0';
+;Pages.c,980 :: 		Module2_exhaust.Caption[2]=Module2_exhaust.Caption[1];Module2_exhaust.Caption[1]=Module2_exhaust.Caption[0];Module2_exhaust.Caption[0]='0';
 MOVW	R2, #lo_addr(_Module2_exhaust+24)
 MOVT	R2, #hi_addr(_Module2_exhaust+24)
 LDR	R0, [R2, #0]
@@ -7009,11 +7091,11 @@ MOVS	R1, #48
 MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
-;Pages.c,943 :: 		DrawRoundButton(&Module2_exhaust);
+;Pages.c,981 :: 		DrawRoundButton(&Module2_exhaust);
 MOVW	R0, #lo_addr(_Module2_exhaust+0)
 MOVT	R0, #hi_addr(_Module2_exhaust+0)
 BL	_DrawRoundButton+0
-;Pages.c,944 :: 		strncpy(Module2_exhaust.Caption, txt, 3);
+;Pages.c,982 :: 		strncpy(Module2_exhaust.Caption, txt, 3);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module2_exhaust+24)
 MOVT	R0, #hi_addr(_Module2_exhaust+24)
@@ -7021,13 +7103,13 @@ LDR	R0, [R0, #0]
 MOVS	R2, #3
 SXTH	R2, R2
 BL	_strncpy+0
-;Pages.c,945 :: 		}
-L_schema2_page360:
-;Pages.c,946 :: 		}
+;Pages.c,983 :: 		}
+L_schema2_page362:
+;Pages.c,984 :: 		}
 IT	AL
-BAL	L_schema2_page361
-L_schema2_page359:
-;Pages.c,947 :: 		else{if(strncmp(txt,Module2_exhaust.Caption,3)!=0){strncpy(Module2_exhaust.Caption, txt, 3);DrawButton(&Module2_exhaust);} }
+BAL	L_schema2_page363
+L_schema2_page361:
+;Pages.c,985 :: 		else{if(strncmp(txt,Module2_exhaust.Caption,3)!=0){strncpy(Module2_exhaust.Caption, txt, 3);DrawButton(&Module2_exhaust);} }
 MOVW	R0, #lo_addr(_Module2_exhaust+24)
 MOVT	R0, #hi_addr(_Module2_exhaust+24)
 LDR	R1, [R0, #0]
@@ -7036,7 +7118,7 @@ MOVS	R2, #3
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page362
+BEQ	L_schema2_page364
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module2_exhaust+24)
 MOVT	R0, #hi_addr(_Module2_exhaust+24)
@@ -7047,9 +7129,9 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Module2_exhaust+0)
 MOVT	R0, #hi_addr(_Module2_exhaust+0)
 BL	_DrawButton+0
-L_schema2_page362:
-L_schema2_page361:
-;Pages.c,948 :: 		IntToStr(system_reg[S_HEAT_2]/10, txt);Ltrim(txt);//
+L_schema2_page364:
+L_schema2_page363:
+;Pages.c,986 :: 		IntToStr(system_reg[S_HEAT_2]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+304)
 MOVT	R0, #hi_addr(_system_reg+304)
@@ -7061,7 +7143,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,949 :: 		if(strncmp(txt,Module2_superheat.Caption,2)!=0){strncpy(Module2_superheat.Caption, txt, 2);DrawButton(&Module2_superheat);}
+;Pages.c,987 :: 		if(strncmp(txt,Module2_superheat.Caption,2)!=0){strncpy(Module2_superheat.Caption, txt, 2);DrawButton(&Module2_superheat);}
 MOVW	R0, #lo_addr(_Module2_superheat+24)
 MOVT	R0, #hi_addr(_Module2_superheat+24)
 LDR	R1, [R0, #0]
@@ -7070,7 +7152,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page363
+BEQ	L_schema2_page365
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module2_superheat+24)
 MOVT	R0, #hi_addr(_Module2_superheat+24)
@@ -7081,8 +7163,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_Module2_superheat+0)
 MOVT	R0, #hi_addr(_Module2_superheat+0)
 BL	_DrawButton+0
-L_schema2_page363:
-;Pages.c,954 :: 		IntToStr(system_reg[DHW_TEMP]/10, txt);Ltrim(txt);//
+L_schema2_page365:
+;Pages.c,992 :: 		IntToStr(system_reg[DHW_TEMP]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+162)
 MOVT	R0, #hi_addr(_system_reg+162)
@@ -7094,7 +7176,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,955 :: 		if(strncmp(txt,DHW.Caption,2)!=0){strncpy(DHW.Caption, txt, 2);DrawButton(&DHW);}
+;Pages.c,993 :: 		if(strncmp(txt,DHW.Caption,2)!=0){strncpy(DHW.Caption, txt, 2);DrawButton(&DHW);}
 MOVW	R0, #lo_addr(_DHW+24)
 MOVT	R0, #hi_addr(_DHW+24)
 LDR	R1, [R0, #0]
@@ -7103,7 +7185,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page364
+BEQ	L_schema2_page366
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_DHW+24)
 MOVT	R0, #hi_addr(_DHW+24)
@@ -7114,8 +7196,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_DHW+0)
 MOVT	R0, #hi_addr(_DHW+0)
 BL	_DrawButton+0
-L_schema2_page364:
-;Pages.c,956 :: 		IntToStr(system_reg[BAC_TEMP]/10, txt);Ltrim(txt);//
+L_schema2_page366:
+;Pages.c,994 :: 		IntToStr(system_reg[BAC_TEMP]/10, txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_system_reg+142)
 MOVT	R0, #hi_addr(_system_reg+142)
@@ -7127,7 +7209,7 @@ MOV	R1, R2
 BL	_IntToStr+0
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Pages.c,957 :: 		if(strncmp(txt,TANK.Caption,2)!=0){strncpy(TANK.Caption, txt, 2);DrawButton(&TANK);}
+;Pages.c,995 :: 		if(strncmp(txt,TANK.Caption,2)!=0){strncpy(TANK.Caption, txt, 2);DrawButton(&TANK);}
 MOVW	R0, #lo_addr(_TANK+24)
 MOVT	R0, #hi_addr(_TANK+24)
 LDR	R1, [R0, #0]
@@ -7136,7 +7218,7 @@ MOVS	R2, #2
 BL	_strncmp+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_schema2_page365
+BEQ	L_schema2_page367
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_TANK+24)
 MOVT	R0, #hi_addr(_TANK+24)
@@ -7147,8 +7229,8 @@ BL	_strncpy+0
 MOVW	R0, #lo_addr(_TANK+0)
 MOVT	R0, #hi_addr(_TANK+0)
 BL	_DrawButton+0
-L_schema2_page365:
-;Pages.c,962 :: 		}
+L_schema2_page367:
+;Pages.c,1000 :: 		}
 L_end_schema2_page:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #16

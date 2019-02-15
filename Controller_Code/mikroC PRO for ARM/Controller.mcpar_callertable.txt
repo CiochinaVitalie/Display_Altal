@@ -858,8 +858,89 @@ main
 	RTC_GetTime
 	printTime
 		ByteToStr
+		Ltrim
 		strcpy
 		strcat
+	selectPage
+		main_page
+			IntToStr
+			Ltrim
+			strcmp
+			strncpy
+			DrawRoundButton
+			strncmp
+			fabs
+			DrawCircle
+		reciev_data_packet
+			constructPacket
+				calculateCRC
+				sendbus_data
+					UART2_Write
+					millis
+		sensor_1
+			fabs
+			IntToStr
+			Ltrim
+			strncmp
+			DrawRoundButton
+			FloatToStr
+				strcpy
+			strncpy
+		strcmp
+		DrawCircleButton
+		LP_display
+			DrawImage
+			TFT_Set_Pen
+			sin
+				floor
+				eval_poly
+			cos
+				sin
+			TFT_Line
+		HP_display
+			DrawImage
+			TFT_Set_Pen
+			sin
+			cos
+			TFT_Line
+		DrawRoundButton
+		count_steps
+			IntToStr
+			Ltrim
+			strncmp
+			strncpy
+			DrawRoundButton
+			UpdatePBPosition
+				Update_Sector
+					TFT_Set_Pen
+					GetColorFromGradientRange
+					TFT_Set_Brush
+					TFT_Rectangle
+				TFT_Set_Ext_Font
+				TFT_Write_Text_Return_Pos
+				Update_Percentage
+			strcpy
+		IntToStr
+		Ltrim
+		strcpy
+		UpdatePBPosition
+		working_time
+			IntToStr
+			Ltrim
+			strncmp
+			strcpy
+			DrawRoundButton
+		schema1_page
+			DrawImage
+			IntToStr
+			Ltrim
+			strncmp
+			strncpy
+			DrawButton
+			DrawRoundButton
+	reciev_data_packet
+	send_data_packet
+		constructPacket
 	Check_TP
 		STMPE610_PressDetect
 			STMPE610_ReadReg
@@ -923,11 +1004,6 @@ main
 			Main_OFFOnClick
 				DrawImage
 				send_data_packet
-					constructPacket
-						calculateCRC
-						sendbus_data
-							UART2_Write
-							millis
 			DHW_SetingOnClick
 				IntToStr
 				Ltrim
@@ -1208,13 +1284,14 @@ main
 			Unit_minutesDwnOnClick
 			Unit_minutesDwnOnPress
 			SetDateAndTimeOnClick
-				RTC_SetTime
-					Calibrate_RTC_Crystal
-						abs
-				RTC_SetDate
-					Message
-						UART2_Write
-						UART2_Write_Text
+				Set_MyRTCC
+					RTCC_Read
+						Bcd2Dec
+					Set_RTC
+						Dec2Bcd
+				BLED_Fade_Out
+				DrawScreen
+				BLED_Fade_In
 			Day_unitUpOnUp
 				ByteToStr
 				Ltrim
@@ -1334,15 +1411,11 @@ main
 			system_EEVOnUp
 				Tone2
 				BLED_Fade_Out
-				IntToStr
-				Ltrim
-				strcpy
 				DrawScreen
 				BLED_Fade_In
 			system_EEVOnDown
 				DrawImage
 				reciev_data_packet
-					constructPacket
 			system_passOnUp
 				Tone2
 				BLED_Fade_Out

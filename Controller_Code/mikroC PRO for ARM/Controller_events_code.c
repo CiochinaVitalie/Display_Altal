@@ -4,7 +4,7 @@
 //--------------------- User code ---------------------//
 #include <stdint.h>
 #include <stdbool.h>
-unsigned char tenYearU;
+/*unsigned char tenYearU;
 unsigned char oneYearU;
 unsigned char oneMonth;
 unsigned char tenDayU;
@@ -12,21 +12,24 @@ unsigned char oneDayU;
 unsigned char tenHour;
 unsigned char oneHour;
 unsigned char tenMinute;
-unsigned char oneMinute;
+unsigned char oneMinute;   */
 unsigned char countPacket;
 float press;
-extern RTC_TimeTypeDef      My_Time;
+/*extern RTC_TimeTypeDef      My_Time;
 extern RTC_TimeTypeDef      Read_Time;
 extern RTC_DateTypeDef      My_Date;
-extern RTC_DateTypeDef      Read_Date;
+extern RTC_DateTypeDef      Read_Date;*/
 
 extern float old_HP_pressure;
 extern float old_LP_pressure;
+extern  RTC_TimeTypeDef _time;
+extern RTC_DateTypeDef _date;
 //------------------------------------------------------------------------------
 extern  bool pushButton;
 extern  bool msgOk;
 extern   void (*send_data_again)();
-
+void printTime(RTC_TimeTypeDef *RTC_TimeStruct,RTC_DateTypeDef *RTC_DateStruct);
+extern int8_t oneMinute, tenMinute, oneHour, tenHour, oneDayU, tenDayU, oneWeekday, oneMonth, tenMonth, oneYearU, tenYearU;
 regAdress adressReg;
 unsigned char nomReg;
 //------------------------------------------------------------------------------
@@ -38,9 +41,9 @@ bool two_compressors_mode,ground_heat_pump,SYSTEM_ON;
 extern bool sendMessage;
 unsigned char num_page;
 int incTRV=0;
-
- RTC_TimeTypeDef      My_Time;
- RTC_DateTypeDef      My_Date;
+extern TTime MyTime;
+ /*RTC_TimeTypeDef      My_Time;
+ RTC_DateTypeDef      My_Date;*/
  
 void Tone1() {
   Sound_Play(659, 35);   //
@@ -89,9 +92,10 @@ if( num_page==0)
         else if (CurrentScreen==&SENSOR1)                {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
         else if (CurrentScreen==&SETTINGS)               {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
         else if (CurrentScreen==&ENERGY)                 {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
-        else if (CurrentScreen==&DEFROST)                 {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
+        else if (CurrentScreen==&DEFROST)                {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
+        else if (CurrentScreen==&SetRTC)                 {BLED_Fade_Out();DrawScreen(&USER_MENU);BLED_Fade_In();}
         else if(CurrentScreen == &EEV)                   {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In();}
-        else if(CurrentScreen == &MODE)                   {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In();}
+        else if(CurrentScreen == &MODE)                  {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In();}
         else if(CurrentScreen == &DELAY_MENU)            {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In(); }
         else if(CurrentScreen == &LIMITS1)               {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In();}
         else if(CurrentScreen == &SYSTEM_EVENTS)         {BLED_Fade_Out();DrawScreen(&SYSTEM_SET);BLED_Fade_In(); }
@@ -191,7 +195,13 @@ else if(CurrentScreen==&EEV)
            case 3:reciev_data_packet(TRV_CORRECT_1,1); break;
            case 4:  countPacket=1;break;
           }
-           if(strcmp(CircleButton9.Caption,"1")!=0) {CircleButton9.Caption="1";DrawCircleButton(&CircleButton9);}
+           if(strcmp(CircleButton9.Caption,"1")!=0) {
+           CircleButton9.Caption="1";DrawCircleButton(&CircleButton9);
+           IntToStr(system_reg[TRV_CORRECT_1], txt);Ltrim(txt);
+                               strcpy(EEV1_value.Caption, txt);
+                               DrawRoundButton(&EEV1_value);
+            Red_bar.Position = system_reg[TRV_STEPS_1]; UpdatePBPosition(&Red_bar);
+           }
     }
     else
     {
@@ -202,7 +212,13 @@ else if(CurrentScreen==&EEV)
            case 3:reciev_data_packet(TRV_CORRECT_2,1); break;
            case 4:  countPacket=1;break;
           }
-          if(strcmp(CircleButton9.Caption,"2")!=0) {CircleButton9.Caption="2";DrawCircleButton(&CircleButton9);Back_b2.OnClickPtr=goToBack;}
+          if(strcmp(CircleButton9.Caption,"2")!=0) {
+          CircleButton9.Caption="2";DrawCircleButton(&CircleButton9);
+          IntToStr(system_reg[TRV_CORRECT_2], txt);Ltrim(txt);
+                               strcpy(EEV1_value.Caption, txt);
+                               DrawRoundButton(&EEV1_value);
+          Red_bar.Position = system_reg[TRV_STEPS_2]; UpdatePBPosition(&Red_bar);
+          Back_b2.OnClickPtr=goToBack;}
     }
     }
     
@@ -839,10 +855,13 @@ void EEV1UpOnDown() {
 void DEC_EEV1OnPress() {
      char txt[7];
      Tone1();
+
      incTRV--;
-     //incTRV*= 2;
-     if(incTRV<0)incTRV=0;
-     IntToStr(incTRV, txt);Ltrim(txt);
+
+     
+    if(num_page==0) { if(system_reg[TRV_CORRECT_1]<0)system_reg[TRV_CORRECT_1]=0; IntToStr(system_reg[TRV_CORRECT_1]+incTRV, txt); }
+     else {if(system_reg[TRV_CORRECT_2]<0)system_reg[TRV_CORRECT_2]=0;IntToStr(system_reg[TRV_CORRECT_2]+incTRV, txt); }
+     Ltrim(txt);
      strcpy(EEV1_value.Caption, txt);
      DrawRoundButton(&EEV1_value);
     //temp= Red_bar.Position;
@@ -859,10 +878,13 @@ void INC_EEV1OnPress() {
      char txt[7];
 
      Tone1();
+     
      incTRV++;
      //incTRV*= 2;
-     if(incTRV>240)incTRV=240;
-     IntToStr(incTRV, txt);Ltrim(txt);
+    // if(incTRV>240)incTRV=240;
+    if(num_page==0) {if(system_reg[TRV_CORRECT_1]>240)system_reg[TRV_CORRECT_1]=240;IntToStr(system_reg[TRV_CORRECT_1]+incTRV, txt); }
+     else {if(system_reg[TRV_CORRECT_2]>240)system_reg[TRV_CORRECT_2]=240;IntToStr(system_reg[TRV_CORRECT_2]+incTRV, txt); }
+     Ltrim(txt);
      strcpy(EEV1_value.Caption, txt);
      DrawRoundButton(&EEV1_value);
     //if(Red_bar.Position <= Red_bar.Max - 5) {
@@ -875,11 +897,14 @@ void INC_EEV1OnPress() {
 void Set_Trv() {
       if(num_page==0)
   {
-      system_reg[TRV_CORRECT_1]= incTRV;
+      system_reg[TRV_CORRECT_1]+= incTRV;
+      incTRV=0;
       send_data_packet(TRV_CORRECT_1,1);
   }
   else{
-      system_reg[TRV_CORRECT_2]= incTRV;
+      //system_reg[TRV_CORRECT_2]+= incTRV;
+      system_reg[TRV_CORRECT_2]+= incTRV;
+      incTRV=0;
       send_data_packet(TRV_CORRECT_2,1);
   }
 }
@@ -1064,12 +1089,12 @@ void ENTEROnClick() {
  void SetDateAndTimeOnClick(){
       // init date
     //My_Date.RTC_DayofWeek     = 5;
-    My_Date.RTC_Date_Tens     = tenDayU;
-    My_Date.RTC_Date_Units    = oneDayU;
-    My_Date.RTC_Month_Tens    = oneMonth/10;
-    My_Date.RTC_Month_Units   = oneMonth%10;
-    My_Date.RTC_Year_Tens     = oneYearU;
-    My_Date.RTC_Year_Units    = tenYearU;
+    /*My_Date.RTC_Date_Tens     = tenDayU;//tenDayU;
+    My_Date.RTC_Date_Units    = oneDayU;//oneDayU;
+    My_Date.RTC_Month_Tens    =  0;//oneMonth/10;
+    My_Date.RTC_Month_Units   = 3;//oneMonth%10;
+    My_Date.RTC_Year_Tens     = 1;//oneYearU;
+    My_Date.RTC_Year_Units    = 2;//tenYearU;
 
 
     //09:59:30pm
@@ -1080,8 +1105,19 @@ void ENTEROnClick() {
    // My_Time.RTC_Sec_Tens      = 3;
    // My_Time.RTC_Sec_Units     = 0;
    // My_Time.RTC_H12           = 1;
-      RTC_SetTime(&My_Time, -37);
-      RTC_SetDate(&My_Date);
+   if( RTC_SetTime(&My_Time, -37))Message("SetTime_OK.");
+      else Message("SetTime_fail.");
+    Delay_ms(2);
+   if( RTC_SetDate(&My_Date))Message("SetDate_OK.");
+      else Message("SetDate_fail.");*/
+      if (Set_MyRTCC() == 0)return;
+    //printTime(&_time,&_date);
+    BLED_Fade_Out();
+    DrawScreen(&Home);
+    //Run_State = 0;
+    //SetRtcSet = 0;
+    BLED_Fade_In();
+      
  }
  void OneYearUpOnClick(){
 
@@ -1097,8 +1133,8 @@ void OneYearUpOnUp(){
     if (oneYearU > 9)oneYearU=0;
     ByteToStr(oneYearU, txt);
     res=Ltrim(txt);
-    strcpy(Button1.Caption,res );
-    DrawButton(&Button1);
+    strcpy(Button3.Caption,res );
+    DrawButton(&Button3);
 }
 void OneYearUpOnPress(){
 
@@ -1110,8 +1146,8 @@ void OneYearDwnOnUp() {
     if (oneYearU >9)oneYearU=0;
     ByteToStr(tenYearU, txt);
      res = Ltrim(txt);
-    strcpy(Button1.Caption, res);
-    DrawButton(&Button1);
+    strcpy(Button3.Caption, res);
+    DrawButton(&Button3);
 }
 void OneYearDwnOnPress() {
 
@@ -1130,18 +1166,18 @@ void TenYearUpOnUp() {
     if (tenYearU > 9)tenYearU=0;
     ByteToStr(tenYearU, txt);
     res =Ltrim(txt);
-    strcpy(Button3.Caption,res);
-    DrawButton(&Button3);
+    strcpy(Button1.Caption,res);
+    DrawButton(&Button1);
 }
 void TenYearDwnOnUp() {
     char txt[4];
     char *res;
     tenYearU--;
-    if (tenYearU > 9)tenYearU=0;
+    if (tenYearU<0)tenYearU=9;
     ByteToStr(tenYearU, txt);
     res =  Ltrim(txt);
-    strcpy(Button3.Caption,res);
-    DrawButton(&Button3);
+    strcpy(Button1.Caption,res);
+    DrawButton(&Button1);
 }
 void TenYearDwnOnPress() {
 }
@@ -1186,7 +1222,7 @@ void MonthDateDwnOnClick() {
 void MonthDateDwnOnUp() {
 
     oneMonth--;
-    if (oneMonth > 12)oneMonth=1;
+    if (oneMonth <0)oneMonth=12;
     strcpy(Button4.Caption,"SEP");
     switch (oneMonth)  {
           case 1 : strcpy(Button4.Caption,"JAN");break;
@@ -1226,7 +1262,7 @@ void TenDayUpOnUp() {
 void TenDayDwnOnUp() {
      char txt[4];
     tenDayU--;
-    if (tenDayU > 9)tenDayU=0;
+    if (tenDayU <0)tenDayU=9;
      ByteToStr(tenDayU, txt);
     strcpy(Button8.Caption,Ltrim(txt));
     DrawButton(&Button8);
@@ -1260,7 +1296,7 @@ void OneDayUpOnUp() {
 void OneDayDwnOnUp() {
      char txt[4];
     oneDayU--;
-    if (oneDayU > 9)oneDayU=0;
+    if (oneDayU <0)oneDayU=9;
     ByteToStr(oneDayU, txt);
     strcpy(Button12.Caption,Ltrim(txt));
     DrawButton(&Button12);
@@ -1294,7 +1330,7 @@ void Day_unitUpOnUp() {
 void Day_unitDwnOnUp() {
        char txt[4];
     tenHour--;
-    if (tenHour > 9)tenHour=0;
+    if (tenHour <0)tenHour=9;
     ByteToStr(tenHour, txt);
     strcpy(Button21.Caption,Ltrim(txt));
     DrawButton(&Button21);
@@ -1326,7 +1362,7 @@ void Unit_hoursUpOnUp() {
 void Unit_hoursDwnOnUp() {
         char txt[4];
     oneHour--;
-    if (oneHour > 9)oneHour=0;
+    if (oneHour <0)oneHour=9;
     ByteToStr(oneHour, txt);
     strcpy(Button24.Caption,Ltrim(txt));
     DrawButton(&Button24);
@@ -1355,7 +1391,7 @@ void Ten_minutesUpOnUp() {
 void Ten_minutesDwnOnUp() {
        char txt[4];
     tenMinute--;
-    if (tenMinute > 9)tenMinute=0;
+    if (tenMinute <0)tenMinute=9;
     ByteToStr(tenMinute, txt);
     strcpy(Button40.Caption,Ltrim(txt));
     DrawButton(&Button40);
@@ -1387,7 +1423,7 @@ void Unit_minutesUpOnUp(){
 void Unit_minutesDwnOnUp(){
       char txt[4];
     oneMinute--;
-    if (oneMinute > 9)oneMinute=0;
+    if (oneMinute <0)oneMinute=9;
     ByteToStr(oneMinute, txt);
     strcpy(Button43.Caption,Ltrim(txt));
     DrawButton(&Button43);
@@ -1451,9 +1487,9 @@ void system_EEVOnUp() {
         char txt[7];
         Tone2();
         BLED_Fade_Out();
-        incTRV = system_reg[TRV_CORRECT_1];
-        IntToStr(incTRV, txt);Ltrim(txt);
-        strcpy(EEV1_value.Caption, txt);
+        incTRV = 0;
+        //IntToStr(incTRV, txt);Ltrim(txt);
+        //strcpy(EEV1_value.Caption, txt);
         Image89.Visible = 0;
         DrawScreen(&EEV);
         BLED_Fade_In();

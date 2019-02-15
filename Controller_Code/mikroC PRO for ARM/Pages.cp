@@ -212,9 +212,27 @@ typedef struct
  unsigned short RTC_Year_Units;
 }RTC_DateTypeDef;
 
-extern short RTC_Init (unsigned PREDIV_Sync, unsigned short PREDIV_Async, int HR_Format);
-extern short RTC_SetTime (RTC_TimeTypeDef *RTC_TimeStruct, int Calibration_Value);
-extern short RTC_SetDate(RTC_DateTypeDef *RTC_DateStruct);
+ typedef struct Time {
+ short ampm;
+ short seconds;
+ short minutes;
+ short hours;
+ short day;
+ short month;
+ short weekday;
+ short year;
+} TTime;
+
+
+
+extern void RTC_Init();
+extern char RTCC_Read(TTime *RTCC_Time);
+extern void Set_RTC(TTime *RTCC_Time);
+extern char Set_MyRTCC();
+
+
+
+
 extern void Message (char arg[]);
 extern void RTC_GetTime(RTC_TimeTypeDef *RTC_TimeStruct);
 extern void RTC_GetDate(RTC_DateTypeDef *RTC_DateStruct);
@@ -1950,6 +1968,7 @@ extern TCircleButton * const code Screen37_CircleButtons[1];
 
 
 
+
 void BackToHome();
 void goToBack();
 void nextPage();
@@ -1999,7 +2018,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2030 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2049 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -2453,6 +2472,18 @@ void Setuptempdef();
 void Setdowntempdef();
 void Mode_ground_onOnClick ();
 void pushDEF();
+
+
+
+
+void user_set_LANOnUp();
+void user_set_timeOnPress();
+void user_set_timeOnUp();
+void user_set_timersOnPress();
+void user_set_timersOnUp();
+void user_settingOnPress();
+void user_settingOnUp();
+void void Set_19_OnDown();
 
 
 
@@ -4519,27 +4550,51 @@ typedef unsigned long long uintmax_t;
  char txt[7];
  static int old_steps_1 =0;
  static int old_steps_2 =0;
+ static int old_corect_1 =0;
+ static int old_corect_2 =0;
+ static unsigned char _page=0;
  if(num_page==0)
  {
  IntToStr(system_reg[S_HEAT_1]/10, txt);Ltrim(txt);
  if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
+
+
+
+
+
+
+
  if(old_steps_1!=system_reg[TRV_STEPS_1]){
  old_steps_1=system_reg[TRV_STEPS_1];
  Red_bar.Position = system_reg[TRV_STEPS_1]; UpdatePBPosition(&Red_bar);
-
-
-
  }
+
+ if(old_corect_1!=system_reg[TRV_CORRECT_1]){
+ old_corect_1=system_reg[TRV_CORRECT_1];
+ IntToStr(system_reg[TRV_CORRECT_1], txt);Ltrim(txt);
+ strcpy(EEV1_value.Caption, txt);
+ DrawRoundButton(&EEV1_value);
+ }
+#line 831 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
  }
  else
  {
  IntToStr(system_reg[S_HEAT_2]/10, txt);Ltrim(txt);
  if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
+
  if(old_steps_2!=system_reg[TRV_STEPS_2]){
  old_steps_2=system_reg[TRV_STEPS_2];
  Red_bar.Position = system_reg[TRV_STEPS_2]; UpdatePBPosition(&Red_bar);
  }
 
+
+ if(old_corect_2!=system_reg[TRV_CORRECT_2]){
+ old_corect_2=system_reg[TRV_CORRECT_2];
+ IntToStr(system_reg[TRV_CORRECT_2], txt);Ltrim(txt);
+ strcpy(EEV1_value.Caption, txt);
+ DrawRoundButton(&EEV1_value);
+ }
+#line 857 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
  }
  }
 
@@ -4679,5 +4734,5 @@ typedef unsigned long long uintmax_t;
  if(strncmp(txt,DHW.Caption,2)!=0){strncpy(DHW.Caption, txt, 2);DrawButton(&DHW);}
  IntToStr(system_reg[BAC_TEMP]/10, txt);Ltrim(txt);
  if(strncmp(txt,TANK.Caption,2)!=0){strncpy(TANK.Caption, txt, 2);DrawButton(&TANK);}
-#line 962 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 1000 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Pages.c"
  }

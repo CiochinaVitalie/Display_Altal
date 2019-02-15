@@ -38,6 +38,10 @@ bool two_compressors_mode,ground_heat_pump,SYSTEM_ON;
 extern bool sendMessage;
 unsigned char num_page;
 int incTRV=0;
+
+ RTC_TimeTypeDef      My_Time;
+ RTC_DateTypeDef      My_Date;
+ 
 void Tone1() {
   Sound_Play(659, 35);   //
 }
@@ -1058,24 +1062,32 @@ void ENTEROnClick() {
 }
 //---------------------------------------------------set rtc
  void SetDateAndTimeOnClick(){
+      // init date
+    //My_Date.RTC_DayofWeek     = 5;
+    My_Date.RTC_Date_Tens     = tenDayU;
+    My_Date.RTC_Date_Units    = oneDayU;
+    My_Date.RTC_Month_Tens    = oneMonth/10;
+    My_Date.RTC_Month_Units   = oneMonth%10;
+    My_Date.RTC_Year_Tens     = oneYearU;
+    My_Date.RTC_Year_Units    = tenYearU;
 
+
+    //09:59:30pm
+    My_Time.RTC_Hour_Tens     = tenHour;
+    My_Time.RTC_Hour_Units    = oneHour;
+    My_Time.RTC_Min_Tens      = tenMinute;
+    My_Time.RTC_Min_Units     = oneMinute;
+   // My_Time.RTC_Sec_Tens      = 3;
+   // My_Time.RTC_Sec_Units     = 0;
+   // My_Time.RTC_H12           = 1;
+      RTC_SetTime(&My_Time, -37);
+      RTC_SetDate(&My_Date);
  }
  void OneYearUpOnClick(){
 
 }
 void OneYearDwnOnClick(){
-     /*char temp[4];
-     char *res;
-     Tone2();
-     tenYearU--;
-     if (My_Date.RTC_Year_Tens < 0)
-        tenYearU = 9;
-     ByteToStr(tenYearU, temp);
-     res = Ltrim(temp);
-     strcpy(OneYear.Caption, res);
-     DrawButton(&OneYearUp);
-     DrawButton(&OneYearDwn);
-     DrawLabel(&OneYear);*/
+
 }
 void OneYearUpOnUp(){
 

@@ -790,32 +790,70 @@
   if(system_reg[AIRE_TO_WATER]==0){ Mode_ground_on.Visible= 1;Mode_air_on.Visible = 0; }//
   else  if(system_reg[AIRE_TO_WATER]==1)  {Mode_air_on.Visible= 1;Mode_ground_on.Visible = 0; }//
  }
- 
+  //----------------------------------------------------------------------------
  void count_steps(unsigned char num_page){
   char txt[7];
   static int old_steps_1 =0;
   static int old_steps_2 =0;
+  static int old_corect_1 =0;
+  static int old_corect_2 =0;
+  static unsigned char _page=0;
   if(num_page==0)
   {
-           IntToStr(system_reg[S_HEAT_1]/10, txt);Ltrim(txt);//
-        if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
+    IntToStr(system_reg[S_HEAT_1]/10, txt);Ltrim(txt);//
+    if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
+   
+     //IntToStr(system_reg[TRV_CORRECT_1], txt);Ltrim(txt);
+     //if(strcmp(txt,EEV1_value.Caption)!=0){strcpy(EEV1_value.Caption, txt);DrawRoundButton(&EEV1_value);}
+   
+
+   
+    //Red_bar.Position = system_reg[TRV_STEPS_1]; UpdatePBPosition(&Red_bar);
    if(old_steps_1!=system_reg[TRV_STEPS_1]){
       old_steps_1=system_reg[TRV_STEPS_1];
       Red_bar.Position = system_reg[TRV_STEPS_1]; UpdatePBPosition(&Red_bar);
-    //if(system_reg[TRV_CORRECT_1]>0){Red_bar.Position= 240+system_reg[TRV_CORRECT_1];UpdatePBPosition(&Red_bar);}
-      //else if(system_reg[TRV_CORRECT_1]<0) {Red_bar.Position=240+ system_reg[TRV_CORRECT_1];UpdatePBPosition(&Red_bar);}
-       //else {Red_bar.Position =240;UpdatePBPosition(&Red_bar);}
           }
+
+   if(old_corect_1!=system_reg[TRV_CORRECT_1]){
+      old_corect_1=system_reg[TRV_CORRECT_1];
+       IntToStr(system_reg[TRV_CORRECT_1], txt);Ltrim(txt);
+       strcpy(EEV1_value.Caption, txt);
+       DrawRoundButton(&EEV1_value);
+          }
+        /*if(_page!=num_page)
+                             {
+                              _page=num_page;
+                              //Red_bar.Position = system_reg[TRV_STEPS_1]; UpdatePBPosition(&Red_bar);
+                               IntToStr(system_reg[TRV_CORRECT_1], txt);Ltrim(txt);
+                               strcpy(EEV1_value.Caption, txt);
+                               DrawRoundButton(&EEV1_value);
+                              }*/
    }
    else
    {
           IntToStr(system_reg[S_HEAT_2]/10, txt);Ltrim(txt);//
         if(strncmp(txt,EEV1_superheat.Caption,2)!=0){strncpy(EEV1_superheat.Caption, txt, 2);DrawRoundButton(&EEV1_superheat);}
+
    if(old_steps_2!=system_reg[TRV_STEPS_2]){
       old_steps_2=system_reg[TRV_STEPS_2];
       Red_bar.Position = system_reg[TRV_STEPS_2]; UpdatePBPosition(&Red_bar);
       }
+     //Red_bar.Position = system_reg[TRV_STEPS_2]; UpdatePBPosition(&Red_bar);
 
+     if(old_corect_2!=system_reg[TRV_CORRECT_2]){
+      old_corect_2=system_reg[TRV_CORRECT_2];
+       IntToStr(system_reg[TRV_CORRECT_2], txt);Ltrim(txt);
+       strcpy(EEV1_value.Caption, txt);
+       DrawRoundButton(&EEV1_value);
+          }
+     /*if(_page!=num_page)
+                             {
+                              _page=num_page;
+
+                               IntToStr(system_reg[TRV_CORRECT_2], txt);Ltrim(txt);
+                               strcpy(EEV1_value.Caption, txt);
+                               DrawRoundButton(&EEV1_value);
+                              }*/
    }
  }
  //-----------------------------------------------------------------------------

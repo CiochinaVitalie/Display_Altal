@@ -6,7 +6,7 @@ Value=0
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=Controller_main.c
+Value=Controller_events_code.c
 [USE_EEPROM]
 Value=0
 [EEPROM_DEFINITION]
@@ -38,11 +38,11 @@ Count=8
 File0=Controller_main.c
 File1=Controller_events_code.c
 File2=Controller_objects.h
-File3=Gauge.c
-File4=Errors.c
-File5=Pages.c
-File6=modbus.c
-File7=InternalRTC.c
+File3=Pages.c
+File4=modbus.c
+File5=Controller_driver.c
+File6=InternalRTC.c
+File7=..\..\..\..\..\..\..\MikroC\mikroC PRO for ARM\include\stdint.h
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -50,13 +50,14 @@ Count=0
 [OTHER_FILES]
 Count=0
 [SEARCH_PATH]
-Count=6
+Count=7
 Path0=C:\MikroC\mikroC PRO for ARM\Defs\
 Path1=C:\MikroC\mikroC PRO for ARM\Uses\
 Path2=C:\Users\Dumitru\Desktop\dima\alta_2_compressor_display\Controller_Code\mikroC PRO for ARM\
 Path3=C:\Users\Dumitru\Desktop\copy_altal\alta_2_compressor_display\Controller_Code\mikroC PRO for ARM\
 Path4=C:\mikroC\mikroC PRO for ARM\Uses\ST M4\
 Path5=C:\MikroC\mikroC PRO for ARM\include\
+Path6=C:\Users\Dumitru\Downloads\
 [HEADER_PATH]
 Count=3
 Path0=C:\Users\Dumitru\Desktop\copy_altal\alta_2_compressor_display\Controller_Code\mikroC PRO for ARM\

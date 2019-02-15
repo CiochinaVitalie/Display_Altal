@@ -4,7 +4,7 @@
 //--------------------- User code ---------------------//
 #include <stdint.h>
 #include <stdbool.h>
-unsigned char tenYearU;
+/*unsigned char tenYearU;
 unsigned char oneYearU;
 unsigned char oneMonth;
 unsigned char tenDayU;
@@ -12,13 +12,13 @@ unsigned char oneDayU;
 unsigned char tenHour;
 unsigned char oneHour;
 unsigned char tenMinute;
-unsigned char oneMinute;
+unsigned char oneMinute;   */
 unsigned char countPacket;
 float press;
-extern RTC_TimeTypeDef      My_Time;
+/*extern RTC_TimeTypeDef      My_Time;
 extern RTC_TimeTypeDef      Read_Time;
 extern RTC_DateTypeDef      My_Date;
-extern RTC_DateTypeDef      Read_Date;
+extern RTC_DateTypeDef      Read_Date;*/
 
 extern float old_HP_pressure;
 extern float old_LP_pressure;
@@ -26,7 +26,7 @@ extern float old_LP_pressure;
 extern  bool pushButton;
 extern  bool msgOk;
 extern   void (*send_data_again)();
-
+extern int8_t oneMinute, tenMinute, oneHour, tenHour, oneDayU, tenDayU, oneWeekday, oneMonth, tenMonth, oneYearU, tenYearU;
 regAdress adressReg;
 unsigned char nomReg;
 //------------------------------------------------------------------------------
@@ -191,7 +191,12 @@ else if(CurrentScreen==&EEV)
            case 3:reciev_data_packet(TRV_CORRECT_1,1); break;
            case 4:  countPacket=1;break;
           }
-           if(strcmp(CircleButton9.Caption,"1")!=0) {CircleButton9.Caption="1";DrawCircleButton(&CircleButton9);}
+           if(strcmp(CircleButton9.Caption,"1")!=0) {
+           CircleButton9.Caption="1";DrawCircleButton(&CircleButton9);
+           IntToStr(system_reg[TRV_CORRECT_1], txt);Ltrim(txt);
+                               strcpy(EEV1_value.Caption, txt);
+                               DrawRoundButton(&EEV1_value);
+           }
     }
     else
     {
@@ -202,7 +207,12 @@ else if(CurrentScreen==&EEV)
            case 3:reciev_data_packet(TRV_CORRECT_2,1); break;
            case 4:  countPacket=1;break;
           }
-          if(strcmp(CircleButton9.Caption,"2")!=0) {CircleButton9.Caption="2";DrawCircleButton(&CircleButton9);Back_b2.OnClickPtr=goToBack;}
+          if(strcmp(CircleButton9.Caption,"2")!=0) {
+          CircleButton9.Caption="2";DrawCircleButton(&CircleButton9);
+          IntToStr(system_reg[TRV_CORRECT_2], txt);Ltrim(txt);
+                               strcpy(EEV1_value.Caption, txt);
+                               DrawRoundButton(&EEV1_value);
+          Back_b2.OnClickPtr=goToBack;}
     }
     }
     
@@ -839,10 +849,13 @@ void EEV1UpOnDown() {
 void DEC_EEV1OnPress() {
      char txt[7];
      Tone1();
+
      incTRV--;
-     //incTRV*= 2;
-     if(incTRV<0)incTRV=0;
-     IntToStr(incTRV, txt);Ltrim(txt);
+
+     
+    if(num_page==0) { if(incTRV<0)incTRV=0;IntToStr(system_reg[TRV_CORRECT_1]+incTRV, txt); }
+     else {if(incTRV<0)incTRV=0;IntToStr(system_reg[TRV_CORRECT_2]+incTRV, txt); }
+     Ltrim(txt);
      strcpy(EEV1_value.Caption, txt);
      DrawRoundButton(&EEV1_value);
     //temp= Red_bar.Position;
@@ -859,10 +872,13 @@ void INC_EEV1OnPress() {
      char txt[7];
 
      Tone1();
+     
      incTRV++;
      //incTRV*= 2;
-     if(incTRV>240)incTRV=240;
-     IntToStr(incTRV, txt);Ltrim(txt);
+    // if(incTRV>240)incTRV=240;
+    if(num_page==0) {if(incTRV>240)incTRV=0;IntToStr(system_reg[TRV_CORRECT_1]+incTRV, txt); }
+     else {if(incTRV>240)incTRV=0;IntToStr(system_reg[TRV_CORRECT_2]+incTRV, txt); }
+     Ltrim(txt);
      strcpy(EEV1_value.Caption, txt);
      DrawRoundButton(&EEV1_value);
     //if(Red_bar.Position <= Red_bar.Max - 5) {
@@ -875,11 +891,14 @@ void INC_EEV1OnPress() {
 void Set_Trv() {
       if(num_page==0)
   {
-      system_reg[TRV_CORRECT_1]= incTRV;
+      system_reg[TRV_CORRECT_1]+= incTRV;
+      incTRV=0;
       send_data_packet(TRV_CORRECT_1,1);
   }
   else{
-      system_reg[TRV_CORRECT_2]= incTRV;
+      //system_reg[TRV_CORRECT_2]+= incTRV;
+      system_reg[TRV_CORRECT_2]+= incTRV;
+      incTRV=0;
       send_data_packet(TRV_CORRECT_2,1);
   }
 }
@@ -1064,12 +1083,12 @@ void ENTEROnClick() {
  void SetDateAndTimeOnClick(){
       // init date
     //My_Date.RTC_DayofWeek     = 5;
-    My_Date.RTC_Date_Tens     = tenDayU;
-    My_Date.RTC_Date_Units    = oneDayU;
-    My_Date.RTC_Month_Tens    = oneMonth/10;
-    My_Date.RTC_Month_Units   = oneMonth%10;
-    My_Date.RTC_Year_Tens     = oneYearU;
-    My_Date.RTC_Year_Units    = tenYearU;
+    /*My_Date.RTC_Date_Tens     = tenDayU;//tenDayU;
+    My_Date.RTC_Date_Units    = oneDayU;//oneDayU;
+    My_Date.RTC_Month_Tens    =  0;//oneMonth/10;
+    My_Date.RTC_Month_Units   = 3;//oneMonth%10;
+    My_Date.RTC_Year_Tens     = 1;//oneYearU;
+    My_Date.RTC_Year_Units    = 2;//tenYearU;
 
 
     //09:59:30pm
@@ -1080,8 +1099,13 @@ void ENTEROnClick() {
    // My_Time.RTC_Sec_Tens      = 3;
    // My_Time.RTC_Sec_Units     = 0;
    // My_Time.RTC_H12           = 1;
-      RTC_SetTime(&My_Time, -37);
-      RTC_SetDate(&My_Date);
+   if( RTC_SetTime(&My_Time, -37))Message("SetTime_OK.");
+      else Message("SetTime_fail.");
+    Delay_ms(2);
+   if( RTC_SetDate(&My_Date))Message("SetDate_OK.");
+      else Message("SetDate_fail.");*/
+
+      
  }
  void OneYearUpOnClick(){
 

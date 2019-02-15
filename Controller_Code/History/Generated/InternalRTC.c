@@ -21,7 +21,20 @@
 /*********************************
 *       Declare Varriables       *
 **********************************/
+ // Time struct with am/pm
 
+// variables
+unsigned long RTC_Time, old_RTC_Time;
+unsigned long RTC_Date, old_RTC_Date;
+ TTime MyTime;
+ int8_t oneMinute, tenMinute, oneHour, tenHour, oneDayU, tenDayU, oneWeekday, oneMonth, tenMonth, oneYearU, tenYearU;
+
+ static short RTC_Bcd2ToByte(short Value)
+{
+  short tmp = 0;
+  tmp = ((short)(Value & (short)0xF0) >> (short)0x4) * 10;
+  return (tmp + (Value & (short)0x0F));
+}
 
 
 
@@ -47,77 +60,31 @@ void Message (char arg[])
 *   Return : 1 = Success                                    *
 *            0 = Failure                                    *
 *************************************************************/
-short RTC_Init (unsigned PREDIV_Sync, unsigned short PREDIV_Async, int HR_Format)
-{
-    unsigned short   RTC_Wait_ctr = 0;
+ void RTC_Init(){
+  RCC_APB1ENR|=0x10000000;                      // Enable Clock for RTC
+  PWR_CR|=0x0100;                               // Access to RTC and RTC Backup registers and backup SRAM enabled
+  RCC_CSR|=0x01;                                // Wakeup flag
+  while(!(RCC_CSR&0x02));                       // 1: Device has been in Standby mode
 
 
-    /* Enable RTC and BackUp Registers  */                                      // Page 118 of RM0090 Reference Manual
-    PWREN_bit = 1;                                                              // PWREN: Power interface clock enable.      (RCC APB1 peripheral clock enable register (RCC_APB1ENR))
-    DBP_bit = 1;                                                                // Access to RTC Backup registers enabled.   (PWR power control register (PWR_CR))
-    RTCSEL1_bit = 0;  RTCSEL0_bit = 1;                                          // RTC Clock MUX select LSE as clock source. (RCC Backup domain control register (RCC_BDCR))
-    LSEBYP_bit = 0;                                                             // LSE oscillator not bypassed.              (RCC Backup domain control register (RCC_BDCR))
-    LSEON_bit = 1;                                                              // External low-speed oscillator enable.     (RCC Backup domain control register (RCC_BDCR))
-    RTCEN_bit = 1;                                                              // RTC clock enabled.                        (RCC Backup domain control register (RCC_BDCR))
+  RCC_BDCR|=0x00000200;                         // LSI oscillator clock used as the RTC clock
+  RCC_BDCR|=0x00008000;                         // RTC clock enabled
 
+  RTC_WPR=0xca;                                 // Write protection key
+  RTC_WPR=0x53;                                 // Write protection key
+  RTC_ISR&=0xffffffdf;                          //clear RSF flag
+  while(!(RTC_ISR&0xffffffdf));                 // Calendar shadow registers not yet synchronized
 
-    /* Disable the write protection for RTC registers */                        // Page 785 of RM0090 Reference Manual
-    DBP_bit = 1;                                                                // Access to RTC Backup registers enabled.   (PWR power control register (PWR_CR))
-    RTC_WPR = 0xCA;
-    RTC_WPR = 0x53;
+  RTC_ISR|=0x80;                                // Initialization mode
+  while((RTC_ISR&0x40)==0);                     // 1: Calendar registers update is allowed.
 
+  RTC_PRER|=0x007f0000;                         // RTC prescaler register
+  RTC_PRER|=0x000000ff;
 
-    while ((LSERDY_bit == 0) && (RTC_Wait_ctr < 150));
-    {
-         delay_us(1);
-         RTC_Wait_ctr++;
-    }
+  RTC_ISR&=~0x80;                               // 0: Free running mode
 
-    //if (LSERDY_bit == 0)    Message("LSE Clock not ready.");
-
-    /* Reset Counter  */
-    RTC_Wait_ctr = 0;
-
-
-    /* Set Initialization mode */
-    if (INITF_bit == 0)
-    {
-         RTC_ISR.B7 = 1;                                                        //  INIT Enter Initialization mode.                (RTC initialization and status register (RTC_ISR))
-         while ((INITF_bit == 0) && (RTC_Wait_ctr < 8))                         //  Poll INITF bit of in the RTC_ISR register. The initialization
-         {                                                                      //  phase mode is entered when INITF is set to 1. It takes from 1
-             delay_us(10);                                                      //  to 2 RTCCLK clock cycles (due to clocks synchronization).
-             RTC_Wait_ctr++;                                                    //  RTCCLK = 32768 Hz  --> approx 60us delay
-         }                                                                      //  We shall wait 80 us just to make sure ;)
-
-         if (INITF_bit == 0)
-         {
-             //Message("Failed to enter INIT mode.");
-             RTC_ISR.B7 = 0;                                                    // INIT Exit Initialization mode.                (RTC initialization and status register (RTC_ISR))
-             RTC_WPR = 0xFF;                                                    // Enable the write protection for RTC registers
-             return 0;                                                          // Failed to update RTC registers
-         }
-    }
-
-    /* Configure the RTC PRER */
-    RTC_PRERbits.PREDIV_S = PREDIV_Sync;
-    RTC_PRERbits.PREDIV_A = PREDIV_Async;
-
-    /* Set 12 / 24 hr time format */
-    FMT_bit = HR_Format;
-
-    /* Exit Initialization mode */                                              //  Bit 7 INIT: Initialization mode
-    RTC_ISR.B7 = 0;                                                             //     0: Free running mode
-                                                                                //     1: Initialization mode used to program time and date register (RTC_TR and RTC_DR), and
-                                                                                //        prescaler register (RTC_PRER). Counters are stopped and start counting from the new
-                                                                                //        value when INIT is reset.
-    /* Enable the write protection for RTC registers */
-    RTC_WPR = 0xFF;
-    /*enable_RTC_second_interrupt(true);
-    while(get_RTC_operation_state() == false);
-    NVIC_IntEnable(IVT_INT_RTC_Alarm);*/
-    return 1;
+  RTC_WPR=0xff;                                 // Write protection key
 }
-
 
 /************************************************************
 * Calibrate Crystal Freqency                                *
@@ -168,128 +135,83 @@ void Calibrate_RTC_Crystal (int Cal_Value)
 
 }
 
+/*******************************************************************************
+* Function Set_RTC(TTime *RTCC_Time)
+* ------------------------------------------------------------------------------
+* Overview: Function Sets RTC Time and calendar
+* Input: Time struct
+* Output: Nothing
+*******************************************************************************/
+void Set_RTC(TTime *RTCC_Time){
+unsigned long temp;
 
+  PWR_CR.DBP = 1;
 
-/************************************************************
-* RTC set current time                                      *
-* RTC_TimeStruct : Structure of the current time to be set. *
-*   Return : 1 = Success                                    *
-*            0 = Failure                                    *
-*************************************************************/
-short RTC_SetTime (RTC_TimeTypeDef *RTC_TimeStruct, int Calibration_Value)
-{
-    short                Func_Status;
-    unsigned short       RTC_Wait_ctr             = 0;
-    unsigned long        Temp_Time_Reg            = 0;
+  RTC_WPR = 0xCA;                   //unlock write protection
+  RTC_WPR = 0x53;                   //unlock write protection
+  RTC_ISR = 0x00000080;             //enter initialization mode  bit 7
+  while(RTC_ISR.INITF != 1){};      // bit 6
 
-    Temp_Time_Reg = (((unsigned long) (RTC_TimeStruct->RTC_H12)         << 22) | \
-                     ((unsigned long) (RTC_TimeStruct->RTC_Hour_Tens)   << 20) | \
-                     ((unsigned long) (RTC_TimeStruct->RTC_Hour_Units)  << 16) | \
-                     ((unsigned long) (RTC_TimeStruct->RTC_Min_Tens)    << 12) | \
-                     ((unsigned long) (RTC_TimeStruct->RTC_Min_Units)   <<  8) | \
-                     ((unsigned long) (RTC_TimeStruct->RTC_Sec_Tens)    <<  4) | \
-                     ((unsigned long) (RTC_TimeStruct->RTC_Sec_Units)));
+  RTC_PRER = 0x7f00ff;              //  set   SynchPrediv to FF and AsynchPrediv to 7F*/
 
+  temp = (unsigned long)Dec2Bcd(RTCC_Time->hours) << 16;
+  temp += (unsigned long)Dec2BCD(RTCC_Time->minutes) << 8;
+  temp += (unsigned long)Dec2BCD(RTCC_Time->seconds);
+  temp += (unsigned long)(RTCC_Time->ampm) << 22;
 
-    /* Disable the write protection for RTC registers */
-    RTC_WPR = 0xCA;
-    RTC_WPR = 0x53;
-    DBP_bit = 1;                                                                // Access to RTC Backup registers enabled.   (PWR power control register (PWR_CR))
+  RTC_TR = temp;
 
-    /* Set Initialization mode */
-    if (INITF_bit == 0)   {
+  temp = (unsigned long)Dec2Bcd(RTCC_Time->day);
+  temp += (unsigned long)Dec2BCD(RTCC_Time->month) << 8;
+  temp += (unsigned long)Dec2BCD(RTCC_Time->weekday) << 13;
+  temp += (unsigned long)Dec2BCD(RTCC_Time->year) << 16;
 
-         RTC_ISR.B7 = 1;                                                        // INIT Enter Initialization mode.           (RTC initialization and status register (RTC_ISR))
+  RTC_DR = temp;           // set date
+  RTC_CRbits.FMT = 0;
+  RTC_CRbits.WCKSEL = 0;   // set FMT 24H format
 
-         while ((INITF_bit == 0) && (RTC_Wait_ctr < 8))                         //  Poll INITF bit of in the RTC_ISR register. The initialization
-         {                                                                      //  phase mode is entered when INITF is set to 1. It takes from 1
-             delay_us(10);                                                      //  to 2 RTCCLK clock cycles (due to clocks synchronization).
-             RTC_Wait_ctr++;                                                    //  RTCCLK = 32768 Hz  --> approx 60us delay
-         }                                                                      //  We shall wait 80 us just to make sure ;)
+  RTC_ISR = 0x00000000;    //exit initialization mode
 
-         if (INITF_bit == 0)
-         {
-             Func_Status = 0;                                                   // Failed to update RTC registers
-         }
-    }
-
-    /* Set Calibration Value */
-    Calibrate_RTC_Crystal(Calibration_Value);
-
-    /* Copy new time value into Time Register */
-    RTC_TR = Temp_Time_Reg;
-
-    /* Exit Initialization mode */                                              //  Bit 7 INIT: Initialization mode
-    RTC_ISR.B7 = 0;                                                             //     0: Free running mode
-                                                                                //     1: Initialization mode used to program time and date register (RTC_TR and RTC_DR), and
-                                                                                //        prescaler register (RTC_PRER). Counters are stopped and start counting from the new
-                                                                                //        value when INIT is reset.
-    /* Enable the write protection for RTC registers */
-    RTC_WPR = 0xFF;
-
-    return Func_Status;
+  RTC_WPR = 0xFF;          // Enable the write protection for RTC registers
 }
 
+/*******************************************************************************
+* Function RTCC_Read(TTime *RTCC_Time)
+* ------------------------------------------------------------------------------
+* Overview: Function reads RTC Time and calendar
+* Input: Time struct
+* Output: Nothing
+*******************************************************************************/
+char RTCC_Read(TTime *RTCC_Time){
+  char temp = 0;
+    unsigned long time;
 
-/************************************************************
-* RTC set current Date                                      *
-* RTC_TimeStruct : Structure of the current time to be set. *
-*   Return : 1 = Success                                    *
-*            0 = Failure                                    *
-*************************************************************/
-short RTC_SetDate(RTC_DateTypeDef *RTC_DateStruct)
-{
-    short                Func_Status;
-    unsigned short       RTC_Wait_ctr             = 0;
-    unsigned long        Temp_Date_Reg            = 0;
+  RTC_Time = RTC_TR;       // RTC_CNTL; //for time   for STM32F107
+  RTC_Date = RTC_DR;       // RTC_CNTH; //for date   for STM32F107
 
-    Temp_Date_Reg = (((unsigned long) (RTC_DateStruct->RTC_Year_Tens)    << 20) | \
-                     ((unsigned long) (RTC_DateStruct->RTC_Year_Units)   << 16) | \
-                     ((unsigned long) (RTC_DateStruct->RTC_DayofWeek)    << 13) | \
-                     ((unsigned long) (RTC_DateStruct->RTC_Month_Tens)   << 12) | \
-                     ((unsigned long) (RTC_DateStruct->RTC_Month_Units)  <<  8) | \
-                     ((unsigned long) (RTC_DateStruct->RTC_Date_Tens)    <<  4) | \
-                     ((unsigned long) (RTC_DateStruct->RTC_Date_Units)));
+  if(RTC_Time != old_RTC_Time){
+    old_RTC_Time = RTC_Time;
 
-    Temp_Date_Reg = Temp_Date_Reg & 0x00FFFFFF;                                 // Ensure top 8 bits are set to 0.
+    RTCC_Time->ampm = (short)((RTC_Time & 0x400000) >> 22);
+    RTCC_Time->hours = Bcd2Dec((short)((RTC_Time & 0x3f0000) >> 16));
+    RTCC_Time->minutes = Bcd2Dec((short)((RTC_Time & 0x007f00) >> 8));
+    RTCC_Time->seconds = Bcd2Dec((short)(RTC_Time & 0x0000ff));
 
-    /* Disable the write protection for RTC registers */
-    RTC_WPR = 0xCA;
-    RTC_WPR = 0x53;
-    DBP_bit = 1;                                                                // Access to RTC Backup registers enabled.   (PWR power control register (PWR_CR))
+    temp = 1;
+  }
 
-    /* Set Initialization mode */
-    if (INITF_bit == 0)   {
+  if(RTC_Date != old_RTC_Date){
+    old_RTC_Date = RTC_Date;
 
-         RTC_ISR.B7 = 1;                                                        // INIT Enter Initialization mode.           (RTC initialization and status register (RTC_ISR))
+    RTCC_Time->year = Bcd2Dec((short)((RTC_Date & 0x3f0000) >> 16));
+    RTCC_Time->weekday = Bcd2Dec((short)((RTC_Date & 0x00e000) >> 13));
+    RTCC_Time->month = Bcd2Dec((short)((RTC_Date & 0x00001F00) >> 8));
+    RTCC_Time->day = Bcd2Dec((short)(RTC_Date & 0x0000ff));
 
-         while ((INITF_bit == 0) && (RTC_Wait_ctr < 8))                         //  Poll INITF bit of in the RTC_ISR register. The initialization
-         {                                                                      //  phase mode is entered when INITF is set to 1. It takes from 1
-             delay_us(10);                                                      //  to 2 RTCCLK clock cycles (due to clocks synchronization).
-             RTC_Wait_ctr++;                                                    //  RTCCLK = 32768 Hz  --> approx 60us delay
-         }                                                                      //  We shall wait 80 us just to make sure ;)
-
-         if (INITF_bit == 0)
-         {
-             Message("Failed to enter INIT mode.");
-             Func_Status = 0;                                                   // Failed to update RTC registers
-         }
-    }
-    RTC_Wait_ctr = 0;   // Clear counter
-
-    /* Copy new time value into Date Register */
-    RTC_DR = Temp_Date_Reg;
-
-    /* Exit Initialization mode */                                              //  Bit 7 INIT: Initialization mode
-    RTC_ISR.B7 = 0;                                                             //     0: Free running mode
-                                                                                //     1: Initialization mode used to program time and date register (RTC_TR and RTC_DR), and
-                                                                                //        prescaler register (RTC_PRER). Counters are stopped and start counting from the new
-                                                                                //        value when INIT is reset.
-    /* Enable the write protection for RTC registers */
-    RTC_WPR = 0xFF;
-
+    temp = 1;
+  }
+  return temp;
 }
-
 
 
 /************************************************************
@@ -539,3 +461,37 @@ void Print_Sub_Secs (unsigned Value)
     }
 
 }*/
+  char Set_MyRTCC(){
+    char temp;
+    uint8_t minutesTemp, hoursTemp;
+    int yearTemp;
+    int8_t finalDayOfWeek;
+   int a, y, m;
+
+    RTCC_Read(&MyTime);
+
+    MyTime.hours = tenHour * 10 + oneHour;
+    MyTime.minutes = tenMinute * 10 + oneMinute;
+    MyTime.day = tenDayU * 10 + oneDayU;
+    MyTime.month = oneMonth;
+    MyTime.year = tenYearU*10 + oneYearU;
+    MyTime.ampm = 0;
+    a = (14 - MyTime.month) / 12;
+    y = MyTime.year - a;
+    m = MyTime.month + 12 * a - 2;
+    finalDayOfWeek = (short)((7000 + (MyTime.day + y + y / 4 - y / 100 + y / 400 + (31 * m) / 12)) % 7);  // calculate date of week
+    switch(finalDayOfWeek){
+        case 0:{
+             finalDayOfWeek = 7;
+             break;
+        }
+    }
+    MyTime.weekday = finalDayOfWeek;
+
+    Set_RTC(&MyTime);
+    if (MyTime.day == 0)
+       return 0;
+    if (MyTime.year > 30)
+       return 0;
+    return 1;
+}

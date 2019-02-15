@@ -63,6 +63,7 @@ _compare_fp
 _conclick
 _d
 _d_caption
+_date
 _del
 _del_caption
 _delonclick
@@ -480,6 +481,7 @@ _sub_dp
 _sub_fp
 _t
 _t_caption
+_time
 _timeout
 _tonclick
 _u
@@ -3314,6 +3316,7 @@ alst2
 alst2
 alst2_bit
 alst2_can1_tsr_bit
+ampm
 aoe
 aoe
 aoe
@@ -14350,6 +14353,7 @@ datlen1_i2s2ext_i2scfgr_bit
 datlen1_i2s3ext_i2scfgr_bit
 datlen1_spi2_i2scfgr_bit
 datlen1_spi3_i2scfgr_bit
+day
 day_unitdwn
 day_unitdwn_caption
 day_unitdwnonclick
@@ -32187,6 +32191,7 @@ home_b9
 home_b9_caption
 hour_word
 hour_word_caption
+hours
 hp_arrow
 hp_display
 hp1_gauge
@@ -41581,6 +41586,7 @@ minc_dma2_s4cr_bit
 minc_dma2_s5cr_bit
 minc_dma2_s6cr_bit
 minc_dma2_s7cr_bit
+minutes
 misc_exceptions
 mmc_chip_select
 mmc_fat_activate
@@ -42290,6 +42296,7 @@ moe_tim8_bdtr_bit
 monitoract
 monitoract
 monitoract_bit
+month
 month_word
 month_word_caption
 monthdatedwn
@@ -43069,9 +43076,8 @@ mwid1_bit
 mwid1_fsmc_bcr2_bit
 mwid1_fsmc_bcr3_bit
 mwid1_fsmc_bcr4_bit
-my_date
-my_time
 mybuf
+mytime
 nack
 nack
 nack
@@ -44876,6 +44882,8 @@ ois4_bit
 ois4_tim8_cr2_bit
 old_hp_pressure
 old_lp_pressure
+old_rtc_date
+old_rtc_time
 old_time_count
 omfc
 omfc
@@ -47245,6 +47253,7 @@ onedayuponup
 onehour
 oneminute
 onemonth
+oneweekday
 oneyeardwn
 oneyeardwn_caption
 oneyeardwnonclick
@@ -61177,6 +61186,7 @@ rtc_calr
 rtc_calrbits
 rtc_cr
 rtc_crbits
+rtc_date
 rtc_date_tens
 rtc_date_units
 rtc_dayofweek
@@ -61201,14 +61211,13 @@ rtc_printdate
 rtc_printtime
 rtc_sec_tens
 rtc_sec_units
-rtc_setdate
-rtc_settime
 rtc_shiftr
 rtc_shiftrbits
 rtc_ssr
 rtc_ssrbits
 rtc_tafcr
 rtc_tafcrbits
+rtc_time
 rtc_tr
 rtc_trbits
 rtc_tsdr
@@ -61227,6 +61236,7 @@ rtc0
 rtc0_bit
 rtc1
 rtc1_bit
+rtcc_read
 rtcen
 rtcen
 rtcen_bit
@@ -62188,6 +62198,7 @@ second_point_y
 second_point_y
 second_point_y
 second_point_y
+seconds
 secs
 secs
 secs_bit
@@ -62354,11 +62365,13 @@ set_min_subcooling
 set_min_subcooling_caption
 set_min_superheat
 set_min_superheat_caption
+set_myrtcc
 set_phase_check
 set_phase_off
 set_phase_on
 set_preset_time_electric
 set_preset_time_electric_caption
+set_rtc
 set_solar_max
 set_solar_max_caption
 set_trv
@@ -65431,6 +65444,7 @@ tendayuponpress
 tendayuponup
 tenhour
 tenminute
+tenmonth
 tenms
 tenms0
 tenms0_bit
@@ -73321,6 +73335,7 @@ weather_icon
 weather_icon_jpg
 weather_temp_main
 weather_temp_main_caption
+weekday
 wfe
 wfe
 wfe_bit
@@ -75580,6 +75595,7 @@ xtoi
 y1
 y2
 ycoord
+year
 year_word
 year_word_caption
 yt

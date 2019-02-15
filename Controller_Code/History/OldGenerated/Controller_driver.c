@@ -9525,7 +9525,7 @@ static void InitializeObjects() {
   SetDateAndTime.Pen_Width       = 0;
   SetDateAndTime.Pen_Color       = 0xFFFF;
   SetDateAndTime.Visible         = 1;
-  SetDateAndTime.Active          = 0;
+  SetDateAndTime.Active          = 1;
   SetDateAndTime.Transparent     = 1;
   SetDateAndTime.Caption         = SetDateAndTime_Caption;
   SetDateAndTime.TextAlign       = _taCenter;

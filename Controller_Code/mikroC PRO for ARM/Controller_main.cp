@@ -212,9 +212,27 @@ typedef struct
  unsigned short RTC_Year_Units;
 }RTC_DateTypeDef;
 
-extern short RTC_Init (unsigned PREDIV_Sync, unsigned short PREDIV_Async, int HR_Format);
-extern short RTC_SetTime (RTC_TimeTypeDef *RTC_TimeStruct, int Calibration_Value);
-extern short RTC_SetDate(RTC_DateTypeDef *RTC_DateStruct);
+ typedef struct Time {
+ short ampm;
+ short seconds;
+ short minutes;
+ short hours;
+ short day;
+ short month;
+ short weekday;
+ short year;
+} TTime;
+
+
+
+extern void RTC_Init();
+extern char RTCC_Read(TTime *RTCC_Time);
+extern void Set_RTC(TTime *RTCC_Time);
+extern char Set_MyRTCC();
+
+
+
+
 extern void Message (char arg[]);
 extern void RTC_GetTime(RTC_TimeTypeDef *RTC_TimeStruct);
 extern void RTC_GetDate(RTC_DateTypeDef *RTC_DateStruct);
@@ -1950,6 +1968,7 @@ extern TCircleButton * const code Screen37_CircleButtons[1];
 
 
 
+
 void BackToHome();
 void goToBack();
 void nextPage();
@@ -1999,7 +2018,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2030 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2049 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -2453,6 +2472,18 @@ void Setuptempdef();
 void Setdowntempdef();
 void Mode_ground_onOnClick ();
 void pushDEF();
+
+
+
+
+void user_set_LANOnUp();
+void user_set_timeOnPress();
+void user_set_timeOnUp();
+void user_set_timersOnPress();
+void user_set_timersOnUp();
+void user_settingOnPress();
+void user_settingOnUp();
+void void Set_19_OnDown();
 
 
 
@@ -3764,7 +3795,11 @@ void (*send_data_again)() = 0;
 volatile char myBuf[15];
  _Bool  dataEEprom= 0 ;
  _Bool  msgOk= 0 ;
-#line 63 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+
+RTC_TimeTypeDef _time;
+RTC_DateTypeDef _date;
+extern TScreen* CurrentScreen;
+#line 67 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
 void InitTimer2(){
  RCC_APB1ENR.TIM2EN = 1;
  TIM2_CR1.CEN = 0;
@@ -3821,23 +3856,29 @@ void USARTINTERRUPT() iv IVT_INT_USART2 ics ICS_AUTO{
 void printTime(RTC_TimeTypeDef *RTC_TimeStruct,RTC_DateTypeDef *RTC_DateStruct)
  {
  char txt[4];
+ char *res;
  unsigned char mon;
  mon = RTC_DateStruct->RTC_Month_Tens*10 + RTC_DateStruct->RTC_Month_Units;
  ByteToStr(RTC_TimeStruct->RTC_Hour_Tens,txt);
-
- strcpy(DateTime.Caption,txt);
+ res = Ltrim(txt);
+ strcpy(DateTime.Caption,res);
  ByteToStr(RTC_TimeStruct->RTC_Hour_Units,txt);
- strcat(DateTime.Caption,txt);
+ res = Ltrim(txt);
+ strcat(DateTime.Caption,res);
  strcat(DateTime.Caption,":");
  ByteToStr(RTC_TimeStruct->RTC_Min_Tens,txt);
- strcat(DateTime.Caption,txt);
- ByteToStr(RTC_TimeStruct->RTC_Min_Units,txt);
- strcat(DateTime.Caption,txt);
- strcat(DateTime.Caption," / ");
+ res = Ltrim(txt);
+ strcat(DateTime.Caption,res);
+ ByteToStr(RTC_TimeStruct->RTC_Min_Units ,txt);
+ res = Ltrim(txt);
+ strcat(DateTime.Caption,res);
+ strcat(DateTime.Caption,"/");
  ByteToStr(RTC_DateStruct->RTC_Date_Tens,txt);
- strcat(DateTime.Caption,txt);
+ res = Ltrim(txt);
+ strcat(DateTime.Caption,res);
  ByteToStr(RTC_DateStruct->RTC_Date_Units,txt);
- strcat(DateTime.Caption,txt);
+ res = Ltrim(txt);
+ strcat(DateTime.Caption,res);
 
  switch (mon)
  {
@@ -3857,21 +3898,19 @@ void printTime(RTC_TimeTypeDef *RTC_TimeStruct,RTC_DateTypeDef *RTC_DateStruct)
 
  }
 
-
 void main() {
 
- RTC_TimeTypeDef Read_Time;
- RTC_DateTypeDef Read_Date;
 
- RTC_Init(255, 127, 1);
-#line 171 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+
+ RTC_Init();
+#line 180 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  InitSysTick();
  USART_init();
  InitTimer2();
  modbus_configure(1000,200,10);
  Start_TP();
  EnableInterrupts();
-#line 187 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 196 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  DisableInterrupts();
  countPacket=1;
 
@@ -3900,24 +3939,37 @@ void main() {
 
 
  DisableInterrupts();
- if(millis() - old_time_count >1000 )
+ if(millis() - old_time_count >1100 )
  {
 
  static unsigned char n=0;
+ static unsigned char f=0;
  n++;
- if(n>60){
+ if(n>60)
+ {
  n=0;
- RTC_GetDate(&Read_Date);
+ RTC_GetDate(&_date);
 
 
- RTC_GetTime(&Read_Time);
+ RTC_GetTime(&_time);
 
- printTime(&Read_Time,&Read_Date);
- DrawRoundBox (&Messages_Box);DrawLabel (&DateTime);}
+ printTime(&_time,&_date);
+ if (CurrentScreen==&HOME)
+ {
+ DrawRoundBox (&Messages_Box);DrawLabel (&DateTime);
+ }
+ }
 
 
  old_time_count = millis();
-#line 235 "C:/Users/Dumitru/Desktop/dima/alta_2_compressor_display/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+
+ if(dataEEprom && !pushButton){selectPage();f=0; }
+ else if(!dataEEprom && !pushButton) reciev_data_packet(COMP_DEL,48);
+ if(pushButton)
+ {
+ send_data_packet(adressReg,nomReg);f++;
+ if(f>5){DateTime.Caption = "LOST";DrawLabel (&DateTime);pushButton= 0 ;f=0;}
+ }
  }
 
 

@@ -235,9 +235,27 @@ typedef struct
   unsigned short RTC_Year_Units;
 }RTC_DateTypeDef;
  //---rtc
-extern short RTC_Init (unsigned PREDIV_Sync, unsigned short PREDIV_Async, int HR_Format);
-extern short RTC_SetTime (RTC_TimeTypeDef *RTC_TimeStruct, int Calibration_Value);
-extern short RTC_SetDate(RTC_DateTypeDef *RTC_DateStruct);
+ typedef struct Time {
+  short ampm;
+  short seconds;
+  short minutes;
+  short hours;
+  short day;
+  short month;
+  short weekday;
+  short year;
+} TTime;
+//TTime MyTime;
+
+//extern short RTC_Init (unsigned PREDIV_Sync, unsigned short PREDIV_Async, int HR_Format);
+extern  void RTC_Init();
+extern char RTCC_Read(TTime *RTCC_Time);
+extern void Set_RTC(TTime *RTCC_Time);
+extern char Set_MyRTCC();
+//extern short RTC_SetTime (RTC_TimeTypeDef *RTC_TimeStruct, int Calibration_Value);
+//extern short RTC_SetDate(RTC_DateTypeDef *RTC_DateStruct);
+
+
 extern  void Message (char arg[]);
 extern void RTC_GetTime(RTC_TimeTypeDef *RTC_TimeStruct);
 extern void RTC_GetDate(RTC_DateTypeDef *RTC_DateStruct);

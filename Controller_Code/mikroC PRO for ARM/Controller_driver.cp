@@ -212,9 +212,27 @@ typedef struct
  unsigned short RTC_Year_Units;
 }RTC_DateTypeDef;
 
-extern short RTC_Init (unsigned PREDIV_Sync, unsigned short PREDIV_Async, int HR_Format);
-extern short RTC_SetTime (RTC_TimeTypeDef *RTC_TimeStruct, int Calibration_Value);
-extern short RTC_SetDate(RTC_DateTypeDef *RTC_DateStruct);
+ typedef struct Time {
+ short ampm;
+ short seconds;
+ short minutes;
+ short hours;
+ short day;
+ short month;
+ short weekday;
+ short year;
+} TTime;
+
+
+
+extern void RTC_Init();
+extern char RTCC_Read(TTime *RTCC_Time);
+extern void Set_RTC(TTime *RTCC_Time);
+extern char Set_MyRTCC();
+
+
+
+
 extern void Message (char arg[]);
 extern void RTC_GetTime(RTC_TimeTypeDef *RTC_TimeStruct);
 extern void RTC_GetDate(RTC_DateTypeDef *RTC_DateStruct);
@@ -1950,6 +1968,7 @@ extern TCircleButton * const code Screen37_CircleButtons[1];
 
 
 
+
 void BackToHome();
 void goToBack();
 void nextPage();
@@ -1999,7 +2018,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2030 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2049 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -2453,6 +2472,18 @@ void Setuptempdef();
 void Setdowntempdef();
 void Mode_ground_onOnClick ();
 void pushDEF();
+
+
+
+
+void user_set_LANOnUp();
+void user_set_timeOnPress();
+void user_set_timeOnUp();
+void user_set_timersOnPress();
+void user_set_timersOnUp();
+void user_settingOnPress();
+void user_settingOnUp();
+void void Set_19_OnDown();
 
 
 
@@ -11243,7 +11274,7 @@ static void InitializeObjects() {
  Image27.OwnerScreen = &EEV;
  Image27.Order = 0;
  Image27.Left = 2;
- Image27.Top = 0;
+ Image27.Top = 2;
  Image27.Width = 480;
  Image27.Height = 272;
  Image27.Picture_Type = 1;
@@ -11518,7 +11549,7 @@ static void InitializeObjects() {
  EEV1_value.OwnerScreen = &EEV;
  EEV1_value.Order = 11;
  EEV1_value.Left = 286;
- EEV1_value.Top = 51;
+ EEV1_value.Top = 49;
  EEV1_value.Width = 48;
  EEV1_value.Height = 27;
  EEV1_value.Pen_Width = 1;
@@ -13614,7 +13645,7 @@ static void InitializeObjects() {
 
  TenYearUp.OwnerScreen = &SetRTC;
  TenYearUp.Order = 22;
- TenYearUp.Left = 45;
+ TenYearUp.Left = 10;
  TenYearUp.Top = 47;
  TenYearUp.Width = 35;
  TenYearUp.Height = 42;
@@ -13643,7 +13674,7 @@ static void InitializeObjects() {
 
  TenYearDwn.OwnerScreen = &SetRTC;
  TenYearDwn.Order = 23;
- TenYearDwn.Left = 45;
+ TenYearDwn.Left = 10;
  TenYearDwn.Top = 169;
  TenYearDwn.Width = 35;
  TenYearDwn.Height = 42;
@@ -13672,7 +13703,7 @@ static void InitializeObjects() {
 
  OneYearUp.OwnerScreen = &SetRTC;
  OneYearUp.Order = 24;
- OneYearUp.Left = 10;
+ OneYearUp.Left = 45;
  OneYearUp.Top = 47;
  OneYearUp.Width = 35;
  OneYearUp.Height = 42;
@@ -13701,7 +13732,7 @@ static void InitializeObjects() {
 
  OneYearDwn.OwnerScreen = &SetRTC;
  OneYearDwn.Order = 25;
- OneYearDwn.Left = 10;
+ OneYearDwn.Left = 45;
  OneYearDwn.Top = 169;
  OneYearDwn.Width = 35;
  OneYearDwn.Height = 42;
