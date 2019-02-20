@@ -521,7 +521,7 @@
   FloatToStr(system_reg[HEAT_OUT_2]/10.0, txt);Ltrim(txt);//
      if(strncmp(txt,S_Heat_Outlet_1.Caption,4)!=0){strncpy(S_Heat_Outlet_1.Caption, txt, 4);DrawRoundButton(&S_Heat_Outlet_1);}
      
-     IntToStr(system_reg[EXAUST_TEMP_1], txt);Ltrim(txt);//
+     IntToStr(system_reg[EXAUST_TEMP_2 ], txt);Ltrim(txt);//
   if(system_reg[EXAUST_TEMP_2]/10<10){
     if(strncmp(txt,S_Compressor_1.Caption,2)!=0){strncpy(S_Compressor_1.Caption, txt, 2);
       S_Compressor_1.Caption[2]=S_Compressor_1.Caption[1];S_Compressor_1.Caption[1]=S_Compressor_1.Caption[0];S_Compressor_1.Caption[0]='0';

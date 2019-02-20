@@ -7561,7 +7561,7 @@ static void InitializeObjects() {
   Image27.OwnerScreen     = &EEV;
   Image27.Order           = 0;
   Image27.Left            = 2;
-  Image27.Top             = 0;
+  Image27.Top             = 2;
   Image27.Width           = 480;
   Image27.Height          = 272;
   Image27.Picture_Type    = 1;
@@ -7836,7 +7836,7 @@ static void InitializeObjects() {
   EEV1_value.OwnerScreen     = &EEV;
   EEV1_value.Order           = 11;
   EEV1_value.Left            = 286;
-  EEV1_value.Top             = 51;
+  EEV1_value.Top             = 49;
   EEV1_value.Width           = 48;
   EEV1_value.Height          = 27;
   EEV1_value.Pen_Width       = 1;
@@ -9932,7 +9932,7 @@ static void InitializeObjects() {
 
   TenYearUp.OwnerScreen     = &SetRTC;
   TenYearUp.Order           = 22;
-  TenYearUp.Left            = 45;
+  TenYearUp.Left            = 10;
   TenYearUp.Top             = 47;
   TenYearUp.Width           = 35;
   TenYearUp.Height          = 42;
@@ -9961,7 +9961,7 @@ static void InitializeObjects() {
 
   TenYearDwn.OwnerScreen     = &SetRTC;
   TenYearDwn.Order           = 23;
-  TenYearDwn.Left            = 45;
+  TenYearDwn.Left            = 10;
   TenYearDwn.Top             = 169;
   TenYearDwn.Width           = 35;
   TenYearDwn.Height          = 42;
@@ -9990,7 +9990,7 @@ static void InitializeObjects() {
 
   OneYearUp.OwnerScreen     = &SetRTC;
   OneYearUp.Order           = 24;
-  OneYearUp.Left            = 10;
+  OneYearUp.Left            = 45;
   OneYearUp.Top             = 47;
   OneYearUp.Width           = 35;
   OneYearUp.Height          = 42;
@@ -10019,7 +10019,7 @@ static void InitializeObjects() {
 
   OneYearDwn.OwnerScreen     = &SetRTC;
   OneYearDwn.Order           = 25;
-  OneYearDwn.Left            = 10;
+  OneYearDwn.Left            = 45;
   OneYearDwn.Top             = 169;
   OneYearDwn.Width           = 35;
   OneYearDwn.Height          = 42;

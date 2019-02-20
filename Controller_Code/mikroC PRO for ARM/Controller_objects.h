@@ -1990,7 +1990,6 @@ extern   TImage                 * const code Screen37_Images[37];
 extern   TCircleButton          * const code Screen37_CircleButtons[1];
 
 
-/////////////////////////
 // Events Code Declarations
 void BackToHome();
 void goToBack();
@@ -2500,19 +2499,6 @@ void Setdowntempdef();
 void  Mode_ground_onOnClick ();
 void pushDEF();
 /////////////////////////////////
-
-
-/////////////////////////////////
-void user_set_LANOnUp();
-void user_set_timeOnPress();
-void user_set_timeOnUp();
-void user_set_timersOnPress();
-void user_set_timersOnUp();
-void user_settingOnPress();
-void user_settingOnUp();
-void void Set_19_OnDown();
-/////////////////////////
-
 /////////////////////////////////
 // Caption variables Declarations
 extern char BoxRound8_Caption[];

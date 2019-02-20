@@ -1968,7 +1968,6 @@ extern TCircleButton * const code Screen37_CircleButtons[1];
 
 
 
-
 void BackToHome();
 void goToBack();
 void nextPage();
@@ -2018,7 +2017,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2049 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2048 "c:/users/dumitru/desktop/dima/alta_2_compressor_display/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -2472,19 +2471,6 @@ void Setuptempdef();
 void Setdowntempdef();
 void Mode_ground_onOnClick ();
 void pushDEF();
-
-
-
-
-void user_set_LANOnUp();
-void user_set_timeOnPress();
-void user_set_timeOnUp();
-void user_set_timersOnPress();
-void user_set_timersOnUp();
-void user_settingOnPress();
-void user_settingOnUp();
-void void Set_19_OnDown();
-
 
 
 

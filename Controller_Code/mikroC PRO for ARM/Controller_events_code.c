@@ -162,7 +162,7 @@ else if(CurrentScreen==&SENSOR1)
          switch(countPacket)
          {
           case 1: reciev_data_packet(BAC_TEMP,2);break;
-          case 2: reciev_data_packet(SOURC_IN_2,11);break;
+          case 2: reciev_data_packet(SOURC_IN_2,12);break;
           case 3:  countPacket=1;break;
          }
          if(strcmp(CircleButton10.Caption,"2")!=0) {CircleButton10.Caption="2";DrawCircleButton(&CircleButton10);Back_b10.OnClickPtr=goToBack;}

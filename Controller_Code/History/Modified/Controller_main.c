@@ -43,6 +43,10 @@ void (*send_data_again)() = 0;
 volatile char myBuf[15];
 bool dataEEprom=false;
 bool msgOk=false;
+//extern TTime MyTime;
+RTC_TimeTypeDef _time;
+RTC_DateTypeDef _date;
+extern TScreen*  CurrentScreen;
 //extern float press;
 //------------------------------------------------------------------------------
 //Timer2 Prescaler :0; Preload = 119; Actual Interrupt Time = 1 us
@@ -113,8 +117,8 @@ void USARTINTERRUPT() iv IVT_INT_USART2 ics ICS_AUTO{
      }
    }
   //---------------------------------------------------------------------------
-/*void printTime(RTC_TimeTypeDef *RTC_TimeStruct,RTC_DateTypeDef *RTC_DateStruct)
- {
+void printTime(RTC_TimeTypeDef *RTC_TimeStruct,RTC_DateTypeDef *RTC_DateStruct)
+ {    // RTC_TimeTypeDef *RTC_TimeStruct,RTC_DateTypeDef *RTC_DateStruct
       char txt[4];
       char *res;
       unsigned char mon;
@@ -129,7 +133,7 @@ void USARTINTERRUPT() iv IVT_INT_USART2 ics ICS_AUTO{
       ByteToStr(RTC_TimeStruct->RTC_Min_Tens,txt);
       res = Ltrim(txt);
       strcat(DateTime.Caption,res);
-      ByteToStr(RTC_TimeStruct->RTC_Min_Units,txt);
+      ByteToStr(RTC_TimeStruct->RTC_Min_Units ,txt);
       res = Ltrim(txt);
       strcat(DateTime.Caption,res);
       strcat(DateTime.Caption,"/");
@@ -156,7 +160,7 @@ void USARTINTERRUPT() iv IVT_INT_USART2 ics ICS_AUTO{
            case 12 :  strcat(DateTime.Caption,"DEC");break;
       }
 
- }*/
+ }
 //------------------------------------------------------------------------------
 void main() {
 
@@ -196,20 +200,20 @@ void main() {
     if(!dataEEprom && msgOk){dataEEprom=true;data_eeprom();startPage();msgOk=false;}//UART2_Write_Text("finisheeprom");
     if(msgOk){countPacket++;  msgOk=false;}//
 
-     if(system_reg[ERRORS_1]!=er_1 ||system_reg[ERRORS_2]!=er_2 ){
+    if(system_reg[ERRORS_1]!=er_1 ||system_reg[ERRORS_2]!=er_2 ){
 
                                  if(system_reg[ERRORS_1]!=er_1)er_1=system_reg[ERRORS_1];
                                  else  er_2=system_reg[ERRORS_2];
                                 if(er_1>0 || er_2>0 ){
                                   DateTime.Font_Color= 0xF800;
-                                  DrawRoundBox (&Messages_Box);
-                                  DateTime.Caption = "ERROR";
+                                  //DrawRoundBox (&Messages_Box);
+                                  //DateTime.Caption = "ERROR";
                                   DrawLabel (&DateTime);
                                   find_errors();}
                                 else if(er_1==0 && er_2==0) {
                                   DateTime.Font_Color= 0x07E0;
-                                  DrawRoundBox (&Messages_Box);
-                                  DateTime.Caption = "_OK";
+                                  //DrawRoundBox (&Messages_Box);
+                                  //DateTime.Caption = "_OK";
                                   DrawLabel (&DateTime);
 
                                 }
@@ -217,28 +221,37 @@ void main() {
 
    //}
    DisableInterrupts();
-   if(millis() - old_time_count >1000 )//
+   if(millis() - old_time_count >1100 )//
        {    
 
             static unsigned char n=0;
+            static unsigned char f=0;
             n++;
             if(n>60)
             {
                 n=0;
-                //RTC_GetDate(&Read_Date);
+                RTC_GetDate(&_date);
                 //RTC_PrintDate(&Read_Date);
 
-                //RTC_GetTime(&Read_Time);
+                RTC_GetTime(&_time);
                // RTC_PrintTime(&Read_Time);
-                //printTime(&Read_Time,&Read_Date);
-               // DrawRoundBox (&Messages_Box);DrawLabel (&DateTime);
+                printTime(&_time,&_date);
+                if (CurrentScreen==&HOME)
+                {
+                DrawRoundBox (&Messages_Box);DrawLabel (&DateTime);
+                }
             }
 
 
            old_time_count = millis();
-          if(dataEEprom && !pushButton)selectPage();
+           
+          if(dataEEprom && !pushButton){selectPage();f=0; }
           else if(!dataEEprom && !pushButton) reciev_data_packet(COMP_DEL,48);
-          if(pushButton) {send_data_packet(adressReg,nomReg);}
+          if(pushButton) 
+          {
+          send_data_packet(adressReg,nomReg);f++;
+           if(f>5){DateTime.Caption = "LOST";DrawLabel (&DateTime);pushButton=false;f=0;}
+          }
         }
 
 

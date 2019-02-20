@@ -7593,7 +7593,7 @@ static void InitializeObjects() {
   DEC_EEV1.OwnerScreen     = &EEV;
   DEC_EEV1.Order           = 2;
   DEC_EEV1.Left            = 8;
-  DEC_EEV1.Top             = 145;
+  DEC_EEV1.Top             = 147;
   DEC_EEV1.Width           = 30;
   DEC_EEV1.Height          = 30;
   DEC_EEV1.Pen_Width       = 1;
@@ -10455,7 +10455,7 @@ static void InitializeObjects() {
   Label2.Order           = 4;
   Label2.Left            = 60;
   Label2.Top             = 135;
-  Label2.Width           = 50;
+  Label2.Width           = 0;
   Label2.Height          = 57;
   Label2.Visible         = 1;
   Label2.Active          = 1;

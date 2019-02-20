@@ -766,9 +766,9 @@ SXTH	R0, R0
 BL	_reciev_data_packet+0
 IT	AL
 BAL	L_selectPage73
-;Controller_events_code.c,165 :: 		case 2: reciev_data_packet(SOURC_IN_2,11);break;
+;Controller_events_code.c,165 :: 		case 2: reciev_data_packet(SOURC_IN_2,12);break;
 L_selectPage75:
-MOVS	R1, #11
+MOVS	R1, #12
 MOVW	R0, #92
 SXTH	R0, R0
 BL	_reciev_data_packet+0

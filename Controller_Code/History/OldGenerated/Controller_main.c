@@ -113,26 +113,32 @@ void USARTINTERRUPT() iv IVT_INT_USART2 ics ICS_AUTO{
      }
    }
   //---------------------------------------------------------------------------
-void printTime(RTC_TimeTypeDef *RTC_TimeStruct,RTC_DateTypeDef *RTC_DateStruct)
+/*void printTime(RTC_TimeTypeDef *RTC_TimeStruct,RTC_DateTypeDef *RTC_DateStruct)
  {
       char txt[4];
+      char *res;
       unsigned char mon;
       mon = RTC_DateStruct->RTC_Month_Tens*10 +  RTC_DateStruct->RTC_Month_Units;
       ByteToStr(RTC_TimeStruct->RTC_Hour_Tens,txt);
-
-      strcpy(DateTime.Caption,txt);
+      res = Ltrim(txt);
+      strcpy(DateTime.Caption,res);
       ByteToStr(RTC_TimeStruct->RTC_Hour_Units,txt);
-      strcat(DateTime.Caption,txt);
+      res = Ltrim(txt);
+      strcat(DateTime.Caption,res);
       strcat(DateTime.Caption,":");
       ByteToStr(RTC_TimeStruct->RTC_Min_Tens,txt);
-      strcat(DateTime.Caption,txt);
+      res = Ltrim(txt);
+      strcat(DateTime.Caption,res);
       ByteToStr(RTC_TimeStruct->RTC_Min_Units,txt);
-      strcat(DateTime.Caption,txt);
+      res = Ltrim(txt);
+      strcat(DateTime.Caption,res);
       strcat(DateTime.Caption,"/");
       ByteToStr(RTC_DateStruct->RTC_Date_Tens,txt);
-      strcat(DateTime.Caption,txt);
+      res = Ltrim(txt);
+      strcat(DateTime.Caption,res);
       ByteToStr(RTC_DateStruct->RTC_Date_Units,txt);
-      strcat(DateTime.Caption,txt);
+      res = Ltrim(txt);
+      strcat(DateTime.Caption,res);
 
       switch (mon)  //
       {
@@ -150,15 +156,14 @@ void printTime(RTC_TimeTypeDef *RTC_TimeStruct,RTC_DateTypeDef *RTC_DateStruct)
            case 12 :  strcat(DateTime.Caption,"DEC");break;
       }
 
- }
-
+ }*/
 //------------------------------------------------------------------------------
 void main() {
 
-    RTC_TimeTypeDef      Read_Time;
-    RTC_DateTypeDef      Read_Date;
-
-    RTC_Init(255, 127, 1);
+    //RTC_TimeTypeDef      Read_Time;
+    //RTC_DateTypeDef      Read_Date;
+    RTC_Init();
+    //RTC_Init(255, 127, 1);
 /*Delay_ms(2000);
      if (RTC_SetTime(&My_Time, -37))
           My_Time.RTC_Hour_Units    = 1;
@@ -217,21 +222,23 @@ void main() {
 
             static unsigned char n=0;
             n++;
-            if(n>60){
-            n=0;
-            RTC_GetDate(&Read_Date);
-            //RTC_PrintDate(&Read_Date);
+            if(n>60)
+            {
+                n=0;
+                //RTC_GetDate(&Read_Date);
+                //RTC_PrintDate(&Read_Date);
 
-            RTC_GetTime(&Read_Time);
-           // RTC_PrintTime(&Read_Time);
-            printTime(&Read_Time,&Read_Date);
-            DrawRoundBox (&Messages_Box);DrawLabel (&DateTime);}
+                //RTC_GetTime(&Read_Time);
+               // RTC_PrintTime(&Read_Time);
+                //printTime(&Read_Time,&Read_Date);
+               // DrawRoundBox (&Messages_Box);DrawLabel (&DateTime);
+            }
 
 
            old_time_count = millis();
-          /*if(dataEEprom && !pushButton)selectPage();
+          if(dataEEprom && !pushButton)selectPage();
           else if(!dataEEprom && !pushButton) reciev_data_packet(COMP_DEL,48);
-          if(pushButton) {send_data_packet(adressReg,nomReg);}*/
+          if(pushButton) {send_data_packet(adressReg,nomReg);}
         }
 
 
