@@ -3576,7 +3576,7 @@ MOVW	R0, #lo_addr(_S_Heat_Outlet_1+0)
 MOVT	R0, #hi_addr(_S_Heat_Outlet_1+0)
 BL	_DrawRoundButton+0
 L_sensor_1213:
-;Pages.c,524 :: 		IntToStr(system_reg[EXAUST_TEMP_2], txt);Ltrim(txt);//
+;Pages.c,524 :: 		IntToStr(system_reg[EXAUST_TEMP_2 ], txt);Ltrim(txt);//
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_system_reg+404)
 MOVT	R1, #hi_addr(_system_reg+404)

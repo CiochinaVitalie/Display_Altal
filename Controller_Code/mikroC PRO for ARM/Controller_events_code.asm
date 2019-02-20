@@ -4519,20 +4519,20 @@ LDRSB	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1146 :: 		if (oneYearU >9)oneYearU=0;
-CMP	R0, #9
-IT	LE
-BLE	L_OneYearDwnOnUp206
-MOVS	R1, #0
+;Controller_events_code.c,1146 :: 		if (oneYearU <0)oneYearU=9;
+CMP	R0, #0
+IT	GE
+BGE	L_OneYearDwnOnUp206
+MOVS	R1, #9
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_oneYearU+0)
 MOVT	R0, #hi_addr(_oneYearU+0)
 STRB	R1, [R0, #0]
 L_OneYearDwnOnUp206:
-;Controller_events_code.c,1147 :: 		ByteToStr(tenYearU, txt);
+;Controller_events_code.c,1147 :: 		ByteToStr(oneYearU, txt);
 ADD	R1, SP, #8
-MOVW	R0, #lo_addr(_tenYearU+0)
-MOVT	R0, #hi_addr(_tenYearU+0)
+MOVW	R0, #lo_addr(_oneYearU+0)
+MOVT	R0, #hi_addr(_oneYearU+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
 ;Controller_events_code.c,1148 :: 		res = Ltrim(txt);

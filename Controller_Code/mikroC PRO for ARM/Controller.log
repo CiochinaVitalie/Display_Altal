@@ -1276,11 +1276,11 @@ hint: 665	1163	Variable 'txt_float' has been declared, but not used	Pages.c
 hint: 887	1163	Variable 'convert_temp' has been declared, but not used	Pages.c
 hint: 932	1163	Variable 'convert_temp' has been declared, but not used	Pages.c
 diagnostics: 1000	123	Compiled Successfully	Pages.c
-diagnostics: 0	127	All files Compiled in 280131 ms	 
+diagnostics: 0	127	All files Compiled in 300240 ms	 
 hint: 0	1144	Used RX: 16 (100%)   Free RX: 0 (0%)	Used RX: 16 (100%)   Free RX: 0 (0%)
 hint: 0	1144	Static RAM (bytes): 71096   Dynamic RAM (bytes): 59973	Static RAM (bytes): 71096   Dynamic RAM (bytes): 59973
-hint: 0	1144	Used ROM (bytes): 370650 (35%)  Free ROM (bytes): 677926 (65%)	Used ROM (bytes): 370650 (35%)  Free ROM (bytes): 677926 (65%)
+hint: 0	1144	Used ROM (bytes): 370646 (35%)  Free ROM (bytes): 677930 (65%)	Used ROM (bytes): 370646 (35%)  Free ROM (bytes): 677930 (65%)
 diagnostics: 0	125	Project Linked Successfully	Controller.mcpar
-diagnostics: 0	128	Linked in 5694 ms	 
-diagnostics: 0	129	Project 'Controller.mcpar' completed: 288898 ms	 
-diagnostics: 0	103	Finished successfully: 20 feb. 2019, 08:44:14	Controller.mcpar
+diagnostics: 0	128	Linked in 6146 ms	 
+diagnostics: 0	129	Project 'Controller.mcpar' completed: 309974 ms	 
+diagnostics: 0	103	Finished successfully: 20 feb. 2019, 11:18:45	Controller.mcpar

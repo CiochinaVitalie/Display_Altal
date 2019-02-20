@@ -4808,8 +4808,8 @@ void OneYearDwnOnUp() {
  char txt[4];
  char *res;
  oneYearU--;
- if (oneYearU >9)oneYearU=0;
- ByteToStr(tenYearU, txt);
+ if (oneYearU <0)oneYearU=9;
+ ByteToStr(oneYearU, txt);
  res = Ltrim(txt);
  strcpy(Button3.Caption, res);
  DrawButton(&Button3);
