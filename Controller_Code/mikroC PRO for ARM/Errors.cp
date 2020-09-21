@@ -1,6 +1,6 @@
-#line 1 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Errors.c"
-#line 1 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Errors.c"
+#line 1 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -2017,7 +2017,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2048 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2048 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -3700,8 +3700,8 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_resources.h"
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_resources.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdint.h"
 
 
 
@@ -3750,8 +3750,8 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/stdio.h"
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/string.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdio.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/string.h"
 
 
 
@@ -3776,12 +3776,12 @@ char * strpbrk(char * s1, char * s2);
 char * strrchr(char *ptr, char chr);
 char * strstr(char * s1, char * s2);
 char * strtok(char * s1, char * s2);
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/stdbool.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 8 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Errors.c"
+#line 8 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Errors.c"
  extern int system_reg[600];
 void find_errors(){
  if(system_reg[ERRORS_1]==0){
@@ -3974,5 +3974,5 @@ void find_errors(){
  memset(Label2.Caption, 0, sizeof(Label2.Caption));
  strcpy( Label2.Caption,"Source_Min!");
  }
-#line 231 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Errors.c"
+#line 231 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Errors.c"
 }

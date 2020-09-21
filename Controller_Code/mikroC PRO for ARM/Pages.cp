@@ -1,6 +1,6 @@
-#line 1 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
-#line 1 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 1 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -2017,7 +2017,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2048 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2048 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -3700,14 +3700,14 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_resources.h"
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/stdbool.h"
+#line 1 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_resources.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 1 "d:/altal/display_altal/controller_code/mikroc pro for arm/systick.h"
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/systick.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdint.h"
 
 
 
@@ -3756,12 +3756,12 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 25 "d:/altal/display_altal/controller_code/mikroc pro for arm/systick.h"
+#line 25 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/systick.h"
  void InitSysTick();
  uint32_t millis();
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/stdint.h"
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
-#line 8 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/built_in.h"
+#line 8 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
  extern int system_reg[600];
  extern  _Bool  two_compressors_mode;
 
@@ -3774,7 +3774,7 @@ typedef unsigned long long uintmax_t;
  IntToStr(system_reg[DHW_TEMP], txt);Ltrim(txt);
  if(system_reg[DHW_TEMP]>=10 && system_reg[DHW_TEMP]<100 )
  {
-#line 23 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 23 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
  if(strcmp(dhw_T.Caption[1], txt[0])!=0 || strcmp(dhw_T.Caption[0], '0')!=0)
  {
  strncpy(dhw_T.Caption, txt, 1);
@@ -3811,7 +3811,7 @@ typedef unsigned long long uintmax_t;
  IntToStr(system_reg[BAC_TEMP], txt);Ltrim(txt);
  if(system_reg[BAC_TEMP]>=10 && system_reg[BAC_TEMP]<100 )
  {
-#line 62 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 62 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
  if(strcmp(heat_T.Caption[1], txt[0])!=0 || strcmp(heat_T.Caption[0], '0')!=0)
  {
  strncpy(heat_T.Caption, txt, 1);
@@ -3851,7 +3851,7 @@ typedef unsigned long long uintmax_t;
  else if(system_reg[SOURC_OUT_1]>0 && strncmp("+",sign_OUT.Caption,1)!=0){sign_OUT.Caption="+";DrawRoundButton(&sign_OUT);}
  if((int)fabs(system_reg[SOURC_OUT_1])>=10 && (int)fabs(system_reg[SOURC_OUT_1])<100)
  {
-#line 103 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 103 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
  if(strcmp(sourc_out_TEMP.Caption[1], txt[0])!=0 || strcmp(sourc_out_TEMP.Caption[0], '0')!=0)
  {
  strncpy(sourc_out_TEMP.Caption, txt, 1);
@@ -3877,7 +3877,7 @@ typedef unsigned long long uintmax_t;
  DrawRoundButton(&source_out_dec);
  }
  }
-#line 138 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 138 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
  else{
  if(strncmp(txt,sourc_out_TEMP.Caption,2)!=0){strncpy(sourc_out_TEMP.Caption, txt, 2);DrawRoundButton(&sourc_out_TEMP);}
  if(strncmp(txt+2,source_out_dec.Caption,1)!=0){strncpy(source_out_dec.Caption, txt+2, 1);DrawRoundButton(&source_out_dec);}
@@ -3889,7 +3889,7 @@ typedef unsigned long long uintmax_t;
 
  if((int)fabs(system_reg[SOURC_IN_1])>=10 && (int)fabs(system_reg[SOURC_IN_1])<100)
  {
-#line 152 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 152 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
  if(strcmp(sourc_in_T.Caption[1], txt[0])!=0 || strcmp(sourc_in_T.Caption[0], '0')!=0)
  {
  strncpy(sourc_in_T.Caption, txt, 1);
@@ -4561,7 +4561,7 @@ typedef unsigned long long uintmax_t;
  strcpy(EEV1_value.Caption, txt);
  DrawRoundButton(&EEV1_value);
  }
-#line 831 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 831 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
  }
  else
  {
@@ -4580,7 +4580,7 @@ typedef unsigned long long uintmax_t;
  strcpy(EEV1_value.Caption, txt);
  DrawRoundButton(&EEV1_value);
  }
-#line 857 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 857 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
  }
  }
 
@@ -4720,5 +4720,5 @@ typedef unsigned long long uintmax_t;
  if(strncmp(txt,DHW.Caption,2)!=0){strncpy(DHW.Caption, txt, 2);DrawButton(&DHW);}
  IntToStr(system_reg[BAC_TEMP]/10, txt);Ltrim(txt);
  if(strncmp(txt,TANK.Caption,2)!=0){strncpy(TANK.Caption, txt, 2);DrawButton(&TANK);}
-#line 1000 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
+#line 1000 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Pages.c"
  }

@@ -1,4 +1,4 @@
-#line 1 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_resources.c"
+#line 1 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_resources.c"
 const unsigned long __Malgun_Gothic27x37_Bold = 0x000016D6;
 const unsigned long Arial_Narrow11x16_Bold = 0x00003F00;
 const unsigned long Arial_Narrow13x20_Bold = 0x000050F8;

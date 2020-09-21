@@ -1,6 +1,6 @@
-#line 1 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_main.c"
-#line 1 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 1 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -2017,7 +2017,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2048 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2048 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -3700,13 +3700,13 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/stdbool.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 1 "d:/altal/display_altal/controller_code/mikroc pro for arm/systick.h"
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/systick.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdint.h"
 
 
 
@@ -3755,12 +3755,12 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 25 "d:/altal/display_altal/controller_code/mikroc pro for arm/systick.h"
+#line 25 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/systick.h"
  void InitSysTick();
  uint32_t millis();
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/stdint.h"
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
-#line 26 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdint.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/built_in.h"
+#line 26 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_main.c"
 uint32_t old_time_count;
  _Bool  Send_data,sendMessage;
 
@@ -3785,7 +3785,7 @@ volatile char myBuf[15];
 RTC_TimeTypeDef _time;
 RTC_DateTypeDef _date;
 extern TScreen* CurrentScreen;
-#line 67 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 67 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_main.c"
 void InitTimer2(){
  RCC_APB1ENR.TIM2EN = 1;
  TIM2_CR1.CEN = 0;
@@ -3889,14 +3889,14 @@ void main() {
 
 
  RTC_Init();
-#line 180 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 180 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  InitSysTick();
  USART_init();
  InitTimer2();
  modbus_configure(1000,200,10);
  Start_TP();
  EnableInterrupts();
-#line 196 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_main.c"
+#line 196 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_main.c"
  DisableInterrupts();
  countPacket=1;
 

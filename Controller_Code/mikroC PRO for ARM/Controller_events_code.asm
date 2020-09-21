@@ -496,20 +496,20 @@ MOVT	R0, #hi_addr(_num_page+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__nextPage463
+BNE	L__nextPage467
 MOVW	R0, #lo_addr(_two_compressors_mode+0)
 MOVT	R0, #hi_addr(_two_compressors_mode+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	EQ
-BEQ	L__nextPage462
-L__nextPage461:
+BEQ	L__nextPage466
+L__nextPage465:
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_num_page+0)
 MOVT	R0, #hi_addr(_num_page+0)
 STRB	R1, [R0, #0]
-L__nextPage463:
-L__nextPage462:
+L__nextPage467:
+L__nextPage466:
 ;Controller_events_code.c,117 :: 		if (CurrentScreen==&LIMITS1){BLED_Fade_Out();DrawScreen(&LIMITS2);BLED_Fade_In();}
 MOVW	R0, #lo_addr(_CurrentScreen+0)
 MOVT	R0, #hi_addr(_CurrentScreen+0)
@@ -1755,14 +1755,14 @@ MOVT	R0, #hi_addr(_system_reg+660)
 LDRSH	R0, [R0, #0]
 CMP	R0, #10
 IT	GE
-BGE	L__DHW_SetingOnClick466
+BGE	L__DHW_SetingOnClick470
 MOVW	R0, #lo_addr(_system_reg+660)
 MOVT	R0, #hi_addr(_system_reg+660)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LT
-BLT	L__DHW_SetingOnClick465
-L__DHW_SetingOnClick464:
+BLT	L__DHW_SetingOnClick469
+L__DHW_SetingOnClick468:
 MOVW	R2, #lo_addr(_DHW_Setting_value+16)
 MOVT	R2, #hi_addr(_DHW_Setting_value+16)
 LDR	R0, [R2, #0]
@@ -1775,8 +1775,8 @@ MOVS	R1, #48
 MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
-L__DHW_SetingOnClick466:
-L__DHW_SetingOnClick465:
+L__DHW_SetingOnClick470:
+L__DHW_SetingOnClick469:
 ;Controller_events_code.c,346 :: 		DHW_Seting.Caption = "SELECT";
 MOVW	R1, #lo_addr(?lstr24_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr24_Controller_events_code+0)
@@ -2114,20 +2114,29 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,423 :: 		if(system_reg[SET_HEAT]<10 && system_reg[SET_HEAT]>=0){TEMP_Setting_value.Caption[1]=TEMP_Setting_value.Caption[0];TEMP_Setting_value.Caption[0]='0';}
+;Controller_events_code.c,423 :: 		if(system_reg[SET_HEAT]<10 && system_reg[SET_HEAT]>=0 && strcmp(bar_heating.Caption,"HEATING")==0){TEMP_Setting_value.Caption[1]=TEMP_Setting_value.Caption[0];TEMP_Setting_value.Caption[0]='0';}
 MOVW	R0, #lo_addr(_system_reg+680)
 MOVT	R0, #hi_addr(_system_reg+680)
 LDRSH	R0, [R0, #0]
 CMP	R0, #10
 IT	GE
-BGE	L__Heat_SettingOnClick469
+BGE	L__Heat_SettingOnClick475
 MOVW	R0, #lo_addr(_system_reg+680)
 MOVT	R0, #hi_addr(_system_reg+680)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LT
-BLT	L__Heat_SettingOnClick468
-L__Heat_SettingOnClick467:
+BLT	L__Heat_SettingOnClick474
+MOVW	R1, #lo_addr(?lstr28_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr28_Controller_events_code+0)
+MOVW	R0, #lo_addr(_bar_heating+24)
+MOVT	R0, #hi_addr(_bar_heating+24)
+LDR	R0, [R0, #0]
+BL	_strcmp+0
+CMP	R0, #0
+IT	NE
+BNE	L__Heat_SettingOnClick473
+L__Heat_SettingOnClick472:
 MOVW	R2, #lo_addr(_TEMP_Setting_value+16)
 MOVT	R2, #hi_addr(_TEMP_Setting_value+16)
 LDR	R0, [R2, #0]
@@ -2140,191 +2149,233 @@ MOVS	R1, #48
 MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
-L__Heat_SettingOnClick469:
-L__Heat_SettingOnClick468:
-;Controller_events_code.c,424 :: 		Heat_Setting.Caption = "SELECT";
-MOVW	R1, #lo_addr(?lstr28_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr28_Controller_events_code+0)
-MOVW	R0, #lo_addr(_Heat_Setting+24)
-MOVT	R0, #hi_addr(_Heat_Setting+24)
-STR	R1, [R0, #0]
-;Controller_events_code.c,425 :: 		DrawRoundBox(&Heat_Windows);
-MOVW	R0, #lo_addr(_Heat_Windows+0)
-MOVT	R0, #hi_addr(_Heat_Windows+0)
-BL	_DrawRoundBox+0
-;Controller_events_code.c,426 :: 		DrawRoundButton(&Heat_Setting);
-MOVW	R0, #lo_addr(_Heat_Setting+0)
-MOVT	R0, #hi_addr(_Heat_Setting+0)
-BL	_DrawRoundButton+0
-;Controller_events_code.c,427 :: 		DrawRoundButton(&HEAT_UP);
-MOVW	R0, #lo_addr(_HEAT_UP+0)
-MOVT	R0, #hi_addr(_HEAT_UP+0)
-BL	_DrawRoundButton+0
-;Controller_events_code.c,428 :: 		DrawRoundButton(&HEAT_DOWN);
-MOVW	R0, #lo_addr(_HEAT_Down+0)
-MOVT	R0, #hi_addr(_HEAT_Down+0)
-BL	_DrawRoundButton+0
-;Controller_events_code.c,429 :: 		DrawLabel (&TEMP_Setting_value);
-MOVW	R0, #lo_addr(_TEMP_Setting_value+0)
-MOVT	R0, #hi_addr(_TEMP_Setting_value+0)
-BL	_DrawLabel+0
-;Controller_events_code.c,430 :: 		count_push++;
-MOVW	R1, #lo_addr(Heat_SettingOnClick_count_push_L0+0)
-MOVT	R1, #hi_addr(Heat_SettingOnClick_count_push_L0+0)
-LDRB	R0, [R1, #0]
-ADDS	R0, R0, #1
-STRB	R0, [R1, #0]
-;Controller_events_code.c,431 :: 		}
 IT	AL
 BAL	L_Heat_SettingOnClick142
-L_Heat_SettingOnClick135:
-;Controller_events_code.c,433 :: 		Set_Heat_Box.Visible       = 0;
-MOVS	R1, #0
-MOVW	R0, #lo_addr(_Set_Heat_Box+18)
-MOVT	R0, #hi_addr(_Set_Heat_Box+18)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,434 :: 		Set_Heat_Box.Active        = 0;
-MOVS	R1, #0
-MOVW	R0, #lo_addr(_Set_Heat_Box+19)
-MOVT	R0, #hi_addr(_Set_Heat_Box+19)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,435 :: 		HEAT_UP.Visible            = 0;
-MOVS	R1, #0
-MOVW	R0, #lo_addr(_HEAT_UP+18)
-MOVT	R0, #hi_addr(_HEAT_UP+18)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,436 :: 		HEAT_UP.Active             = 0;
-MOVS	R1, #0
-MOVW	R0, #lo_addr(_HEAT_UP+19)
-MOVT	R0, #hi_addr(_HEAT_UP+19)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,437 :: 		HEAT_Down.Visible          = 0;
-MOVS	R1, #0
-MOVW	R0, #lo_addr(_HEAT_Down+18)
-MOVT	R0, #hi_addr(_HEAT_Down+18)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,438 :: 		HEAT_Down.Active           = 0;
-MOVS	R1, #0
-MOVW	R0, #lo_addr(_HEAT_Down+19)
-MOVT	R0, #hi_addr(_HEAT_Down+19)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,439 :: 		TEMP_Setting_value.Visible = 0;
-MOVS	R1, #0
-MOVW	R0, #lo_addr(_TEMP_Setting_value+27)
-MOVT	R0, #hi_addr(_TEMP_Setting_value+27)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,440 :: 		TEMP_Setting_value.Active  = 0;
-MOVS	R1, #0
-MOVW	R0, #lo_addr(_TEMP_Setting_value+28)
-MOVT	R0, #hi_addr(_TEMP_Setting_value+28)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,441 :: 		heat_T.Visible     = 1;
-MOVS	R1, #1
-MOVW	R0, #lo_addr(_heat_T+18)
-MOVT	R0, #hi_addr(_heat_T+18)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,442 :: 		heat_T.Active      = 1;
-MOVS	R1, #1
-MOVW	R0, #lo_addr(_heat_T+19)
-MOVT	R0, #hi_addr(_heat_T+19)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,443 :: 		heat_point.Active          = 1;
-MOVS	R1, #1
-MOVW	R0, #lo_addr(_heat_point+28)
-MOVT	R0, #hi_addr(_heat_point+28)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,444 :: 		heat_point.Visible         = 1;
-MOVS	R1, #1
-MOVW	R0, #lo_addr(_heat_point+27)
-MOVT	R0, #hi_addr(_heat_point+27)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,445 :: 		heat_celc.Visible          = 1;
-MOVS	R1, #1
-MOVW	R0, #lo_addr(_heat_celc+27)
-MOVT	R0, #hi_addr(_heat_celc+27)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,446 :: 		heat_celc.Active           = 1;
-MOVS	R1, #1
-MOVW	R0, #lo_addr(_heat_celc+28)
-MOVT	R0, #hi_addr(_heat_celc+28)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,447 :: 		heat_led.Visible           = 1;
-MOVS	R1, #1
-MOVW	R0, #lo_addr(_heat_led+16)
-MOVT	R0, #hi_addr(_heat_led+16)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,448 :: 		heat_led.Active            = 1;
-MOVS	R1, #1
-MOVW	R0, #lo_addr(_heat_led+17)
-MOVT	R0, #hi_addr(_heat_led+17)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,449 :: 		heat_dec.Active          = 1;
-MOVS	R1, #1
-MOVW	R0, #lo_addr(_heat_dec+19)
-MOVT	R0, #hi_addr(_heat_dec+19)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,450 :: 		heat_dec.Visible          = 1;
-MOVS	R1, #1
-MOVW	R0, #lo_addr(_heat_dec+18)
-MOVT	R0, #hi_addr(_heat_dec+18)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,451 :: 		Heat_Setting.Caption = "SET";
+L__Heat_SettingOnClick475:
+L__Heat_SettingOnClick474:
+L__Heat_SettingOnClick473:
+;Controller_events_code.c,424 :: 		else if(system_reg[SET_COOL]<10 && system_reg[SET_COOL]>=0 && strcmp(bar_heating.Caption,"COOLING")==0){TEMP_Setting_value.Caption[1]=TEMP_Setting_value.Caption[0];TEMP_Setting_value.Caption[0]='0';}
+MOVW	R0, #lo_addr(_system_reg+640)
+MOVT	R0, #hi_addr(_system_reg+640)
+LDRSH	R0, [R0, #0]
+CMP	R0, #10
+IT	GE
+BGE	L__Heat_SettingOnClick478
+MOVW	R0, #lo_addr(_system_reg+640)
+MOVT	R0, #hi_addr(_system_reg+640)
+LDRSH	R0, [R0, #0]
+CMP	R0, #0
+IT	LT
+BLT	L__Heat_SettingOnClick477
 MOVW	R1, #lo_addr(?lstr29_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr29_Controller_events_code+0)
-MOVW	R0, #lo_addr(_Heat_Setting+24)
-MOVT	R0, #hi_addr(_Heat_Setting+24)
-STR	R1, [R0, #0]
-;Controller_events_code.c,452 :: 		count_push=0;
-MOVS	R1, #0
-MOVW	R0, #lo_addr(Heat_SettingOnClick_count_push_L0+0)
-MOVT	R0, #hi_addr(Heat_SettingOnClick_count_push_L0+0)
-STRB	R1, [R0, #0]
-;Controller_events_code.c,453 :: 		DrawRoundBox(&Heat_Windows);
-MOVW	R0, #lo_addr(_Heat_Windows+0)
-MOVT	R0, #hi_addr(_Heat_Windows+0)
-BL	_DrawRoundBox+0
-;Controller_events_code.c,454 :: 		DrawRoundButton(&Heat_Setting);
-MOVW	R0, #lo_addr(_Heat_Setting+0)
-MOVT	R0, #hi_addr(_Heat_Setting+0)
-BL	_DrawRoundButton+0
-;Controller_events_code.c,455 :: 		DrawRoundButton (& ON_OFF_Heat_Cool);
-MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+0)
-MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+0)
-BL	_DrawRoundButton+0
-;Controller_events_code.c,456 :: 		DrawRoundButton(&bar_heating);
-MOVW	R0, #lo_addr(_bar_heating+0)
-MOVT	R0, #hi_addr(_bar_heating+0)
-BL	_DrawRoundButton+0
-;Controller_events_code.c,457 :: 		DrawRoundButton(&heat_T);
-MOVW	R0, #lo_addr(_heat_T+0)
-MOVT	R0, #hi_addr(_heat_T+0)
-BL	_DrawRoundButton+0
-;Controller_events_code.c,458 :: 		DrawRoundButton(&heat_dec);
-MOVW	R0, #lo_addr(_heat_dec+0)
-MOVT	R0, #hi_addr(_heat_dec+0)
-BL	_DrawRoundButton+0
-;Controller_events_code.c,460 :: 		DrawCircle(&heat_led);
-MOVW	R0, #lo_addr(_heat_led+0)
-MOVT	R0, #hi_addr(_heat_led+0)
-BL	_DrawCircle+0
-;Controller_events_code.c,461 :: 		DrawLabel(&heat_point);
-MOVW	R0, #lo_addr(_heat_point+0)
-MOVT	R0, #hi_addr(_heat_point+0)
-BL	_DrawLabel+0
-;Controller_events_code.c,462 :: 		DrawLabel(&heat_celc);
-MOVW	R0, #lo_addr(_heat_celc+0)
-MOVT	R0, #hi_addr(_heat_celc+0)
-BL	_DrawLabel+0
-;Controller_events_code.c,463 :: 		if ( strcmp(bar_heating.Caption,"HEATING")==0 ){ DrawImage(&heat_icon);send_data_packet(SET_HEAT,1);/*adressReg= SET_HEAT;nomReg =1;*/}
-MOVW	R1, #lo_addr(?lstr30_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr30_Controller_events_code+0)
 MOVW	R0, #lo_addr(_bar_heating+24)
 MOVT	R0, #hi_addr(_bar_heating+24)
 LDR	R0, [R0, #0]
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
-BNE	L_Heat_SettingOnClick143
+BNE	L__Heat_SettingOnClick476
+L__Heat_SettingOnClick471:
+MOVW	R2, #lo_addr(_TEMP_Setting_value+16)
+MOVT	R2, #hi_addr(_TEMP_Setting_value+16)
+LDR	R0, [R2, #0]
+ADDS	R1, R0, #1
+MOV	R0, R2
+LDR	R0, [R0, #0]
+LDRB	R0, [R0, #0]
+STRB	R0, [R1, #0]
+MOVS	R1, #48
+MOV	R0, R2
+LDR	R0, [R0, #0]
+STRB	R1, [R0, #0]
+L__Heat_SettingOnClick478:
+L__Heat_SettingOnClick477:
+L__Heat_SettingOnClick476:
+L_Heat_SettingOnClick142:
+;Controller_events_code.c,425 :: 		Heat_Setting.Caption = "SELECT";
+MOVW	R1, #lo_addr(?lstr30_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr30_Controller_events_code+0)
+MOVW	R0, #lo_addr(_Heat_Setting+24)
+MOVT	R0, #hi_addr(_Heat_Setting+24)
+STR	R1, [R0, #0]
+;Controller_events_code.c,426 :: 		DrawRoundBox(&Heat_Windows);
+MOVW	R0, #lo_addr(_Heat_Windows+0)
+MOVT	R0, #hi_addr(_Heat_Windows+0)
+BL	_DrawRoundBox+0
+;Controller_events_code.c,427 :: 		DrawRoundButton(&Heat_Setting);
+MOVW	R0, #lo_addr(_Heat_Setting+0)
+MOVT	R0, #hi_addr(_Heat_Setting+0)
+BL	_DrawRoundButton+0
+;Controller_events_code.c,428 :: 		DrawRoundButton(&HEAT_UP);
+MOVW	R0, #lo_addr(_HEAT_UP+0)
+MOVT	R0, #hi_addr(_HEAT_UP+0)
+BL	_DrawRoundButton+0
+;Controller_events_code.c,429 :: 		DrawRoundButton(&HEAT_DOWN);
+MOVW	R0, #lo_addr(_HEAT_Down+0)
+MOVT	R0, #hi_addr(_HEAT_Down+0)
+BL	_DrawRoundButton+0
+;Controller_events_code.c,430 :: 		DrawLabel (&TEMP_Setting_value);
+MOVW	R0, #lo_addr(_TEMP_Setting_value+0)
+MOVT	R0, #hi_addr(_TEMP_Setting_value+0)
+BL	_DrawLabel+0
+;Controller_events_code.c,431 :: 		count_push++;
+MOVW	R1, #lo_addr(Heat_SettingOnClick_count_push_L0+0)
+MOVT	R1, #hi_addr(Heat_SettingOnClick_count_push_L0+0)
+LDRB	R0, [R1, #0]
+ADDS	R0, R0, #1
+STRB	R0, [R1, #0]
+;Controller_events_code.c,432 :: 		}
+IT	AL
+BAL	L_Heat_SettingOnClick146
+L_Heat_SettingOnClick135:
+;Controller_events_code.c,434 :: 		Set_Heat_Box.Visible       = 0;
+MOVS	R1, #0
+MOVW	R0, #lo_addr(_Set_Heat_Box+18)
+MOVT	R0, #hi_addr(_Set_Heat_Box+18)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,435 :: 		Set_Heat_Box.Active        = 0;
+MOVS	R1, #0
+MOVW	R0, #lo_addr(_Set_Heat_Box+19)
+MOVT	R0, #hi_addr(_Set_Heat_Box+19)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,436 :: 		HEAT_UP.Visible            = 0;
+MOVS	R1, #0
+MOVW	R0, #lo_addr(_HEAT_UP+18)
+MOVT	R0, #hi_addr(_HEAT_UP+18)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,437 :: 		HEAT_UP.Active             = 0;
+MOVS	R1, #0
+MOVW	R0, #lo_addr(_HEAT_UP+19)
+MOVT	R0, #hi_addr(_HEAT_UP+19)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,438 :: 		HEAT_Down.Visible          = 0;
+MOVS	R1, #0
+MOVW	R0, #lo_addr(_HEAT_Down+18)
+MOVT	R0, #hi_addr(_HEAT_Down+18)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,439 :: 		HEAT_Down.Active           = 0;
+MOVS	R1, #0
+MOVW	R0, #lo_addr(_HEAT_Down+19)
+MOVT	R0, #hi_addr(_HEAT_Down+19)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,440 :: 		TEMP_Setting_value.Visible = 0;
+MOVS	R1, #0
+MOVW	R0, #lo_addr(_TEMP_Setting_value+27)
+MOVT	R0, #hi_addr(_TEMP_Setting_value+27)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,441 :: 		TEMP_Setting_value.Active  = 0;
+MOVS	R1, #0
+MOVW	R0, #lo_addr(_TEMP_Setting_value+28)
+MOVT	R0, #hi_addr(_TEMP_Setting_value+28)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,442 :: 		heat_T.Visible     = 1;
+MOVS	R1, #1
+MOVW	R0, #lo_addr(_heat_T+18)
+MOVT	R0, #hi_addr(_heat_T+18)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,443 :: 		heat_T.Active      = 1;
+MOVS	R1, #1
+MOVW	R0, #lo_addr(_heat_T+19)
+MOVT	R0, #hi_addr(_heat_T+19)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,444 :: 		heat_point.Active          = 1;
+MOVS	R1, #1
+MOVW	R0, #lo_addr(_heat_point+28)
+MOVT	R0, #hi_addr(_heat_point+28)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,445 :: 		heat_point.Visible         = 1;
+MOVS	R1, #1
+MOVW	R0, #lo_addr(_heat_point+27)
+MOVT	R0, #hi_addr(_heat_point+27)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,446 :: 		heat_celc.Visible          = 1;
+MOVS	R1, #1
+MOVW	R0, #lo_addr(_heat_celc+27)
+MOVT	R0, #hi_addr(_heat_celc+27)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,447 :: 		heat_celc.Active           = 1;
+MOVS	R1, #1
+MOVW	R0, #lo_addr(_heat_celc+28)
+MOVT	R0, #hi_addr(_heat_celc+28)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,448 :: 		heat_led.Visible           = 1;
+MOVS	R1, #1
+MOVW	R0, #lo_addr(_heat_led+16)
+MOVT	R0, #hi_addr(_heat_led+16)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,449 :: 		heat_led.Active            = 1;
+MOVS	R1, #1
+MOVW	R0, #lo_addr(_heat_led+17)
+MOVT	R0, #hi_addr(_heat_led+17)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,450 :: 		heat_dec.Active          = 1;
+MOVS	R1, #1
+MOVW	R0, #lo_addr(_heat_dec+19)
+MOVT	R0, #hi_addr(_heat_dec+19)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,451 :: 		heat_dec.Visible          = 1;
+MOVS	R1, #1
+MOVW	R0, #lo_addr(_heat_dec+18)
+MOVT	R0, #hi_addr(_heat_dec+18)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,452 :: 		Heat_Setting.Caption = "SET";
+MOVW	R1, #lo_addr(?lstr31_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr31_Controller_events_code+0)
+MOVW	R0, #lo_addr(_Heat_Setting+24)
+MOVT	R0, #hi_addr(_Heat_Setting+24)
+STR	R1, [R0, #0]
+;Controller_events_code.c,453 :: 		count_push=0;
+MOVS	R1, #0
+MOVW	R0, #lo_addr(Heat_SettingOnClick_count_push_L0+0)
+MOVT	R0, #hi_addr(Heat_SettingOnClick_count_push_L0+0)
+STRB	R1, [R0, #0]
+;Controller_events_code.c,454 :: 		DrawRoundBox(&Heat_Windows);
+MOVW	R0, #lo_addr(_Heat_Windows+0)
+MOVT	R0, #hi_addr(_Heat_Windows+0)
+BL	_DrawRoundBox+0
+;Controller_events_code.c,455 :: 		DrawRoundButton(&Heat_Setting);
+MOVW	R0, #lo_addr(_Heat_Setting+0)
+MOVT	R0, #hi_addr(_Heat_Setting+0)
+BL	_DrawRoundButton+0
+;Controller_events_code.c,456 :: 		DrawRoundButton (& ON_OFF_Heat_Cool);
+MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+0)
+MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+0)
+BL	_DrawRoundButton+0
+;Controller_events_code.c,457 :: 		DrawRoundButton(&bar_heating);
+MOVW	R0, #lo_addr(_bar_heating+0)
+MOVT	R0, #hi_addr(_bar_heating+0)
+BL	_DrawRoundButton+0
+;Controller_events_code.c,458 :: 		DrawRoundButton(&heat_T);
+MOVW	R0, #lo_addr(_heat_T+0)
+MOVT	R0, #hi_addr(_heat_T+0)
+BL	_DrawRoundButton+0
+;Controller_events_code.c,459 :: 		DrawRoundButton(&heat_dec);
+MOVW	R0, #lo_addr(_heat_dec+0)
+MOVT	R0, #hi_addr(_heat_dec+0)
+BL	_DrawRoundButton+0
+;Controller_events_code.c,461 :: 		DrawCircle(&heat_led);
+MOVW	R0, #lo_addr(_heat_led+0)
+MOVT	R0, #hi_addr(_heat_led+0)
+BL	_DrawCircle+0
+;Controller_events_code.c,462 :: 		DrawLabel(&heat_point);
+MOVW	R0, #lo_addr(_heat_point+0)
+MOVT	R0, #hi_addr(_heat_point+0)
+BL	_DrawLabel+0
+;Controller_events_code.c,463 :: 		DrawLabel(&heat_celc);
+MOVW	R0, #lo_addr(_heat_celc+0)
+MOVT	R0, #hi_addr(_heat_celc+0)
+BL	_DrawLabel+0
+;Controller_events_code.c,464 :: 		if ( strcmp(bar_heating.Caption,"HEATING")==0 ){ DrawImage(&heat_icon);send_data_packet(SET_HEAT,1);/*adressReg= SET_HEAT;nomReg =1;*/}
+MOVW	R1, #lo_addr(?lstr32_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr32_Controller_events_code+0)
+MOVW	R0, #lo_addr(_bar_heating+24)
+MOVT	R0, #hi_addr(_bar_heating+24)
+LDR	R0, [R0, #0]
+BL	_strcmp+0
+CMP	R0, #0
+IT	NE
+BNE	L_Heat_SettingOnClick147
 MOVW	R0, #lo_addr(_heat_icon+0)
 MOVT	R0, #hi_addr(_heat_icon+0)
 BL	_DrawImage+0
@@ -2333,9 +2384,9 @@ MOVW	R0, #340
 SXTH	R0, R0
 BL	_send_data_packet+0
 IT	AL
-BAL	L_Heat_SettingOnClick144
-L_Heat_SettingOnClick143:
-;Controller_events_code.c,464 :: 		else  {DrawImage(&cool_icon);send_data_packet(SET_COOL,1);/*adressReg= SET_COOL;nomReg =1;*/}
+BAL	L_Heat_SettingOnClick148
+L_Heat_SettingOnClick147:
+;Controller_events_code.c,465 :: 		else  {DrawImage(&cool_icon);send_data_packet(SET_COOL,1);/*adressReg= SET_COOL;nomReg =1;*/}
 MOVW	R0, #lo_addr(_cool_icon+0)
 MOVT	R0, #hi_addr(_cool_icon+0)
 BL	_DrawImage+0
@@ -2343,92 +2394,92 @@ MOVS	R1, #1
 MOVW	R0, #320
 SXTH	R0, R0
 BL	_send_data_packet+0
-L_Heat_SettingOnClick144:
-;Controller_events_code.c,465 :: 		}
-L_Heat_SettingOnClick142:
-;Controller_events_code.c,469 :: 		}
+L_Heat_SettingOnClick148:
+;Controller_events_code.c,466 :: 		}
+L_Heat_SettingOnClick146:
+;Controller_events_code.c,470 :: 		}
 L_end_Heat_SettingOnClick:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Heat_SettingOnClick
 _Click_HEAT:
-;Controller_events_code.c,471 :: 		void Click_HEAT()
+;Controller_events_code.c,472 :: 		void Click_HEAT()
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,473 :: 		if (strcmp(ON_OFF_Heat_Cool.Caption,"ON")==0 )
-MOVW	R1, #lo_addr(?lstr31_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr31_Controller_events_code+0)
+;Controller_events_code.c,474 :: 		if (strcmp(ON_OFF_Heat_Cool.Caption,"ON")==0 )
+MOVW	R1, #lo_addr(?lstr33_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr33_Controller_events_code+0)
 MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+24)
 MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+24)
-LDR	R0, [R0, #0]
-BL	_strcmp+0
-CMP	R0, #0
-IT	NE
-BNE	L_Click_HEAT145
-;Controller_events_code.c,475 :: 		ON_OFF_Heat_Cool.Caption = "OFF";
-MOVW	R1, #lo_addr(?lstr32_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr32_Controller_events_code+0)
-MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+24)
-MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+24)
-STR	R1, [R0, #0]
-;Controller_events_code.c,476 :: 		DrawRoundButton(&ON_OFF_Heat_Cool);
-MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+0)
-MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+0)
-BL	_DrawRoundButton+0
-;Controller_events_code.c,477 :: 		system_reg[HEAT]=0;
-MOVS	R1, #0
-SXTH	R1, R1
-MOVW	R0, #lo_addr(_system_reg+400)
-MOVT	R0, #hi_addr(_system_reg+400)
-STRH	R1, [R0, #0]
-;Controller_events_code.c,478 :: 		system_reg[COOL]=0;
-MOVS	R1, #0
-SXTH	R1, R1
-MOVW	R0, #lo_addr(_system_reg+380)
-MOVT	R0, #hi_addr(_system_reg+380)
-STRH	R1, [R0, #0]
-;Controller_events_code.c,479 :: 		UART2_Write_Text("OFF");
-MOVW	R0, #lo_addr(?lstr33_Controller_events_code+0)
-MOVT	R0, #hi_addr(?lstr33_Controller_events_code+0)
-BL	_UART2_Write_Text+0
-;Controller_events_code.c,480 :: 		}
-IT	AL
-BAL	L_Click_HEAT146
-L_Click_HEAT145:
-;Controller_events_code.c,482 :: 		{   if(strcmp(bar_heating.Caption,"HEATING")==0 ){system_reg[HEAT]=1;system_reg[COOL]=0;}
-MOVW	R1, #lo_addr(?lstr34_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr34_Controller_events_code+0)
-MOVW	R0, #lo_addr(_bar_heating+24)
-MOVT	R0, #hi_addr(_bar_heating+24)
-LDR	R0, [R0, #0]
-BL	_strcmp+0
-CMP	R0, #0
-IT	NE
-BNE	L_Click_HEAT147
-MOVS	R1, #1
-SXTH	R1, R1
-MOVW	R0, #lo_addr(_system_reg+400)
-MOVT	R0, #hi_addr(_system_reg+400)
-STRH	R1, [R0, #0]
-MOVS	R1, #0
-SXTH	R1, R1
-MOVW	R0, #lo_addr(_system_reg+380)
-MOVT	R0, #hi_addr(_system_reg+380)
-STRH	R1, [R0, #0]
-IT	AL
-BAL	L_Click_HEAT148
-L_Click_HEAT147:
-;Controller_events_code.c,483 :: 		else if(strcmp(bar_heating.Caption,"COOLING")==0 ){system_reg[HEAT]=0;system_reg[COOL]=1;}
-MOVW	R1, #lo_addr(?lstr35_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr35_Controller_events_code+0)
-MOVW	R0, #lo_addr(_bar_heating+24)
-MOVT	R0, #hi_addr(_bar_heating+24)
 LDR	R0, [R0, #0]
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
 BNE	L_Click_HEAT149
+;Controller_events_code.c,476 :: 		ON_OFF_Heat_Cool.Caption = "OFF";
+MOVW	R1, #lo_addr(?lstr34_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr34_Controller_events_code+0)
+MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+24)
+MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+24)
+STR	R1, [R0, #0]
+;Controller_events_code.c,477 :: 		DrawRoundButton(&ON_OFF_Heat_Cool);
+MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+0)
+MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+0)
+BL	_DrawRoundButton+0
+;Controller_events_code.c,478 :: 		system_reg[HEAT]=0;
+MOVS	R1, #0
+SXTH	R1, R1
+MOVW	R0, #lo_addr(_system_reg+400)
+MOVT	R0, #hi_addr(_system_reg+400)
+STRH	R1, [R0, #0]
+;Controller_events_code.c,479 :: 		system_reg[COOL]=0;
+MOVS	R1, #0
+SXTH	R1, R1
+MOVW	R0, #lo_addr(_system_reg+380)
+MOVT	R0, #hi_addr(_system_reg+380)
+STRH	R1, [R0, #0]
+;Controller_events_code.c,480 :: 		UART2_Write_Text("OFF");
+MOVW	R0, #lo_addr(?lstr35_Controller_events_code+0)
+MOVT	R0, #hi_addr(?lstr35_Controller_events_code+0)
+BL	_UART2_Write_Text+0
+;Controller_events_code.c,481 :: 		}
+IT	AL
+BAL	L_Click_HEAT150
+L_Click_HEAT149:
+;Controller_events_code.c,483 :: 		{   if(strcmp(bar_heating.Caption,"HEATING")==0 ){system_reg[HEAT]=1;system_reg[COOL]=0;}
+MOVW	R1, #lo_addr(?lstr36_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr36_Controller_events_code+0)
+MOVW	R0, #lo_addr(_bar_heating+24)
+MOVT	R0, #hi_addr(_bar_heating+24)
+LDR	R0, [R0, #0]
+BL	_strcmp+0
+CMP	R0, #0
+IT	NE
+BNE	L_Click_HEAT151
+MOVS	R1, #1
+SXTH	R1, R1
+MOVW	R0, #lo_addr(_system_reg+400)
+MOVT	R0, #hi_addr(_system_reg+400)
+STRH	R1, [R0, #0]
+MOVS	R1, #0
+SXTH	R1, R1
+MOVW	R0, #lo_addr(_system_reg+380)
+MOVT	R0, #hi_addr(_system_reg+380)
+STRH	R1, [R0, #0]
+IT	AL
+BAL	L_Click_HEAT152
+L_Click_HEAT151:
+;Controller_events_code.c,484 :: 		else if(strcmp(bar_heating.Caption,"COOLING")==0 ){system_reg[HEAT]=0;system_reg[COOL]=1;}
+MOVW	R1, #lo_addr(?lstr37_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr37_Controller_events_code+0)
+MOVW	R0, #lo_addr(_bar_heating+24)
+MOVT	R0, #hi_addr(_bar_heating+24)
+LDR	R0, [R0, #0]
+BL	_strcmp+0
+CMP	R0, #0
+IT	NE
+BNE	L_Click_HEAT153
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+400)
@@ -2439,439 +2490,439 @@ SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+380)
 MOVT	R0, #hi_addr(_system_reg+380)
 STRH	R1, [R0, #0]
-L_Click_HEAT149:
-L_Click_HEAT148:
-;Controller_events_code.c,484 :: 		ON_OFF_Heat_Cool.Caption = "ON";
-MOVW	R1, #lo_addr(?lstr36_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr36_Controller_events_code+0)
+L_Click_HEAT153:
+L_Click_HEAT152:
+;Controller_events_code.c,485 :: 		ON_OFF_Heat_Cool.Caption = "ON";
+MOVW	R1, #lo_addr(?lstr38_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr38_Controller_events_code+0)
 MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+24)
 MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+24)
 STR	R1, [R0, #0]
-;Controller_events_code.c,485 :: 		DrawRoundButton(&ON_OFF_Heat_Cool);
+;Controller_events_code.c,486 :: 		DrawRoundButton(&ON_OFF_Heat_Cool);
 MOVW	R0, #lo_addr(_ON_OFF_Heat_Cool+0)
 MOVT	R0, #hi_addr(_ON_OFF_Heat_Cool+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,487 :: 		}
-L_Click_HEAT146:
-;Controller_events_code.c,489 :: 		send_data_packet(COOL,2);
+;Controller_events_code.c,488 :: 		}
+L_Click_HEAT150:
+;Controller_events_code.c,490 :: 		send_data_packet(COOL,2);
 MOVS	R1, #2
 MOVW	R0, #190
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,491 :: 		}
+;Controller_events_code.c,492 :: 		}
 L_end_Click_HEAT:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Click_HEAT
 _Click_DHW:
-;Controller_events_code.c,492 :: 		void Click_DHW()
+;Controller_events_code.c,493 :: 		void Click_DHW()
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,495 :: 		if (strcmp(ON_OFF_DHW.Caption,"ON")==0)
-MOVW	R1, #lo_addr(?lstr37_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr37_Controller_events_code+0)
+;Controller_events_code.c,496 :: 		if (strcmp(ON_OFF_DHW.Caption,"ON")==0)
+MOVW	R1, #lo_addr(?lstr39_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr39_Controller_events_code+0)
 MOVW	R0, #lo_addr(_ON_OFF_DHW+24)
 MOVT	R0, #hi_addr(_ON_OFF_DHW+24)
 LDR	R0, [R0, #0]
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
-BNE	L_Click_DHW150
-;Controller_events_code.c,497 :: 		ON_OFF_DHW.Caption = "OFF";
-MOVW	R1, #lo_addr(?lstr38_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr38_Controller_events_code+0)
+BNE	L_Click_DHW154
+;Controller_events_code.c,498 :: 		ON_OFF_DHW.Caption = "OFF";
+MOVW	R1, #lo_addr(?lstr40_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr40_Controller_events_code+0)
 MOVW	R0, #lo_addr(_ON_OFF_DHW+24)
 MOVT	R0, #hi_addr(_ON_OFF_DHW+24)
 STR	R1, [R0, #0]
-;Controller_events_code.c,498 :: 		DrawRoundButton(&ON_OFF_DHW);
+;Controller_events_code.c,499 :: 		DrawRoundButton(&ON_OFF_DHW);
 MOVW	R0, #lo_addr(_ON_OFF_DHW+0)
 MOVT	R0, #hi_addr(_ON_OFF_DHW+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,499 :: 		system_reg[HEATWATER]=0;
+;Controller_events_code.c,500 :: 		system_reg[HEATWATER]=0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+420)
 MOVT	R0, #hi_addr(_system_reg+420)
 STRH	R1, [R0, #0]
-;Controller_events_code.c,500 :: 		}
+;Controller_events_code.c,501 :: 		}
 IT	AL
-BAL	L_Click_DHW151
-L_Click_DHW150:
-;Controller_events_code.c,503 :: 		ON_OFF_DHW.Caption = "ON";
-MOVW	R1, #lo_addr(?lstr39_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr39_Controller_events_code+0)
+BAL	L_Click_DHW155
+L_Click_DHW154:
+;Controller_events_code.c,504 :: 		ON_OFF_DHW.Caption = "ON";
+MOVW	R1, #lo_addr(?lstr41_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr41_Controller_events_code+0)
 MOVW	R0, #lo_addr(_ON_OFF_DHW+24)
 MOVT	R0, #hi_addr(_ON_OFF_DHW+24)
 STR	R1, [R0, #0]
-;Controller_events_code.c,504 :: 		DrawRoundButton(&ON_OFF_DHW);
+;Controller_events_code.c,505 :: 		DrawRoundButton(&ON_OFF_DHW);
 MOVW	R0, #lo_addr(_ON_OFF_DHW+0)
 MOVT	R0, #hi_addr(_ON_OFF_DHW+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,505 :: 		system_reg[HEATWATER]=1;
+;Controller_events_code.c,506 :: 		system_reg[HEATWATER]=1;
 MOVS	R1, #1
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+420)
 MOVT	R0, #hi_addr(_system_reg+420)
 STRH	R1, [R0, #0]
-;Controller_events_code.c,506 :: 		}
-L_Click_DHW151:
-;Controller_events_code.c,508 :: 		send_data_packet(HEATWATER,1);
+;Controller_events_code.c,507 :: 		}
+L_Click_DHW155:
+;Controller_events_code.c,509 :: 		send_data_packet(HEATWATER,1);
 MOVS	R1, #1
 MOVW	R0, #210
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,509 :: 		}
+;Controller_events_code.c,510 :: 		}
 L_end_Click_DHW:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Click_DHW
 _MainBut1OnUp:
-;Controller_events_code.c,510 :: 		void MainBut1OnUp(){
+;Controller_events_code.c,511 :: 		void MainBut1OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,511 :: 		Tone2();
+;Controller_events_code.c,512 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,512 :: 		BLED_Fade_Out();
+;Controller_events_code.c,513 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,513 :: 		Image25.Visible = 0;
+;Controller_events_code.c,514 :: 		Image25.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image25+20)
 MOVT	R0, #hi_addr(_Image25+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,514 :: 		DrawScreen(&USER_MENU);
+;Controller_events_code.c,515 :: 		DrawScreen(&USER_MENU);
 MOVW	R0, #lo_addr(_USER_MENU+0)
 MOVT	R0, #hi_addr(_USER_MENU+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,515 :: 		BLED_Fade_In();
+;Controller_events_code.c,516 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,517 :: 		}
+;Controller_events_code.c,518 :: 		}
 L_end_MainBut1OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _MainBut1OnUp
 _MainBut1OnPress:
-;Controller_events_code.c,518 :: 		void MainBut1OnPress(){
+;Controller_events_code.c,519 :: 		void MainBut1OnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,519 :: 		Image25.Visible = 1;
+;Controller_events_code.c,520 :: 		Image25.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image25+20)
 MOVT	R0, #hi_addr(_Image25+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,520 :: 		DrawImage(&Image25);
+;Controller_events_code.c,521 :: 		DrawImage(&Image25);
 MOVW	R0, #lo_addr(_Image25+0)
 MOVT	R0, #hi_addr(_Image25+0)
 BL	_DrawImage+0
-;Controller_events_code.c,521 :: 		}
+;Controller_events_code.c,522 :: 		}
 L_end_MainBut1OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _MainBut1OnPress
 _MainBut2OnUp:
-;Controller_events_code.c,522 :: 		void MainBut2OnUp(){
+;Controller_events_code.c,523 :: 		void MainBut2OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,523 :: 		Tone2();
+;Controller_events_code.c,524 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,524 :: 		BLED_Fade_Out();
+;Controller_events_code.c,525 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,525 :: 		Image40.Visible = 0;
+;Controller_events_code.c,526 :: 		Image40.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image40+20)
 MOVT	R0, #hi_addr(_Image40+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,526 :: 		if (two_compressors_mode==true && ground_heat_pump == true) {
+;Controller_events_code.c,527 :: 		if (two_compressors_mode==true && ground_heat_pump == true) {
 MOVW	R0, #lo_addr(_two_compressors_mode+0)
 MOVT	R0, #hi_addr(_two_compressors_mode+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L__MainBut2OnUp474
+BNE	L__MainBut2OnUp483
 MOVW	R0, #lo_addr(_ground_heat_pump+0)
 MOVT	R0, #hi_addr(_ground_heat_pump+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L__MainBut2OnUp473
-L__MainBut2OnUp472:
-;Controller_events_code.c,527 :: 		DrawScreen (&Schema2);
+BNE	L__MainBut2OnUp482
+L__MainBut2OnUp481:
+;Controller_events_code.c,528 :: 		DrawScreen (&Schema2);
 MOVW	R0, #lo_addr(_Schema2+0)
 MOVT	R0, #hi_addr(_Schema2+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,528 :: 		}
+;Controller_events_code.c,529 :: 		}
 IT	AL
-BAL	L_MainBut2OnUp155
-;Controller_events_code.c,526 :: 		if (two_compressors_mode==true && ground_heat_pump == true) {
-L__MainBut2OnUp474:
-L__MainBut2OnUp473:
-;Controller_events_code.c,529 :: 		else if (two_compressors_mode==true && ground_heat_pump == false) {
+BAL	L_MainBut2OnUp159
+;Controller_events_code.c,527 :: 		if (two_compressors_mode==true && ground_heat_pump == true) {
+L__MainBut2OnUp483:
+L__MainBut2OnUp482:
+;Controller_events_code.c,530 :: 		else if (two_compressors_mode==true && ground_heat_pump == false) {
 MOVW	R0, #lo_addr(_two_compressors_mode+0)
 MOVT	R0, #hi_addr(_two_compressors_mode+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
-BNE	L__MainBut2OnUp476
+BNE	L__MainBut2OnUp485
 MOVW	R0, #lo_addr(_ground_heat_pump+0)
 MOVT	R0, #hi_addr(_ground_heat_pump+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__MainBut2OnUp475
-L__MainBut2OnUp471:
-;Controller_events_code.c,530 :: 		DrawScreen (&AIR_TWO);
+BNE	L__MainBut2OnUp484
+L__MainBut2OnUp480:
+;Controller_events_code.c,531 :: 		DrawScreen (&AIR_TWO);
 MOVW	R0, #lo_addr(_AIR_TWO+0)
 MOVT	R0, #hi_addr(_AIR_TWO+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,531 :: 		}
+;Controller_events_code.c,532 :: 		}
 IT	AL
-BAL	L_MainBut2OnUp159
-;Controller_events_code.c,529 :: 		else if (two_compressors_mode==true && ground_heat_pump == false) {
-L__MainBut2OnUp476:
-L__MainBut2OnUp475:
-;Controller_events_code.c,532 :: 		else if (two_compressors_mode==false && ground_heat_pump == false) {
+BAL	L_MainBut2OnUp163
+;Controller_events_code.c,530 :: 		else if (two_compressors_mode==true && ground_heat_pump == false) {
+L__MainBut2OnUp485:
+L__MainBut2OnUp484:
+;Controller_events_code.c,533 :: 		else if (two_compressors_mode==false && ground_heat_pump == false) {
 MOVW	R0, #lo_addr(_two_compressors_mode+0)
 MOVT	R0, #hi_addr(_two_compressors_mode+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__MainBut2OnUp478
+BNE	L__MainBut2OnUp487
 MOVW	R0, #lo_addr(_ground_heat_pump+0)
 MOVT	R0, #hi_addr(_ground_heat_pump+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L__MainBut2OnUp477
-L__MainBut2OnUp470:
-;Controller_events_code.c,533 :: 		DrawScreen(&Schema1);//DrawScreen (&AIR_ONE);
+BNE	L__MainBut2OnUp486
+L__MainBut2OnUp479:
+;Controller_events_code.c,534 :: 		DrawScreen(&Schema1);//DrawScreen (&AIR_ONE);
 MOVW	R0, #lo_addr(_Schema1+0)
 MOVT	R0, #hi_addr(_Schema1+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,534 :: 		}
+;Controller_events_code.c,535 :: 		}
 IT	AL
-BAL	L_MainBut2OnUp163
-;Controller_events_code.c,532 :: 		else if (two_compressors_mode==false && ground_heat_pump == false) {
-L__MainBut2OnUp478:
-L__MainBut2OnUp477:
-;Controller_events_code.c,536 :: 		DrawScreen(&Schema1);
+BAL	L_MainBut2OnUp167
+;Controller_events_code.c,533 :: 		else if (two_compressors_mode==false && ground_heat_pump == false) {
+L__MainBut2OnUp487:
+L__MainBut2OnUp486:
+;Controller_events_code.c,537 :: 		DrawScreen(&Schema1);
 MOVW	R0, #lo_addr(_Schema1+0)
 MOVT	R0, #hi_addr(_Schema1+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,537 :: 		}
+;Controller_events_code.c,538 :: 		}
+L_MainBut2OnUp167:
 L_MainBut2OnUp163:
 L_MainBut2OnUp159:
-L_MainBut2OnUp155:
-;Controller_events_code.c,539 :: 		BLED_Fade_In();
+;Controller_events_code.c,540 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,541 :: 		}
+;Controller_events_code.c,542 :: 		}
 L_end_MainBut2OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _MainBut2OnUp
 _MainBut2OnPress:
-;Controller_events_code.c,542 :: 		void MainBut2OnPress(){
+;Controller_events_code.c,543 :: 		void MainBut2OnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,543 :: 		Image40.Visible = 1;
+;Controller_events_code.c,544 :: 		Image40.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image40+20)
 MOVT	R0, #hi_addr(_Image40+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,544 :: 		DrawImage(&Image40);
+;Controller_events_code.c,545 :: 		DrawImage(&Image40);
 MOVW	R0, #lo_addr(_Image40+0)
 MOVT	R0, #hi_addr(_Image40+0)
 BL	_DrawImage+0
-;Controller_events_code.c,546 :: 		}
+;Controller_events_code.c,547 :: 		}
 L_end_MainBut2OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _MainBut2OnPress
 _MainBut3OnUp:
-;Controller_events_code.c,547 :: 		void MainBut3OnUp(){
+;Controller_events_code.c,548 :: 		void MainBut3OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,548 :: 		Tone2();
+;Controller_events_code.c,549 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,549 :: 		BLED_Fade_Out();
+;Controller_events_code.c,550 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,550 :: 		Image44.Visible = 0;
+;Controller_events_code.c,551 :: 		Image44.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image44+20)
 MOVT	R0, #hi_addr(_Image44+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,551 :: 		DrawScreen(&DEVICES);
+;Controller_events_code.c,552 :: 		DrawScreen(&DEVICES);
 MOVW	R0, #lo_addr(_DEVICES+0)
 MOVT	R0, #hi_addr(_DEVICES+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,552 :: 		BLED_Fade_In();
+;Controller_events_code.c,553 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,554 :: 		}
+;Controller_events_code.c,555 :: 		}
 L_end_MainBut3OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _MainBut3OnUp
 _MainBut3OnPress:
-;Controller_events_code.c,555 :: 		void MainBut3OnPress(){
+;Controller_events_code.c,556 :: 		void MainBut3OnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,556 :: 		Image44.Visible = 1;
+;Controller_events_code.c,557 :: 		Image44.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image44+20)
 MOVT	R0, #hi_addr(_Image44+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,557 :: 		DrawImage(&Image44);
+;Controller_events_code.c,558 :: 		DrawImage(&Image44);
 MOVW	R0, #lo_addr(_Image44+0)
 MOVT	R0, #hi_addr(_Image44+0)
 BL	_DrawImage+0
-;Controller_events_code.c,558 :: 		}
+;Controller_events_code.c,559 :: 		}
 L_end_MainBut3OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _MainBut3OnPress
 _MainBut4OnUp:
-;Controller_events_code.c,559 :: 		void MainBut4OnUp(){
+;Controller_events_code.c,560 :: 		void MainBut4OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,560 :: 		Tone2();
+;Controller_events_code.c,561 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,561 :: 		BLED_Fade_Out();
+;Controller_events_code.c,562 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,562 :: 		Image61.Visible = 0;
+;Controller_events_code.c,563 :: 		Image61.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image61+20)
 MOVT	R0, #hi_addr(_Image61+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,563 :: 		old_HP_pressure=0;
+;Controller_events_code.c,564 :: 		old_HP_pressure=0;
 MOV	R0, #0
 VMOV	S0, R0
 MOVW	R0, #lo_addr(_old_HP_pressure+0)
 MOVT	R0, #hi_addr(_old_HP_pressure+0)
 VSTR	#1, S0, [R0, #0]
-;Controller_events_code.c,564 :: 		old_LP_pressure=0;
+;Controller_events_code.c,565 :: 		old_LP_pressure=0;
 MOV	R0, #0
 VMOV	S0, R0
 MOVW	R0, #lo_addr(_old_LP_pressure+0)
 MOVT	R0, #hi_addr(_old_LP_pressure+0)
 VSTR	#1, S0, [R0, #0]
-;Controller_events_code.c,565 :: 		DrawScreen(&GAUGE1);
+;Controller_events_code.c,566 :: 		DrawScreen(&GAUGE1);
 MOVW	R0, #lo_addr(_GAUGE1+0)
 MOVT	R0, #hi_addr(_GAUGE1+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,566 :: 		BLED_Fade_In();
+;Controller_events_code.c,567 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,567 :: 		}
+;Controller_events_code.c,568 :: 		}
 L_end_MainBut4OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _MainBut4OnUp
 _MainBut4OnPress:
-;Controller_events_code.c,568 :: 		void MainBut4OnPress(){
+;Controller_events_code.c,569 :: 		void MainBut4OnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,569 :: 		Image61.Visible = 1;
+;Controller_events_code.c,570 :: 		Image61.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image61+20)
 MOVT	R0, #hi_addr(_Image61+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,570 :: 		DrawImage(&Image61);
+;Controller_events_code.c,571 :: 		DrawImage(&Image61);
 MOVW	R0, #lo_addr(_Image61+0)
 MOVT	R0, #hi_addr(_Image61+0)
 BL	_DrawImage+0
-;Controller_events_code.c,571 :: 		}
+;Controller_events_code.c,572 :: 		}
 L_end_MainBut4OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _MainBut4OnPress
 _MainBut5OnUp:
-;Controller_events_code.c,572 :: 		void MainBut5OnUp(){
+;Controller_events_code.c,573 :: 		void MainBut5OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,573 :: 		Tone2();
+;Controller_events_code.c,574 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,574 :: 		BLED_Fade_Out();
+;Controller_events_code.c,575 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,575 :: 		Image87.Visible = 0;
+;Controller_events_code.c,576 :: 		Image87.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image87+20)
 MOVT	R0, #hi_addr(_Image87+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,576 :: 		DrawScreen(&Graph);
+;Controller_events_code.c,577 :: 		DrawScreen(&Graph);
 MOVW	R0, #lo_addr(_Graph+0)
 MOVT	R0, #hi_addr(_Graph+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,577 :: 		BLED_Fade_In();
+;Controller_events_code.c,578 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,578 :: 		}
+;Controller_events_code.c,579 :: 		}
 L_end_MainBut5OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _MainBut5OnUp
 _MainBut5OnPress:
-;Controller_events_code.c,579 :: 		void MainBut5OnPress(){
+;Controller_events_code.c,580 :: 		void MainBut5OnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,580 :: 		Image87.Visible = 1;
+;Controller_events_code.c,581 :: 		Image87.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image87+20)
 MOVT	R0, #hi_addr(_Image87+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,581 :: 		DrawImage(&Image87);
+;Controller_events_code.c,582 :: 		DrawImage(&Image87);
 MOVW	R0, #lo_addr(_Image87+0)
 MOVT	R0, #hi_addr(_Image87+0)
 BL	_DrawImage+0
-;Controller_events_code.c,582 :: 		}
+;Controller_events_code.c,583 :: 		}
 L_end_MainBut5OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _MainBut5OnPress
 _DHW_UPOnClick:
-;Controller_events_code.c,583 :: 		void  DHW_UPOnClick(){
+;Controller_events_code.c,584 :: 		void  DHW_UPOnClick(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,585 :: 		Tone2 ();
+;Controller_events_code.c,586 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,586 :: 		system_reg[SET_DHW]++;
+;Controller_events_code.c,587 :: 		system_reg[SET_DHW]++;
 MOVW	R2, #lo_addr(_system_reg+660)
 MOVT	R2, #hi_addr(_system_reg+660)
 LDRSH	R0, [R2, #0]
 ADDS	R1, R0, #1
 SXTH	R1, R1
 STRH	R1, [R2, #0]
-;Controller_events_code.c,587 :: 		if(system_reg[SET_DHW]>system_reg[HEAT_MAX]) system_reg[SET_DHW]=system_reg[HEAT_MAX];
+;Controller_events_code.c,588 :: 		if(system_reg[SET_DHW]>system_reg[HEAT_MAX]) system_reg[SET_DHW]=system_reg[HEAT_MAX];
 MOVW	R0, #lo_addr(_system_reg+160)
 MOVT	R0, #hi_addr(_system_reg+160)
 LDRSH	R0, [R0, #0]
 CMP	R1, R0
 IT	LE
-BLE	L_DHW_UPOnClick164
+BLE	L_DHW_UPOnClick168
 MOVW	R0, #lo_addr(_system_reg+160)
 MOVT	R0, #hi_addr(_system_reg+160)
 LDRSH	R1, [R0, #0]
 MOVW	R0, #lo_addr(_system_reg+660)
 MOVT	R0, #hi_addr(_system_reg+660)
 STRH	R1, [R0, #0]
-L_DHW_UPOnClick164:
-;Controller_events_code.c,588 :: 		IntToStr(system_reg[SET_DHW], txt);
+L_DHW_UPOnClick168:
+;Controller_events_code.c,589 :: 		IntToStr(system_reg[SET_DHW], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+660)
 MOVT	R0, #hi_addr(_system_reg+660)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,589 :: 		Ltrim (txt);
+;Controller_events_code.c,590 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,590 :: 		strncpy(DHW_Setting_value.Caption, txt, 2);
+;Controller_events_code.c,591 :: 		strncpy(DHW_Setting_value.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_DHW_Setting_value+16)
 MOVT	R0, #hi_addr(_DHW_Setting_value+16)
@@ -2879,20 +2930,20 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,591 :: 		if(system_reg[SET_DHW]<10 && system_reg[SET_DHW]>=0){DHW_Setting_value.Caption[1]=DHW_Setting_value.Caption[0];DHW_Setting_value.Caption[0]='0';}
+;Controller_events_code.c,592 :: 		if(system_reg[SET_DHW]<10 && system_reg[SET_DHW]>=0){DHW_Setting_value.Caption[1]=DHW_Setting_value.Caption[0];DHW_Setting_value.Caption[0]='0';}
 MOVW	R0, #lo_addr(_system_reg+660)
 MOVT	R0, #hi_addr(_system_reg+660)
 LDRSH	R0, [R0, #0]
 CMP	R0, #10
 IT	GE
-BGE	L__DHW_UPOnClick481
+BGE	L__DHW_UPOnClick490
 MOVW	R0, #lo_addr(_system_reg+660)
 MOVT	R0, #hi_addr(_system_reg+660)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LT
-BLT	L__DHW_UPOnClick480
-L__DHW_UPOnClick479:
+BLT	L__DHW_UPOnClick489
+L__DHW_UPOnClick488:
 MOVW	R2, #lo_addr(_DHW_Setting_value+16)
 MOVT	R2, #hi_addr(_DHW_Setting_value+16)
 LDR	R0, [R2, #0]
@@ -2905,70 +2956,70 @@ MOVS	R1, #48
 MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
-L__DHW_UPOnClick481:
-L__DHW_UPOnClick480:
-;Controller_events_code.c,592 :: 		DrawBox(&Set_Dhw_Box);
+L__DHW_UPOnClick490:
+L__DHW_UPOnClick489:
+;Controller_events_code.c,593 :: 		DrawBox(&Set_Dhw_Box);
 MOVW	R0, #lo_addr(_Set_Dhw_Box+0)
 MOVT	R0, #hi_addr(_Set_Dhw_Box+0)
 BL	_DrawBox+0
-;Controller_events_code.c,593 :: 		DrawLabel (&DHW_Setting_value);
+;Controller_events_code.c,594 :: 		DrawLabel (&DHW_Setting_value);
 MOVW	R0, #lo_addr(_DHW_Setting_value+0)
 MOVT	R0, #hi_addr(_DHW_Setting_value+0)
 BL	_DrawLabel+0
-;Controller_events_code.c,594 :: 		Delay_ms (100);
+;Controller_events_code.c,595 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_DHW_UPOnClick168:
+L_DHW_UPOnClick172:
 SUBS	R7, R7, #1
-BNE	L_DHW_UPOnClick168
+BNE	L_DHW_UPOnClick172
 NOP
 NOP
 NOP
-;Controller_events_code.c,595 :: 		}
+;Controller_events_code.c,596 :: 		}
 L_end_DHW_UPOnClick:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _DHW_UPOnClick
 _DHW_DOWNOnClick:
-;Controller_events_code.c,596 :: 		void DHW_DOWNOnClick(){
+;Controller_events_code.c,597 :: 		void DHW_DOWNOnClick(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,598 :: 		Tone2 ();
+;Controller_events_code.c,599 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,599 :: 		system_reg[SET_DHW]--;
+;Controller_events_code.c,600 :: 		system_reg[SET_DHW]--;
 MOVW	R2, #lo_addr(_system_reg+660)
 MOVT	R2, #hi_addr(_system_reg+660)
 LDRSH	R0, [R2, #0]
 SUBS	R1, R0, #1
 SXTH	R1, R1
 STRH	R1, [R2, #0]
-;Controller_events_code.c,600 :: 		if(system_reg[SET_DHW]<system_reg[HEAT_MIN]) system_reg[SET_DHW]=system_reg[HEAT_MIN];
+;Controller_events_code.c,601 :: 		if(system_reg[SET_DHW]<system_reg[HEAT_MIN]) system_reg[SET_DHW]=system_reg[HEAT_MIN];
 MOVW	R0, #lo_addr(_system_reg+180)
 MOVT	R0, #hi_addr(_system_reg+180)
 LDRSH	R0, [R0, #0]
 CMP	R1, R0
 IT	GE
-BGE	L_DHW_DOWNOnClick170
+BGE	L_DHW_DOWNOnClick174
 MOVW	R0, #lo_addr(_system_reg+180)
 MOVT	R0, #hi_addr(_system_reg+180)
 LDRSH	R1, [R0, #0]
 MOVW	R0, #lo_addr(_system_reg+660)
 MOVT	R0, #hi_addr(_system_reg+660)
 STRH	R1, [R0, #0]
-L_DHW_DOWNOnClick170:
-;Controller_events_code.c,601 :: 		IntToStr(system_reg[SET_DHW], txt);
+L_DHW_DOWNOnClick174:
+;Controller_events_code.c,602 :: 		IntToStr(system_reg[SET_DHW], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+660)
 MOVT	R0, #hi_addr(_system_reg+660)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,602 :: 		Ltrim (txt);
+;Controller_events_code.c,603 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,603 :: 		strncpy(DHW_Setting_value.Caption, txt, 2);
+;Controller_events_code.c,604 :: 		strncpy(DHW_Setting_value.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_DHW_Setting_value+16)
 MOVT	R0, #hi_addr(_DHW_Setting_value+16)
@@ -2976,20 +3027,20 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,604 :: 		if(system_reg[SET_DHW]<10 && system_reg[SET_DHW]>=0){DHW_Setting_value.Caption[1]=DHW_Setting_value.Caption[0];DHW_Setting_value.Caption[0]='0';}
+;Controller_events_code.c,605 :: 		if(system_reg[SET_DHW]<10 && system_reg[SET_DHW]>=0){DHW_Setting_value.Caption[1]=DHW_Setting_value.Caption[0];DHW_Setting_value.Caption[0]='0';}
 MOVW	R0, #lo_addr(_system_reg+660)
 MOVT	R0, #hi_addr(_system_reg+660)
 LDRSH	R0, [R0, #0]
 CMP	R0, #10
 IT	GE
-BGE	L__DHW_DOWNOnClick484
+BGE	L__DHW_DOWNOnClick493
 MOVW	R0, #lo_addr(_system_reg+660)
 MOVT	R0, #hi_addr(_system_reg+660)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	LT
-BLT	L__DHW_DOWNOnClick483
-L__DHW_DOWNOnClick482:
+BLT	L__DHW_DOWNOnClick492
+L__DHW_DOWNOnClick491:
 MOVW	R2, #lo_addr(_DHW_Setting_value+16)
 MOVT	R2, #hi_addr(_DHW_Setting_value+16)
 LDR	R0, [R2, #0]
@@ -3002,150 +3053,40 @@ MOVS	R1, #48
 MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
-L__DHW_DOWNOnClick484:
-L__DHW_DOWNOnClick483:
-;Controller_events_code.c,605 :: 		DrawBox(&Set_Dhw_Box);
+L__DHW_DOWNOnClick493:
+L__DHW_DOWNOnClick492:
+;Controller_events_code.c,606 :: 		DrawBox(&Set_Dhw_Box);
 MOVW	R0, #lo_addr(_Set_Dhw_Box+0)
 MOVT	R0, #hi_addr(_Set_Dhw_Box+0)
 BL	_DrawBox+0
-;Controller_events_code.c,606 :: 		DrawLabel (&DHW_Setting_value);
+;Controller_events_code.c,607 :: 		DrawLabel (&DHW_Setting_value);
 MOVW	R0, #lo_addr(_DHW_Setting_value+0)
 MOVT	R0, #hi_addr(_DHW_Setting_value+0)
 BL	_DrawLabel+0
-;Controller_events_code.c,607 :: 		Delay_ms (100);
+;Controller_events_code.c,608 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_DHW_DOWNOnClick174:
+L_DHW_DOWNOnClick178:
 SUBS	R7, R7, #1
-BNE	L_DHW_DOWNOnClick174
+BNE	L_DHW_DOWNOnClick178
 NOP
 NOP
 NOP
-;Controller_events_code.c,609 :: 		}
+;Controller_events_code.c,610 :: 		}
 L_end_DHW_DOWNOnClick:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _DHW_DOWNOnClick
 _HEAT_UPOnClick:
-;Controller_events_code.c,610 :: 		void HEAT_UPOnClick(){
+;Controller_events_code.c,611 :: 		void HEAT_UPOnClick(){
 SUB	SP, SP, #16
 STR	LR, [SP, #0]
-;Controller_events_code.c,613 :: 		Tone2 ();
+;Controller_events_code.c,614 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,615 :: 		if(strcmp(bar_heating.Caption,"HEATING")==0){
-MOVW	R1, #lo_addr(?lstr40_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr40_Controller_events_code+0)
-MOVW	R0, #lo_addr(_bar_heating+24)
-MOVT	R0, #hi_addr(_bar_heating+24)
-LDR	R0, [R0, #0]
-BL	_strcmp+0
-CMP	R0, #0
-IT	NE
-BNE	L_HEAT_UPOnClick176
-;Controller_events_code.c,616 :: 		system_reg[SET_HEAT]++;
-MOVW	R1, #lo_addr(_system_reg+680)
-MOVT	R1, #hi_addr(_system_reg+680)
-LDRSH	R0, [R1, #0]
-ADDS	R0, R0, #1
-STRH	R0, [R1, #0]
-;Controller_events_code.c,617 :: 		IntToStr(system_reg[SET_HEAT], txt);
-ADD	R1, SP, #4
-BL	_IntToStr+0
-;Controller_events_code.c,618 :: 		f= system_reg[SET_HEAT];
-MOVW	R0, #lo_addr(_system_reg+680)
-MOVT	R0, #hi_addr(_system_reg+680)
-LDRSH	R0, [R0, #0]
-STRH	R0, [SP, #12]
-;Controller_events_code.c,619 :: 		}
-IT	AL
-BAL	L_HEAT_UPOnClick177
-L_HEAT_UPOnClick176:
-;Controller_events_code.c,620 :: 		else if(strcmp(bar_heating.Caption,"COOLING")==0){
-MOVW	R1, #lo_addr(?lstr41_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr41_Controller_events_code+0)
-MOVW	R0, #lo_addr(_bar_heating+24)
-MOVT	R0, #hi_addr(_bar_heating+24)
-LDR	R0, [R0, #0]
-BL	_strcmp+0
-CMP	R0, #0
-IT	NE
-BNE	L_HEAT_UPOnClick178
-;Controller_events_code.c,621 :: 		system_reg[SET_COOL]++;
-MOVW	R1, #lo_addr(_system_reg+640)
-MOVT	R1, #hi_addr(_system_reg+640)
-LDRSH	R0, [R1, #0]
-ADDS	R0, R0, #1
-STRH	R0, [R1, #0]
-;Controller_events_code.c,623 :: 		IntToStr(system_reg[SET_COOL], txt);
-ADD	R1, SP, #4
-BL	_IntToStr+0
-;Controller_events_code.c,624 :: 		f= system_reg[SET_COOL];
-MOVW	R0, #lo_addr(_system_reg+640)
-MOVT	R0, #hi_addr(_system_reg+640)
-LDRSH	R0, [R0, #0]
-STRH	R0, [SP, #12]
-;Controller_events_code.c,625 :: 		}
-L_HEAT_UPOnClick178:
-L_HEAT_UPOnClick177:
-;Controller_events_code.c,626 :: 		Ltrim (txt);
-ADD	R0, SP, #4
-BL	_Ltrim+0
-;Controller_events_code.c,627 :: 		strncpy(TEMP_Setting_value.Caption , txt, 2);
-ADD	R1, SP, #4
-MOVW	R0, #lo_addr(_TEMP_Setting_value+16)
-MOVT	R0, #hi_addr(_TEMP_Setting_value+16)
-LDR	R0, [R0, #0]
-MOVS	R2, #2
-SXTH	R2, R2
-BL	_strncpy+0
-;Controller_events_code.c,628 :: 		if(f<10 && f>=0){TEMP_Setting_value.Caption[1]=TEMP_Setting_value.Caption[0];TEMP_Setting_value.Caption[0]='0';}
-LDRSH	R0, [SP, #12]
-CMP	R0, #10
-IT	GE
-BGE	L__HEAT_UPOnClick487
-LDRSH	R0, [SP, #12]
-CMP	R0, #0
-IT	LT
-BLT	L__HEAT_UPOnClick486
-L__HEAT_UPOnClick485:
-MOVW	R2, #lo_addr(_TEMP_Setting_value+16)
-MOVT	R2, #hi_addr(_TEMP_Setting_value+16)
-LDR	R0, [R2, #0]
-ADDS	R1, R0, #1
-MOV	R0, R2
-LDR	R0, [R0, #0]
-LDRB	R0, [R0, #0]
-STRB	R0, [R1, #0]
-MOVS	R1, #48
-MOV	R0, R2
-LDR	R0, [R0, #0]
-STRB	R1, [R0, #0]
-L__HEAT_UPOnClick487:
-L__HEAT_UPOnClick486:
-;Controller_events_code.c,629 :: 		DrawBox(&Set_Heat_Box);
-MOVW	R0, #lo_addr(_Set_Heat_Box+0)
-MOVT	R0, #hi_addr(_Set_Heat_Box+0)
-BL	_DrawBox+0
-;Controller_events_code.c,630 :: 		DrawLabel (&TEMP_Setting_value);
-MOVW	R0, #lo_addr(_TEMP_Setting_value+0)
-MOVT	R0, #hi_addr(_TEMP_Setting_value+0)
-BL	_DrawLabel+0
-;Controller_events_code.c,631 :: 		}
-L_end_HEAT_UPOnClick:
-LDR	LR, [SP, #0]
-ADD	SP, SP, #16
-BX	LR
-; end of _HEAT_UPOnClick
-_HEAT_DownOnClick:
-;Controller_events_code.c,632 :: 		void HEAT_DownOnClick(){
-SUB	SP, SP, #16
-STR	LR, [SP, #0]
-;Controller_events_code.c,635 :: 		Tone2 ();
-BL	_Tone2+0
-;Controller_events_code.c,636 :: 		if(strcmp(bar_heating.Caption,"HEATING")==0){
+;Controller_events_code.c,616 :: 		if(strcmp(bar_heating.Caption,"HEATING")==0){
 MOVW	R1, #lo_addr(?lstr42_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr42_Controller_events_code+0)
 MOVW	R0, #lo_addr(_bar_heating+24)
@@ -3154,44 +3095,26 @@ LDR	R0, [R0, #0]
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
-BNE	L_HEAT_DownOnClick182
-;Controller_events_code.c,637 :: 		system_reg[SET_HEAT]--;
-MOVW	R2, #lo_addr(_system_reg+680)
-MOVT	R2, #hi_addr(_system_reg+680)
-LDRSH	R0, [R2, #0]
-SUBS	R1, R0, #1
-SXTH	R1, R1
-STRH	R1, [R2, #0]
-;Controller_events_code.c,638 :: 		if(system_reg[SET_HEAT]<system_reg[HEAT_MIN]) system_reg[SET_HEAT]=system_reg[HEAT_MIN];
-MOVW	R0, #lo_addr(_system_reg+180)
-MOVT	R0, #hi_addr(_system_reg+180)
-LDRSH	R0, [R0, #0]
-CMP	R1, R0
-IT	GE
-BGE	L_HEAT_DownOnClick183
-MOVW	R0, #lo_addr(_system_reg+180)
-MOVT	R0, #hi_addr(_system_reg+180)
-LDRSH	R1, [R0, #0]
-MOVW	R0, #lo_addr(_system_reg+680)
-MOVT	R0, #hi_addr(_system_reg+680)
-STRH	R1, [R0, #0]
-L_HEAT_DownOnClick183:
-;Controller_events_code.c,639 :: 		IntToStr(system_reg[SET_HEAT], txt);
+BNE	L_HEAT_UPOnClick180
+;Controller_events_code.c,617 :: 		system_reg[SET_HEAT]++;
+MOVW	R1, #lo_addr(_system_reg+680)
+MOVT	R1, #hi_addr(_system_reg+680)
+LDRSH	R0, [R1, #0]
+ADDS	R0, R0, #1
+STRH	R0, [R1, #0]
+;Controller_events_code.c,618 :: 		IntToStr(system_reg[SET_HEAT], txt);
 ADD	R1, SP, #4
-MOVW	R0, #lo_addr(_system_reg+680)
-MOVT	R0, #hi_addr(_system_reg+680)
-LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,640 :: 		f= system_reg[SET_HEAT];
+;Controller_events_code.c,619 :: 		f= system_reg[SET_HEAT];
 MOVW	R0, #lo_addr(_system_reg+680)
 MOVT	R0, #hi_addr(_system_reg+680)
 LDRSH	R0, [R0, #0]
 STRH	R0, [SP, #12]
-;Controller_events_code.c,641 :: 		}
+;Controller_events_code.c,620 :: 		}
 IT	AL
-BAL	L_HEAT_DownOnClick184
-L_HEAT_DownOnClick182:
-;Controller_events_code.c,642 :: 		else if(strcmp(bar_heating.Caption,"COOLING")==0){
+BAL	L_HEAT_UPOnClick181
+L_HEAT_UPOnClick180:
+;Controller_events_code.c,621 :: 		else if(strcmp(bar_heating.Caption,"COOLING")==0){
 MOVW	R1, #lo_addr(?lstr43_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr43_Controller_events_code+0)
 MOVW	R0, #lo_addr(_bar_heating+24)
@@ -3200,46 +3123,28 @@ LDR	R0, [R0, #0]
 BL	_strcmp+0
 CMP	R0, #0
 IT	NE
-BNE	L_HEAT_DownOnClick185
-;Controller_events_code.c,643 :: 		system_reg[SET_COOL]--;
-MOVW	R2, #lo_addr(_system_reg+640)
-MOVT	R2, #hi_addr(_system_reg+640)
-LDRSH	R0, [R2, #0]
-SUBS	R1, R0, #1
-SXTH	R1, R1
-STRH	R1, [R2, #0]
-;Controller_events_code.c,644 :: 		if(system_reg[SET_COOL]<system_reg[COOL_MIN]) system_reg[SET_COOL]=system_reg[COOL_MIN];
-MOVW	R0, #lo_addr(_system_reg+140)
-MOVT	R0, #hi_addr(_system_reg+140)
-LDRSH	R0, [R0, #0]
-CMP	R1, R0
-IT	GE
-BGE	L_HEAT_DownOnClick186
-MOVW	R0, #lo_addr(_system_reg+140)
-MOVT	R0, #hi_addr(_system_reg+140)
-LDRSH	R1, [R0, #0]
-MOVW	R0, #lo_addr(_system_reg+640)
-MOVT	R0, #hi_addr(_system_reg+640)
-STRH	R1, [R0, #0]
-L_HEAT_DownOnClick186:
-;Controller_events_code.c,645 :: 		IntToStr(system_reg[SET_COOL], txt);
+BNE	L_HEAT_UPOnClick182
+;Controller_events_code.c,622 :: 		system_reg[SET_COOL]++;
+MOVW	R1, #lo_addr(_system_reg+640)
+MOVT	R1, #hi_addr(_system_reg+640)
+LDRSH	R0, [R1, #0]
+ADDS	R0, R0, #1
+STRH	R0, [R1, #0]
+;Controller_events_code.c,624 :: 		IntToStr(system_reg[SET_COOL], txt);
 ADD	R1, SP, #4
-MOVW	R0, #lo_addr(_system_reg+640)
-MOVT	R0, #hi_addr(_system_reg+640)
-LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,646 :: 		f= system_reg[SET_COOL];
+;Controller_events_code.c,625 :: 		f= system_reg[SET_COOL];
 MOVW	R0, #lo_addr(_system_reg+640)
 MOVT	R0, #hi_addr(_system_reg+640)
 LDRSH	R0, [R0, #0]
 STRH	R0, [SP, #12]
-;Controller_events_code.c,647 :: 		}
-L_HEAT_DownOnClick185:
-L_HEAT_DownOnClick184:
-;Controller_events_code.c,648 :: 		Ltrim (txt);
+;Controller_events_code.c,626 :: 		}
+L_HEAT_UPOnClick182:
+L_HEAT_UPOnClick181:
+;Controller_events_code.c,627 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,649 :: 		strncpy(TEMP_Setting_value.Caption , txt, 2);
+;Controller_events_code.c,628 :: 		strncpy(TEMP_Setting_value.Caption , txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_TEMP_Setting_value+16)
 MOVT	R0, #hi_addr(_TEMP_Setting_value+16)
@@ -3247,16 +3152,16 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,650 :: 		if(f<10 && f>=0){TEMP_Setting_value.Caption[1]=TEMP_Setting_value.Caption[0];TEMP_Setting_value.Caption[0]='0';}
+;Controller_events_code.c,629 :: 		if(f<10 && f>=0){TEMP_Setting_value.Caption[1]=TEMP_Setting_value.Caption[0];TEMP_Setting_value.Caption[0]='0';}
 LDRSH	R0, [SP, #12]
 CMP	R0, #10
 IT	GE
-BGE	L__HEAT_DownOnClick490
+BGE	L__HEAT_UPOnClick496
 LDRSH	R0, [SP, #12]
 CMP	R0, #0
 IT	LT
-BLT	L__HEAT_DownOnClick489
-L__HEAT_DownOnClick488:
+BLT	L__HEAT_UPOnClick495
+L__HEAT_UPOnClick494:
 MOVW	R2, #lo_addr(_TEMP_Setting_value+16)
 MOVT	R2, #hi_addr(_TEMP_Setting_value+16)
 LDR	R0, [R2, #0]
@@ -3269,665 +3174,811 @@ MOVS	R1, #48
 MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
-L__HEAT_DownOnClick490:
-L__HEAT_DownOnClick489:
-;Controller_events_code.c,651 :: 		DrawBox(&Set_Heat_Box);
+L__HEAT_UPOnClick496:
+L__HEAT_UPOnClick495:
+;Controller_events_code.c,630 :: 		DrawBox(&Set_Heat_Box);
 MOVW	R0, #lo_addr(_Set_Heat_Box+0)
 MOVT	R0, #hi_addr(_Set_Heat_Box+0)
 BL	_DrawBox+0
-;Controller_events_code.c,652 :: 		DrawLabel (&TEMP_Setting_value);
+;Controller_events_code.c,631 :: 		DrawLabel (&TEMP_Setting_value);
 MOVW	R0, #lo_addr(_TEMP_Setting_value+0)
 MOVT	R0, #hi_addr(_TEMP_Setting_value+0)
 BL	_DrawLabel+0
-;Controller_events_code.c,654 :: 		}
+;Controller_events_code.c,632 :: 		}
+L_end_HEAT_UPOnClick:
+LDR	LR, [SP, #0]
+ADD	SP, SP, #16
+BX	LR
+; end of _HEAT_UPOnClick
+_HEAT_DownOnClick:
+;Controller_events_code.c,633 :: 		void HEAT_DownOnClick(){
+SUB	SP, SP, #16
+STR	LR, [SP, #0]
+;Controller_events_code.c,636 :: 		Tone2 ();
+BL	_Tone2+0
+;Controller_events_code.c,637 :: 		if(strcmp(bar_heating.Caption,"HEATING")==0){
+MOVW	R1, #lo_addr(?lstr44_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr44_Controller_events_code+0)
+MOVW	R0, #lo_addr(_bar_heating+24)
+MOVT	R0, #hi_addr(_bar_heating+24)
+LDR	R0, [R0, #0]
+BL	_strcmp+0
+CMP	R0, #0
+IT	NE
+BNE	L_HEAT_DownOnClick186
+;Controller_events_code.c,638 :: 		system_reg[SET_HEAT]--;
+MOVW	R2, #lo_addr(_system_reg+680)
+MOVT	R2, #hi_addr(_system_reg+680)
+LDRSH	R0, [R2, #0]
+SUBS	R1, R0, #1
+SXTH	R1, R1
+STRH	R1, [R2, #0]
+;Controller_events_code.c,639 :: 		if(system_reg[SET_HEAT]<system_reg[HEAT_MIN]) system_reg[SET_HEAT]=system_reg[HEAT_MIN];
+MOVW	R0, #lo_addr(_system_reg+180)
+MOVT	R0, #hi_addr(_system_reg+180)
+LDRSH	R0, [R0, #0]
+CMP	R1, R0
+IT	GE
+BGE	L_HEAT_DownOnClick187
+MOVW	R0, #lo_addr(_system_reg+180)
+MOVT	R0, #hi_addr(_system_reg+180)
+LDRSH	R1, [R0, #0]
+MOVW	R0, #lo_addr(_system_reg+680)
+MOVT	R0, #hi_addr(_system_reg+680)
+STRH	R1, [R0, #0]
+L_HEAT_DownOnClick187:
+;Controller_events_code.c,640 :: 		IntToStr(system_reg[SET_HEAT], txt);
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_system_reg+680)
+MOVT	R0, #hi_addr(_system_reg+680)
+LDRSH	R0, [R0, #0]
+BL	_IntToStr+0
+;Controller_events_code.c,641 :: 		f= system_reg[SET_HEAT];
+MOVW	R0, #lo_addr(_system_reg+680)
+MOVT	R0, #hi_addr(_system_reg+680)
+LDRSH	R0, [R0, #0]
+STRH	R0, [SP, #12]
+;Controller_events_code.c,642 :: 		}
+IT	AL
+BAL	L_HEAT_DownOnClick188
+L_HEAT_DownOnClick186:
+;Controller_events_code.c,643 :: 		else if(strcmp(bar_heating.Caption,"COOLING")==0){
+MOVW	R1, #lo_addr(?lstr45_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr45_Controller_events_code+0)
+MOVW	R0, #lo_addr(_bar_heating+24)
+MOVT	R0, #hi_addr(_bar_heating+24)
+LDR	R0, [R0, #0]
+BL	_strcmp+0
+CMP	R0, #0
+IT	NE
+BNE	L_HEAT_DownOnClick189
+;Controller_events_code.c,644 :: 		system_reg[SET_COOL]--;
+MOVW	R2, #lo_addr(_system_reg+640)
+MOVT	R2, #hi_addr(_system_reg+640)
+LDRSH	R0, [R2, #0]
+SUBS	R1, R0, #1
+SXTH	R1, R1
+STRH	R1, [R2, #0]
+;Controller_events_code.c,645 :: 		if(system_reg[SET_COOL]<system_reg[COOL_MIN]) system_reg[SET_COOL]=system_reg[COOL_MIN];
+MOVW	R0, #lo_addr(_system_reg+140)
+MOVT	R0, #hi_addr(_system_reg+140)
+LDRSH	R0, [R0, #0]
+CMP	R1, R0
+IT	GE
+BGE	L_HEAT_DownOnClick190
+MOVW	R0, #lo_addr(_system_reg+140)
+MOVT	R0, #hi_addr(_system_reg+140)
+LDRSH	R1, [R0, #0]
+MOVW	R0, #lo_addr(_system_reg+640)
+MOVT	R0, #hi_addr(_system_reg+640)
+STRH	R1, [R0, #0]
+L_HEAT_DownOnClick190:
+;Controller_events_code.c,646 :: 		IntToStr(system_reg[SET_COOL], txt);
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_system_reg+640)
+MOVT	R0, #hi_addr(_system_reg+640)
+LDRSH	R0, [R0, #0]
+BL	_IntToStr+0
+;Controller_events_code.c,647 :: 		f= system_reg[SET_COOL];
+MOVW	R0, #lo_addr(_system_reg+640)
+MOVT	R0, #hi_addr(_system_reg+640)
+LDRSH	R0, [R0, #0]
+STRH	R0, [SP, #12]
+;Controller_events_code.c,648 :: 		}
+L_HEAT_DownOnClick189:
+L_HEAT_DownOnClick188:
+;Controller_events_code.c,649 :: 		Ltrim (txt);
+ADD	R0, SP, #4
+BL	_Ltrim+0
+;Controller_events_code.c,650 :: 		strncpy(TEMP_Setting_value.Caption , txt, 2);
+ADD	R1, SP, #4
+MOVW	R0, #lo_addr(_TEMP_Setting_value+16)
+MOVT	R0, #hi_addr(_TEMP_Setting_value+16)
+LDR	R0, [R0, #0]
+MOVS	R2, #2
+SXTH	R2, R2
+BL	_strncpy+0
+;Controller_events_code.c,651 :: 		if(f<10 && f>=0){TEMP_Setting_value.Caption[1]=TEMP_Setting_value.Caption[0];TEMP_Setting_value.Caption[0]='0';}
+LDRSH	R0, [SP, #12]
+CMP	R0, #10
+IT	GE
+BGE	L__HEAT_DownOnClick499
+LDRSH	R0, [SP, #12]
+CMP	R0, #0
+IT	LT
+BLT	L__HEAT_DownOnClick498
+L__HEAT_DownOnClick497:
+MOVW	R2, #lo_addr(_TEMP_Setting_value+16)
+MOVT	R2, #hi_addr(_TEMP_Setting_value+16)
+LDR	R0, [R2, #0]
+ADDS	R1, R0, #1
+MOV	R0, R2
+LDR	R0, [R0, #0]
+LDRB	R0, [R0, #0]
+STRB	R0, [R1, #0]
+MOVS	R1, #48
+MOV	R0, R2
+LDR	R0, [R0, #0]
+STRB	R1, [R0, #0]
+L__HEAT_DownOnClick499:
+L__HEAT_DownOnClick498:
+;Controller_events_code.c,652 :: 		DrawBox(&Set_Heat_Box);
+MOVW	R0, #lo_addr(_Set_Heat_Box+0)
+MOVT	R0, #hi_addr(_Set_Heat_Box+0)
+BL	_DrawBox+0
+;Controller_events_code.c,653 :: 		DrawLabel (&TEMP_Setting_value);
+MOVW	R0, #lo_addr(_TEMP_Setting_value+0)
+MOVT	R0, #hi_addr(_TEMP_Setting_value+0)
+BL	_DrawLabel+0
+;Controller_events_code.c,655 :: 		}
 L_end_HEAT_DownOnClick:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #16
 BX	LR
 ; end of _HEAT_DownOnClick
 _user_settingOnUp:
-;Controller_events_code.c,656 :: 		void user_settingOnUp(){
+;Controller_events_code.c,657 :: 		void user_settingOnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,657 :: 		Tone2();
+;Controller_events_code.c,658 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,658 :: 		BLED_Fade_Out();
+;Controller_events_code.c,659 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,659 :: 		Image105.Visible = 0;
+;Controller_events_code.c,660 :: 		Image105.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image105+20)
 MOVT	R0, #hi_addr(_Image105+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,660 :: 		DrawScreen(&SYSTEM_EVENTS);
+;Controller_events_code.c,661 :: 		DrawScreen(&SYSTEM_EVENTS);
 MOVW	R0, #lo_addr(_SYSTEM_EVENTS+0)
 MOVT	R0, #hi_addr(_SYSTEM_EVENTS+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,661 :: 		BLED_Fade_In();
+;Controller_events_code.c,662 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,662 :: 		}
+;Controller_events_code.c,663 :: 		}
 L_end_user_settingOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_settingOnUp
 _user_settingOnPress:
-;Controller_events_code.c,663 :: 		void  user_settingOnPress(){
+;Controller_events_code.c,664 :: 		void  user_settingOnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,664 :: 		Image105.Visible = 1;
+;Controller_events_code.c,665 :: 		Image105.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image105+20)
 MOVT	R0, #hi_addr(_Image105+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,665 :: 		DrawImage(&Image105);
+;Controller_events_code.c,666 :: 		DrawImage(&Image105);
 MOVW	R0, #lo_addr(_Image105+0)
 MOVT	R0, #hi_addr(_Image105+0)
 BL	_DrawImage+0
-;Controller_events_code.c,666 :: 		}
+;Controller_events_code.c,667 :: 		}
 L_end_user_settingOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_settingOnPress
 _user_set_timeOnPress:
-;Controller_events_code.c,667 :: 		void user_set_timeOnPress(){
+;Controller_events_code.c,668 :: 		void user_set_timeOnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,668 :: 		Image39.Visible = 1;
+;Controller_events_code.c,669 :: 		Image39.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image39+20)
 MOVT	R0, #hi_addr(_Image39+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,669 :: 		DrawImage(&Image39);
+;Controller_events_code.c,670 :: 		DrawImage(&Image39);
 MOVW	R0, #lo_addr(_Image39+0)
 MOVT	R0, #hi_addr(_Image39+0)
 BL	_DrawImage+0
-;Controller_events_code.c,670 :: 		}
+;Controller_events_code.c,671 :: 		}
 L_end_user_set_timeOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_set_timeOnPress
 _user_set_timeOnUp:
-;Controller_events_code.c,671 :: 		void user_set_timeOnUp(){
+;Controller_events_code.c,672 :: 		void user_set_timeOnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,672 :: 		Tone2();
+;Controller_events_code.c,673 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,673 :: 		BLED_Fade_Out();
+;Controller_events_code.c,674 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,674 :: 		Image39.Visible = 0;
+;Controller_events_code.c,675 :: 		Image39.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image39+20)
 MOVT	R0, #hi_addr(_Image39+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,676 :: 		DrawScreen(&SetRTC);
+;Controller_events_code.c,677 :: 		DrawScreen(&SetRTC);
 MOVW	R0, #lo_addr(_SetRTC+0)
 MOVT	R0, #hi_addr(_SetRTC+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,677 :: 		BLED_Fade_In();
+;Controller_events_code.c,678 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,678 :: 		}
+;Controller_events_code.c,679 :: 		}
 L_end_user_set_timeOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_set_timeOnUp
 _user_check_temperatureOnPress:
-;Controller_events_code.c,680 :: 		void user_check_temperatureOnPress(){
+;Controller_events_code.c,681 :: 		void user_check_temperatureOnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,681 :: 		Image48.Visible = 1;
+;Controller_events_code.c,682 :: 		Image48.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image48+20)
 MOVT	R0, #hi_addr(_Image48+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,682 :: 		DrawImage(&Image48);
+;Controller_events_code.c,683 :: 		DrawImage(&Image48);
 MOVW	R0, #lo_addr(_Image48+0)
 MOVT	R0, #hi_addr(_Image48+0)
 BL	_DrawImage+0
-;Controller_events_code.c,683 :: 		}
+;Controller_events_code.c,684 :: 		}
 L_end_user_check_temperatureOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_check_temperatureOnPress
 _user_check_temperatureOnUp:
-;Controller_events_code.c,684 :: 		void user_check_temperatureOnUp(){
+;Controller_events_code.c,685 :: 		void user_check_temperatureOnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,685 :: 		Tone2();
+;Controller_events_code.c,686 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,686 :: 		BLED_Fade_Out();
+;Controller_events_code.c,687 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,687 :: 		Image48.Visible = 0;
+;Controller_events_code.c,688 :: 		Image48.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image48+20)
 MOVT	R0, #hi_addr(_Image48+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,688 :: 		strcpy(S_Brine_Inlet_1.Caption,"00");
-MOVW	R1, #lo_addr(?lstr44_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr44_Controller_events_code+0)
+;Controller_events_code.c,689 :: 		strcpy(S_Brine_Inlet_1.Caption,"00");
+MOVW	R1, #lo_addr(?lstr46_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr46_Controller_events_code+0)
 MOVW	R0, #lo_addr(_S_Brine_Inlet_1+24)
 MOVT	R0, #hi_addr(_S_Brine_Inlet_1+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,689 :: 		strcpy(S_Brine_Outlet_1.Caption,"00");
-MOVW	R1, #lo_addr(?lstr45_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr45_Controller_events_code+0)
+;Controller_events_code.c,690 :: 		strcpy(S_Brine_Outlet_1.Caption,"00");
+MOVW	R1, #lo_addr(?lstr47_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr47_Controller_events_code+0)
 MOVW	R0, #lo_addr(_S_Brine_Outlet_1+24)
 MOVT	R0, #hi_addr(_S_Brine_Outlet_1+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,690 :: 		strcpy(S_Heat_Inlet_1.Caption,"00");
-MOVW	R1, #lo_addr(?lstr46_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr46_Controller_events_code+0)
+;Controller_events_code.c,691 :: 		strcpy(S_Heat_Inlet_1.Caption,"00");
+MOVW	R1, #lo_addr(?lstr48_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr48_Controller_events_code+0)
 MOVW	R0, #lo_addr(_S_Heat_Inlet_1+24)
 MOVT	R0, #hi_addr(_S_Heat_Inlet_1+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,691 :: 		strcpy(S_Heat_Outlet_1.Caption,"00");
-MOVW	R1, #lo_addr(?lstr47_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr47_Controller_events_code+0)
+;Controller_events_code.c,692 :: 		strcpy(S_Heat_Outlet_1.Caption,"00");
+MOVW	R1, #lo_addr(?lstr49_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr49_Controller_events_code+0)
 MOVW	R0, #lo_addr(_S_Heat_Outlet_1+24)
 MOVT	R0, #hi_addr(_S_Heat_Outlet_1+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,692 :: 		strcpy(S_Compressor_1.Caption ,"000");
-MOVW	R1, #lo_addr(?lstr48_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr48_Controller_events_code+0)
+;Controller_events_code.c,693 :: 		strcpy(S_Compressor_1.Caption ,"000");
+MOVW	R1, #lo_addr(?lstr50_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr50_Controller_events_code+0)
 MOVW	R0, #lo_addr(_S_Compressor_1+24)
 MOVT	R0, #hi_addr(_S_Compressor_1+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,693 :: 		strcpy(S_Superheat_1.Caption,"00");
-MOVW	R1, #lo_addr(?lstr49_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr49_Controller_events_code+0)
+;Controller_events_code.c,694 :: 		strcpy(S_Superheat_1.Caption,"00");
+MOVW	R1, #lo_addr(?lstr51_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr51_Controller_events_code+0)
 MOVW	R0, #lo_addr(_S_Superheat_1+24)
 MOVT	R0, #hi_addr(_S_Superheat_1+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,694 :: 		strcpy( S_Subcool_1.Caption,"00");
-MOVW	R1, #lo_addr(?lstr50_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr50_Controller_events_code+0)
+;Controller_events_code.c,695 :: 		strcpy( S_Subcool_1.Caption,"00");
+MOVW	R1, #lo_addr(?lstr52_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr52_Controller_events_code+0)
 MOVW	R0, #lo_addr(_S_Subcool_1+24)
 MOVT	R0, #hi_addr(_S_Subcool_1+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,695 :: 		strcpy(S_DHW.Caption,"00");
-MOVW	R1, #lo_addr(?lstr51_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr51_Controller_events_code+0)
+;Controller_events_code.c,696 :: 		strcpy(S_DHW.Caption,"00");
+MOVW	R1, #lo_addr(?lstr53_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr53_Controller_events_code+0)
 MOVW	R0, #lo_addr(_S_DHW+24)
 MOVT	R0, #hi_addr(_S_DHW+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,696 :: 		strcpy(SS_tank.Caption,"00");
-MOVW	R1, #lo_addr(?lstr52_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr52_Controller_events_code+0)
+;Controller_events_code.c,697 :: 		strcpy(SS_tank.Caption,"00");
+MOVW	R1, #lo_addr(?lstr54_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr54_Controller_events_code+0)
 MOVW	R0, #lo_addr(_SS_tank+24)
 MOVT	R0, #hi_addr(_SS_tank+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,697 :: 		strcpy(S_condenser_1.Caption,"00");
-MOVW	R1, #lo_addr(?lstr53_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr53_Controller_events_code+0)
+;Controller_events_code.c,698 :: 		strcpy(S_condenser_1.Caption,"00");
+MOVW	R1, #lo_addr(?lstr55_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr55_Controller_events_code+0)
 MOVW	R0, #lo_addr(_S_condenser_1+24)
 MOVT	R0, #hi_addr(_S_condenser_1+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,698 :: 		strcpy(S_High_Pressure_1.Caption,"00");
-MOVW	R1, #lo_addr(?lstr54_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr54_Controller_events_code+0)
+;Controller_events_code.c,699 :: 		strcpy(S_High_Pressure_1.Caption,"00");
+MOVW	R1, #lo_addr(?lstr56_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr56_Controller_events_code+0)
 MOVW	R0, #lo_addr(_S_High_Pressure_1+24)
 MOVT	R0, #hi_addr(_S_High_Pressure_1+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,699 :: 		strcpy(S_Low_Pressure_1.Caption,"00");
-MOVW	R1, #lo_addr(?lstr55_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr55_Controller_events_code+0)
+;Controller_events_code.c,700 :: 		strcpy(S_Low_Pressure_1.Caption,"00");
+MOVW	R1, #lo_addr(?lstr57_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr57_Controller_events_code+0)
 MOVW	R0, #lo_addr(_S_Low_Pressure_1+24)
 MOVT	R0, #hi_addr(_S_Low_Pressure_1+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,700 :: 		DrawScreen(&SENSOR1);
+;Controller_events_code.c,701 :: 		DrawScreen(&SENSOR1);
 MOVW	R0, #lo_addr(_SENSOR1+0)
 MOVT	R0, #hi_addr(_SENSOR1+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,701 :: 		BLED_Fade_In();
+;Controller_events_code.c,702 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,702 :: 		}
+;Controller_events_code.c,703 :: 		}
 L_end_user_check_temperatureOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_check_temperatureOnUp
 _user_set_LANOnPress:
-;Controller_events_code.c,703 :: 		void user_set_LANOnPress(){
+;Controller_events_code.c,704 :: 		void user_set_LANOnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,704 :: 		Image49.Visible = 1;
+;Controller_events_code.c,705 :: 		Image49.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image49+20)
 MOVT	R0, #hi_addr(_Image49+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,705 :: 		DrawImage(&Image49);
+;Controller_events_code.c,706 :: 		DrawImage(&Image49);
 MOVW	R0, #lo_addr(_Image49+0)
 MOVT	R0, #hi_addr(_Image49+0)
 BL	_DrawImage+0
-;Controller_events_code.c,706 :: 		}
+;Controller_events_code.c,707 :: 		}
 L_end_user_set_LANOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_set_LANOnPress
 _user_set_LANOnUp:
-;Controller_events_code.c,707 :: 		void user_set_LANOnUp(){
+;Controller_events_code.c,708 :: 		void user_set_LANOnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,708 :: 		Tone2();
+;Controller_events_code.c,709 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,709 :: 		BLED_Fade_Out();
+;Controller_events_code.c,710 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,710 :: 		Image49.Visible = 0;
+;Controller_events_code.c,711 :: 		Image49.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image49+20)
 MOVT	R0, #hi_addr(_Image49+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,711 :: 		DrawScreen(&Ethernet);
+;Controller_events_code.c,712 :: 		DrawScreen(&Ethernet);
 MOVW	R0, #lo_addr(_Ethernet+0)
 MOVT	R0, #hi_addr(_Ethernet+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,712 :: 		BLED_Fade_In();
+;Controller_events_code.c,713 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,713 :: 		}
+;Controller_events_code.c,714 :: 		}
 L_end_user_set_LANOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_set_LANOnUp
 _user_check_errorsOnPress:
-;Controller_events_code.c,714 :: 		void user_check_errorsOnPress(){
+;Controller_events_code.c,715 :: 		void user_check_errorsOnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,715 :: 		Image50.Visible = 1;
+;Controller_events_code.c,716 :: 		Image50.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image50+20)
 MOVT	R0, #hi_addr(_Image50+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,716 :: 		DrawImage(&Image50);
+;Controller_events_code.c,717 :: 		DrawImage(&Image50);
 MOVW	R0, #lo_addr(_Image50+0)
 MOVT	R0, #hi_addr(_Image50+0)
 BL	_DrawImage+0
-;Controller_events_code.c,717 :: 		}
+;Controller_events_code.c,718 :: 		}
 L_end_user_check_errorsOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_check_errorsOnPress
 _user_check_errorsOnUp:
-;Controller_events_code.c,718 :: 		void user_check_errorsOnUp(){
+;Controller_events_code.c,719 :: 		void user_check_errorsOnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,719 :: 		Tone2();
+;Controller_events_code.c,720 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,720 :: 		BLED_Fade_Out();
+;Controller_events_code.c,721 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,721 :: 		Image50.Visible = 0;
+;Controller_events_code.c,722 :: 		Image50.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image50+20)
 MOVT	R0, #hi_addr(_Image50+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,722 :: 		DrawScreen(&ERRORS);
+;Controller_events_code.c,723 :: 		DrawScreen(&ERRORS);
 MOVW	R0, #lo_addr(_ERRORS+0)
 MOVT	R0, #hi_addr(_ERRORS+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,723 :: 		BLED_Fade_In();
+;Controller_events_code.c,724 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,724 :: 		}
+;Controller_events_code.c,725 :: 		}
 L_end_user_check_errorsOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_check_errorsOnUp
 _user_set_timersOnPress:
-;Controller_events_code.c,725 :: 		void user_set_timersOnPress(){
+;Controller_events_code.c,726 :: 		void user_set_timersOnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,726 :: 		Image51.Visible = 1;
+;Controller_events_code.c,727 :: 		Image51.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image51+20)
 MOVT	R0, #hi_addr(_Image51+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,727 :: 		DrawImage(&Image51);
+;Controller_events_code.c,728 :: 		DrawImage(&Image51);
 MOVW	R0, #lo_addr(_Image51+0)
 MOVT	R0, #hi_addr(_Image51+0)
 BL	_DrawImage+0
-;Controller_events_code.c,728 :: 		}
+;Controller_events_code.c,729 :: 		}
 L_end_user_set_timersOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_set_timersOnPress
 _user_set_timersOnUp:
-;Controller_events_code.c,729 :: 		void user_set_timersOnUp(){
+;Controller_events_code.c,730 :: 		void user_set_timersOnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,730 :: 		Tone2();
+;Controller_events_code.c,731 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,731 :: 		BLED_Fade_Out();
+;Controller_events_code.c,732 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,732 :: 		Image51.Visible = 0;
+;Controller_events_code.c,733 :: 		Image51.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image51+20)
 MOVT	R0, #hi_addr(_Image51+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,733 :: 		DrawScreen(&TIMERS);
+;Controller_events_code.c,734 :: 		DrawScreen(&TIMERS);
 MOVW	R0, #lo_addr(_TIMERS+0)
 MOVT	R0, #hi_addr(_TIMERS+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,734 :: 		BLED_Fade_In();
+;Controller_events_code.c,735 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,735 :: 		}
+;Controller_events_code.c,736 :: 		}
 L_end_user_set_timersOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_set_timersOnUp
 _user_hysterezisOnPress:
-;Controller_events_code.c,736 :: 		void user_hysterezisOnPress(){
+;Controller_events_code.c,737 :: 		void user_hysterezisOnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,737 :: 		Image60.Visible = 1;
+;Controller_events_code.c,738 :: 		Image60.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image60+20)
 MOVT	R0, #hi_addr(_Image60+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,738 :: 		DrawImage(&Image60);
+;Controller_events_code.c,739 :: 		DrawImage(&Image60);
 MOVW	R0, #lo_addr(_Image60+0)
 MOVT	R0, #hi_addr(_Image60+0)
 BL	_DrawImage+0
-;Controller_events_code.c,739 :: 		}
+;Controller_events_code.c,740 :: 		}
 L_end_user_hysterezisOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_hysterezisOnPress
 _user_hysterezisOnUp:
-;Controller_events_code.c,740 :: 		void user_hysterezisOnUp(){
+;Controller_events_code.c,741 :: 		void user_hysterezisOnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,741 :: 		Tone2();
+;Controller_events_code.c,742 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,742 :: 		BLED_Fade_Out();
+;Controller_events_code.c,743 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,743 :: 		Image60.Visible = 0;
+;Controller_events_code.c,744 :: 		Image60.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image60+20)
 MOVT	R0, #hi_addr(_Image60+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,744 :: 		DrawScreen(&SETTINGS);
+;Controller_events_code.c,745 :: 		DrawScreen(&SETTINGS);
 MOVW	R0, #lo_addr(_SETTINGS+0)
 MOVT	R0, #hi_addr(_SETTINGS+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,745 :: 		BLED_Fade_In();
+;Controller_events_code.c,746 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,746 :: 		}
+;Controller_events_code.c,747 :: 		}
 L_end_user_hysterezisOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_hysterezisOnUp
 _User_history_checkOnPress:
-;Controller_events_code.c,747 :: 		void User_history_checkOnPress(){
+;Controller_events_code.c,748 :: 		void User_history_checkOnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,748 :: 		Image52.Visible = 1;
+;Controller_events_code.c,749 :: 		Image52.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image52+20)
 MOVT	R0, #hi_addr(_Image52+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,749 :: 		DrawImage(&Image52);
+;Controller_events_code.c,750 :: 		DrawImage(&Image52);
 MOVW	R0, #lo_addr(_Image52+0)
 MOVT	R0, #hi_addr(_Image52+0)
 BL	_DrawImage+0
-;Controller_events_code.c,750 :: 		}
+;Controller_events_code.c,751 :: 		}
 L_end_User_history_checkOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _User_history_checkOnPress
 _User_history_checkOnUp:
-;Controller_events_code.c,751 :: 		void User_history_checkOnUp(){
+;Controller_events_code.c,752 :: 		void User_history_checkOnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,752 :: 		Tone2();
+;Controller_events_code.c,753 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,753 :: 		BLED_Fade_Out();
+;Controller_events_code.c,754 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,754 :: 		Image52.Visible = 0;
+;Controller_events_code.c,755 :: 		Image52.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image52+20)
 MOVT	R0, #hi_addr(_Image52+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,755 :: 		DrawScreen(&EVENTS);
+;Controller_events_code.c,756 :: 		DrawScreen(&EVENTS);
 MOVW	R0, #lo_addr(_EVENTS+0)
 MOVT	R0, #hi_addr(_EVENTS+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,756 :: 		BLED_Fade_In();
+;Controller_events_code.c,757 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,757 :: 		}
+;Controller_events_code.c,758 :: 		}
 L_end_User_history_checkOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _User_history_checkOnUp
 _user_energyOnUp:
-;Controller_events_code.c,759 :: 		void user_energyOnUp(){
+;Controller_events_code.c,760 :: 		void user_energyOnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,760 :: 		Tone2();
+;Controller_events_code.c,761 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,761 :: 		BLED_Fade_Out();
+;Controller_events_code.c,762 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,762 :: 		Image54.Visible = 0;
+;Controller_events_code.c,763 :: 		Image54.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image54+20)
 MOVT	R0, #hi_addr(_Image54+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,763 :: 		DrawScreen(&ENERGY);
+;Controller_events_code.c,764 :: 		DrawScreen(&ENERGY);
 MOVW	R0, #lo_addr(_ENERGY+0)
 MOVT	R0, #hi_addr(_ENERGY+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,764 :: 		BLED_Fade_In();
+;Controller_events_code.c,765 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,765 :: 		}
+;Controller_events_code.c,766 :: 		}
 L_end_user_energyOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_energyOnUp
 _user_energyOnPress:
-;Controller_events_code.c,766 :: 		void user_energyOnPress(){
+;Controller_events_code.c,767 :: 		void user_energyOnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,767 :: 		Image54.Visible = 1;
+;Controller_events_code.c,768 :: 		Image54.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image54+20)
 MOVT	R0, #hi_addr(_Image54+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,768 :: 		DrawImage(&Image54);
+;Controller_events_code.c,769 :: 		DrawImage(&Image54);
 MOVW	R0, #lo_addr(_Image54+0)
 MOVT	R0, #hi_addr(_Image54+0)
 BL	_DrawImage+0
-;Controller_events_code.c,769 :: 		}
+;Controller_events_code.c,770 :: 		}
 L_end_user_energyOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_energyOnPress
 _admin_set_systemOnUp:
-;Controller_events_code.c,770 :: 		void admin_set_systemOnUp(){
+;Controller_events_code.c,771 :: 		void admin_set_systemOnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,771 :: 		Tone2();
+;Controller_events_code.c,772 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,772 :: 		BLED_Fade_Out();
+;Controller_events_code.c,773 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,773 :: 		Image55.Visible = 0;
+;Controller_events_code.c,774 :: 		Image55.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image55+20)
 MOVT	R0, #hi_addr(_Image55+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,775 :: 		DrawScreen (&SYSTEM_SET);
+;Controller_events_code.c,776 :: 		DrawScreen (&SYSTEM_SET);
 MOVW	R0, #lo_addr(_SYSTEM_SET+0)
 MOVT	R0, #hi_addr(_SYSTEM_SET+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,776 :: 		BLED_Fade_In();
+;Controller_events_code.c,777 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,777 :: 		}
+;Controller_events_code.c,778 :: 		}
 L_end_admin_set_systemOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _admin_set_systemOnUp
 _admin_set_systemOnPress:
-;Controller_events_code.c,778 :: 		void  admin_set_systemOnPress (){
+;Controller_events_code.c,779 :: 		void  admin_set_systemOnPress (){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,779 :: 		Image55.Visible = 1;
+;Controller_events_code.c,780 :: 		Image55.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image55+20)
 MOVT	R0, #hi_addr(_Image55+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,780 :: 		DrawImage(&Image55);
+;Controller_events_code.c,781 :: 		DrawImage(&Image55);
 MOVW	R0, #lo_addr(_Image55+0)
 MOVT	R0, #hi_addr(_Image55+0)
 BL	_DrawImage+0
-;Controller_events_code.c,781 :: 		}
+;Controller_events_code.c,782 :: 		}
 L_end_admin_set_systemOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _admin_set_systemOnPress
 _furnanceUP:
-;Controller_events_code.c,782 :: 		void furnanceUP(){
+;Controller_events_code.c,783 :: 		void furnanceUP(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,783 :: 		Tone2();
+;Controller_events_code.c,784 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,784 :: 		BLED_Fade_Out();
+;Controller_events_code.c,785 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,785 :: 		Image56.Visible = 0;
+;Controller_events_code.c,786 :: 		Image56.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image56+20)
 MOVT	R0, #hi_addr(_Image56+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,786 :: 		DrawScreen(&FURNANCE);
+;Controller_events_code.c,787 :: 		DrawScreen(&FURNANCE);
 MOVW	R0, #lo_addr(_FURNANCE+0)
 MOVT	R0, #hi_addr(_FURNANCE+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,787 :: 		BLED_Fade_In();
+;Controller_events_code.c,788 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,788 :: 		}
+;Controller_events_code.c,789 :: 		}
 L_end_furnanceUP:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _furnanceUP
 _furnanceDown:
-;Controller_events_code.c,789 :: 		void furnanceDown(){
+;Controller_events_code.c,790 :: 		void furnanceDown(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,790 :: 		Image56.Visible = 1;
+;Controller_events_code.c,791 :: 		Image56.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image56+20)
 MOVT	R0, #hi_addr(_Image56+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,791 :: 		DrawImage(&Image56);
+;Controller_events_code.c,792 :: 		DrawImage(&Image56);
 MOVW	R0, #lo_addr(_Image56+0)
 MOVT	R0, #hi_addr(_Image56+0)
 BL	_DrawImage+0
-;Controller_events_code.c,792 :: 		}
+;Controller_events_code.c,793 :: 		}
 L_end_furnanceDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _furnanceDown
 _user_defrostOnUp:
-;Controller_events_code.c,793 :: 		void user_defrostOnUp(){
+;Controller_events_code.c,794 :: 		void user_defrostOnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,794 :: 		Tone2();
+;Controller_events_code.c,795 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,795 :: 		BLED_Fade_Out();
+;Controller_events_code.c,796 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,796 :: 		Image57.Visible = 0;
+;Controller_events_code.c,797 :: 		Image57.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image57+20)
 MOVT	R0, #hi_addr(_Image57+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,797 :: 		DrawScreen(&DEFROST);
+;Controller_events_code.c,798 :: 		DrawScreen(&DEFROST);
 MOVW	R0, #lo_addr(_DEFROST+0)
 MOVT	R0, #hi_addr(_DEFROST+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,798 :: 		BLED_Fade_In();
+;Controller_events_code.c,799 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,799 :: 		}
+;Controller_events_code.c,800 :: 		}
 L_end_user_defrostOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_defrostOnUp
 _user_defrostOnPress:
-;Controller_events_code.c,800 :: 		void user_defrostOnPress(){
+;Controller_events_code.c,801 :: 		void user_defrostOnPress(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,801 :: 		Image57.Visible = 1;
+;Controller_events_code.c,802 :: 		Image57.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image57+20)
 MOVT	R0, #hi_addr(_Image57+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,802 :: 		DrawImage(&Image57);
+;Controller_events_code.c,803 :: 		DrawImage(&Image57);
 MOVW	R0, #lo_addr(_Image57+0)
 MOVT	R0, #hi_addr(_Image57+0)
 BL	_DrawImage+0
-;Controller_events_code.c,803 :: 		}
+;Controller_events_code.c,804 :: 		}
 L_end_user_defrostOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _user_defrostOnPress
 _DEC_EEV1OnPress:
-;Controller_events_code.c,855 :: 		void DEC_EEV1OnPress() {
+;Controller_events_code.c,856 :: 		void DEC_EEV1OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,857 :: 		Tone1();
+;Controller_events_code.c,858 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,859 :: 		incTRV--;
+;Controller_events_code.c,860 :: 		incTRV--;
 MOVW	R1, #lo_addr(_incTRV+0)
 MOVT	R1, #hi_addr(_incTRV+0)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 STRH	R0, [R1, #0]
-;Controller_events_code.c,862 :: 		if(num_page==0) { if(system_reg[TRV_CORRECT_1]<0)system_reg[TRV_CORRECT_1]=0; IntToStr(system_reg[TRV_CORRECT_1]+incTRV, txt); }
+;Controller_events_code.c,863 :: 		if(num_page==0) { if(system_reg[TRV_CORRECT_1]<0)system_reg[TRV_CORRECT_1]=0; IntToStr(system_reg[TRV_CORRECT_1]+incTRV, txt); }
 MOVW	R0, #lo_addr(_num_page+0)
 MOVT	R0, #hi_addr(_num_page+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L_DEC_EEV1OnPress190
+BNE	L_DEC_EEV1OnPress194
 MOVW	R0, #lo_addr(_system_reg+782)
 MOVT	R0, #hi_addr(_system_reg+782)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	GE
-BGE	L_DEC_EEV1OnPress191
+BGE	L_DEC_EEV1OnPress195
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+782)
 MOVT	R0, #hi_addr(_system_reg+782)
 STRH	R1, [R0, #0]
-L_DEC_EEV1OnPress191:
+L_DEC_EEV1OnPress195:
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_incTRV+0)
 MOVT	R0, #hi_addr(_incTRV+0)
@@ -3939,21 +3990,21 @@ ADDS	R0, R0, R1
 MOV	R1, R2
 BL	_IntToStr+0
 IT	AL
-BAL	L_DEC_EEV1OnPress192
-L_DEC_EEV1OnPress190:
-;Controller_events_code.c,863 :: 		else {if(system_reg[TRV_CORRECT_2]<0)system_reg[TRV_CORRECT_2]=0;IntToStr(system_reg[TRV_CORRECT_2]+incTRV, txt); }
+BAL	L_DEC_EEV1OnPress196
+L_DEC_EEV1OnPress194:
+;Controller_events_code.c,864 :: 		else {if(system_reg[TRV_CORRECT_2]<0)system_reg[TRV_CORRECT_2]=0;IntToStr(system_reg[TRV_CORRECT_2]+incTRV, txt); }
 MOVW	R0, #lo_addr(_system_reg+784)
 MOVT	R0, #hi_addr(_system_reg+784)
 LDRSH	R0, [R0, #0]
 CMP	R0, #0
 IT	GE
-BGE	L_DEC_EEV1OnPress193
+BGE	L_DEC_EEV1OnPress197
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+784)
 MOVT	R0, #hi_addr(_system_reg+784)
 STRH	R1, [R0, #0]
-L_DEC_EEV1OnPress193:
+L_DEC_EEV1OnPress197:
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_incTRV+0)
 MOVT	R0, #hi_addr(_incTRV+0)
@@ -3964,68 +4015,68 @@ LDRSH	R0, [R0, #0]
 ADDS	R0, R0, R1
 MOV	R1, R2
 BL	_IntToStr+0
-L_DEC_EEV1OnPress192:
-;Controller_events_code.c,864 :: 		Ltrim(txt);
+L_DEC_EEV1OnPress196:
+;Controller_events_code.c,865 :: 		Ltrim(txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,865 :: 		strcpy(EEV1_value.Caption, txt);
+;Controller_events_code.c,866 :: 		strcpy(EEV1_value.Caption, txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_EEV1_value+24)
 MOVT	R0, #hi_addr(_EEV1_value+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,866 :: 		DrawRoundButton(&EEV1_value);
+;Controller_events_code.c,867 :: 		DrawRoundButton(&EEV1_value);
 MOVW	R0, #lo_addr(_EEV1_value+0)
 MOVT	R0, #hi_addr(_EEV1_value+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,874 :: 		Delay_ms (50);
+;Controller_events_code.c,875 :: 		Delay_ms (50);
 MOVW	R7, #9630
 MOVT	R7, #38
 NOP
 NOP
-L_DEC_EEV1OnPress194:
+L_DEC_EEV1OnPress198:
 SUBS	R7, R7, #1
-BNE	L_DEC_EEV1OnPress194
+BNE	L_DEC_EEV1OnPress198
 NOP
 NOP
 NOP
-;Controller_events_code.c,876 :: 		}
+;Controller_events_code.c,877 :: 		}
 L_end_DEC_EEV1OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _DEC_EEV1OnPress
 _INC_EEV1OnPress:
-;Controller_events_code.c,877 :: 		void INC_EEV1OnPress() {
+;Controller_events_code.c,878 :: 		void INC_EEV1OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,880 :: 		Tone1();
+;Controller_events_code.c,881 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,882 :: 		incTRV++;
+;Controller_events_code.c,883 :: 		incTRV++;
 MOVW	R1, #lo_addr(_incTRV+0)
 MOVT	R1, #hi_addr(_incTRV+0)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 STRH	R0, [R1, #0]
-;Controller_events_code.c,885 :: 		if(num_page==0) {if(system_reg[TRV_CORRECT_1]>240)system_reg[TRV_CORRECT_1]=240;IntToStr(system_reg[TRV_CORRECT_1]+incTRV, txt); }
+;Controller_events_code.c,886 :: 		if(num_page==0) {if(system_reg[TRV_CORRECT_1]>240)system_reg[TRV_CORRECT_1]=240;IntToStr(system_reg[TRV_CORRECT_1]+incTRV, txt); }
 MOVW	R0, #lo_addr(_num_page+0)
 MOVT	R0, #hi_addr(_num_page+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L_INC_EEV1OnPress196
+BNE	L_INC_EEV1OnPress200
 MOVW	R0, #lo_addr(_system_reg+782)
 MOVT	R0, #hi_addr(_system_reg+782)
 LDRSH	R0, [R0, #0]
 CMP	R0, #240
 IT	LE
-BLE	L_INC_EEV1OnPress197
+BLE	L_INC_EEV1OnPress201
 MOVS	R1, #240
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+782)
 MOVT	R0, #hi_addr(_system_reg+782)
 STRH	R1, [R0, #0]
-L_INC_EEV1OnPress197:
+L_INC_EEV1OnPress201:
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_incTRV+0)
 MOVT	R0, #hi_addr(_incTRV+0)
@@ -4037,21 +4088,21 @@ ADDS	R0, R0, R1
 MOV	R1, R2
 BL	_IntToStr+0
 IT	AL
-BAL	L_INC_EEV1OnPress198
-L_INC_EEV1OnPress196:
-;Controller_events_code.c,886 :: 		else {if(system_reg[TRV_CORRECT_2]>240)system_reg[TRV_CORRECT_2]=240;IntToStr(system_reg[TRV_CORRECT_2]+incTRV, txt); }
+BAL	L_INC_EEV1OnPress202
+L_INC_EEV1OnPress200:
+;Controller_events_code.c,887 :: 		else {if(system_reg[TRV_CORRECT_2]>240)system_reg[TRV_CORRECT_2]=240;IntToStr(system_reg[TRV_CORRECT_2]+incTRV, txt); }
 MOVW	R0, #lo_addr(_system_reg+784)
 MOVT	R0, #hi_addr(_system_reg+784)
 LDRSH	R0, [R0, #0]
 CMP	R0, #240
 IT	LE
-BLE	L_INC_EEV1OnPress199
+BLE	L_INC_EEV1OnPress203
 MOVS	R1, #240
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+784)
 MOVT	R0, #hi_addr(_system_reg+784)
 STRH	R1, [R0, #0]
-L_INC_EEV1OnPress199:
+L_INC_EEV1OnPress203:
 ADD	R2, SP, #4
 MOVW	R0, #lo_addr(_incTRV+0)
 MOVT	R0, #hi_addr(_incTRV+0)
@@ -4062,49 +4113,49 @@ LDRSH	R0, [R0, #0]
 ADDS	R0, R0, R1
 MOV	R1, R2
 BL	_IntToStr+0
-L_INC_EEV1OnPress198:
-;Controller_events_code.c,887 :: 		Ltrim(txt);
+L_INC_EEV1OnPress202:
+;Controller_events_code.c,888 :: 		Ltrim(txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,888 :: 		strcpy(EEV1_value.Caption, txt);
+;Controller_events_code.c,889 :: 		strcpy(EEV1_value.Caption, txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_EEV1_value+24)
 MOVT	R0, #hi_addr(_EEV1_value+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,889 :: 		DrawRoundButton(&EEV1_value);
+;Controller_events_code.c,890 :: 		DrawRoundButton(&EEV1_value);
 MOVW	R0, #lo_addr(_EEV1_value+0)
 MOVT	R0, #hi_addr(_EEV1_value+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,893 :: 		Delay_ms (50);
+;Controller_events_code.c,894 :: 		Delay_ms (50);
 MOVW	R7, #9630
 MOVT	R7, #38
 NOP
 NOP
-L_INC_EEV1OnPress200:
+L_INC_EEV1OnPress204:
 SUBS	R7, R7, #1
-BNE	L_INC_EEV1OnPress200
+BNE	L_INC_EEV1OnPress204
 NOP
 NOP
 NOP
-;Controller_events_code.c,895 :: 		}
+;Controller_events_code.c,896 :: 		}
 L_end_INC_EEV1OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _INC_EEV1OnPress
 _Set_Trv:
-;Controller_events_code.c,897 :: 		void Set_Trv() {
+;Controller_events_code.c,898 :: 		void Set_Trv() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,898 :: 		if(num_page==0)
+;Controller_events_code.c,899 :: 		if(num_page==0)
 MOVW	R0, #lo_addr(_num_page+0)
 MOVT	R0, #hi_addr(_num_page+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L_Set_Trv202
-;Controller_events_code.c,900 :: 		system_reg[TRV_CORRECT_1]+= incTRV;
+BNE	L_Set_Trv206
+;Controller_events_code.c,901 :: 		system_reg[TRV_CORRECT_1]+= incTRV;
 MOVW	R3, #lo_addr(_incTRV+0)
 MOVT	R3, #hi_addr(_incTRV+0)
 LDRSH	R2, [R3, #0]
@@ -4113,20 +4164,20 @@ MOVT	R1, #hi_addr(_system_reg+782)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, R2
 STRH	R0, [R1, #0]
-;Controller_events_code.c,901 :: 		incTRV=0;
+;Controller_events_code.c,902 :: 		incTRV=0;
 MOVS	R0, #0
 SXTH	R0, R0
 STRH	R0, [R3, #0]
-;Controller_events_code.c,902 :: 		send_data_packet(TRV_CORRECT_1,1);
+;Controller_events_code.c,903 :: 		send_data_packet(TRV_CORRECT_1,1);
 MOVS	R1, #1
 MOVW	R0, #391
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,903 :: 		}
+;Controller_events_code.c,904 :: 		}
 IT	AL
-BAL	L_Set_Trv203
-L_Set_Trv202:
-;Controller_events_code.c,906 :: 		system_reg[TRV_CORRECT_2]+= incTRV;
+BAL	L_Set_Trv207
+L_Set_Trv206:
+;Controller_events_code.c,907 :: 		system_reg[TRV_CORRECT_2]+= incTRV;
 MOVW	R3, #lo_addr(_incTRV+0)
 MOVT	R3, #hi_addr(_incTRV+0)
 LDRSH	R2, [R3, #0]
@@ -4135,356 +4186,356 @@ MOVT	R1, #hi_addr(_system_reg+784)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, R2
 STRH	R0, [R1, #0]
-;Controller_events_code.c,907 :: 		incTRV=0;
+;Controller_events_code.c,908 :: 		incTRV=0;
 MOVS	R0, #0
 SXTH	R0, R0
 STRH	R0, [R3, #0]
-;Controller_events_code.c,908 :: 		send_data_packet(TRV_CORRECT_2,1);
+;Controller_events_code.c,909 :: 		send_data_packet(TRV_CORRECT_2,1);
 MOVS	R1, #1
 MOVW	R0, #392
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,909 :: 		}
-L_Set_Trv203:
 ;Controller_events_code.c,910 :: 		}
+L_Set_Trv207:
+;Controller_events_code.c,911 :: 		}
 L_end_Set_Trv:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_Trv
 __1OnClick:
-;Controller_events_code.c,913 :: 		void _1OnClick() {
-;Controller_events_code.c,915 :: 		}
+;Controller_events_code.c,914 :: 		void _1OnClick() {
+;Controller_events_code.c,916 :: 		}
 L_end__1OnClick:
 BX	LR
 ; end of __1OnClick
 __2OnClick:
-;Controller_events_code.c,917 :: 		void _2OnClick() {
-;Controller_events_code.c,919 :: 		}
+;Controller_events_code.c,918 :: 		void _2OnClick() {
+;Controller_events_code.c,920 :: 		}
 L_end__2OnClick:
 BX	LR
 ; end of __2OnClick
 __3OnClick:
-;Controller_events_code.c,921 :: 		void _3OnClick() {
-;Controller_events_code.c,923 :: 		}
+;Controller_events_code.c,922 :: 		void _3OnClick() {
+;Controller_events_code.c,924 :: 		}
 L_end__3OnClick:
 BX	LR
 ; end of __3OnClick
 __4OnClick:
-;Controller_events_code.c,925 :: 		void _4OnClick() {
-;Controller_events_code.c,927 :: 		}
+;Controller_events_code.c,926 :: 		void _4OnClick() {
+;Controller_events_code.c,928 :: 		}
 L_end__4OnClick:
 BX	LR
 ; end of __4OnClick
 __5OnClick:
-;Controller_events_code.c,929 :: 		void _5OnClick() {
-;Controller_events_code.c,931 :: 		}
+;Controller_events_code.c,930 :: 		void _5OnClick() {
+;Controller_events_code.c,932 :: 		}
 L_end__5OnClick:
 BX	LR
 ; end of __5OnClick
 __6OnClick:
-;Controller_events_code.c,933 :: 		void _6OnClick() {
-;Controller_events_code.c,935 :: 		}
+;Controller_events_code.c,934 :: 		void _6OnClick() {
+;Controller_events_code.c,936 :: 		}
 L_end__6OnClick:
 BX	LR
 ; end of __6OnClick
 __7OnClick:
-;Controller_events_code.c,937 :: 		void _7OnClick() {
-;Controller_events_code.c,939 :: 		}
+;Controller_events_code.c,938 :: 		void _7OnClick() {
+;Controller_events_code.c,940 :: 		}
 L_end__7OnClick:
 BX	LR
 ; end of __7OnClick
 __8OnClick:
-;Controller_events_code.c,941 :: 		void _8OnClick() {
-;Controller_events_code.c,943 :: 		}
+;Controller_events_code.c,942 :: 		void _8OnClick() {
+;Controller_events_code.c,944 :: 		}
 L_end__8OnClick:
 BX	LR
 ; end of __8OnClick
 __9OnClick:
-;Controller_events_code.c,945 :: 		void _9OnClick() {
-;Controller_events_code.c,947 :: 		}
+;Controller_events_code.c,946 :: 		void _9OnClick() {
+;Controller_events_code.c,948 :: 		}
 L_end__9OnClick:
 BX	LR
 ; end of __9OnClick
 __0OnClick:
-;Controller_events_code.c,949 :: 		void _0OnClick() {
-;Controller_events_code.c,951 :: 		}
+;Controller_events_code.c,950 :: 		void _0OnClick() {
+;Controller_events_code.c,952 :: 		}
 L_end__0OnClick:
 BX	LR
 ; end of __0OnClick
 __QOnClick:
-;Controller_events_code.c,953 :: 		void _QOnClick() {
-;Controller_events_code.c,955 :: 		}
+;Controller_events_code.c,954 :: 		void _QOnClick() {
+;Controller_events_code.c,956 :: 		}
 L_end__QOnClick:
 BX	LR
 ; end of __QOnClick
 __WOnClick:
-;Controller_events_code.c,957 :: 		void _WOnClick() {
-;Controller_events_code.c,959 :: 		}
+;Controller_events_code.c,958 :: 		void _WOnClick() {
+;Controller_events_code.c,960 :: 		}
 L_end__WOnClick:
 BX	LR
 ; end of __WOnClick
 __EOnClick:
-;Controller_events_code.c,961 :: 		void _EOnClick() {
-;Controller_events_code.c,963 :: 		}
+;Controller_events_code.c,962 :: 		void _EOnClick() {
+;Controller_events_code.c,964 :: 		}
 L_end__EOnClick:
 BX	LR
 ; end of __EOnClick
 __ROnClick:
-;Controller_events_code.c,965 :: 		void _ROnClick() {
-;Controller_events_code.c,967 :: 		}
+;Controller_events_code.c,966 :: 		void _ROnClick() {
+;Controller_events_code.c,968 :: 		}
 L_end__ROnClick:
 BX	LR
 ; end of __ROnClick
 __TOnClick:
-;Controller_events_code.c,969 :: 		void _TOnClick() {
-;Controller_events_code.c,971 :: 		}
+;Controller_events_code.c,970 :: 		void _TOnClick() {
+;Controller_events_code.c,972 :: 		}
 L_end__TOnClick:
 BX	LR
 ; end of __TOnClick
 __YOnClick:
-;Controller_events_code.c,973 :: 		void _YOnClick() {
-;Controller_events_code.c,975 :: 		}
+;Controller_events_code.c,974 :: 		void _YOnClick() {
+;Controller_events_code.c,976 :: 		}
 L_end__YOnClick:
 BX	LR
 ; end of __YOnClick
 __UOnClick:
-;Controller_events_code.c,977 :: 		void _UOnClick() {
-;Controller_events_code.c,979 :: 		}
+;Controller_events_code.c,978 :: 		void _UOnClick() {
+;Controller_events_code.c,980 :: 		}
 L_end__UOnClick:
 BX	LR
 ; end of __UOnClick
 __IOnClick:
-;Controller_events_code.c,981 :: 		void _IOnClick() {
-;Controller_events_code.c,983 :: 		}
+;Controller_events_code.c,982 :: 		void _IOnClick() {
+;Controller_events_code.c,984 :: 		}
 L_end__IOnClick:
 BX	LR
 ; end of __IOnClick
 __OOnClick:
-;Controller_events_code.c,985 :: 		void _OOnClick() {
-;Controller_events_code.c,987 :: 		}
+;Controller_events_code.c,986 :: 		void _OOnClick() {
+;Controller_events_code.c,988 :: 		}
 L_end__OOnClick:
 BX	LR
 ; end of __OOnClick
 __POnClick:
-;Controller_events_code.c,989 :: 		void _POnClick() {
-;Controller_events_code.c,991 :: 		}
+;Controller_events_code.c,990 :: 		void _POnClick() {
+;Controller_events_code.c,992 :: 		}
 L_end__POnClick:
 BX	LR
 ; end of __POnClick
 __AOnClick:
-;Controller_events_code.c,993 :: 		void _AOnClick() {
-;Controller_events_code.c,995 :: 		}
+;Controller_events_code.c,994 :: 		void _AOnClick() {
+;Controller_events_code.c,996 :: 		}
 L_end__AOnClick:
 BX	LR
 ; end of __AOnClick
 __SOnClick:
-;Controller_events_code.c,997 :: 		void _SOnClick() {
-;Controller_events_code.c,999 :: 		}
+;Controller_events_code.c,998 :: 		void _SOnClick() {
+;Controller_events_code.c,1000 :: 		}
 L_end__SOnClick:
 BX	LR
 ; end of __SOnClick
 __DOnClick:
-;Controller_events_code.c,1001 :: 		void _DOnClick() {
-;Controller_events_code.c,1003 :: 		}
+;Controller_events_code.c,1002 :: 		void _DOnClick() {
+;Controller_events_code.c,1004 :: 		}
 L_end__DOnClick:
 BX	LR
 ; end of __DOnClick
 __FOnClick:
-;Controller_events_code.c,1005 :: 		void _FOnClick() {
-;Controller_events_code.c,1007 :: 		}
+;Controller_events_code.c,1006 :: 		void _FOnClick() {
+;Controller_events_code.c,1008 :: 		}
 L_end__FOnClick:
 BX	LR
 ; end of __FOnClick
 __GOnClick:
-;Controller_events_code.c,1009 :: 		void _GOnClick() {
-;Controller_events_code.c,1011 :: 		}
+;Controller_events_code.c,1010 :: 		void _GOnClick() {
+;Controller_events_code.c,1012 :: 		}
 L_end__GOnClick:
 BX	LR
 ; end of __GOnClick
 __HOnClick:
-;Controller_events_code.c,1013 :: 		void _HOnClick() {
-;Controller_events_code.c,1015 :: 		}
+;Controller_events_code.c,1014 :: 		void _HOnClick() {
+;Controller_events_code.c,1016 :: 		}
 L_end__HOnClick:
 BX	LR
 ; end of __HOnClick
 __JOnClick:
-;Controller_events_code.c,1017 :: 		void _JOnClick() {
-;Controller_events_code.c,1019 :: 		}
+;Controller_events_code.c,1018 :: 		void _JOnClick() {
+;Controller_events_code.c,1020 :: 		}
 L_end__JOnClick:
 BX	LR
 ; end of __JOnClick
 __KOnClick:
-;Controller_events_code.c,1021 :: 		void _KOnClick() {
-;Controller_events_code.c,1023 :: 		}
+;Controller_events_code.c,1022 :: 		void _KOnClick() {
+;Controller_events_code.c,1024 :: 		}
 L_end__KOnClick:
 BX	LR
 ; end of __KOnClick
 __LOnClick:
-;Controller_events_code.c,1025 :: 		void _LOnClick() {
-;Controller_events_code.c,1027 :: 		}
+;Controller_events_code.c,1026 :: 		void _LOnClick() {
+;Controller_events_code.c,1028 :: 		}
 L_end__LOnClick:
 BX	LR
 ; end of __LOnClick
 __ZOnClick:
-;Controller_events_code.c,1029 :: 		void _ZOnClick() {
-;Controller_events_code.c,1031 :: 		}
+;Controller_events_code.c,1030 :: 		void _ZOnClick() {
+;Controller_events_code.c,1032 :: 		}
 L_end__ZOnClick:
 BX	LR
 ; end of __ZOnClick
 __XOnClick:
-;Controller_events_code.c,1033 :: 		void _XOnClick() {
-;Controller_events_code.c,1035 :: 		}
+;Controller_events_code.c,1034 :: 		void _XOnClick() {
+;Controller_events_code.c,1036 :: 		}
 L_end__XOnClick:
 BX	LR
 ; end of __XOnClick
 __COnClick:
-;Controller_events_code.c,1037 :: 		void _COnClick() {
-;Controller_events_code.c,1039 :: 		}
+;Controller_events_code.c,1038 :: 		void _COnClick() {
+;Controller_events_code.c,1040 :: 		}
 L_end__COnClick:
 BX	LR
 ; end of __COnClick
 __VOnClick:
-;Controller_events_code.c,1041 :: 		void _VOnClick() {
-;Controller_events_code.c,1043 :: 		}
+;Controller_events_code.c,1042 :: 		void _VOnClick() {
+;Controller_events_code.c,1044 :: 		}
 L_end__VOnClick:
 BX	LR
 ; end of __VOnClick
 __BOnClick:
-;Controller_events_code.c,1045 :: 		void _BOnClick() {
-;Controller_events_code.c,1047 :: 		}
+;Controller_events_code.c,1046 :: 		void _BOnClick() {
+;Controller_events_code.c,1048 :: 		}
 L_end__BOnClick:
 BX	LR
 ; end of __BOnClick
 __NOnClick:
-;Controller_events_code.c,1049 :: 		void _NOnClick() {
-;Controller_events_code.c,1051 :: 		}
+;Controller_events_code.c,1050 :: 		void _NOnClick() {
+;Controller_events_code.c,1052 :: 		}
 L_end__NOnClick:
 BX	LR
 ; end of __NOnClick
 __MOnClick:
-;Controller_events_code.c,1053 :: 		void _MOnClick() {
-;Controller_events_code.c,1055 :: 		}
+;Controller_events_code.c,1054 :: 		void _MOnClick() {
+;Controller_events_code.c,1056 :: 		}
 L_end__MOnClick:
 BX	LR
 ; end of __MOnClick
 __CommaOnClick:
-;Controller_events_code.c,1057 :: 		void _CommaOnClick() {
-;Controller_events_code.c,1059 :: 		}
+;Controller_events_code.c,1058 :: 		void _CommaOnClick() {
+;Controller_events_code.c,1060 :: 		}
 L_end__CommaOnClick:
 BX	LR
 ; end of __CommaOnClick
 __ColonOnClick:
-;Controller_events_code.c,1061 :: 		void _ColonOnClick() {
-;Controller_events_code.c,1063 :: 		}
+;Controller_events_code.c,1062 :: 		void _ColonOnClick() {
+;Controller_events_code.c,1064 :: 		}
 L_end__ColonOnClick:
 BX	LR
 ; end of __ColonOnClick
 __SlashOnClick:
-;Controller_events_code.c,1065 :: 		void _SlashOnClick() {
-;Controller_events_code.c,1067 :: 		}
+;Controller_events_code.c,1066 :: 		void _SlashOnClick() {
+;Controller_events_code.c,1068 :: 		}
 L_end__SlashOnClick:
 BX	LR
 ; end of __SlashOnClick
 __DELOnClick:
-;Controller_events_code.c,1069 :: 		void _DELOnClick() {
-;Controller_events_code.c,1071 :: 		}
+;Controller_events_code.c,1070 :: 		void _DELOnClick() {
+;Controller_events_code.c,1072 :: 		}
 L_end__DELOnClick:
 BX	LR
 ; end of __DELOnClick
 _ClearOnPress:
-;Controller_events_code.c,1073 :: 		void ClearOnPress() {
-;Controller_events_code.c,1075 :: 		}
+;Controller_events_code.c,1074 :: 		void ClearOnPress() {
+;Controller_events_code.c,1076 :: 		}
 L_end_ClearOnPress:
 BX	LR
 ; end of _ClearOnPress
 _CAPS_SwitchOnClick:
-;Controller_events_code.c,1077 :: 		void CAPS_SwitchOnClick() {
-;Controller_events_code.c,1079 :: 		}
+;Controller_events_code.c,1078 :: 		void CAPS_SwitchOnClick() {
+;Controller_events_code.c,1080 :: 		}
 L_end_CAPS_SwitchOnClick:
 BX	LR
 ; end of _CAPS_SwitchOnClick
 _SPACEOnClick:
-;Controller_events_code.c,1081 :: 		void SPACEOnClick() {
-;Controller_events_code.c,1083 :: 		}
+;Controller_events_code.c,1082 :: 		void SPACEOnClick() {
+;Controller_events_code.c,1084 :: 		}
 L_end_SPACEOnClick:
 BX	LR
 ; end of _SPACEOnClick
 _ENTEROnClick:
-;Controller_events_code.c,1085 :: 		void ENTEROnClick() {
-;Controller_events_code.c,1087 :: 		}
+;Controller_events_code.c,1086 :: 		void ENTEROnClick() {
+;Controller_events_code.c,1088 :: 		}
 L_end_ENTEROnClick:
 BX	LR
 ; end of _ENTEROnClick
 _SetDateAndTimeOnClick:
-;Controller_events_code.c,1089 :: 		void SetDateAndTimeOnClick(){
+;Controller_events_code.c,1090 :: 		void SetDateAndTimeOnClick(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1113 :: 		if (Set_MyRTCC() == 0)return;
+;Controller_events_code.c,1114 :: 		if (Set_MyRTCC() == 0)return;
 BL	_Set_MyRTCC+0
 CMP	R0, #0
 IT	NE
-BNE	L_SetDateAndTimeOnClick204
+BNE	L_SetDateAndTimeOnClick208
 IT	AL
 BAL	L_end_SetDateAndTimeOnClick
-L_SetDateAndTimeOnClick204:
-;Controller_events_code.c,1115 :: 		BLED_Fade_Out();
+L_SetDateAndTimeOnClick208:
+;Controller_events_code.c,1116 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,1116 :: 		DrawScreen(&Home);
+;Controller_events_code.c,1117 :: 		DrawScreen(&Home);
 MOVW	R0, #lo_addr(_HOME+0)
 MOVT	R0, #hi_addr(_HOME+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,1119 :: 		BLED_Fade_In();
+;Controller_events_code.c,1120 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,1121 :: 		}
+;Controller_events_code.c,1122 :: 		}
 L_end_SetDateAndTimeOnClick:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _SetDateAndTimeOnClick
 _OneYearUpOnClick:
-;Controller_events_code.c,1122 :: 		void OneYearUpOnClick(){
-;Controller_events_code.c,1124 :: 		}
+;Controller_events_code.c,1123 :: 		void OneYearUpOnClick(){
+;Controller_events_code.c,1125 :: 		}
 L_end_OneYearUpOnClick:
 BX	LR
 ; end of _OneYearUpOnClick
 _OneYearDwnOnClick:
-;Controller_events_code.c,1125 :: 		void OneYearDwnOnClick(){
-;Controller_events_code.c,1127 :: 		}
+;Controller_events_code.c,1126 :: 		void OneYearDwnOnClick(){
+;Controller_events_code.c,1128 :: 		}
 L_end_OneYearDwnOnClick:
 BX	LR
 ; end of _OneYearDwnOnClick
 _OneYearUpOnUp:
-;Controller_events_code.c,1128 :: 		void OneYearUpOnUp(){
+;Controller_events_code.c,1129 :: 		void OneYearUpOnUp(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1132 :: 		oneYearU++;
+;Controller_events_code.c,1133 :: 		oneYearU++;
 MOVW	R1, #lo_addr(_oneYearU+0)
 MOVT	R1, #hi_addr(_oneYearU+0)
 LDRSB	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1133 :: 		if (oneYearU > 9)oneYearU=0;
+;Controller_events_code.c,1134 :: 		if (oneYearU > 9)oneYearU=0;
 CMP	R0, #9
 IT	LE
-BLE	L_OneYearUpOnUp205
+BLE	L_OneYearUpOnUp209
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_oneYearU+0)
 MOVT	R0, #hi_addr(_oneYearU+0)
 STRB	R1, [R0, #0]
-L_OneYearUpOnUp205:
-;Controller_events_code.c,1134 :: 		ByteToStr(oneYearU, txt);
+L_OneYearUpOnUp209:
+;Controller_events_code.c,1135 :: 		ByteToStr(oneYearU, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_oneYearU+0)
 MOVT	R0, #hi_addr(_oneYearU+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1135 :: 		res=Ltrim(txt);
+;Controller_events_code.c,1136 :: 		res=Ltrim(txt);
 ADD	R0, SP, #8
 BL	_Ltrim+0
-;Controller_events_code.c,1136 :: 		strcpy(Button3.Caption,res );
+;Controller_events_code.c,1137 :: 		strcpy(Button3.Caption,res );
 MOVW	R1, #lo_addr(_Button3+24)
 MOVT	R1, #hi_addr(_Button3+24)
 LDR	R1, [R1, #0]
@@ -4492,53 +4543,53 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1137 :: 		DrawButton(&Button3);
+;Controller_events_code.c,1138 :: 		DrawButton(&Button3);
 MOVW	R0, #lo_addr(_Button3+0)
 MOVT	R0, #hi_addr(_Button3+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1138 :: 		}
+;Controller_events_code.c,1139 :: 		}
 L_end_OneYearUpOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _OneYearUpOnUp
 _OneYearUpOnPress:
-;Controller_events_code.c,1139 :: 		void OneYearUpOnPress(){
-;Controller_events_code.c,1141 :: 		}
+;Controller_events_code.c,1140 :: 		void OneYearUpOnPress(){
+;Controller_events_code.c,1142 :: 		}
 L_end_OneYearUpOnPress:
 BX	LR
 ; end of _OneYearUpOnPress
 _OneYearDwnOnUp:
-;Controller_events_code.c,1142 :: 		void OneYearDwnOnUp() {
+;Controller_events_code.c,1143 :: 		void OneYearDwnOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1145 :: 		oneYearU--;
+;Controller_events_code.c,1146 :: 		oneYearU--;
 MOVW	R1, #lo_addr(_oneYearU+0)
 MOVT	R1, #hi_addr(_oneYearU+0)
 LDRSB	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1146 :: 		if (oneYearU <0)oneYearU=9;
+;Controller_events_code.c,1147 :: 		if (oneYearU <0)oneYearU=9;
 CMP	R0, #0
 IT	GE
-BGE	L_OneYearDwnOnUp206
+BGE	L_OneYearDwnOnUp210
 MOVS	R1, #9
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_oneYearU+0)
 MOVT	R0, #hi_addr(_oneYearU+0)
 STRB	R1, [R0, #0]
-L_OneYearDwnOnUp206:
-;Controller_events_code.c,1147 :: 		ByteToStr(oneYearU, txt);
+L_OneYearDwnOnUp210:
+;Controller_events_code.c,1148 :: 		ByteToStr(oneYearU, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_oneYearU+0)
 MOVT	R0, #hi_addr(_oneYearU+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1148 :: 		res = Ltrim(txt);
+;Controller_events_code.c,1149 :: 		res = Ltrim(txt);
 ADD	R0, SP, #8
 BL	_Ltrim+0
-;Controller_events_code.c,1149 :: 		strcpy(Button3.Caption, res);
+;Controller_events_code.c,1150 :: 		strcpy(Button3.Caption, res);
 MOVW	R1, #lo_addr(_Button3+24)
 MOVT	R1, #hi_addr(_Button3+24)
 LDR	R1, [R1, #0]
@@ -4546,65 +4597,65 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1150 :: 		DrawButton(&Button3);
+;Controller_events_code.c,1151 :: 		DrawButton(&Button3);
 MOVW	R0, #lo_addr(_Button3+0)
 MOVT	R0, #hi_addr(_Button3+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1151 :: 		}
+;Controller_events_code.c,1152 :: 		}
 L_end_OneYearDwnOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _OneYearDwnOnUp
 _OneYearDwnOnPress:
-;Controller_events_code.c,1152 :: 		void OneYearDwnOnPress() {
-;Controller_events_code.c,1154 :: 		}
+;Controller_events_code.c,1153 :: 		void OneYearDwnOnPress() {
+;Controller_events_code.c,1155 :: 		}
 L_end_OneYearDwnOnPress:
 BX	LR
 ; end of _OneYearDwnOnPress
 _TenYearUpOnClick:
-;Controller_events_code.c,1156 :: 		void TenYearUpOnClick() {
-;Controller_events_code.c,1158 :: 		}
+;Controller_events_code.c,1157 :: 		void TenYearUpOnClick() {
+;Controller_events_code.c,1159 :: 		}
 L_end_TenYearUpOnClick:
 BX	LR
 ; end of _TenYearUpOnClick
 _TenYearDwnOnClick:
-;Controller_events_code.c,1159 :: 		void TenYearDwnOnClick() {
-;Controller_events_code.c,1161 :: 		}
+;Controller_events_code.c,1160 :: 		void TenYearDwnOnClick() {
+;Controller_events_code.c,1162 :: 		}
 L_end_TenYearDwnOnClick:
 BX	LR
 ; end of _TenYearDwnOnClick
 _TenYearUpOnUp:
-;Controller_events_code.c,1162 :: 		void TenYearUpOnUp() {
+;Controller_events_code.c,1163 :: 		void TenYearUpOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1165 :: 		tenYearU++;
+;Controller_events_code.c,1166 :: 		tenYearU++;
 MOVW	R1, #lo_addr(_tenYearU+0)
 MOVT	R1, #hi_addr(_tenYearU+0)
 LDRSB	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1166 :: 		if (tenYearU > 9)tenYearU=0;
+;Controller_events_code.c,1167 :: 		if (tenYearU > 9)tenYearU=0;
 CMP	R0, #9
 IT	LE
-BLE	L_TenYearUpOnUp207
+BLE	L_TenYearUpOnUp211
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_tenYearU+0)
 MOVT	R0, #hi_addr(_tenYearU+0)
 STRB	R1, [R0, #0]
-L_TenYearUpOnUp207:
-;Controller_events_code.c,1167 :: 		ByteToStr(tenYearU, txt);
+L_TenYearUpOnUp211:
+;Controller_events_code.c,1168 :: 		ByteToStr(tenYearU, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_tenYearU+0)
 MOVT	R0, #hi_addr(_tenYearU+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1168 :: 		res =Ltrim(txt);
+;Controller_events_code.c,1169 :: 		res =Ltrim(txt);
 ADD	R0, SP, #8
 BL	_Ltrim+0
-;Controller_events_code.c,1169 :: 		strcpy(Button1.Caption,res);
+;Controller_events_code.c,1170 :: 		strcpy(Button1.Caption,res);
 MOVW	R1, #lo_addr(_Button1+24)
 MOVT	R1, #hi_addr(_Button1+24)
 LDR	R1, [R1, #0]
@@ -4612,47 +4663,47 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1170 :: 		DrawButton(&Button1);
+;Controller_events_code.c,1171 :: 		DrawButton(&Button1);
 MOVW	R0, #lo_addr(_Button1+0)
 MOVT	R0, #hi_addr(_Button1+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1171 :: 		}
+;Controller_events_code.c,1172 :: 		}
 L_end_TenYearUpOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _TenYearUpOnUp
 _TenYearDwnOnUp:
-;Controller_events_code.c,1172 :: 		void TenYearDwnOnUp() {
+;Controller_events_code.c,1173 :: 		void TenYearDwnOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1175 :: 		tenYearU--;
+;Controller_events_code.c,1176 :: 		tenYearU--;
 MOVW	R1, #lo_addr(_tenYearU+0)
 MOVT	R1, #hi_addr(_tenYearU+0)
 LDRSB	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1176 :: 		if (tenYearU<0)tenYearU=9;
+;Controller_events_code.c,1177 :: 		if (tenYearU<0)tenYearU=9;
 CMP	R0, #0
 IT	GE
-BGE	L_TenYearDwnOnUp208
+BGE	L_TenYearDwnOnUp212
 MOVS	R1, #9
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_tenYearU+0)
 MOVT	R0, #hi_addr(_tenYearU+0)
 STRB	R1, [R0, #0]
-L_TenYearDwnOnUp208:
-;Controller_events_code.c,1177 :: 		ByteToStr(tenYearU, txt);
+L_TenYearDwnOnUp212:
+;Controller_events_code.c,1178 :: 		ByteToStr(tenYearU, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_tenYearU+0)
 MOVT	R0, #hi_addr(_tenYearU+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1178 :: 		res =  Ltrim(txt);
+;Controller_events_code.c,1179 :: 		res =  Ltrim(txt);
 ADD	R0, SP, #8
 BL	_Ltrim+0
-;Controller_events_code.c,1179 :: 		strcpy(Button1.Caption,res);
+;Controller_events_code.c,1180 :: 		strcpy(Button1.Caption,res);
 MOVW	R1, #lo_addr(_Button1+24)
 MOVT	R1, #hi_addr(_Button1+24)
 LDR	R1, [R1, #0]
@@ -4660,80 +4711,60 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1180 :: 		DrawButton(&Button1);
+;Controller_events_code.c,1181 :: 		DrawButton(&Button1);
 MOVW	R0, #lo_addr(_Button1+0)
 MOVT	R0, #hi_addr(_Button1+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1181 :: 		}
+;Controller_events_code.c,1182 :: 		}
 L_end_TenYearDwnOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _TenYearDwnOnUp
 _TenYearDwnOnPress:
-;Controller_events_code.c,1182 :: 		void TenYearDwnOnPress() {
-;Controller_events_code.c,1183 :: 		}
+;Controller_events_code.c,1183 :: 		void TenYearDwnOnPress() {
+;Controller_events_code.c,1184 :: 		}
 L_end_TenYearDwnOnPress:
 BX	LR
 ; end of _TenYearDwnOnPress
 _TenYearUpOnPress:
-;Controller_events_code.c,1184 :: 		void TenYearUpOnPress() {
-;Controller_events_code.c,1186 :: 		}
+;Controller_events_code.c,1185 :: 		void TenYearUpOnPress() {
+;Controller_events_code.c,1187 :: 		}
 L_end_TenYearUpOnPress:
 BX	LR
 ; end of _TenYearUpOnPress
 _MonthDateUpOnClick:
-;Controller_events_code.c,1188 :: 		void MonthDateUpOnClick() {
-;Controller_events_code.c,1190 :: 		}
+;Controller_events_code.c,1189 :: 		void MonthDateUpOnClick() {
+;Controller_events_code.c,1191 :: 		}
 L_end_MonthDateUpOnClick:
 BX	LR
 ; end of _MonthDateUpOnClick
 _MonthDateUpOnUp:
-;Controller_events_code.c,1191 :: 		void MonthDateUpOnUp() {
+;Controller_events_code.c,1192 :: 		void MonthDateUpOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1194 :: 		oneMonth++;
+;Controller_events_code.c,1195 :: 		oneMonth++;
 MOVW	R1, #lo_addr(_oneMonth+0)
 MOVT	R1, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1195 :: 		if (oneMonth > 12)oneMonth=1;
+;Controller_events_code.c,1196 :: 		if (oneMonth > 12)oneMonth=1;
 CMP	R0, #12
 IT	LE
-BLE	L_MonthDateUpOnUp209
+BLE	L_MonthDateUpOnUp213
 MOVS	R1, #1
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 STRB	R1, [R0, #0]
-L_MonthDateUpOnUp209:
-;Controller_events_code.c,1196 :: 		switch (oneMonth)  {
-IT	AL
-BAL	L_MonthDateUpOnUp210
-;Controller_events_code.c,1197 :: 		case 1 :  strcpy(Button4.Caption,"JAN");break;
-L_MonthDateUpOnUp212:
-MOVW	R1, #lo_addr(?lstr56_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr56_Controller_events_code+0)
-MOVW	R0, #lo_addr(_Button4+24)
-MOVT	R0, #hi_addr(_Button4+24)
-LDR	R0, [R0, #0]
-BL	_strcpy+0
-IT	AL
-BAL	L_MonthDateUpOnUp211
-;Controller_events_code.c,1198 :: 		case 2 :  strcpy(Button4.Caption,"FAB");break;
 L_MonthDateUpOnUp213:
-MOVW	R1, #lo_addr(?lstr57_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr57_Controller_events_code+0)
-MOVW	R0, #lo_addr(_Button4+24)
-MOVT	R0, #hi_addr(_Button4+24)
-LDR	R0, [R0, #0]
-BL	_strcpy+0
+;Controller_events_code.c,1197 :: 		switch (oneMonth)  {
 IT	AL
-BAL	L_MonthDateUpOnUp211
-;Controller_events_code.c,1199 :: 		case 3 :  strcpy(Button4.Caption,"MAR");break;
-L_MonthDateUpOnUp214:
+BAL	L_MonthDateUpOnUp214
+;Controller_events_code.c,1198 :: 		case 1 :  strcpy(Button4.Caption,"JAN");break;
+L_MonthDateUpOnUp216:
 MOVW	R1, #lo_addr(?lstr58_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr58_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4741,9 +4772,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateUpOnUp211
-;Controller_events_code.c,1200 :: 		case 4 :  strcpy(Button4.Caption,"APR");break;
-L_MonthDateUpOnUp215:
+BAL	L_MonthDateUpOnUp215
+;Controller_events_code.c,1199 :: 		case 2 :  strcpy(Button4.Caption,"FAB");break;
+L_MonthDateUpOnUp217:
 MOVW	R1, #lo_addr(?lstr59_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr59_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4751,9 +4782,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateUpOnUp211
-;Controller_events_code.c,1201 :: 		case 5 :  strcpy(Button4.Caption,"MAY");break;
-L_MonthDateUpOnUp216:
+BAL	L_MonthDateUpOnUp215
+;Controller_events_code.c,1200 :: 		case 3 :  strcpy(Button4.Caption,"MAR");break;
+L_MonthDateUpOnUp218:
 MOVW	R1, #lo_addr(?lstr60_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr60_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4761,9 +4792,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateUpOnUp211
-;Controller_events_code.c,1202 :: 		case 6 :  strcpy(Button4.Caption,"JUN");break;
-L_MonthDateUpOnUp217:
+BAL	L_MonthDateUpOnUp215
+;Controller_events_code.c,1201 :: 		case 4 :  strcpy(Button4.Caption,"APR");break;
+L_MonthDateUpOnUp219:
 MOVW	R1, #lo_addr(?lstr61_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr61_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4771,9 +4802,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateUpOnUp211
-;Controller_events_code.c,1203 :: 		case 7 :  strcpy(Button4.Caption,"JUL");break;
-L_MonthDateUpOnUp218:
+BAL	L_MonthDateUpOnUp215
+;Controller_events_code.c,1202 :: 		case 5 :  strcpy(Button4.Caption,"MAY");break;
+L_MonthDateUpOnUp220:
 MOVW	R1, #lo_addr(?lstr62_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr62_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4781,9 +4812,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateUpOnUp211
-;Controller_events_code.c,1204 :: 		case 8 :  strcpy(Button4.Caption,"AUG");break;
-L_MonthDateUpOnUp219:
+BAL	L_MonthDateUpOnUp215
+;Controller_events_code.c,1203 :: 		case 6 :  strcpy(Button4.Caption,"JUN");break;
+L_MonthDateUpOnUp221:
 MOVW	R1, #lo_addr(?lstr63_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr63_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4791,9 +4822,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateUpOnUp211
-;Controller_events_code.c,1205 :: 		case 9 :  strcpy(Button4.Caption,"SEP");break;
-L_MonthDateUpOnUp220:
+BAL	L_MonthDateUpOnUp215
+;Controller_events_code.c,1204 :: 		case 7 :  strcpy(Button4.Caption,"JUL");break;
+L_MonthDateUpOnUp222:
 MOVW	R1, #lo_addr(?lstr64_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr64_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4801,9 +4832,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateUpOnUp211
-;Controller_events_code.c,1206 :: 		case 10 : strcpy(Button4.Caption,"OCT");break;
-L_MonthDateUpOnUp221:
+BAL	L_MonthDateUpOnUp215
+;Controller_events_code.c,1205 :: 		case 8 :  strcpy(Button4.Caption,"AUG");break;
+L_MonthDateUpOnUp223:
 MOVW	R1, #lo_addr(?lstr65_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr65_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4811,9 +4842,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateUpOnUp211
-;Controller_events_code.c,1207 :: 		case 11 : strcpy(Button4.Caption,"NOV");break;
-L_MonthDateUpOnUp222:
+BAL	L_MonthDateUpOnUp215
+;Controller_events_code.c,1206 :: 		case 9 :  strcpy(Button4.Caption,"SEP");break;
+L_MonthDateUpOnUp224:
 MOVW	R1, #lo_addr(?lstr66_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr66_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4821,9 +4852,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateUpOnUp211
-;Controller_events_code.c,1208 :: 		case 12 : strcpy(Button4.Caption,"DEC");break;
-L_MonthDateUpOnUp223:
+BAL	L_MonthDateUpOnUp215
+;Controller_events_code.c,1207 :: 		case 10 : strcpy(Button4.Caption,"OCT");break;
+L_MonthDateUpOnUp225:
 MOVW	R1, #lo_addr(?lstr67_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr67_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4831,137 +4862,19 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateUpOnUp211
-;Controller_events_code.c,1209 :: 		}
-L_MonthDateUpOnUp210:
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R0, #0]
-CMP	R0, #1
-IT	EQ
-BEQ	L_MonthDateUpOnUp212
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R0, #0]
-CMP	R0, #2
-IT	EQ
-BEQ	L_MonthDateUpOnUp213
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R0, #0]
-CMP	R0, #3
-IT	EQ
-BEQ	L_MonthDateUpOnUp214
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R0, #0]
-CMP	R0, #4
-IT	EQ
-BEQ	L_MonthDateUpOnUp215
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R0, #0]
-CMP	R0, #5
-IT	EQ
-BEQ	L_MonthDateUpOnUp216
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R0, #0]
-CMP	R0, #6
-IT	EQ
-BEQ	L_MonthDateUpOnUp217
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R0, #0]
-CMP	R0, #7
-IT	EQ
-BEQ	L_MonthDateUpOnUp218
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R0, #0]
-CMP	R0, #8
-IT	EQ
-BEQ	L_MonthDateUpOnUp219
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R0, #0]
-CMP	R0, #9
-IT	EQ
-BEQ	L_MonthDateUpOnUp220
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R0, #0]
-CMP	R0, #10
-IT	EQ
-BEQ	L_MonthDateUpOnUp221
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R0, #0]
-CMP	R0, #11
-IT	EQ
-BEQ	L_MonthDateUpOnUp222
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R0, #0]
-CMP	R0, #12
-IT	EQ
-BEQ	L_MonthDateUpOnUp223
-L_MonthDateUpOnUp211:
-;Controller_events_code.c,1211 :: 		DrawButton(&Button4);
-MOVW	R0, #lo_addr(_Button4+0)
-MOVT	R0, #hi_addr(_Button4+0)
-BL	_DrawButton+0
-;Controller_events_code.c,1212 :: 		}
-L_end_MonthDateUpOnUp:
-LDR	LR, [SP, #0]
-ADD	SP, SP, #4
-BX	LR
-; end of _MonthDateUpOnUp
-_MonthDateUpOnPress:
-;Controller_events_code.c,1213 :: 		void MonthDateUpOnPress() {
-;Controller_events_code.c,1215 :: 		}
-L_end_MonthDateUpOnPress:
-BX	LR
-; end of _MonthDateUpOnPress
-_MonthDateDwnOnClick:
-;Controller_events_code.c,1216 :: 		void MonthDateDwnOnClick() {
-;Controller_events_code.c,1221 :: 		}
-L_end_MonthDateDwnOnClick:
-BX	LR
-; end of _MonthDateDwnOnClick
-_MonthDateDwnOnUp:
-;Controller_events_code.c,1222 :: 		void MonthDateDwnOnUp() {
-SUB	SP, SP, #4
-STR	LR, [SP, #0]
-;Controller_events_code.c,1224 :: 		oneMonth--;
-MOVW	R1, #lo_addr(_oneMonth+0)
-MOVT	R1, #hi_addr(_oneMonth+0)
-LDRSB	R0, [R1, #0]
-SUBS	R0, R0, #1
-SXTB	R0, R0
-STRB	R0, [R1, #0]
-;Controller_events_code.c,1225 :: 		if (oneMonth <0)oneMonth=12;
-CMP	R0, #0
-IT	GE
-BGE	L_MonthDateDwnOnUp224
-MOVS	R1, #12
-SXTB	R1, R1
-MOVW	R0, #lo_addr(_oneMonth+0)
-MOVT	R0, #hi_addr(_oneMonth+0)
-STRB	R1, [R0, #0]
-L_MonthDateDwnOnUp224:
-;Controller_events_code.c,1226 :: 		strcpy(Button4.Caption,"SEP");
+BAL	L_MonthDateUpOnUp215
+;Controller_events_code.c,1208 :: 		case 11 : strcpy(Button4.Caption,"NOV");break;
+L_MonthDateUpOnUp226:
 MOVW	R1, #lo_addr(?lstr68_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr68_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
 MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,1227 :: 		switch (oneMonth)  {
 IT	AL
-BAL	L_MonthDateDwnOnUp225
-;Controller_events_code.c,1228 :: 		case 1 : strcpy(Button4.Caption,"JAN");break;
-L_MonthDateDwnOnUp227:
+BAL	L_MonthDateUpOnUp215
+;Controller_events_code.c,1209 :: 		case 12 : strcpy(Button4.Caption,"DEC");break;
+L_MonthDateUpOnUp227:
 MOVW	R1, #lo_addr(?lstr69_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr69_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4969,19 +4882,137 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateDwnOnUp226
-;Controller_events_code.c,1229 :: 		case 2 : strcpy(Button4.Caption,"FAB");break;
+BAL	L_MonthDateUpOnUp215
+;Controller_events_code.c,1210 :: 		}
+L_MonthDateUpOnUp214:
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R0, #0]
+CMP	R0, #1
+IT	EQ
+BEQ	L_MonthDateUpOnUp216
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R0, #0]
+CMP	R0, #2
+IT	EQ
+BEQ	L_MonthDateUpOnUp217
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R0, #0]
+CMP	R0, #3
+IT	EQ
+BEQ	L_MonthDateUpOnUp218
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R0, #0]
+CMP	R0, #4
+IT	EQ
+BEQ	L_MonthDateUpOnUp219
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R0, #0]
+CMP	R0, #5
+IT	EQ
+BEQ	L_MonthDateUpOnUp220
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R0, #0]
+CMP	R0, #6
+IT	EQ
+BEQ	L_MonthDateUpOnUp221
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R0, #0]
+CMP	R0, #7
+IT	EQ
+BEQ	L_MonthDateUpOnUp222
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R0, #0]
+CMP	R0, #8
+IT	EQ
+BEQ	L_MonthDateUpOnUp223
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R0, #0]
+CMP	R0, #9
+IT	EQ
+BEQ	L_MonthDateUpOnUp224
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R0, #0]
+CMP	R0, #10
+IT	EQ
+BEQ	L_MonthDateUpOnUp225
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R0, #0]
+CMP	R0, #11
+IT	EQ
+BEQ	L_MonthDateUpOnUp226
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R0, #0]
+CMP	R0, #12
+IT	EQ
+BEQ	L_MonthDateUpOnUp227
+L_MonthDateUpOnUp215:
+;Controller_events_code.c,1212 :: 		DrawButton(&Button4);
+MOVW	R0, #lo_addr(_Button4+0)
+MOVT	R0, #hi_addr(_Button4+0)
+BL	_DrawButton+0
+;Controller_events_code.c,1213 :: 		}
+L_end_MonthDateUpOnUp:
+LDR	LR, [SP, #0]
+ADD	SP, SP, #4
+BX	LR
+; end of _MonthDateUpOnUp
+_MonthDateUpOnPress:
+;Controller_events_code.c,1214 :: 		void MonthDateUpOnPress() {
+;Controller_events_code.c,1216 :: 		}
+L_end_MonthDateUpOnPress:
+BX	LR
+; end of _MonthDateUpOnPress
+_MonthDateDwnOnClick:
+;Controller_events_code.c,1217 :: 		void MonthDateDwnOnClick() {
+;Controller_events_code.c,1222 :: 		}
+L_end_MonthDateDwnOnClick:
+BX	LR
+; end of _MonthDateDwnOnClick
+_MonthDateDwnOnUp:
+;Controller_events_code.c,1223 :: 		void MonthDateDwnOnUp() {
+SUB	SP, SP, #4
+STR	LR, [SP, #0]
+;Controller_events_code.c,1225 :: 		oneMonth--;
+MOVW	R1, #lo_addr(_oneMonth+0)
+MOVT	R1, #hi_addr(_oneMonth+0)
+LDRSB	R0, [R1, #0]
+SUBS	R0, R0, #1
+SXTB	R0, R0
+STRB	R0, [R1, #0]
+;Controller_events_code.c,1226 :: 		if (oneMonth <0)oneMonth=12;
+CMP	R0, #0
+IT	GE
+BGE	L_MonthDateDwnOnUp228
+MOVS	R1, #12
+SXTB	R1, R1
+MOVW	R0, #lo_addr(_oneMonth+0)
+MOVT	R0, #hi_addr(_oneMonth+0)
+STRB	R1, [R0, #0]
 L_MonthDateDwnOnUp228:
+;Controller_events_code.c,1227 :: 		strcpy(Button4.Caption,"SEP");
 MOVW	R1, #lo_addr(?lstr70_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr70_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
 MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
+;Controller_events_code.c,1228 :: 		switch (oneMonth)  {
 IT	AL
-BAL	L_MonthDateDwnOnUp226
-;Controller_events_code.c,1230 :: 		case 3 : strcpy(Button4.Caption,"MAR");break;
-L_MonthDateDwnOnUp229:
+BAL	L_MonthDateDwnOnUp229
+;Controller_events_code.c,1229 :: 		case 1 : strcpy(Button4.Caption,"JAN");break;
+L_MonthDateDwnOnUp231:
 MOVW	R1, #lo_addr(?lstr71_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr71_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4989,9 +5020,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateDwnOnUp226
-;Controller_events_code.c,1231 :: 		case 4 : strcpy(Button4.Caption,"APR");break;
-L_MonthDateDwnOnUp230:
+BAL	L_MonthDateDwnOnUp230
+;Controller_events_code.c,1230 :: 		case 2 : strcpy(Button4.Caption,"FAB");break;
+L_MonthDateDwnOnUp232:
 MOVW	R1, #lo_addr(?lstr72_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr72_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -4999,9 +5030,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateDwnOnUp226
-;Controller_events_code.c,1232 :: 		case 5 : strcpy(Button4.Caption,"MAY");break;
-L_MonthDateDwnOnUp231:
+BAL	L_MonthDateDwnOnUp230
+;Controller_events_code.c,1231 :: 		case 3 : strcpy(Button4.Caption,"MAR");break;
+L_MonthDateDwnOnUp233:
 MOVW	R1, #lo_addr(?lstr73_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr73_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -5009,9 +5040,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateDwnOnUp226
-;Controller_events_code.c,1233 :: 		case 6 : strcpy(Button4.Caption,"JUN");break;
-L_MonthDateDwnOnUp232:
+BAL	L_MonthDateDwnOnUp230
+;Controller_events_code.c,1232 :: 		case 4 : strcpy(Button4.Caption,"APR");break;
+L_MonthDateDwnOnUp234:
 MOVW	R1, #lo_addr(?lstr74_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr74_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -5019,9 +5050,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateDwnOnUp226
-;Controller_events_code.c,1234 :: 		case 7 : strcpy(Button4.Caption,"JUL");break;
-L_MonthDateDwnOnUp233:
+BAL	L_MonthDateDwnOnUp230
+;Controller_events_code.c,1233 :: 		case 5 : strcpy(Button4.Caption,"MAY");break;
+L_MonthDateDwnOnUp235:
 MOVW	R1, #lo_addr(?lstr75_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr75_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -5029,9 +5060,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateDwnOnUp226
-;Controller_events_code.c,1235 :: 		case 8 : strcpy(Button4.Caption,"AUG");break;
-L_MonthDateDwnOnUp234:
+BAL	L_MonthDateDwnOnUp230
+;Controller_events_code.c,1234 :: 		case 6 : strcpy(Button4.Caption,"JUN");break;
+L_MonthDateDwnOnUp236:
 MOVW	R1, #lo_addr(?lstr76_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr76_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -5039,9 +5070,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateDwnOnUp226
-;Controller_events_code.c,1236 :: 		case 9 : strcpy(Button4.Caption,"SEP");break;
-L_MonthDateDwnOnUp235:
+BAL	L_MonthDateDwnOnUp230
+;Controller_events_code.c,1235 :: 		case 7 : strcpy(Button4.Caption,"JUL");break;
+L_MonthDateDwnOnUp237:
 MOVW	R1, #lo_addr(?lstr77_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr77_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -5049,9 +5080,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateDwnOnUp226
-;Controller_events_code.c,1237 :: 		case 10 : strcpy(Button4.Caption,"OCT");break;
-L_MonthDateDwnOnUp236:
+BAL	L_MonthDateDwnOnUp230
+;Controller_events_code.c,1236 :: 		case 8 : strcpy(Button4.Caption,"AUG");break;
+L_MonthDateDwnOnUp238:
 MOVW	R1, #lo_addr(?lstr78_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr78_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -5059,9 +5090,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateDwnOnUp226
-;Controller_events_code.c,1238 :: 		case 11 : strcpy(Button4.Caption,"NOV");break;
-L_MonthDateDwnOnUp237:
+BAL	L_MonthDateDwnOnUp230
+;Controller_events_code.c,1237 :: 		case 9 : strcpy(Button4.Caption,"SEP");break;
+L_MonthDateDwnOnUp239:
 MOVW	R1, #lo_addr(?lstr79_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr79_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -5069,9 +5100,9 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateDwnOnUp226
-;Controller_events_code.c,1239 :: 		case 12 : strcpy(Button4.Caption,"DEC");break;
-L_MonthDateDwnOnUp238:
+BAL	L_MonthDateDwnOnUp230
+;Controller_events_code.c,1238 :: 		case 10 : strcpy(Button4.Caption,"OCT");break;
+L_MonthDateDwnOnUp240:
 MOVW	R1, #lo_addr(?lstr80_Controller_events_code+0)
 MOVT	R1, #hi_addr(?lstr80_Controller_events_code+0)
 MOVW	R0, #lo_addr(_Button4+24)
@@ -5079,138 +5110,158 @@ MOVT	R0, #hi_addr(_Button4+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
 IT	AL
-BAL	L_MonthDateDwnOnUp226
-;Controller_events_code.c,1240 :: 		}
-L_MonthDateDwnOnUp225:
+BAL	L_MonthDateDwnOnUp230
+;Controller_events_code.c,1239 :: 		case 11 : strcpy(Button4.Caption,"NOV");break;
+L_MonthDateDwnOnUp241:
+MOVW	R1, #lo_addr(?lstr81_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr81_Controller_events_code+0)
+MOVW	R0, #lo_addr(_Button4+24)
+MOVT	R0, #hi_addr(_Button4+24)
+LDR	R0, [R0, #0]
+BL	_strcpy+0
+IT	AL
+BAL	L_MonthDateDwnOnUp230
+;Controller_events_code.c,1240 :: 		case 12 : strcpy(Button4.Caption,"DEC");break;
+L_MonthDateDwnOnUp242:
+MOVW	R1, #lo_addr(?lstr82_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr82_Controller_events_code+0)
+MOVW	R0, #lo_addr(_Button4+24)
+MOVT	R0, #hi_addr(_Button4+24)
+LDR	R0, [R0, #0]
+BL	_strcpy+0
+IT	AL
+BAL	L_MonthDateDwnOnUp230
+;Controller_events_code.c,1241 :: 		}
+L_MonthDateDwnOnUp229:
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R0, #0]
 CMP	R0, #1
 IT	EQ
-BEQ	L_MonthDateDwnOnUp227
+BEQ	L_MonthDateDwnOnUp231
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R0, #0]
 CMP	R0, #2
 IT	EQ
-BEQ	L_MonthDateDwnOnUp228
+BEQ	L_MonthDateDwnOnUp232
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R0, #0]
 CMP	R0, #3
 IT	EQ
-BEQ	L_MonthDateDwnOnUp229
+BEQ	L_MonthDateDwnOnUp233
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R0, #0]
 CMP	R0, #4
 IT	EQ
-BEQ	L_MonthDateDwnOnUp230
+BEQ	L_MonthDateDwnOnUp234
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R0, #0]
 CMP	R0, #5
 IT	EQ
-BEQ	L_MonthDateDwnOnUp231
+BEQ	L_MonthDateDwnOnUp235
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R0, #0]
 CMP	R0, #6
 IT	EQ
-BEQ	L_MonthDateDwnOnUp232
+BEQ	L_MonthDateDwnOnUp236
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R0, #0]
 CMP	R0, #7
 IT	EQ
-BEQ	L_MonthDateDwnOnUp233
+BEQ	L_MonthDateDwnOnUp237
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R0, #0]
 CMP	R0, #8
 IT	EQ
-BEQ	L_MonthDateDwnOnUp234
+BEQ	L_MonthDateDwnOnUp238
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R0, #0]
 CMP	R0, #9
 IT	EQ
-BEQ	L_MonthDateDwnOnUp235
+BEQ	L_MonthDateDwnOnUp239
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R0, #0]
 CMP	R0, #10
 IT	EQ
-BEQ	L_MonthDateDwnOnUp236
+BEQ	L_MonthDateDwnOnUp240
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R0, #0]
 CMP	R0, #11
 IT	EQ
-BEQ	L_MonthDateDwnOnUp237
+BEQ	L_MonthDateDwnOnUp241
 MOVW	R0, #lo_addr(_oneMonth+0)
 MOVT	R0, #hi_addr(_oneMonth+0)
 LDRSB	R0, [R0, #0]
 CMP	R0, #12
 IT	EQ
-BEQ	L_MonthDateDwnOnUp238
-L_MonthDateDwnOnUp226:
-;Controller_events_code.c,1241 :: 		DrawButton(&Button4);
+BEQ	L_MonthDateDwnOnUp242
+L_MonthDateDwnOnUp230:
+;Controller_events_code.c,1242 :: 		DrawButton(&Button4);
 MOVW	R0, #lo_addr(_Button4+0)
 MOVT	R0, #hi_addr(_Button4+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1242 :: 		}
+;Controller_events_code.c,1243 :: 		}
 L_end_MonthDateDwnOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _MonthDateDwnOnUp
 _MonthDateDwnOnPress:
-;Controller_events_code.c,1243 :: 		void MonthDateDwnOnPress() {
-;Controller_events_code.c,1244 :: 		}
+;Controller_events_code.c,1244 :: 		void MonthDateDwnOnPress() {
+;Controller_events_code.c,1245 :: 		}
 L_end_MonthDateDwnOnPress:
 BX	LR
 ; end of _MonthDateDwnOnPress
 _TenDayUpOnClick:
-;Controller_events_code.c,1246 :: 		void TenDayUpOnClick() {
-;Controller_events_code.c,1248 :: 		}
+;Controller_events_code.c,1247 :: 		void TenDayUpOnClick() {
+;Controller_events_code.c,1249 :: 		}
 L_end_TenDayUpOnClick:
 BX	LR
 ; end of _TenDayUpOnClick
 _TenDayDwnOnClick:
-;Controller_events_code.c,1249 :: 		void TenDayDwnOnClick() {
-;Controller_events_code.c,1251 :: 		}
+;Controller_events_code.c,1250 :: 		void TenDayDwnOnClick() {
+;Controller_events_code.c,1252 :: 		}
 L_end_TenDayDwnOnClick:
 BX	LR
 ; end of _TenDayDwnOnClick
 _TenDayUpOnUp:
-;Controller_events_code.c,1253 :: 		void TenDayUpOnUp() {
+;Controller_events_code.c,1254 :: 		void TenDayUpOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1255 :: 		tenDayU++;
+;Controller_events_code.c,1256 :: 		tenDayU++;
 MOVW	R1, #lo_addr(_tenDayU+0)
 MOVT	R1, #hi_addr(_tenDayU+0)
 LDRSB	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1256 :: 		if (tenDayU > 9)tenDayU=0;
+;Controller_events_code.c,1257 :: 		if (tenDayU > 9)tenDayU=0;
 CMP	R0, #9
 IT	LE
-BLE	L_TenDayUpOnUp239
+BLE	L_TenDayUpOnUp243
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_tenDayU+0)
 MOVT	R0, #hi_addr(_tenDayU+0)
 STRB	R1, [R0, #0]
-L_TenDayUpOnUp239:
-;Controller_events_code.c,1257 :: 		ByteToStr(tenDayU, txt);
+L_TenDayUpOnUp243:
+;Controller_events_code.c,1258 :: 		ByteToStr(tenDayU, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_tenDayU+0)
 MOVT	R0, #hi_addr(_tenDayU+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1258 :: 		strcpy(Button8.Caption,Ltrim(txt));
+;Controller_events_code.c,1259 :: 		strcpy(Button8.Caption,Ltrim(txt));
 ADD	R0, SP, #8
 BL	_Ltrim+0
 MOVW	R1, #lo_addr(_Button8+24)
@@ -5220,44 +5271,44 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1259 :: 		DrawButton(&Button8);
+;Controller_events_code.c,1260 :: 		DrawButton(&Button8);
 MOVW	R0, #lo_addr(_Button8+0)
 MOVT	R0, #hi_addr(_Button8+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1260 :: 		}
+;Controller_events_code.c,1261 :: 		}
 L_end_TenDayUpOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _TenDayUpOnUp
 _TenDayDwnOnUp:
-;Controller_events_code.c,1262 :: 		void TenDayDwnOnUp() {
+;Controller_events_code.c,1263 :: 		void TenDayDwnOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1264 :: 		tenDayU--;
+;Controller_events_code.c,1265 :: 		tenDayU--;
 MOVW	R1, #lo_addr(_tenDayU+0)
 MOVT	R1, #hi_addr(_tenDayU+0)
 LDRSB	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1265 :: 		if (tenDayU <0)tenDayU=9;
+;Controller_events_code.c,1266 :: 		if (tenDayU <0)tenDayU=9;
 CMP	R0, #0
 IT	GE
-BGE	L_TenDayDwnOnUp240
+BGE	L_TenDayDwnOnUp244
 MOVS	R1, #9
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_tenDayU+0)
 MOVT	R0, #hi_addr(_tenDayU+0)
 STRB	R1, [R0, #0]
-L_TenDayDwnOnUp240:
-;Controller_events_code.c,1266 :: 		ByteToStr(tenDayU, txt);
+L_TenDayDwnOnUp244:
+;Controller_events_code.c,1267 :: 		ByteToStr(tenDayU, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_tenDayU+0)
 MOVT	R0, #hi_addr(_tenDayU+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1267 :: 		strcpy(Button8.Caption,Ltrim(txt));
+;Controller_events_code.c,1268 :: 		strcpy(Button8.Caption,Ltrim(txt));
 ADD	R0, SP, #8
 BL	_Ltrim+0
 MOVW	R1, #lo_addr(_Button8+24)
@@ -5267,68 +5318,68 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1268 :: 		DrawButton(&Button8);
+;Controller_events_code.c,1269 :: 		DrawButton(&Button8);
 MOVW	R0, #lo_addr(_Button8+0)
 MOVT	R0, #hi_addr(_Button8+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1269 :: 		}
+;Controller_events_code.c,1270 :: 		}
 L_end_TenDayDwnOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _TenDayDwnOnUp
 _TenDayUpOnPress:
-;Controller_events_code.c,1271 :: 		void TenDayUpOnPress() {
-;Controller_events_code.c,1273 :: 		}
+;Controller_events_code.c,1272 :: 		void TenDayUpOnPress() {
+;Controller_events_code.c,1274 :: 		}
 L_end_TenDayUpOnPress:
 BX	LR
 ; end of _TenDayUpOnPress
 _TenDayDwnOnPress:
-;Controller_events_code.c,1275 :: 		void TenDayDwnOnPress() {
-;Controller_events_code.c,1277 :: 		}
+;Controller_events_code.c,1276 :: 		void TenDayDwnOnPress() {
+;Controller_events_code.c,1278 :: 		}
 L_end_TenDayDwnOnPress:
 BX	LR
 ; end of _TenDayDwnOnPress
 _OneDayUpOnClick:
-;Controller_events_code.c,1279 :: 		void OneDayUpOnClick() {
-;Controller_events_code.c,1281 :: 		}
+;Controller_events_code.c,1280 :: 		void OneDayUpOnClick() {
+;Controller_events_code.c,1282 :: 		}
 L_end_OneDayUpOnClick:
 BX	LR
 ; end of _OneDayUpOnClick
 _OneDayDwnOnClick:
-;Controller_events_code.c,1283 :: 		void OneDayDwnOnClick() {
-;Controller_events_code.c,1285 :: 		}
+;Controller_events_code.c,1284 :: 		void OneDayDwnOnClick() {
+;Controller_events_code.c,1286 :: 		}
 L_end_OneDayDwnOnClick:
 BX	LR
 ; end of _OneDayDwnOnClick
 _OneDayUpOnUp:
-;Controller_events_code.c,1287 :: 		void OneDayUpOnUp() {
+;Controller_events_code.c,1288 :: 		void OneDayUpOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1289 :: 		oneDayU++;
+;Controller_events_code.c,1290 :: 		oneDayU++;
 MOVW	R1, #lo_addr(_oneDayU+0)
 MOVT	R1, #hi_addr(_oneDayU+0)
 LDRSB	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1290 :: 		if (oneDayU > 9)oneDayU=0;
+;Controller_events_code.c,1291 :: 		if (oneDayU > 9)oneDayU=0;
 CMP	R0, #9
 IT	LE
-BLE	L_OneDayUpOnUp241
+BLE	L_OneDayUpOnUp245
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_oneDayU+0)
 MOVT	R0, #hi_addr(_oneDayU+0)
 STRB	R1, [R0, #0]
-L_OneDayUpOnUp241:
-;Controller_events_code.c,1291 :: 		ByteToStr(oneDayU, txt);
+L_OneDayUpOnUp245:
+;Controller_events_code.c,1292 :: 		ByteToStr(oneDayU, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_oneDayU+0)
 MOVT	R0, #hi_addr(_oneDayU+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1292 :: 		strcpy(Button12.Caption,Ltrim(txt));
+;Controller_events_code.c,1293 :: 		strcpy(Button12.Caption,Ltrim(txt));
 ADD	R0, SP, #8
 BL	_Ltrim+0
 MOVW	R1, #lo_addr(_Button12+24)
@@ -5338,44 +5389,44 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1293 :: 		DrawButton(&Button12);
+;Controller_events_code.c,1294 :: 		DrawButton(&Button12);
 MOVW	R0, #lo_addr(_Button12+0)
 MOVT	R0, #hi_addr(_Button12+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1294 :: 		}
+;Controller_events_code.c,1295 :: 		}
 L_end_OneDayUpOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _OneDayUpOnUp
 _OneDayDwnOnUp:
-;Controller_events_code.c,1296 :: 		void OneDayDwnOnUp() {
+;Controller_events_code.c,1297 :: 		void OneDayDwnOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1298 :: 		oneDayU--;
+;Controller_events_code.c,1299 :: 		oneDayU--;
 MOVW	R1, #lo_addr(_oneDayU+0)
 MOVT	R1, #hi_addr(_oneDayU+0)
 LDRSB	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1299 :: 		if (oneDayU <0)oneDayU=9;
+;Controller_events_code.c,1300 :: 		if (oneDayU <0)oneDayU=9;
 CMP	R0, #0
 IT	GE
-BGE	L_OneDayDwnOnUp242
+BGE	L_OneDayDwnOnUp246
 MOVS	R1, #9
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_oneDayU+0)
 MOVT	R0, #hi_addr(_oneDayU+0)
 STRB	R1, [R0, #0]
-L_OneDayDwnOnUp242:
-;Controller_events_code.c,1300 :: 		ByteToStr(oneDayU, txt);
+L_OneDayDwnOnUp246:
+;Controller_events_code.c,1301 :: 		ByteToStr(oneDayU, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_oneDayU+0)
 MOVT	R0, #hi_addr(_oneDayU+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1301 :: 		strcpy(Button12.Caption,Ltrim(txt));
+;Controller_events_code.c,1302 :: 		strcpy(Button12.Caption,Ltrim(txt));
 ADD	R0, SP, #8
 BL	_Ltrim+0
 MOVW	R1, #lo_addr(_Button12+24)
@@ -5385,68 +5436,68 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1302 :: 		DrawButton(&Button12);
+;Controller_events_code.c,1303 :: 		DrawButton(&Button12);
 MOVW	R0, #lo_addr(_Button12+0)
 MOVT	R0, #hi_addr(_Button12+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1303 :: 		}
+;Controller_events_code.c,1304 :: 		}
 L_end_OneDayDwnOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _OneDayDwnOnUp
 _OneDayUpOnPress:
-;Controller_events_code.c,1305 :: 		void OneDayUpOnPress() {
-;Controller_events_code.c,1307 :: 		}
+;Controller_events_code.c,1306 :: 		void OneDayUpOnPress() {
+;Controller_events_code.c,1308 :: 		}
 L_end_OneDayUpOnPress:
 BX	LR
 ; end of _OneDayUpOnPress
 _OneDayDwnOnPress:
-;Controller_events_code.c,1309 :: 		void OneDayDwnOnPress() {
-;Controller_events_code.c,1311 :: 		}
+;Controller_events_code.c,1310 :: 		void OneDayDwnOnPress() {
+;Controller_events_code.c,1312 :: 		}
 L_end_OneDayDwnOnPress:
 BX	LR
 ; end of _OneDayDwnOnPress
 _Day_unitUpOnClick:
-;Controller_events_code.c,1313 :: 		void Day_unitUpOnClick() {
-;Controller_events_code.c,1315 :: 		}
+;Controller_events_code.c,1314 :: 		void Day_unitUpOnClick() {
+;Controller_events_code.c,1316 :: 		}
 L_end_Day_unitUpOnClick:
 BX	LR
 ; end of _Day_unitUpOnClick
 _Day_unitDwnOnClick:
-;Controller_events_code.c,1317 :: 		void Day_unitDwnOnClick() {
-;Controller_events_code.c,1319 :: 		}
+;Controller_events_code.c,1318 :: 		void Day_unitDwnOnClick() {
+;Controller_events_code.c,1320 :: 		}
 L_end_Day_unitDwnOnClick:
 BX	LR
 ; end of _Day_unitDwnOnClick
 _Day_unitUpOnUp:
-;Controller_events_code.c,1321 :: 		void Day_unitUpOnUp() {
+;Controller_events_code.c,1322 :: 		void Day_unitUpOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1323 :: 		tenHour++;
+;Controller_events_code.c,1324 :: 		tenHour++;
 MOVW	R1, #lo_addr(_tenHour+0)
 MOVT	R1, #hi_addr(_tenHour+0)
 LDRSB	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1324 :: 		if (tenHour > 9)tenHour=0;
+;Controller_events_code.c,1325 :: 		if (tenHour > 9)tenHour=0;
 CMP	R0, #9
 IT	LE
-BLE	L_Day_unitUpOnUp243
+BLE	L_Day_unitUpOnUp247
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_tenHour+0)
 MOVT	R0, #hi_addr(_tenHour+0)
 STRB	R1, [R0, #0]
-L_Day_unitUpOnUp243:
-;Controller_events_code.c,1325 :: 		ByteToStr(tenHour, txt);
+L_Day_unitUpOnUp247:
+;Controller_events_code.c,1326 :: 		ByteToStr(tenHour, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_tenHour+0)
 MOVT	R0, #hi_addr(_tenHour+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1326 :: 		strcpy(Button21.Caption,Ltrim(txt));
+;Controller_events_code.c,1327 :: 		strcpy(Button21.Caption,Ltrim(txt));
 ADD	R0, SP, #8
 BL	_Ltrim+0
 MOVW	R1, #lo_addr(_Button21+24)
@@ -5456,44 +5507,44 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1327 :: 		DrawButton(&Button21);
+;Controller_events_code.c,1328 :: 		DrawButton(&Button21);
 MOVW	R0, #lo_addr(_Button21+0)
 MOVT	R0, #hi_addr(_Button21+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1328 :: 		}
+;Controller_events_code.c,1329 :: 		}
 L_end_Day_unitUpOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Day_unitUpOnUp
 _Day_unitDwnOnUp:
-;Controller_events_code.c,1330 :: 		void Day_unitDwnOnUp() {
+;Controller_events_code.c,1331 :: 		void Day_unitDwnOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1332 :: 		tenHour--;
+;Controller_events_code.c,1333 :: 		tenHour--;
 MOVW	R1, #lo_addr(_tenHour+0)
 MOVT	R1, #hi_addr(_tenHour+0)
 LDRSB	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1333 :: 		if (tenHour <0)tenHour=9;
+;Controller_events_code.c,1334 :: 		if (tenHour <0)tenHour=9;
 CMP	R0, #0
 IT	GE
-BGE	L_Day_unitDwnOnUp244
+BGE	L_Day_unitDwnOnUp248
 MOVS	R1, #9
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_tenHour+0)
 MOVT	R0, #hi_addr(_tenHour+0)
 STRB	R1, [R0, #0]
-L_Day_unitDwnOnUp244:
-;Controller_events_code.c,1334 :: 		ByteToStr(tenHour, txt);
+L_Day_unitDwnOnUp248:
+;Controller_events_code.c,1335 :: 		ByteToStr(tenHour, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_tenHour+0)
 MOVT	R0, #hi_addr(_tenHour+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1335 :: 		strcpy(Button21.Caption,Ltrim(txt));
+;Controller_events_code.c,1336 :: 		strcpy(Button21.Caption,Ltrim(txt));
 ADD	R0, SP, #8
 BL	_Ltrim+0
 MOVW	R1, #lo_addr(_Button21+24)
@@ -5503,68 +5554,68 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1336 :: 		DrawButton(&Button21);
+;Controller_events_code.c,1337 :: 		DrawButton(&Button21);
 MOVW	R0, #lo_addr(_Button21+0)
 MOVT	R0, #hi_addr(_Button21+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1337 :: 		}
+;Controller_events_code.c,1338 :: 		}
 L_end_Day_unitDwnOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Day_unitDwnOnUp
 _Day_unitUpOnPress:
-;Controller_events_code.c,1339 :: 		void Day_unitUpOnPress() {
-;Controller_events_code.c,1341 :: 		}
+;Controller_events_code.c,1340 :: 		void Day_unitUpOnPress() {
+;Controller_events_code.c,1342 :: 		}
 L_end_Day_unitUpOnPress:
 BX	LR
 ; end of _Day_unitUpOnPress
 _Day_unitDwnOnPress:
-;Controller_events_code.c,1343 :: 		void Day_unitDwnOnPress() {
-;Controller_events_code.c,1345 :: 		}
+;Controller_events_code.c,1344 :: 		void Day_unitDwnOnPress() {
+;Controller_events_code.c,1346 :: 		}
 L_end_Day_unitDwnOnPress:
 BX	LR
 ; end of _Day_unitDwnOnPress
 _Unit_hoursUpOnClick:
-;Controller_events_code.c,1347 :: 		void Unit_hoursUpOnClick() {
-;Controller_events_code.c,1349 :: 		}
+;Controller_events_code.c,1348 :: 		void Unit_hoursUpOnClick() {
+;Controller_events_code.c,1350 :: 		}
 L_end_Unit_hoursUpOnClick:
 BX	LR
 ; end of _Unit_hoursUpOnClick
 _Unit_hoursDwnOnClick:
-;Controller_events_code.c,1351 :: 		void Unit_hoursDwnOnClick() {
-;Controller_events_code.c,1353 :: 		}
+;Controller_events_code.c,1352 :: 		void Unit_hoursDwnOnClick() {
+;Controller_events_code.c,1354 :: 		}
 L_end_Unit_hoursDwnOnClick:
 BX	LR
 ; end of _Unit_hoursDwnOnClick
 _Unit_hoursUpOnUp:
-;Controller_events_code.c,1354 :: 		void Unit_hoursUpOnUp() {
+;Controller_events_code.c,1355 :: 		void Unit_hoursUpOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1356 :: 		oneHour++;
+;Controller_events_code.c,1357 :: 		oneHour++;
 MOVW	R1, #lo_addr(_oneHour+0)
 MOVT	R1, #hi_addr(_oneHour+0)
 LDRSB	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1357 :: 		if (oneHour > 9)oneHour=0;
+;Controller_events_code.c,1358 :: 		if (oneHour > 9)oneHour=0;
 CMP	R0, #9
 IT	LE
-BLE	L_Unit_hoursUpOnUp245
+BLE	L_Unit_hoursUpOnUp249
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_oneHour+0)
 MOVT	R0, #hi_addr(_oneHour+0)
 STRB	R1, [R0, #0]
-L_Unit_hoursUpOnUp245:
-;Controller_events_code.c,1358 :: 		ByteToStr(oneHour, txt);
+L_Unit_hoursUpOnUp249:
+;Controller_events_code.c,1359 :: 		ByteToStr(oneHour, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_oneHour+0)
 MOVT	R0, #hi_addr(_oneHour+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1359 :: 		strcpy(Button24.Caption,Ltrim(txt));
+;Controller_events_code.c,1360 :: 		strcpy(Button24.Caption,Ltrim(txt));
 ADD	R0, SP, #8
 BL	_Ltrim+0
 MOVW	R1, #lo_addr(_Button24+24)
@@ -5574,44 +5625,44 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1360 :: 		DrawButton(&Button24);
+;Controller_events_code.c,1361 :: 		DrawButton(&Button24);
 MOVW	R0, #lo_addr(_Button24+0)
 MOVT	R0, #hi_addr(_Button24+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1361 :: 		}
+;Controller_events_code.c,1362 :: 		}
 L_end_Unit_hoursUpOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Unit_hoursUpOnUp
 _Unit_hoursDwnOnUp:
-;Controller_events_code.c,1362 :: 		void Unit_hoursDwnOnUp() {
+;Controller_events_code.c,1363 :: 		void Unit_hoursDwnOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1364 :: 		oneHour--;
+;Controller_events_code.c,1365 :: 		oneHour--;
 MOVW	R1, #lo_addr(_oneHour+0)
 MOVT	R1, #hi_addr(_oneHour+0)
 LDRSB	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1365 :: 		if (oneHour <0)oneHour=9;
+;Controller_events_code.c,1366 :: 		if (oneHour <0)oneHour=9;
 CMP	R0, #0
 IT	GE
-BGE	L_Unit_hoursDwnOnUp246
+BGE	L_Unit_hoursDwnOnUp250
 MOVS	R1, #9
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_oneHour+0)
 MOVT	R0, #hi_addr(_oneHour+0)
 STRB	R1, [R0, #0]
-L_Unit_hoursDwnOnUp246:
-;Controller_events_code.c,1366 :: 		ByteToStr(oneHour, txt);
+L_Unit_hoursDwnOnUp250:
+;Controller_events_code.c,1367 :: 		ByteToStr(oneHour, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_oneHour+0)
 MOVT	R0, #hi_addr(_oneHour+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1367 :: 		strcpy(Button24.Caption,Ltrim(txt));
+;Controller_events_code.c,1368 :: 		strcpy(Button24.Caption,Ltrim(txt));
 ADD	R0, SP, #8
 BL	_Ltrim+0
 MOVW	R1, #lo_addr(_Button24+24)
@@ -5621,68 +5672,68 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1368 :: 		DrawButton(&Button24);
+;Controller_events_code.c,1369 :: 		DrawButton(&Button24);
 MOVW	R0, #lo_addr(_Button24+0)
 MOVT	R0, #hi_addr(_Button24+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1369 :: 		}
+;Controller_events_code.c,1370 :: 		}
 L_end_Unit_hoursDwnOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Unit_hoursDwnOnUp
 _Unit_hoursUpOnPress:
-;Controller_events_code.c,1370 :: 		void Unit_hoursUpOnPress() {
-;Controller_events_code.c,1372 :: 		}
+;Controller_events_code.c,1371 :: 		void Unit_hoursUpOnPress() {
+;Controller_events_code.c,1373 :: 		}
 L_end_Unit_hoursUpOnPress:
 BX	LR
 ; end of _Unit_hoursUpOnPress
 _Unit_hoursDwnOnPress:
-;Controller_events_code.c,1373 :: 		void Unit_hoursDwnOnPress() {
-;Controller_events_code.c,1375 :: 		}
+;Controller_events_code.c,1374 :: 		void Unit_hoursDwnOnPress() {
+;Controller_events_code.c,1376 :: 		}
 L_end_Unit_hoursDwnOnPress:
 BX	LR
 ; end of _Unit_hoursDwnOnPress
 _Ten_minutesUpOnClick:
-;Controller_events_code.c,1377 :: 		void Ten_minutesUpOnClick() {
-;Controller_events_code.c,1379 :: 		}
+;Controller_events_code.c,1378 :: 		void Ten_minutesUpOnClick() {
+;Controller_events_code.c,1380 :: 		}
 L_end_Ten_minutesUpOnClick:
 BX	LR
 ; end of _Ten_minutesUpOnClick
 _Ten_minutesDwnOnClick:
-;Controller_events_code.c,1380 :: 		void Ten_minutesDwnOnClick() {
-;Controller_events_code.c,1382 :: 		}
+;Controller_events_code.c,1381 :: 		void Ten_minutesDwnOnClick() {
+;Controller_events_code.c,1383 :: 		}
 L_end_Ten_minutesDwnOnClick:
 BX	LR
 ; end of _Ten_minutesDwnOnClick
 _Ten_minutesUpOnUp:
-;Controller_events_code.c,1383 :: 		void Ten_minutesUpOnUp() {
+;Controller_events_code.c,1384 :: 		void Ten_minutesUpOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1385 :: 		tenMinute++;
+;Controller_events_code.c,1386 :: 		tenMinute++;
 MOVW	R1, #lo_addr(_tenMinute+0)
 MOVT	R1, #hi_addr(_tenMinute+0)
 LDRSB	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1386 :: 		if (tenMinute > 9)tenMinute=0;
+;Controller_events_code.c,1387 :: 		if (tenMinute > 9)tenMinute=0;
 CMP	R0, #9
 IT	LE
-BLE	L_Ten_minutesUpOnUp247
+BLE	L_Ten_minutesUpOnUp251
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_tenMinute+0)
 MOVT	R0, #hi_addr(_tenMinute+0)
 STRB	R1, [R0, #0]
-L_Ten_minutesUpOnUp247:
-;Controller_events_code.c,1387 :: 		ByteToStr(tenMinute, txt);
+L_Ten_minutesUpOnUp251:
+;Controller_events_code.c,1388 :: 		ByteToStr(tenMinute, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_tenMinute+0)
 MOVT	R0, #hi_addr(_tenMinute+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1388 :: 		strcpy(Button40.Caption,Ltrim(txt));
+;Controller_events_code.c,1389 :: 		strcpy(Button40.Caption,Ltrim(txt));
 ADD	R0, SP, #8
 BL	_Ltrim+0
 MOVW	R1, #lo_addr(_Button40+24)
@@ -5692,44 +5743,44 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1389 :: 		DrawButton(&Button40);
+;Controller_events_code.c,1390 :: 		DrawButton(&Button40);
 MOVW	R0, #lo_addr(_Button40+0)
 MOVT	R0, #hi_addr(_Button40+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1390 :: 		}
+;Controller_events_code.c,1391 :: 		}
 L_end_Ten_minutesUpOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Ten_minutesUpOnUp
 _Ten_minutesDwnOnUp:
-;Controller_events_code.c,1391 :: 		void Ten_minutesDwnOnUp() {
+;Controller_events_code.c,1392 :: 		void Ten_minutesDwnOnUp() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1393 :: 		tenMinute--;
+;Controller_events_code.c,1394 :: 		tenMinute--;
 MOVW	R1, #lo_addr(_tenMinute+0)
 MOVT	R1, #hi_addr(_tenMinute+0)
 LDRSB	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1394 :: 		if (tenMinute <0)tenMinute=9;
+;Controller_events_code.c,1395 :: 		if (tenMinute <0)tenMinute=9;
 CMP	R0, #0
 IT	GE
-BGE	L_Ten_minutesDwnOnUp248
+BGE	L_Ten_minutesDwnOnUp252
 MOVS	R1, #9
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_tenMinute+0)
 MOVT	R0, #hi_addr(_tenMinute+0)
 STRB	R1, [R0, #0]
-L_Ten_minutesDwnOnUp248:
-;Controller_events_code.c,1395 :: 		ByteToStr(tenMinute, txt);
+L_Ten_minutesDwnOnUp252:
+;Controller_events_code.c,1396 :: 		ByteToStr(tenMinute, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_tenMinute+0)
 MOVT	R0, #hi_addr(_tenMinute+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1396 :: 		strcpy(Button40.Caption,Ltrim(txt));
+;Controller_events_code.c,1397 :: 		strcpy(Button40.Caption,Ltrim(txt));
 ADD	R0, SP, #8
 BL	_Ltrim+0
 MOVW	R1, #lo_addr(_Button40+24)
@@ -5739,68 +5790,68 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1397 :: 		DrawButton(&Button40);
+;Controller_events_code.c,1398 :: 		DrawButton(&Button40);
 MOVW	R0, #lo_addr(_Button40+0)
 MOVT	R0, #hi_addr(_Button40+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1398 :: 		}
+;Controller_events_code.c,1399 :: 		}
 L_end_Ten_minutesDwnOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Ten_minutesDwnOnUp
 _Ten_minutesUpOnPress:
-;Controller_events_code.c,1399 :: 		void Ten_minutesUpOnPress() {
-;Controller_events_code.c,1401 :: 		}
+;Controller_events_code.c,1400 :: 		void Ten_minutesUpOnPress() {
+;Controller_events_code.c,1402 :: 		}
 L_end_Ten_minutesUpOnPress:
 BX	LR
 ; end of _Ten_minutesUpOnPress
 _Ten_minutesDwnOnPress:
-;Controller_events_code.c,1402 :: 		void Ten_minutesDwnOnPress() {
-;Controller_events_code.c,1404 :: 		}
+;Controller_events_code.c,1403 :: 		void Ten_minutesDwnOnPress() {
+;Controller_events_code.c,1405 :: 		}
 L_end_Ten_minutesDwnOnPress:
 BX	LR
 ; end of _Ten_minutesDwnOnPress
 _Unit_minutesUpOnClick:
-;Controller_events_code.c,1406 :: 		void Unit_minutesUpOnClick() {
-;Controller_events_code.c,1408 :: 		}
+;Controller_events_code.c,1407 :: 		void Unit_minutesUpOnClick() {
+;Controller_events_code.c,1409 :: 		}
 L_end_Unit_minutesUpOnClick:
 BX	LR
 ; end of _Unit_minutesUpOnClick
 _Unit_minutesDwnOnClick:
-;Controller_events_code.c,1410 :: 		void Unit_minutesDwnOnClick() {
-;Controller_events_code.c,1412 :: 		}
+;Controller_events_code.c,1411 :: 		void Unit_minutesDwnOnClick() {
+;Controller_events_code.c,1413 :: 		}
 L_end_Unit_minutesDwnOnClick:
 BX	LR
 ; end of _Unit_minutesDwnOnClick
 _Unit_minutesUpOnUp:
-;Controller_events_code.c,1414 :: 		void Unit_minutesUpOnUp(){
+;Controller_events_code.c,1415 :: 		void Unit_minutesUpOnUp(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1416 :: 		oneMinute++;
+;Controller_events_code.c,1417 :: 		oneMinute++;
 MOVW	R1, #lo_addr(_oneMinute+0)
 MOVT	R1, #hi_addr(_oneMinute+0)
 LDRSB	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1417 :: 		if (oneMinute > 9)oneMinute=0;
+;Controller_events_code.c,1418 :: 		if (oneMinute > 9)oneMinute=0;
 CMP	R0, #9
 IT	LE
-BLE	L_Unit_minutesUpOnUp249
+BLE	L_Unit_minutesUpOnUp253
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_oneMinute+0)
 MOVT	R0, #hi_addr(_oneMinute+0)
 STRB	R1, [R0, #0]
-L_Unit_minutesUpOnUp249:
-;Controller_events_code.c,1418 :: 		ByteToStr(oneMinute, txt);
+L_Unit_minutesUpOnUp253:
+;Controller_events_code.c,1419 :: 		ByteToStr(oneMinute, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_oneMinute+0)
 MOVT	R0, #hi_addr(_oneMinute+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1419 :: 		strcpy(Button43.Caption,Ltrim(txt));
+;Controller_events_code.c,1420 :: 		strcpy(Button43.Caption,Ltrim(txt));
 ADD	R0, SP, #8
 BL	_Ltrim+0
 MOVW	R1, #lo_addr(_Button43+24)
@@ -5810,44 +5861,44 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1420 :: 		DrawButton(&Button43);
+;Controller_events_code.c,1421 :: 		DrawButton(&Button43);
 MOVW	R0, #lo_addr(_Button43+0)
 MOVT	R0, #hi_addr(_Button43+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1421 :: 		}
+;Controller_events_code.c,1422 :: 		}
 L_end_Unit_minutesUpOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Unit_minutesUpOnUp
 _Unit_minutesDwnOnUp:
-;Controller_events_code.c,1423 :: 		void Unit_minutesDwnOnUp(){
+;Controller_events_code.c,1424 :: 		void Unit_minutesDwnOnUp(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1425 :: 		oneMinute--;
+;Controller_events_code.c,1426 :: 		oneMinute--;
 MOVW	R1, #lo_addr(_oneMinute+0)
 MOVT	R1, #hi_addr(_oneMinute+0)
 LDRSB	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTB	R0, R0
 STRB	R0, [R1, #0]
-;Controller_events_code.c,1426 :: 		if (oneMinute <0)oneMinute=9;
+;Controller_events_code.c,1427 :: 		if (oneMinute <0)oneMinute=9;
 CMP	R0, #0
 IT	GE
-BGE	L_Unit_minutesDwnOnUp250
+BGE	L_Unit_minutesDwnOnUp254
 MOVS	R1, #9
 SXTB	R1, R1
 MOVW	R0, #lo_addr(_oneMinute+0)
 MOVT	R0, #hi_addr(_oneMinute+0)
 STRB	R1, [R0, #0]
-L_Unit_minutesDwnOnUp250:
-;Controller_events_code.c,1427 :: 		ByteToStr(oneMinute, txt);
+L_Unit_minutesDwnOnUp254:
+;Controller_events_code.c,1428 :: 		ByteToStr(oneMinute, txt);
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_oneMinute+0)
 MOVT	R0, #hi_addr(_oneMinute+0)
 LDRSB	R0, [R0, #0]
 BL	_ByteToStr+0
-;Controller_events_code.c,1428 :: 		strcpy(Button43.Caption,Ltrim(txt));
+;Controller_events_code.c,1429 :: 		strcpy(Button43.Caption,Ltrim(txt));
 ADD	R0, SP, #8
 BL	_Ltrim+0
 MOVW	R1, #lo_addr(_Button43+24)
@@ -5857,611 +5908,611 @@ STR	R1, [SP, #4]
 MOV	R1, R0
 LDR	R0, [SP, #4]
 BL	_strcpy+0
-;Controller_events_code.c,1429 :: 		DrawButton(&Button43);
+;Controller_events_code.c,1430 :: 		DrawButton(&Button43);
 MOVW	R0, #lo_addr(_Button43+0)
 MOVT	R0, #hi_addr(_Button43+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1430 :: 		}
+;Controller_events_code.c,1431 :: 		}
 L_end_Unit_minutesDwnOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Unit_minutesDwnOnUp
 _Unit_minutesUpOnPress:
-;Controller_events_code.c,1432 :: 		void Unit_minutesUpOnPress() {
-;Controller_events_code.c,1434 :: 		}
+;Controller_events_code.c,1433 :: 		void Unit_minutesUpOnPress() {
+;Controller_events_code.c,1435 :: 		}
 L_end_Unit_minutesUpOnPress:
 BX	LR
 ; end of _Unit_minutesUpOnPress
 _Unit_minutesDwnOnPress:
-;Controller_events_code.c,1436 :: 		void Unit_minutesDwnOnPress() {
-;Controller_events_code.c,1438 :: 		}
+;Controller_events_code.c,1437 :: 		void Unit_minutesDwnOnPress() {
+;Controller_events_code.c,1439 :: 		}
 L_end_Unit_minutesDwnOnPress:
 BX	LR
 ; end of _Unit_minutesDwnOnPress
 _Admin_SetOnClick:
-;Controller_events_code.c,1441 :: 		void Admin_SetOnClick(){
-;Controller_events_code.c,1442 :: 		}
+;Controller_events_code.c,1442 :: 		void Admin_SetOnClick(){
+;Controller_events_code.c,1443 :: 		}
 L_end_Admin_SetOnClick:
 BX	LR
 ; end of _Admin_SetOnClick
 _system_passOnDown:
-;Controller_events_code.c,1444 :: 		void system_passOnDown() {
+;Controller_events_code.c,1445 :: 		void system_passOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1445 :: 		Image83.Visible = 1;
+;Controller_events_code.c,1446 :: 		Image83.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image83+20)
 MOVT	R0, #hi_addr(_Image83+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1446 :: 		DrawImage(&Image83);
+;Controller_events_code.c,1447 :: 		DrawImage(&Image83);
 MOVW	R0, #lo_addr(_Image83+0)
 MOVT	R0, #hi_addr(_Image83+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1447 :: 		}
+;Controller_events_code.c,1448 :: 		}
 L_end_system_passOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_passOnDown
 _system_passOnUp:
-;Controller_events_code.c,1449 :: 		void system_passOnUp() {
+;Controller_events_code.c,1450 :: 		void system_passOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1450 :: 		Tone2();
+;Controller_events_code.c,1451 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,1451 :: 		BLED_Fade_Out();
+;Controller_events_code.c,1452 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,1452 :: 		Image83.Visible = 0;
+;Controller_events_code.c,1453 :: 		Image83.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image83+20)
 MOVT	R0, #hi_addr(_Image83+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1453 :: 		DrawScreen(&PASSWORD);
+;Controller_events_code.c,1454 :: 		DrawScreen(&PASSWORD);
 MOVW	R0, #lo_addr(_PASSWORD+0)
 MOVT	R0, #hi_addr(_PASSWORD+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,1454 :: 		BLED_Fade_In();
+;Controller_events_code.c,1455 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,1455 :: 		}
+;Controller_events_code.c,1456 :: 		}
 L_end_system_passOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_passOnUp
 _ModeSetOnUp:
-;Controller_events_code.c,1457 :: 		void ModeSetOnUp() {
+;Controller_events_code.c,1458 :: 		void ModeSetOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1458 :: 		if (SYSTEM_ON == false) {
+;Controller_events_code.c,1459 :: 		if (SYSTEM_ON == false) {
 MOVW	R0, #lo_addr(_SYSTEM_ON+0)
 MOVT	R0, #hi_addr(_SYSTEM_ON+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
-BNE	L_ModeSetOnUp251
-;Controller_events_code.c,1459 :: 		BLED_Fade_Out();
+BNE	L_ModeSetOnUp255
+;Controller_events_code.c,1460 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,1460 :: 		strcpy(System_Set_Message.Caption, " ");
-MOVW	R1, #lo_addr(?lstr81_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr81_Controller_events_code+0)
+;Controller_events_code.c,1461 :: 		strcpy(System_Set_Message.Caption, " ");
+MOVW	R1, #lo_addr(?lstr83_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr83_Controller_events_code+0)
 MOVW	R0, #lo_addr(_System_Set_Message+24)
 MOVT	R0, #hi_addr(_System_Set_Message+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,1461 :: 		Image300.Visible = 0;
+;Controller_events_code.c,1462 :: 		Image300.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image300+20)
 MOVT	R0, #hi_addr(_Image300+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1462 :: 		System_Set_Message.Visible = 0;
+;Controller_events_code.c,1463 :: 		System_Set_Message.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_System_Set_Message+18)
 MOVT	R0, #hi_addr(_System_Set_Message+18)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1463 :: 		BLED_Fade_In();
+;Controller_events_code.c,1464 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,1464 :: 		}
+;Controller_events_code.c,1465 :: 		}
 IT	AL
-BAL	L_ModeSetOnUp252
-L_ModeSetOnUp251:
-;Controller_events_code.c,1466 :: 		strcpy(System_Set_Message.Caption, "Please  OFF  system  power!");
-MOVW	R1, #lo_addr(?lstr82_Controller_events_code+0)
-MOVT	R1, #hi_addr(?lstr82_Controller_events_code+0)
+BAL	L_ModeSetOnUp256
+L_ModeSetOnUp255:
+;Controller_events_code.c,1467 :: 		strcpy(System_Set_Message.Caption, "Please  OFF  system  power!");
+MOVW	R1, #lo_addr(?lstr84_Controller_events_code+0)
+MOVT	R1, #hi_addr(?lstr84_Controller_events_code+0)
 MOVW	R0, #lo_addr(_System_Set_Message+24)
 MOVT	R0, #hi_addr(_System_Set_Message+24)
 LDR	R0, [R0, #0]
 BL	_strcpy+0
-;Controller_events_code.c,1467 :: 		Image300.Visible = 1;
+;Controller_events_code.c,1468 :: 		Image300.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image300+20)
 MOVT	R0, #hi_addr(_Image300+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1468 :: 		DrawImage (&Image300);
+;Controller_events_code.c,1469 :: 		DrawImage (&Image300);
 MOVW	R0, #lo_addr(_Image300+0)
 MOVT	R0, #hi_addr(_Image300+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1469 :: 		System_Set_Message.Visible = 1;
+;Controller_events_code.c,1470 :: 		System_Set_Message.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_System_Set_Message+18)
 MOVT	R0, #hi_addr(_System_Set_Message+18)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1470 :: 		DrawButton (&System_Set_Message);
+;Controller_events_code.c,1471 :: 		DrawButton (&System_Set_Message);
 MOVW	R0, #lo_addr(_System_Set_Message+0)
 MOVT	R0, #hi_addr(_System_Set_Message+0)
 BL	_DrawButton+0
-;Controller_events_code.c,1471 :: 		}
-L_ModeSetOnUp252:
 ;Controller_events_code.c,1472 :: 		}
+L_ModeSetOnUp256:
+;Controller_events_code.c,1473 :: 		}
 L_end_ModeSetOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _ModeSetOnUp
 _ModeSetOnDown:
-;Controller_events_code.c,1474 :: 		void ModeSetOnDown() {
+;Controller_events_code.c,1475 :: 		void ModeSetOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1475 :: 		Image85.Visible = 1;
+;Controller_events_code.c,1476 :: 		Image85.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image85+20)
 MOVT	R0, #hi_addr(_Image85+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1476 :: 		DrawImage(&Image85);
+;Controller_events_code.c,1477 :: 		DrawImage(&Image85);
 MOVW	R0, #lo_addr(_Image85+0)
 MOVT	R0, #hi_addr(_Image85+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1477 :: 		}
+;Controller_events_code.c,1478 :: 		}
 L_end_ModeSetOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _ModeSetOnDown
 _system_EEVOnDown:
-;Controller_events_code.c,1479 :: 		void system_EEVOnDown() {
+;Controller_events_code.c,1480 :: 		void system_EEVOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1480 :: 		Image89.Visible = 1;
+;Controller_events_code.c,1481 :: 		Image89.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image89+20)
 MOVT	R0, #hi_addr(_Image89+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1481 :: 		DrawImage(&Image89);
+;Controller_events_code.c,1482 :: 		DrawImage(&Image89);
 MOVW	R0, #lo_addr(_Image89+0)
 MOVT	R0, #hi_addr(_Image89+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1482 :: 		reciev_data_packet(TRV_CORRECT_1,1);
+;Controller_events_code.c,1483 :: 		reciev_data_packet(TRV_CORRECT_1,1);
 MOVS	R1, #1
 MOVW	R0, #391
 SXTH	R0, R0
 BL	_reciev_data_packet+0
-;Controller_events_code.c,1483 :: 		Delay_ms(300);
+;Controller_events_code.c,1484 :: 		Delay_ms(300);
 MOVW	R7, #57790
 MOVT	R7, #228
 NOP
 NOP
-L_system_EEVOnDown253:
+L_system_EEVOnDown257:
 SUBS	R7, R7, #1
-BNE	L_system_EEVOnDown253
+BNE	L_system_EEVOnDown257
 NOP
 NOP
 NOP
-;Controller_events_code.c,1484 :: 		}
+;Controller_events_code.c,1485 :: 		}
 L_end_system_EEVOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_EEVOnDown
 _system_EEVOnUp:
-;Controller_events_code.c,1486 :: 		void system_EEVOnUp() {
+;Controller_events_code.c,1487 :: 		void system_EEVOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1488 :: 		Tone2();
+;Controller_events_code.c,1489 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,1489 :: 		BLED_Fade_Out();
+;Controller_events_code.c,1490 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,1490 :: 		incTRV = 0;
+;Controller_events_code.c,1491 :: 		incTRV = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_incTRV+0)
 MOVT	R0, #hi_addr(_incTRV+0)
 STRH	R1, [R0, #0]
-;Controller_events_code.c,1493 :: 		Image89.Visible = 0;
+;Controller_events_code.c,1494 :: 		Image89.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image89+20)
 MOVT	R0, #hi_addr(_Image89+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1494 :: 		DrawScreen(&EEV);
+;Controller_events_code.c,1495 :: 		DrawScreen(&EEV);
 MOVW	R0, #lo_addr(_EEV+0)
 MOVT	R0, #hi_addr(_EEV+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,1495 :: 		BLED_Fade_In();
+;Controller_events_code.c,1496 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,1497 :: 		}
+;Controller_events_code.c,1498 :: 		}
 L_end_system_EEVOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_EEVOnUp
 _system_modeOnDown:
-;Controller_events_code.c,1499 :: 		void system_modeOnDown() {
+;Controller_events_code.c,1500 :: 		void system_modeOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1500 :: 		Image85.Visible = 1;
+;Controller_events_code.c,1501 :: 		Image85.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image85+20)
 MOVT	R0, #hi_addr(_Image85+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1501 :: 		DrawImage(&Image85);
+;Controller_events_code.c,1502 :: 		DrawImage(&Image85);
 MOVW	R0, #lo_addr(_Image85+0)
 MOVT	R0, #hi_addr(_Image85+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1502 :: 		}
+;Controller_events_code.c,1503 :: 		}
 L_end_system_modeOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_modeOnDown
 _system_modeOnUp:
-;Controller_events_code.c,1504 :: 		void system_modeOnUp() {
+;Controller_events_code.c,1505 :: 		void system_modeOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1505 :: 		Tone2();
+;Controller_events_code.c,1506 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,1506 :: 		BLED_Fade_Out();
+;Controller_events_code.c,1507 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,1507 :: 		Image85.Visible = 0;
+;Controller_events_code.c,1508 :: 		Image85.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image85+20)
 MOVT	R0, #hi_addr(_Image85+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1508 :: 		DrawScreen(&MODE);
+;Controller_events_code.c,1509 :: 		DrawScreen(&MODE);
 MOVW	R0, #lo_addr(_MODE+0)
 MOVT	R0, #hi_addr(_MODE+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,1509 :: 		BLED_Fade_In();
+;Controller_events_code.c,1510 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,1510 :: 		}
+;Controller_events_code.c,1511 :: 		}
 L_end_system_modeOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_modeOnUp
 _system_delayOnUp:
-;Controller_events_code.c,1512 :: 		void system_delayOnUp() {
+;Controller_events_code.c,1513 :: 		void system_delayOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1513 :: 		Tone2();
+;Controller_events_code.c,1514 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,1514 :: 		BLED_Fade_Out();
+;Controller_events_code.c,1515 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,1515 :: 		Image90.Visible = 0;
+;Controller_events_code.c,1516 :: 		Image90.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image90+20)
 MOVT	R0, #hi_addr(_Image90+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1516 :: 		DrawScreen(&DELAY_MENU);
+;Controller_events_code.c,1517 :: 		DrawScreen(&DELAY_MENU);
 MOVW	R0, #lo_addr(_DELAY_MENU+0)
 MOVT	R0, #hi_addr(_DELAY_MENU+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,1517 :: 		BLED_Fade_In();
+;Controller_events_code.c,1518 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,1518 :: 		}
+;Controller_events_code.c,1519 :: 		}
 L_end_system_delayOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_delayOnUp
 _system_delayOnDown:
-;Controller_events_code.c,1519 :: 		void system_delayOnDown() {
+;Controller_events_code.c,1520 :: 		void system_delayOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1520 :: 		Image90.Visible = 1;
+;Controller_events_code.c,1521 :: 		Image90.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image90+20)
 MOVT	R0, #hi_addr(_Image90+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1521 :: 		DrawImage(&Image90);
+;Controller_events_code.c,1522 :: 		DrawImage(&Image90);
 MOVW	R0, #lo_addr(_Image90+0)
 MOVT	R0, #hi_addr(_Image90+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1522 :: 		}
+;Controller_events_code.c,1523 :: 		}
 L_end_system_delayOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_delayOnDown
 _system_graphOnDown:
-;Controller_events_code.c,1524 :: 		void system_graphOnDown() {
+;Controller_events_code.c,1525 :: 		void system_graphOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1525 :: 		Tone2();
+;Controller_events_code.c,1526 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,1526 :: 		BLED_Fade_Out();
+;Controller_events_code.c,1527 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,1527 :: 		Image90.Visible = 0;
+;Controller_events_code.c,1528 :: 		Image90.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image90+20)
 MOVT	R0, #hi_addr(_Image90+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1528 :: 		DrawScreen(&Graph);
+;Controller_events_code.c,1529 :: 		DrawScreen(&Graph);
 MOVW	R0, #lo_addr(_Graph+0)
 MOVT	R0, #hi_addr(_Graph+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,1529 :: 		BLED_Fade_In();
+;Controller_events_code.c,1530 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,1530 :: 		}
+;Controller_events_code.c,1531 :: 		}
 L_end_system_graphOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_graphOnDown
 _system_graphOnUp:
-;Controller_events_code.c,1532 :: 		void system_graphOnUp() {
+;Controller_events_code.c,1533 :: 		void system_graphOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1533 :: 		Image92.Visible = 1;
+;Controller_events_code.c,1534 :: 		Image92.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image92+20)
 MOVT	R0, #hi_addr(_Image92+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1534 :: 		DrawImage(&Image92);
+;Controller_events_code.c,1535 :: 		DrawImage(&Image92);
 MOVW	R0, #lo_addr(_Image92+0)
 MOVT	R0, #hi_addr(_Image92+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1536 :: 		}
+;Controller_events_code.c,1537 :: 		}
 L_end_system_graphOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_graphOnUp
 _system_microSDOnDown:
-;Controller_events_code.c,1537 :: 		void system_microSDOnDown() {
+;Controller_events_code.c,1538 :: 		void system_microSDOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1538 :: 		Image88.Visible = 1;
+;Controller_events_code.c,1539 :: 		Image88.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image88+20)
 MOVT	R0, #hi_addr(_Image88+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1539 :: 		DrawImage(&Image88);
+;Controller_events_code.c,1540 :: 		DrawImage(&Image88);
 MOVW	R0, #lo_addr(_Image88+0)
 MOVT	R0, #hi_addr(_Image88+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1540 :: 		}
+;Controller_events_code.c,1541 :: 		}
 L_end_system_microSDOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_microSDOnDown
 _system_microSDOnUp:
-;Controller_events_code.c,1542 :: 		void system_microSDOnUp() {
+;Controller_events_code.c,1543 :: 		void system_microSDOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1543 :: 		Tone2();
+;Controller_events_code.c,1544 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,1544 :: 		BLED_Fade_Out();
+;Controller_events_code.c,1545 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,1545 :: 		Image88.Visible = 0;
+;Controller_events_code.c,1546 :: 		Image88.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image88+20)
 MOVT	R0, #hi_addr(_Image88+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1546 :: 		DrawScreen(&MICRO_SD);
+;Controller_events_code.c,1547 :: 		DrawScreen(&MICRO_SD);
 MOVW	R0, #lo_addr(_MICRO_SD+0)
 MOVT	R0, #hi_addr(_MICRO_SD+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,1547 :: 		BLED_Fade_In();
+;Controller_events_code.c,1548 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,1548 :: 		}
+;Controller_events_code.c,1549 :: 		}
 L_end_system_microSDOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_microSDOnUp
 _system_limitsOnDown:
-;Controller_events_code.c,1551 :: 		void system_limitsOnDown() {
+;Controller_events_code.c,1552 :: 		void system_limitsOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1552 :: 		Image91.Visible = 1;
+;Controller_events_code.c,1553 :: 		Image91.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image91+20)
 MOVT	R0, #hi_addr(_Image91+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1553 :: 		DrawImage(&Image91);
+;Controller_events_code.c,1554 :: 		DrawImage(&Image91);
 MOVW	R0, #lo_addr(_Image91+0)
 MOVT	R0, #hi_addr(_Image91+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1554 :: 		}
+;Controller_events_code.c,1555 :: 		}
 L_end_system_limitsOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_limitsOnDown
 _system_limitsOnUp:
-;Controller_events_code.c,1556 :: 		void system_limitsOnUp() {
+;Controller_events_code.c,1557 :: 		void system_limitsOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1557 :: 		Tone2();
+;Controller_events_code.c,1558 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,1558 :: 		BLED_Fade_Out();
+;Controller_events_code.c,1559 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,1559 :: 		Image91.Visible = 0;
+;Controller_events_code.c,1560 :: 		Image91.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image91+20)
 MOVT	R0, #hi_addr(_Image91+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1560 :: 		DrawScreen(&LIMITS1);
+;Controller_events_code.c,1561 :: 		DrawScreen(&LIMITS1);
 MOVW	R0, #lo_addr(_LIMITS1+0)
 MOVT	R0, #hi_addr(_LIMITS1+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,1561 :: 		BLED_Fade_In();
+;Controller_events_code.c,1562 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,1562 :: 		}
+;Controller_events_code.c,1563 :: 		}
 L_end_system_limitsOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_limitsOnUp
 _ssytem_graphOnDown:
-;Controller_events_code.c,1564 :: 		void ssytem_graphOnDown() {
+;Controller_events_code.c,1565 :: 		void ssytem_graphOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1565 :: 		Image92.Visible = 1;
+;Controller_events_code.c,1566 :: 		Image92.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image92+20)
 MOVT	R0, #hi_addr(_Image92+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1566 :: 		DrawImage(&Image92);
+;Controller_events_code.c,1567 :: 		DrawImage(&Image92);
 MOVW	R0, #lo_addr(_Image92+0)
 MOVT	R0, #hi_addr(_Image92+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1567 :: 		}
+;Controller_events_code.c,1568 :: 		}
 L_end_ssytem_graphOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _ssytem_graphOnDown
 _ssytem_graphOnUp:
-;Controller_events_code.c,1569 :: 		void ssytem_graphOnUp() {
+;Controller_events_code.c,1570 :: 		void ssytem_graphOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1570 :: 		Tone2();
+;Controller_events_code.c,1571 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,1571 :: 		BLED_Fade_Out();
+;Controller_events_code.c,1572 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,1572 :: 		Image92.Visible = 0;
+;Controller_events_code.c,1573 :: 		Image92.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image92+20)
 MOVT	R0, #hi_addr(_Image92+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1573 :: 		DrawScreen(&Graph);
+;Controller_events_code.c,1574 :: 		DrawScreen(&Graph);
 MOVW	R0, #lo_addr(_Graph+0)
 MOVT	R0, #hi_addr(_Graph+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,1574 :: 		BLED_Fade_In();
+;Controller_events_code.c,1575 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,1575 :: 		}
+;Controller_events_code.c,1576 :: 		}
 L_end_ssytem_graphOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _ssytem_graphOnUp
 _system_historyOnDown:
-;Controller_events_code.c,1577 :: 		void system_historyOnDown() {
+;Controller_events_code.c,1578 :: 		void system_historyOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1578 :: 		Image93.Visible = 1;
+;Controller_events_code.c,1579 :: 		Image93.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image93+20)
 MOVT	R0, #hi_addr(_Image93+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1579 :: 		DrawImage(&Image93);
+;Controller_events_code.c,1580 :: 		DrawImage(&Image93);
 MOVW	R0, #lo_addr(_Image93+0)
 MOVT	R0, #hi_addr(_Image93+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1580 :: 		}
+;Controller_events_code.c,1581 :: 		}
 L_end_system_historyOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_historyOnDown
 _system_historyOnUp:
-;Controller_events_code.c,1582 :: 		void system_historyOnUp() {
+;Controller_events_code.c,1583 :: 		void system_historyOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1583 :: 		Tone2();
+;Controller_events_code.c,1584 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,1584 :: 		BLED_Fade_Out();
+;Controller_events_code.c,1585 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Controller_events_code.c,1585 :: 		Image93.Visible = 0;
+;Controller_events_code.c,1586 :: 		Image93.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image93+20)
 MOVT	R0, #hi_addr(_Image93+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1586 :: 		DrawScreen(&SYSTEM_EVENTS);
+;Controller_events_code.c,1587 :: 		DrawScreen(&SYSTEM_EVENTS);
 MOVW	R0, #lo_addr(_SYSTEM_EVENTS+0)
 MOVT	R0, #hi_addr(_SYSTEM_EVENTS+0)
 BL	_DrawScreen+0
-;Controller_events_code.c,1587 :: 		BLED_Fade_In();
+;Controller_events_code.c,1588 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
-;Controller_events_code.c,1588 :: 		}
+;Controller_events_code.c,1589 :: 		}
 L_end_system_historyOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _system_historyOnUp
 _Delay_Source_DOWNOnUp:
-;Controller_events_code.c,1591 :: 		void Delay_Source_DOWNOnUp() {
+;Controller_events_code.c,1592 :: 		void Delay_Source_DOWNOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1592 :: 		Image306.Visible = 0;
+;Controller_events_code.c,1593 :: 		Image306.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image306+20)
 MOVT	R0, #hi_addr(_Image306+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1593 :: 		Delay_Source_DOWN.Visible = 1;
+;Controller_events_code.c,1594 :: 		Delay_Source_DOWN.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_Source_DOWN+20)
 MOVT	R0, #hi_addr(_Delay_Source_DOWN+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1594 :: 		DrawImage(&Delay_Source_DOWN);
+;Controller_events_code.c,1595 :: 		DrawImage(&Delay_Source_DOWN);
 MOVW	R0, #lo_addr(_Delay_Source_DOWN+0)
 MOVT	R0, #hi_addr(_Delay_Source_DOWN+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1595 :: 		}
+;Controller_events_code.c,1596 :: 		}
 L_end_Delay_Source_DOWNOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_Source_DOWNOnUp
 _Delay_Source_DOWNOnPress:
-;Controller_events_code.c,1596 :: 		void Delay_Source_DOWNOnPress() {
+;Controller_events_code.c,1597 :: 		void Delay_Source_DOWNOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1599 :: 		Tone2 ();
+;Controller_events_code.c,1600 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,1600 :: 		Image306.Visible = 1;
+;Controller_events_code.c,1601 :: 		Image306.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image306+20)
 MOVT	R0, #hi_addr(_Image306+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1601 :: 		Delay_Source_DOWN.Visible = 0;
+;Controller_events_code.c,1602 :: 		Delay_Source_DOWN.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_Source_DOWN+20)
 MOVT	R0, #hi_addr(_Delay_Source_DOWN+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1602 :: 		DrawImage(&Image306);
+;Controller_events_code.c,1603 :: 		DrawImage(&Image306);
 MOVW	R0, #lo_addr(_Image306+0)
 MOVT	R0, #hi_addr(_Image306+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1605 :: 		system_reg[SOURS_DEL]--;
+;Controller_events_code.c,1606 :: 		system_reg[SOURS_DEL]--;
 MOVW	R1, #lo_addr(_system_reg+60)
 MOVT	R1, #hi_addr(_system_reg+60)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1606 :: 		if (system_reg[SOURS_DEL] <0) system_reg[SOURS_DEL]=0;
+;Controller_events_code.c,1607 :: 		if (system_reg[SOURS_DEL] <0) system_reg[SOURS_DEL]=0;
 CMP	R0, #0
 IT	GE
-BGE	L_Delay_Source_DOWNOnPress255
+BGE	L_Delay_Source_DOWNOnPress259
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+60)
 MOVT	R0, #hi_addr(_system_reg+60)
 STRH	R1, [R0, #0]
-L_Delay_Source_DOWNOnPress255:
-;Controller_events_code.c,1607 :: 		IntToStr(system_reg[SOURS_DEL], txt);
+L_Delay_Source_DOWNOnPress259:
+;Controller_events_code.c,1608 :: 		IntToStr(system_reg[SOURS_DEL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+60)
 MOVT	R0, #hi_addr(_system_reg+60)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1608 :: 		Ltrim (txt);
+;Controller_events_code.c,1609 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1609 :: 		strncpy(Delay_Source.Caption, txt, 2);
+;Controller_events_code.c,1610 :: 		strncpy(Delay_Source.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Delay_Source+24)
 MOVT	R0, #hi_addr(_Delay_Source+24)
@@ -6469,98 +6520,98 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1610 :: 		DrawRoundButton(&Delay_Source);
+;Controller_events_code.c,1611 :: 		DrawRoundButton(&Delay_Source);
 MOVW	R0, #lo_addr(_Delay_Source+0)
 MOVT	R0, #hi_addr(_Delay_Source+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1611 :: 		Delay_ms (100);
+;Controller_events_code.c,1612 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Delay_Source_DOWNOnPress256:
+L_Delay_Source_DOWNOnPress260:
 SUBS	R7, R7, #1
-BNE	L_Delay_Source_DOWNOnPress256
+BNE	L_Delay_Source_DOWNOnPress260
 NOP
 NOP
 NOP
-;Controller_events_code.c,1612 :: 		}
+;Controller_events_code.c,1613 :: 		}
 L_end_Delay_Source_DOWNOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Delay_Source_DOWNOnPress
 _Delay_Source_UPOnUp:
-;Controller_events_code.c,1613 :: 		void Delay_Source_UPOnUp() {
+;Controller_events_code.c,1614 :: 		void Delay_Source_UPOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1614 :: 		Image312.Visible = 0;
+;Controller_events_code.c,1615 :: 		Image312.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image312+20)
 MOVT	R0, #hi_addr(_Image312+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1615 :: 		Delay_Source_UP.Visible = 1;
+;Controller_events_code.c,1616 :: 		Delay_Source_UP.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_Source_UP+20)
 MOVT	R0, #hi_addr(_Delay_Source_UP+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1616 :: 		DrawImage(&Delay_Source_UP);
+;Controller_events_code.c,1617 :: 		DrawImage(&Delay_Source_UP);
 MOVW	R0, #lo_addr(_Delay_Source_UP+0)
 MOVT	R0, #hi_addr(_Delay_Source_UP+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1618 :: 		}
+;Controller_events_code.c,1619 :: 		}
 L_end_Delay_Source_UPOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_Source_UPOnUp
 _Delay_Source_UPOnPress:
-;Controller_events_code.c,1619 :: 		void Delay_Source_UPOnPress() {
+;Controller_events_code.c,1620 :: 		void Delay_Source_UPOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1622 :: 		Tone2 ();
+;Controller_events_code.c,1623 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,1623 :: 		Image312.Visible = 1;
+;Controller_events_code.c,1624 :: 		Image312.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image312+20)
 MOVT	R0, #hi_addr(_Image312+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1624 :: 		Delay_Source_UP.Visible = 0;
+;Controller_events_code.c,1625 :: 		Delay_Source_UP.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_Source_UP+20)
 MOVT	R0, #hi_addr(_Delay_Source_UP+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1625 :: 		DrawImage(&Image312);
+;Controller_events_code.c,1626 :: 		DrawImage(&Image312);
 MOVW	R0, #lo_addr(_Image312+0)
 MOVT	R0, #hi_addr(_Image312+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1626 :: 		system_reg[SOURS_DEL]++;
+;Controller_events_code.c,1627 :: 		system_reg[SOURS_DEL]++;
 MOVW	R1, #lo_addr(_system_reg+60)
 MOVT	R1, #hi_addr(_system_reg+60)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1627 :: 		if (system_reg[SOURS_DEL] >99) system_reg[SOURS_DEL] = 99;
+;Controller_events_code.c,1628 :: 		if (system_reg[SOURS_DEL] >99) system_reg[SOURS_DEL] = 99;
 CMP	R0, #99
 IT	LE
-BLE	L_Delay_Source_UPOnPress258
+BLE	L_Delay_Source_UPOnPress262
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+60)
 MOVT	R0, #hi_addr(_system_reg+60)
 STRH	R1, [R0, #0]
-L_Delay_Source_UPOnPress258:
-;Controller_events_code.c,1628 :: 		IntToStr(system_reg[SOURS_DEL], txt);
+L_Delay_Source_UPOnPress262:
+;Controller_events_code.c,1629 :: 		IntToStr(system_reg[SOURS_DEL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+60)
 MOVT	R0, #hi_addr(_system_reg+60)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1629 :: 		Ltrim (txt);
+;Controller_events_code.c,1630 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1630 :: 		strncpy(Delay_Source.Caption, txt, 2);
+;Controller_events_code.c,1631 :: 		strncpy(Delay_Source.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Delay_Source+24)
 MOVT	R0, #hi_addr(_Delay_Source+24)
@@ -6568,153 +6619,153 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1631 :: 		DrawRoundButton(&Delay_Source);
+;Controller_events_code.c,1632 :: 		DrawRoundButton(&Delay_Source);
 MOVW	R0, #lo_addr(_Delay_Source+0)
 MOVT	R0, #hi_addr(_Delay_Source+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1632 :: 		Delay_ms (100);
+;Controller_events_code.c,1633 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Delay_Source_UPOnPress259:
+L_Delay_Source_UPOnPress263:
 SUBS	R7, R7, #1
-BNE	L_Delay_Source_UPOnPress259
+BNE	L_Delay_Source_UPOnPress263
 NOP
 NOP
 NOP
-;Controller_events_code.c,1633 :: 		}
+;Controller_events_code.c,1634 :: 		}
 L_end_Delay_Source_UPOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Delay_Source_UPOnPress
 _Delay_Source_SETOnUp:
-;Controller_events_code.c,1634 :: 		void Delay_Source_SETOnUp() {
+;Controller_events_code.c,1635 :: 		void Delay_Source_SETOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1635 :: 		Delay_Source_SET.Visible = 1;
+;Controller_events_code.c,1636 :: 		Delay_Source_SET.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_Source_SET+20)
 MOVT	R0, #hi_addr(_Delay_Source_SET+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1636 :: 		Image344.Visible = 0;
+;Controller_events_code.c,1637 :: 		Image344.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image344+20)
 MOVT	R0, #hi_addr(_Image344+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1637 :: 		DrawImage (&Delay_Source_SET);
+;Controller_events_code.c,1638 :: 		DrawImage (&Delay_Source_SET);
 MOVW	R0, #lo_addr(_Delay_Source_SET+0)
 MOVT	R0, #hi_addr(_Delay_Source_SET+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1638 :: 		}
+;Controller_events_code.c,1639 :: 		}
 L_end_Delay_Source_SETOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_Source_SETOnUp
 _Delay_Source_SETOnDown:
-;Controller_events_code.c,1639 :: 		void Delay_Source_SETOnDown() {
+;Controller_events_code.c,1640 :: 		void Delay_Source_SETOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1640 :: 		Tone1();
+;Controller_events_code.c,1641 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,1644 :: 		send_data_packet(SOURS_DEL,1);
+;Controller_events_code.c,1645 :: 		send_data_packet(SOURS_DEL,1);
 MOVS	R1, #1
 MOVW	R0, #30
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,1645 :: 		Delay_Source_SET.Visible = 0;
+;Controller_events_code.c,1646 :: 		Delay_Source_SET.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_Source_SET+20)
 MOVT	R0, #hi_addr(_Delay_Source_SET+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1646 :: 		Image344.Visible = 1;
+;Controller_events_code.c,1647 :: 		Image344.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image344+20)
 MOVT	R0, #hi_addr(_Image344+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1647 :: 		DrawImage (&Image344);
+;Controller_events_code.c,1648 :: 		DrawImage (&Image344);
 MOVW	R0, #lo_addr(_Image344+0)
 MOVT	R0, #hi_addr(_Image344+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1648 :: 		}
+;Controller_events_code.c,1649 :: 		}
 L_end_Delay_Source_SETOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_Source_SETOnDown
 _Delay_heat_pump_DOWNOnUp:
-;Controller_events_code.c,1650 :: 		void Delay_heat_pump_DOWNOnUp() {
+;Controller_events_code.c,1651 :: 		void Delay_heat_pump_DOWNOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1651 :: 		Image307.Visible = 0;
+;Controller_events_code.c,1652 :: 		Image307.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image307+20)
 MOVT	R0, #hi_addr(_Image307+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1652 :: 		Delay_heat_pump_DOWN.Visible = 1;
+;Controller_events_code.c,1653 :: 		Delay_heat_pump_DOWN.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_heat_pump_DOWN+20)
 MOVT	R0, #hi_addr(_Delay_heat_pump_DOWN+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1653 :: 		DrawImage(&Delay_heat_pump_DOWN);
+;Controller_events_code.c,1654 :: 		DrawImage(&Delay_heat_pump_DOWN);
 MOVW	R0, #lo_addr(_Delay_heat_pump_DOWN+0)
 MOVT	R0, #hi_addr(_Delay_heat_pump_DOWN+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1655 :: 		}
+;Controller_events_code.c,1656 :: 		}
 L_end_Delay_heat_pump_DOWNOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_heat_pump_DOWNOnUp
 _Delay_heat_pump_DOWNOnPress:
-;Controller_events_code.c,1656 :: 		void Delay_heat_pump_DOWNOnPress() {
+;Controller_events_code.c,1657 :: 		void Delay_heat_pump_DOWNOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1659 :: 		Tone2 ();
+;Controller_events_code.c,1660 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,1660 :: 		Image307.Visible = 1;
+;Controller_events_code.c,1661 :: 		Image307.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image307+20)
 MOVT	R0, #hi_addr(_Image307+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1661 :: 		Delay_heat_pump_DOWN.Visible = 0;
+;Controller_events_code.c,1662 :: 		Delay_heat_pump_DOWN.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_heat_pump_DOWN+20)
 MOVT	R0, #hi_addr(_Delay_heat_pump_DOWN+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1662 :: 		DrawImage(&Image307);
+;Controller_events_code.c,1663 :: 		DrawImage(&Image307);
 MOVW	R0, #lo_addr(_Image307+0)
 MOVT	R0, #hi_addr(_Image307+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1665 :: 		system_reg[HEAT_DEL]--;
+;Controller_events_code.c,1666 :: 		system_reg[HEAT_DEL]--;
 MOVW	R1, #lo_addr(_system_reg+40)
 MOVT	R1, #hi_addr(_system_reg+40)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1666 :: 		if (system_reg[HEAT_DEL] <0) system_reg[HEAT_DEL]=0;
+;Controller_events_code.c,1667 :: 		if (system_reg[HEAT_DEL] <0) system_reg[HEAT_DEL]=0;
 CMP	R0, #0
 IT	GE
-BGE	L_Delay_heat_pump_DOWNOnPress261
+BGE	L_Delay_heat_pump_DOWNOnPress265
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+40)
 MOVT	R0, #hi_addr(_system_reg+40)
 STRH	R1, [R0, #0]
-L_Delay_heat_pump_DOWNOnPress261:
-;Controller_events_code.c,1667 :: 		IntToStr(system_reg[HEAT_DEL], txt);
+L_Delay_heat_pump_DOWNOnPress265:
+;Controller_events_code.c,1668 :: 		IntToStr(system_reg[HEAT_DEL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+40)
 MOVT	R0, #hi_addr(_system_reg+40)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1668 :: 		Ltrim (txt);
+;Controller_events_code.c,1669 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1669 :: 		strncpy(Delay_heat_pump.Caption, txt, 2);
+;Controller_events_code.c,1670 :: 		strncpy(Delay_heat_pump.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Delay_heat_pump+24)
 MOVT	R0, #hi_addr(_Delay_heat_pump+24)
@@ -6722,99 +6773,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1670 :: 		DrawRoundButton(&Delay_heat_pump);
+;Controller_events_code.c,1671 :: 		DrawRoundButton(&Delay_heat_pump);
 MOVW	R0, #lo_addr(_Delay_heat_pump+0)
 MOVT	R0, #hi_addr(_Delay_heat_pump+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1671 :: 		Delay_ms (100);
+;Controller_events_code.c,1672 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Delay_heat_pump_DOWNOnPress262:
+L_Delay_heat_pump_DOWNOnPress266:
 SUBS	R7, R7, #1
-BNE	L_Delay_heat_pump_DOWNOnPress262
+BNE	L_Delay_heat_pump_DOWNOnPress266
 NOP
 NOP
 NOP
-;Controller_events_code.c,1672 :: 		}
+;Controller_events_code.c,1673 :: 		}
 L_end_Delay_heat_pump_DOWNOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Delay_heat_pump_DOWNOnPress
 _Delay_heat_pump_upOnUp:
-;Controller_events_code.c,1673 :: 		void Delay_heat_pump_upOnUp() {
+;Controller_events_code.c,1674 :: 		void Delay_heat_pump_upOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1674 :: 		Image313.Visible = 0;
+;Controller_events_code.c,1675 :: 		Image313.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image313+20)
 MOVT	R0, #hi_addr(_Image313+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1675 :: 		Delay_heat_pump_up.Visible = 1;
+;Controller_events_code.c,1676 :: 		Delay_heat_pump_up.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_heat_pump_up+20)
 MOVT	R0, #hi_addr(_Delay_heat_pump_up+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1676 :: 		DrawImage(&Delay_heat_pump_up);
+;Controller_events_code.c,1677 :: 		DrawImage(&Delay_heat_pump_up);
 MOVW	R0, #lo_addr(_Delay_heat_pump_up+0)
 MOVT	R0, #hi_addr(_Delay_heat_pump_up+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1677 :: 		}
+;Controller_events_code.c,1678 :: 		}
 L_end_Delay_heat_pump_upOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_heat_pump_upOnUp
 _Delay_heat_pump_upOnPress:
-;Controller_events_code.c,1678 :: 		void Delay_heat_pump_upOnPress() {
+;Controller_events_code.c,1679 :: 		void Delay_heat_pump_upOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1681 :: 		Tone2 ();
+;Controller_events_code.c,1682 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,1682 :: 		Image313.Visible = 1;
+;Controller_events_code.c,1683 :: 		Image313.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image313+20)
 MOVT	R0, #hi_addr(_Image313+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1683 :: 		Delay_heat_pump_up.Visible = 0;
+;Controller_events_code.c,1684 :: 		Delay_heat_pump_up.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_heat_pump_up+20)
 MOVT	R0, #hi_addr(_Delay_heat_pump_up+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1684 :: 		DrawImage(&Image313);
+;Controller_events_code.c,1685 :: 		DrawImage(&Image313);
 MOVW	R0, #lo_addr(_Image313+0)
 MOVT	R0, #hi_addr(_Image313+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1687 :: 		system_reg[HEAT_DEL]++;
+;Controller_events_code.c,1688 :: 		system_reg[HEAT_DEL]++;
 MOVW	R1, #lo_addr(_system_reg+40)
 MOVT	R1, #hi_addr(_system_reg+40)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1688 :: 		if (system_reg[HEAT_DEL] >99)
+;Controller_events_code.c,1689 :: 		if (system_reg[HEAT_DEL] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Delay_heat_pump_upOnPress264
-;Controller_events_code.c,1689 :: 		system_reg[HEAT_DEL] = 99;
+BLE	L_Delay_heat_pump_upOnPress268
+;Controller_events_code.c,1690 :: 		system_reg[HEAT_DEL] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+40)
 MOVT	R0, #hi_addr(_system_reg+40)
 STRH	R1, [R0, #0]
-L_Delay_heat_pump_upOnPress264:
-;Controller_events_code.c,1690 :: 		IntToStr(system_reg[HEAT_DEL], txt);
+L_Delay_heat_pump_upOnPress268:
+;Controller_events_code.c,1691 :: 		IntToStr(system_reg[HEAT_DEL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+40)
 MOVT	R0, #hi_addr(_system_reg+40)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1691 :: 		Ltrim (txt);
+;Controller_events_code.c,1692 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1692 :: 		strncpy(Delay_heat_pump.Caption, txt, 2);
+;Controller_events_code.c,1693 :: 		strncpy(Delay_heat_pump.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Delay_heat_pump+24)
 MOVT	R0, #hi_addr(_Delay_heat_pump+24)
@@ -6822,154 +6873,154 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1693 :: 		DrawRoundButton(&Delay_heat_pump);
+;Controller_events_code.c,1694 :: 		DrawRoundButton(&Delay_heat_pump);
 MOVW	R0, #lo_addr(_Delay_heat_pump+0)
 MOVT	R0, #hi_addr(_Delay_heat_pump+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1694 :: 		Delay_ms (100);
+;Controller_events_code.c,1695 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Delay_heat_pump_upOnPress265:
+L_Delay_heat_pump_upOnPress269:
 SUBS	R7, R7, #1
-BNE	L_Delay_heat_pump_upOnPress265
+BNE	L_Delay_heat_pump_upOnPress269
 NOP
 NOP
 NOP
-;Controller_events_code.c,1696 :: 		}
+;Controller_events_code.c,1697 :: 		}
 L_end_Delay_heat_pump_upOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Delay_heat_pump_upOnPress
 _Delay_heat_pump_SETOnUp:
-;Controller_events_code.c,1697 :: 		void Delay_heat_pump_SETOnUp() {
+;Controller_events_code.c,1698 :: 		void Delay_heat_pump_SETOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1698 :: 		Delay_heat_pump_SET.Visible = 1;
+;Controller_events_code.c,1699 :: 		Delay_heat_pump_SET.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_heat_pump_SET+20)
 MOVT	R0, #hi_addr(_Delay_heat_pump_SET+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1699 :: 		Image345.Visible = 0;
+;Controller_events_code.c,1700 :: 		Image345.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image345+20)
 MOVT	R0, #hi_addr(_Image345+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1700 :: 		DrawImage (&Delay_heat_pump_SET);
+;Controller_events_code.c,1701 :: 		DrawImage (&Delay_heat_pump_SET);
 MOVW	R0, #lo_addr(_Delay_heat_pump_SET+0)
 MOVT	R0, #hi_addr(_Delay_heat_pump_SET+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1701 :: 		}
+;Controller_events_code.c,1702 :: 		}
 L_end_Delay_heat_pump_SETOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_heat_pump_SETOnUp
 _Delay_heat_pump_SETOnDown:
-;Controller_events_code.c,1702 :: 		void Delay_heat_pump_SETOnDown() {
+;Controller_events_code.c,1703 :: 		void Delay_heat_pump_SETOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1703 :: 		Tone1();
+;Controller_events_code.c,1704 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,1707 :: 		send_data_packet(HEAT_DEL,1);
+;Controller_events_code.c,1708 :: 		send_data_packet(HEAT_DEL,1);
 MOVS	R1, #1
 MOVW	R0, #20
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,1708 :: 		Delay_heat_pump_SET.Visible = 0;
+;Controller_events_code.c,1709 :: 		Delay_heat_pump_SET.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_heat_pump_SET+20)
 MOVT	R0, #hi_addr(_Delay_heat_pump_SET+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1709 :: 		Image345.Visible = 1;
+;Controller_events_code.c,1710 :: 		Image345.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image345+20)
 MOVT	R0, #hi_addr(_Image345+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1710 :: 		DrawImage (&Image345);
+;Controller_events_code.c,1711 :: 		DrawImage (&Image345);
 MOVW	R0, #lo_addr(_Image345+0)
 MOVT	R0, #hi_addr(_Image345+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1711 :: 		}
+;Controller_events_code.c,1712 :: 		}
 L_end_Delay_heat_pump_SETOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_heat_pump_SETOnDown
 _Delay_reversing_DOWNOnUp:
-;Controller_events_code.c,1713 :: 		void Delay_reversing_DOWNOnUp() {
+;Controller_events_code.c,1714 :: 		void Delay_reversing_DOWNOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1714 :: 		Image308.Visible = 0;
+;Controller_events_code.c,1715 :: 		Image308.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image308+20)
 MOVT	R0, #hi_addr(_Image308+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1715 :: 		Delay_reversing_DOWN.Visible = 1;
+;Controller_events_code.c,1716 :: 		Delay_reversing_DOWN.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_reversing_DOWN+20)
 MOVT	R0, #hi_addr(_Delay_reversing_DOWN+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1716 :: 		DrawImage(&Delay_reversing_DOWN);
+;Controller_events_code.c,1717 :: 		DrawImage(&Delay_reversing_DOWN);
 MOVW	R0, #lo_addr(_Delay_reversing_DOWN+0)
 MOVT	R0, #hi_addr(_Delay_reversing_DOWN+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1717 :: 		}
+;Controller_events_code.c,1718 :: 		}
 L_end_Delay_reversing_DOWNOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_reversing_DOWNOnUp
 _Delay_reversing_DOWNOnPress:
-;Controller_events_code.c,1718 :: 		void Delay_reversing_DOWNOnPress() {
+;Controller_events_code.c,1719 :: 		void Delay_reversing_DOWNOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1721 :: 		Tone2 ();
+;Controller_events_code.c,1722 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,1722 :: 		Image308.Visible = 1;
+;Controller_events_code.c,1723 :: 		Image308.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image308+20)
 MOVT	R0, #hi_addr(_Image308+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1723 :: 		Delay_reversing_DOWN.Visible = 0;
+;Controller_events_code.c,1724 :: 		Delay_reversing_DOWN.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_reversing_DOWN+20)
 MOVT	R0, #hi_addr(_Delay_reversing_DOWN+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1724 :: 		DrawImage(&Image308);
+;Controller_events_code.c,1725 :: 		DrawImage(&Image308);
 MOVW	R0, #lo_addr(_Image308+0)
 MOVT	R0, #hi_addr(_Image308+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1727 :: 		system_reg[REVERS_DEL]--;
+;Controller_events_code.c,1728 :: 		system_reg[REVERS_DEL]--;
 MOVW	R1, #lo_addr(_system_reg+80)
 MOVT	R1, #hi_addr(_system_reg+80)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1728 :: 		if (system_reg[REVERS_DEL] <0)
+;Controller_events_code.c,1729 :: 		if (system_reg[REVERS_DEL] <0)
 CMP	R0, #0
 IT	GE
-BGE	L_Delay_reversing_DOWNOnPress267
-;Controller_events_code.c,1729 :: 		system_reg[REVERS_DEL] = 0;
+BGE	L_Delay_reversing_DOWNOnPress271
+;Controller_events_code.c,1730 :: 		system_reg[REVERS_DEL] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+80)
 MOVT	R0, #hi_addr(_system_reg+80)
 STRH	R1, [R0, #0]
-L_Delay_reversing_DOWNOnPress267:
-;Controller_events_code.c,1730 :: 		IntToStr(system_reg[REVERS_DEL], txt);
+L_Delay_reversing_DOWNOnPress271:
+;Controller_events_code.c,1731 :: 		IntToStr(system_reg[REVERS_DEL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+80)
 MOVT	R0, #hi_addr(_system_reg+80)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1731 :: 		Ltrim (txt);
+;Controller_events_code.c,1732 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1732 :: 		strncpy(Delay_reversing.Caption, txt, 2);
+;Controller_events_code.c,1733 :: 		strncpy(Delay_reversing.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Delay_reversing+24)
 MOVT	R0, #hi_addr(_Delay_reversing+24)
@@ -6977,99 +7028,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1733 :: 		DrawRoundButton(&Delay_reversing);
+;Controller_events_code.c,1734 :: 		DrawRoundButton(&Delay_reversing);
 MOVW	R0, #lo_addr(_Delay_reversing+0)
 MOVT	R0, #hi_addr(_Delay_reversing+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1734 :: 		Delay_ms (100);
+;Controller_events_code.c,1735 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Delay_reversing_DOWNOnPress268:
+L_Delay_reversing_DOWNOnPress272:
 SUBS	R7, R7, #1
-BNE	L_Delay_reversing_DOWNOnPress268
+BNE	L_Delay_reversing_DOWNOnPress272
 NOP
 NOP
 NOP
-;Controller_events_code.c,1735 :: 		}
+;Controller_events_code.c,1736 :: 		}
 L_end_Delay_reversing_DOWNOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Delay_reversing_DOWNOnPress
 _Delay_reversing_UPOnUp:
-;Controller_events_code.c,1736 :: 		void Delay_reversing_UPOnUp() {
+;Controller_events_code.c,1737 :: 		void Delay_reversing_UPOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1737 :: 		Image314.Visible = 0;
+;Controller_events_code.c,1738 :: 		Image314.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image314+20)
 MOVT	R0, #hi_addr(_Image314+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1738 :: 		Delay_reversing_UP.Visible = 1;
+;Controller_events_code.c,1739 :: 		Delay_reversing_UP.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_reversing_UP+20)
 MOVT	R0, #hi_addr(_Delay_reversing_UP+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1739 :: 		DrawImage(&Delay_reversing_UP);
+;Controller_events_code.c,1740 :: 		DrawImage(&Delay_reversing_UP);
 MOVW	R0, #lo_addr(_Delay_reversing_UP+0)
 MOVT	R0, #hi_addr(_Delay_reversing_UP+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1740 :: 		}
+;Controller_events_code.c,1741 :: 		}
 L_end_Delay_reversing_UPOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_reversing_UPOnUp
 _Delay_reversing_UPOnPress:
-;Controller_events_code.c,1741 :: 		void Delay_reversing_UPOnPress() {
+;Controller_events_code.c,1742 :: 		void Delay_reversing_UPOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1744 :: 		Tone2 ();
+;Controller_events_code.c,1745 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,1745 :: 		Image314.Visible = 1;
+;Controller_events_code.c,1746 :: 		Image314.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image314+20)
 MOVT	R0, #hi_addr(_Image314+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1746 :: 		Delay_reversing_UP.Visible = 0;
+;Controller_events_code.c,1747 :: 		Delay_reversing_UP.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_reversing_UP+20)
 MOVT	R0, #hi_addr(_Delay_reversing_UP+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1747 :: 		DrawImage(&Image314);
+;Controller_events_code.c,1748 :: 		DrawImage(&Image314);
 MOVW	R0, #lo_addr(_Image314+0)
 MOVT	R0, #hi_addr(_Image314+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1750 :: 		system_reg[REVERS_DEL]++;
+;Controller_events_code.c,1751 :: 		system_reg[REVERS_DEL]++;
 MOVW	R1, #lo_addr(_system_reg+80)
 MOVT	R1, #hi_addr(_system_reg+80)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1751 :: 		if (system_reg[REVERS_DEL] >99)
+;Controller_events_code.c,1752 :: 		if (system_reg[REVERS_DEL] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Delay_reversing_UPOnPress270
-;Controller_events_code.c,1752 :: 		system_reg[REVERS_DEL] = 99 ;
+BLE	L_Delay_reversing_UPOnPress274
+;Controller_events_code.c,1753 :: 		system_reg[REVERS_DEL] = 99 ;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+80)
 MOVT	R0, #hi_addr(_system_reg+80)
 STRH	R1, [R0, #0]
-L_Delay_reversing_UPOnPress270:
-;Controller_events_code.c,1753 :: 		IntToStr(system_reg[REVERS_DEL], txt);
+L_Delay_reversing_UPOnPress274:
+;Controller_events_code.c,1754 :: 		IntToStr(system_reg[REVERS_DEL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+80)
 MOVT	R0, #hi_addr(_system_reg+80)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1754 :: 		Ltrim (txt);
+;Controller_events_code.c,1755 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1755 :: 		strncpy(Delay_reversing.Caption, txt, 2);
+;Controller_events_code.c,1756 :: 		strncpy(Delay_reversing.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Delay_reversing+24)
 MOVT	R0, #hi_addr(_Delay_reversing+24)
@@ -7077,154 +7128,154 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1756 :: 		DrawRoundButton(&Delay_reversing);
+;Controller_events_code.c,1757 :: 		DrawRoundButton(&Delay_reversing);
 MOVW	R0, #lo_addr(_Delay_reversing+0)
 MOVT	R0, #hi_addr(_Delay_reversing+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1757 :: 		Delay_ms (100);
+;Controller_events_code.c,1758 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Delay_reversing_UPOnPress271:
+L_Delay_reversing_UPOnPress275:
 SUBS	R7, R7, #1
-BNE	L_Delay_reversing_UPOnPress271
+BNE	L_Delay_reversing_UPOnPress275
 NOP
 NOP
 NOP
-;Controller_events_code.c,1758 :: 		}
+;Controller_events_code.c,1759 :: 		}
 L_end_Delay_reversing_UPOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Delay_reversing_UPOnPress
 _Delay_reversing_SETOnUp:
-;Controller_events_code.c,1759 :: 		void Delay_reversing_SETOnUp() {
+;Controller_events_code.c,1760 :: 		void Delay_reversing_SETOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1760 :: 		Delay_reversing_SET.Visible = 1;
+;Controller_events_code.c,1761 :: 		Delay_reversing_SET.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_reversing_SET+20)
 MOVT	R0, #hi_addr(_Delay_reversing_SET+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1761 :: 		Image346.Visible = 0;
+;Controller_events_code.c,1762 :: 		Image346.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image346+20)
 MOVT	R0, #hi_addr(_Image346+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1762 :: 		DrawImage (&Delay_reversing_SET);
+;Controller_events_code.c,1763 :: 		DrawImage (&Delay_reversing_SET);
 MOVW	R0, #lo_addr(_Delay_reversing_SET+0)
 MOVT	R0, #hi_addr(_Delay_reversing_SET+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1763 :: 		}
+;Controller_events_code.c,1764 :: 		}
 L_end_Delay_reversing_SETOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_reversing_SETOnUp
 _Delay_reversing_SETOnDown:
-;Controller_events_code.c,1764 :: 		void Delay_reversing_SETOnDown() {
+;Controller_events_code.c,1765 :: 		void Delay_reversing_SETOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1765 :: 		Tone1();
+;Controller_events_code.c,1766 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,1769 :: 		send_data_packet(REVERS_DEL,1);
+;Controller_events_code.c,1770 :: 		send_data_packet(REVERS_DEL,1);
 MOVS	R1, #1
 MOVW	R0, #40
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,1770 :: 		Delay_reversing_SET.Visible = 0;
+;Controller_events_code.c,1771 :: 		Delay_reversing_SET.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_reversing_SET+20)
 MOVT	R0, #hi_addr(_Delay_reversing_SET+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1771 :: 		Image346.Visible = 1;
+;Controller_events_code.c,1772 :: 		Image346.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image346+20)
 MOVT	R0, #hi_addr(_Image346+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1772 :: 		DrawImage (&Image346);
+;Controller_events_code.c,1773 :: 		DrawImage (&Image346);
 MOVW	R0, #lo_addr(_Image346+0)
 MOVT	R0, #hi_addr(_Image346+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1773 :: 		}
+;Controller_events_code.c,1774 :: 		}
 L_end_Delay_reversing_SETOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_reversing_SETOnDown
 _Delay_trv_DOWNOnUp:
-;Controller_events_code.c,1775 :: 		void Delay_trv_DOWNOnUp() {
+;Controller_events_code.c,1776 :: 		void Delay_trv_DOWNOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1776 :: 		Image309.Visible = 0;
+;Controller_events_code.c,1777 :: 		Image309.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image309+20)
 MOVT	R0, #hi_addr(_Image309+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1777 :: 		Delay_trv_DOWN.Visible = 1;
+;Controller_events_code.c,1778 :: 		Delay_trv_DOWN.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_trv_DOWN+20)
 MOVT	R0, #hi_addr(_Delay_trv_DOWN+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1778 :: 		DrawImage(&Delay_trv_DOWN);
+;Controller_events_code.c,1779 :: 		DrawImage(&Delay_trv_DOWN);
 MOVW	R0, #lo_addr(_Delay_trv_DOWN+0)
 MOVT	R0, #hi_addr(_Delay_trv_DOWN+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1779 :: 		}
+;Controller_events_code.c,1780 :: 		}
 L_end_Delay_trv_DOWNOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_trv_DOWNOnUp
 _Delay_trv_DOWNOnPress:
-;Controller_events_code.c,1780 :: 		void Delay_trv_DOWNOnPress() {
+;Controller_events_code.c,1781 :: 		void Delay_trv_DOWNOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1783 :: 		Tone2 ();
+;Controller_events_code.c,1784 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,1784 :: 		Image309.Visible = 1;
+;Controller_events_code.c,1785 :: 		Image309.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image309+20)
 MOVT	R0, #hi_addr(_Image309+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1785 :: 		Delay_trv_DOWN.Visible = 0;
+;Controller_events_code.c,1786 :: 		Delay_trv_DOWN.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_trv_DOWN+20)
 MOVT	R0, #hi_addr(_Delay_trv_DOWN+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1786 :: 		DrawImage(&Image309);
+;Controller_events_code.c,1787 :: 		DrawImage(&Image309);
 MOVW	R0, #lo_addr(_Image309+0)
 MOVT	R0, #hi_addr(_Image309+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1789 :: 		system_reg[TRV_DEL]--;
+;Controller_events_code.c,1790 :: 		system_reg[TRV_DEL]--;
 MOVW	R1, #lo_addr(_system_reg+840)
 MOVT	R1, #hi_addr(_system_reg+840)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1790 :: 		if (system_reg[TRV_DEL] < 0)
+;Controller_events_code.c,1791 :: 		if (system_reg[TRV_DEL] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Delay_trv_DOWNOnPress273
-;Controller_events_code.c,1791 :: 		system_reg[TRV_DEL] = 0;
+BGE	L_Delay_trv_DOWNOnPress277
+;Controller_events_code.c,1792 :: 		system_reg[TRV_DEL] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+840)
 MOVT	R0, #hi_addr(_system_reg+840)
 STRH	R1, [R0, #0]
-L_Delay_trv_DOWNOnPress273:
-;Controller_events_code.c,1792 :: 		IntToStr(system_reg[TRV_DEL], txt);
+L_Delay_trv_DOWNOnPress277:
+;Controller_events_code.c,1793 :: 		IntToStr(system_reg[TRV_DEL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+840)
 MOVT	R0, #hi_addr(_system_reg+840)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1793 :: 		Ltrim (txt);
+;Controller_events_code.c,1794 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1794 :: 		strncpy(Delay_EEV.Caption, txt, 2);
+;Controller_events_code.c,1795 :: 		strncpy(Delay_EEV.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Delay_EEV+24)
 MOVT	R0, #hi_addr(_Delay_EEV+24)
@@ -7232,99 +7283,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1795 :: 		DrawRoundButton(&Delay_EEV);
+;Controller_events_code.c,1796 :: 		DrawRoundButton(&Delay_EEV);
 MOVW	R0, #lo_addr(_Delay_EEV+0)
 MOVT	R0, #hi_addr(_Delay_EEV+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1796 :: 		Delay_ms (100);
+;Controller_events_code.c,1797 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Delay_trv_DOWNOnPress274:
+L_Delay_trv_DOWNOnPress278:
 SUBS	R7, R7, #1
-BNE	L_Delay_trv_DOWNOnPress274
+BNE	L_Delay_trv_DOWNOnPress278
 NOP
 NOP
 NOP
-;Controller_events_code.c,1797 :: 		}
+;Controller_events_code.c,1798 :: 		}
 L_end_Delay_trv_DOWNOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Delay_trv_DOWNOnPress
 _Delay_trv_UPOnUp:
-;Controller_events_code.c,1798 :: 		void Delay_trv_UPOnUp() {
+;Controller_events_code.c,1799 :: 		void Delay_trv_UPOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1799 :: 		Image315.Visible = 0;
+;Controller_events_code.c,1800 :: 		Image315.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image315+20)
 MOVT	R0, #hi_addr(_Image315+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1800 :: 		Delay_trv_up.Visible = 1;
+;Controller_events_code.c,1801 :: 		Delay_trv_up.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_trv_up+20)
 MOVT	R0, #hi_addr(_Delay_trv_up+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1801 :: 		DrawImage(&Delay_trv_up);
+;Controller_events_code.c,1802 :: 		DrawImage(&Delay_trv_up);
 MOVW	R0, #lo_addr(_Delay_trv_up+0)
 MOVT	R0, #hi_addr(_Delay_trv_up+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1802 :: 		}
+;Controller_events_code.c,1803 :: 		}
 L_end_Delay_trv_UPOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_trv_UPOnUp
 _Delay_trv_UPOnPress:
-;Controller_events_code.c,1803 :: 		void Delay_trv_UPOnPress(){
+;Controller_events_code.c,1804 :: 		void Delay_trv_UPOnPress(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1806 :: 		Tone2 ();
+;Controller_events_code.c,1807 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,1807 :: 		Image315.Visible = 1;
+;Controller_events_code.c,1808 :: 		Image315.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image315+20)
 MOVT	R0, #hi_addr(_Image315+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1808 :: 		Delay_trv_up.Visible = 0;
+;Controller_events_code.c,1809 :: 		Delay_trv_up.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_trv_up+20)
 MOVT	R0, #hi_addr(_Delay_trv_up+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1809 :: 		DrawImage(&Image315);
+;Controller_events_code.c,1810 :: 		DrawImage(&Image315);
 MOVW	R0, #lo_addr(_Image315+0)
 MOVT	R0, #hi_addr(_Image315+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1812 :: 		system_reg[TRV_DEL]++;
+;Controller_events_code.c,1813 :: 		system_reg[TRV_DEL]++;
 MOVW	R1, #lo_addr(_system_reg+840)
 MOVT	R1, #hi_addr(_system_reg+840)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1813 :: 		if (system_reg[TRV_DEL] >99)
+;Controller_events_code.c,1814 :: 		if (system_reg[TRV_DEL] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Delay_trv_UPOnPress276
-;Controller_events_code.c,1814 :: 		system_reg[TRV_DEL] = 99;
+BLE	L_Delay_trv_UPOnPress280
+;Controller_events_code.c,1815 :: 		system_reg[TRV_DEL] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+840)
 MOVT	R0, #hi_addr(_system_reg+840)
 STRH	R1, [R0, #0]
-L_Delay_trv_UPOnPress276:
-;Controller_events_code.c,1815 :: 		IntToStr(system_reg[TRV_DEL], txt);
+L_Delay_trv_UPOnPress280:
+;Controller_events_code.c,1816 :: 		IntToStr(system_reg[TRV_DEL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+840)
 MOVT	R0, #hi_addr(_system_reg+840)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1816 :: 		Ltrim (txt);
+;Controller_events_code.c,1817 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1817 :: 		strncpy(Delay_EEV.Caption, txt, 2);
+;Controller_events_code.c,1818 :: 		strncpy(Delay_EEV.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Delay_EEV+24)
 MOVT	R0, #hi_addr(_Delay_EEV+24)
@@ -7332,154 +7383,154 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1818 :: 		DrawRoundButton(&Delay_EEV);
+;Controller_events_code.c,1819 :: 		DrawRoundButton(&Delay_EEV);
 MOVW	R0, #lo_addr(_Delay_EEV+0)
 MOVT	R0, #hi_addr(_Delay_EEV+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1819 :: 		Delay_ms (100);
+;Controller_events_code.c,1820 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Delay_trv_UPOnPress277:
+L_Delay_trv_UPOnPress281:
 SUBS	R7, R7, #1
-BNE	L_Delay_trv_UPOnPress277
+BNE	L_Delay_trv_UPOnPress281
 NOP
 NOP
 NOP
-;Controller_events_code.c,1820 :: 		}
+;Controller_events_code.c,1821 :: 		}
 L_end_Delay_trv_UPOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Delay_trv_UPOnPress
 _Delay_EEV_SETOnUp:
-;Controller_events_code.c,1821 :: 		void Delay_EEV_SETOnUp() {
+;Controller_events_code.c,1822 :: 		void Delay_EEV_SETOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1822 :: 		Delay_EEV_SET.Visible = 1;
+;Controller_events_code.c,1823 :: 		Delay_EEV_SET.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_EEV_SET+20)
 MOVT	R0, #hi_addr(_Delay_EEV_SET+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1823 :: 		Image347.Visible = 0;
+;Controller_events_code.c,1824 :: 		Image347.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image347+20)
 MOVT	R0, #hi_addr(_Image347+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1824 :: 		DrawImage (&Delay_EEV_SET);
+;Controller_events_code.c,1825 :: 		DrawImage (&Delay_EEV_SET);
 MOVW	R0, #lo_addr(_Delay_EEV_SET+0)
 MOVT	R0, #hi_addr(_Delay_EEV_SET+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1825 :: 		}
+;Controller_events_code.c,1826 :: 		}
 L_end_Delay_EEV_SETOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_EEV_SETOnUp
 _Delay_EEV_SETOnDown:
-;Controller_events_code.c,1826 :: 		void Delay_EEV_SETOnDown() {
+;Controller_events_code.c,1827 :: 		void Delay_EEV_SETOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1827 :: 		Tone1();
+;Controller_events_code.c,1828 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,1831 :: 		send_data_packet(TRV_DEL,1);
+;Controller_events_code.c,1832 :: 		send_data_packet(TRV_DEL,1);
 MOVS	R1, #1
 MOVW	R0, #420
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,1832 :: 		Delay_EEV_SET.Visible = 0;
+;Controller_events_code.c,1833 :: 		Delay_EEV_SET.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_EEV_SET+20)
 MOVT	R0, #hi_addr(_Delay_EEV_SET+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1833 :: 		Image347.Visible = 1;
+;Controller_events_code.c,1834 :: 		Image347.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image347+20)
 MOVT	R0, #hi_addr(_Image347+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1834 :: 		DrawImage (&Image347);
+;Controller_events_code.c,1835 :: 		DrawImage (&Image347);
 MOVW	R0, #lo_addr(_Image347+0)
 MOVT	R0, #hi_addr(_Image347+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1835 :: 		}
+;Controller_events_code.c,1836 :: 		}
 L_end_Delay_EEV_SETOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_EEV_SETOnDown
 _Delay_DHW_valve_DOWNOnUp:
-;Controller_events_code.c,1837 :: 		void Delay_DHW_valve_DOWNOnUp() {
+;Controller_events_code.c,1838 :: 		void Delay_DHW_valve_DOWNOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1838 :: 		Image310.Visible = 0;
+;Controller_events_code.c,1839 :: 		Image310.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image310+20)
 MOVT	R0, #hi_addr(_Image310+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1839 :: 		Delay_DHW_valve_DOWN.Visible = 1;
+;Controller_events_code.c,1840 :: 		Delay_DHW_valve_DOWN.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_DHW_valve_DOWN+20)
 MOVT	R0, #hi_addr(_Delay_DHW_valve_DOWN+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1840 :: 		DrawImage(&Delay_DHW_valve_DOWN);
+;Controller_events_code.c,1841 :: 		DrawImage(&Delay_DHW_valve_DOWN);
 MOVW	R0, #lo_addr(_Delay_DHW_valve_DOWN+0)
 MOVT	R0, #hi_addr(_Delay_DHW_valve_DOWN+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1841 :: 		}
+;Controller_events_code.c,1842 :: 		}
 L_end_Delay_DHW_valve_DOWNOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_DHW_valve_DOWNOnUp
 _Delay_DHW_valve_DOWNOnPress:
-;Controller_events_code.c,1842 :: 		void Delay_DHW_valve_DOWNOnPress() {
+;Controller_events_code.c,1843 :: 		void Delay_DHW_valve_DOWNOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1845 :: 		Tone2 ();
+;Controller_events_code.c,1846 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,1846 :: 		Image310.Visible = 1;
+;Controller_events_code.c,1847 :: 		Image310.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image310+20)
 MOVT	R0, #hi_addr(_Image310+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1847 :: 		Delay_DHW_valve_DOWN.Visible = 0;
+;Controller_events_code.c,1848 :: 		Delay_DHW_valve_DOWN.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_DHW_valve_DOWN+20)
 MOVT	R0, #hi_addr(_Delay_DHW_valve_DOWN+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1848 :: 		DrawImage(&Image310);
+;Controller_events_code.c,1849 :: 		DrawImage(&Image310);
 MOVW	R0, #lo_addr(_Image310+0)
 MOVT	R0, #hi_addr(_Image310+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1851 :: 		system_reg[THREE_WAY_DEL]--;
+;Controller_events_code.c,1852 :: 		system_reg[THREE_WAY_DEL]--;
 MOVW	R1, #lo_addr(_system_reg+100)
 MOVT	R1, #hi_addr(_system_reg+100)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1852 :: 		if (system_reg[THREE_WAY_DEL] < 0)
+;Controller_events_code.c,1853 :: 		if (system_reg[THREE_WAY_DEL] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Delay_DHW_valve_DOWNOnPress279
-;Controller_events_code.c,1853 :: 		system_reg[THREE_WAY_DEL] = 0;
+BGE	L_Delay_DHW_valve_DOWNOnPress283
+;Controller_events_code.c,1854 :: 		system_reg[THREE_WAY_DEL] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+100)
 MOVT	R0, #hi_addr(_system_reg+100)
 STRH	R1, [R0, #0]
-L_Delay_DHW_valve_DOWNOnPress279:
-;Controller_events_code.c,1854 :: 		IntToStr(system_reg[THREE_WAY_DEL], txt);
+L_Delay_DHW_valve_DOWNOnPress283:
+;Controller_events_code.c,1855 :: 		IntToStr(system_reg[THREE_WAY_DEL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+100)
 MOVT	R0, #hi_addr(_system_reg+100)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1855 :: 		Ltrim (txt);
+;Controller_events_code.c,1856 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1856 :: 		strncpy(Delay_DHW_valve.Caption, txt, 2);
+;Controller_events_code.c,1857 :: 		strncpy(Delay_DHW_valve.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Delay_DHW_valve+24)
 MOVT	R0, #hi_addr(_Delay_DHW_valve+24)
@@ -7487,99 +7538,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1857 :: 		DrawRoundButton(&Delay_DHW_valve);
+;Controller_events_code.c,1858 :: 		DrawRoundButton(&Delay_DHW_valve);
 MOVW	R0, #lo_addr(_Delay_DHW_valve+0)
 MOVT	R0, #hi_addr(_Delay_DHW_valve+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1858 :: 		Delay_ms (100);
+;Controller_events_code.c,1859 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Delay_DHW_valve_DOWNOnPress280:
+L_Delay_DHW_valve_DOWNOnPress284:
 SUBS	R7, R7, #1
-BNE	L_Delay_DHW_valve_DOWNOnPress280
+BNE	L_Delay_DHW_valve_DOWNOnPress284
 NOP
 NOP
 NOP
-;Controller_events_code.c,1859 :: 		}
+;Controller_events_code.c,1860 :: 		}
 L_end_Delay_DHW_valve_DOWNOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Delay_DHW_valve_DOWNOnPress
 _Delay_DHW_valve_UPOnUp:
-;Controller_events_code.c,1860 :: 		void Delay_DHW_valve_UPOnUp() {
+;Controller_events_code.c,1861 :: 		void Delay_DHW_valve_UPOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1861 :: 		Image316.Visible = 0;
+;Controller_events_code.c,1862 :: 		Image316.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image316+20)
 MOVT	R0, #hi_addr(_Image316+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1862 :: 		Delay_DHW_valve_UP.Visible = 1;
+;Controller_events_code.c,1863 :: 		Delay_DHW_valve_UP.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_DHW_valve_UP+20)
 MOVT	R0, #hi_addr(_Delay_DHW_valve_UP+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1863 :: 		DrawImage(&Delay_DHW_valve_UP);
+;Controller_events_code.c,1864 :: 		DrawImage(&Delay_DHW_valve_UP);
 MOVW	R0, #lo_addr(_Delay_DHW_valve_UP+0)
 MOVT	R0, #hi_addr(_Delay_DHW_valve_UP+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1864 :: 		}
+;Controller_events_code.c,1865 :: 		}
 L_end_Delay_DHW_valve_UPOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_DHW_valve_UPOnUp
 _Delay_DHW_valve_UPOnPress:
-;Controller_events_code.c,1865 :: 		void Delay_DHW_valve_UPOnPress() {
+;Controller_events_code.c,1866 :: 		void Delay_DHW_valve_UPOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1868 :: 		Tone2 ();
+;Controller_events_code.c,1869 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,1869 :: 		Image316.Visible = 1;
+;Controller_events_code.c,1870 :: 		Image316.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image316+20)
 MOVT	R0, #hi_addr(_Image316+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1870 :: 		Delay_DHW_valve_UP.Visible = 0;
+;Controller_events_code.c,1871 :: 		Delay_DHW_valve_UP.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_DHW_valve_UP+20)
 MOVT	R0, #hi_addr(_Delay_DHW_valve_UP+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1871 :: 		DrawImage(&Image316);
+;Controller_events_code.c,1872 :: 		DrawImage(&Image316);
 MOVW	R0, #lo_addr(_Image316+0)
 MOVT	R0, #hi_addr(_Image316+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1874 :: 		system_reg[THREE_WAY_DEL]++;
+;Controller_events_code.c,1875 :: 		system_reg[THREE_WAY_DEL]++;
 MOVW	R1, #lo_addr(_system_reg+100)
 MOVT	R1, #hi_addr(_system_reg+100)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1875 :: 		if (system_reg[THREE_WAY_DEL] >99)
+;Controller_events_code.c,1876 :: 		if (system_reg[THREE_WAY_DEL] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Delay_DHW_valve_UPOnPress282
-;Controller_events_code.c,1876 :: 		system_reg[THREE_WAY_DEL] = 99;
+BLE	L_Delay_DHW_valve_UPOnPress286
+;Controller_events_code.c,1877 :: 		system_reg[THREE_WAY_DEL] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+100)
 MOVT	R0, #hi_addr(_system_reg+100)
 STRH	R1, [R0, #0]
-L_Delay_DHW_valve_UPOnPress282:
-;Controller_events_code.c,1877 :: 		IntToStr(system_reg[THREE_WAY_DEL], txt);
+L_Delay_DHW_valve_UPOnPress286:
+;Controller_events_code.c,1878 :: 		IntToStr(system_reg[THREE_WAY_DEL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+100)
 MOVT	R0, #hi_addr(_system_reg+100)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1878 :: 		Ltrim (txt);
+;Controller_events_code.c,1879 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1879 :: 		strncpy(Delay_DHW_valve.Caption, txt, 2);
+;Controller_events_code.c,1880 :: 		strncpy(Delay_DHW_valve.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Delay_DHW_valve+24)
 MOVT	R0, #hi_addr(_Delay_DHW_valve+24)
@@ -7587,154 +7638,154 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1880 :: 		DrawRoundButton(&Delay_DHW_valve);
+;Controller_events_code.c,1881 :: 		DrawRoundButton(&Delay_DHW_valve);
 MOVW	R0, #lo_addr(_Delay_DHW_valve+0)
 MOVT	R0, #hi_addr(_Delay_DHW_valve+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1881 :: 		Delay_ms (100);
+;Controller_events_code.c,1882 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Delay_DHW_valve_UPOnPress283:
+L_Delay_DHW_valve_UPOnPress287:
 SUBS	R7, R7, #1
-BNE	L_Delay_DHW_valve_UPOnPress283
+BNE	L_Delay_DHW_valve_UPOnPress287
 NOP
 NOP
 NOP
-;Controller_events_code.c,1882 :: 		}
+;Controller_events_code.c,1883 :: 		}
 L_end_Delay_DHW_valve_UPOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Delay_DHW_valve_UPOnPress
 _Delay_DHW_valve_SETOnUp:
-;Controller_events_code.c,1883 :: 		void Delay_DHW_valve_SETOnUp() {
+;Controller_events_code.c,1884 :: 		void Delay_DHW_valve_SETOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1884 :: 		Delay_DHW_valve_SET.Visible = 1;
+;Controller_events_code.c,1885 :: 		Delay_DHW_valve_SET.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_DHW_valve_SET+20)
 MOVT	R0, #hi_addr(_Delay_DHW_valve_SET+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1885 :: 		Image348.Visible = 0;
+;Controller_events_code.c,1886 :: 		Image348.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image348+20)
 MOVT	R0, #hi_addr(_Image348+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1886 :: 		DrawImage (&Delay_DHW_valve_SET);
+;Controller_events_code.c,1887 :: 		DrawImage (&Delay_DHW_valve_SET);
 MOVW	R0, #lo_addr(_Delay_DHW_valve_SET+0)
 MOVT	R0, #hi_addr(_Delay_DHW_valve_SET+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1887 :: 		}
+;Controller_events_code.c,1888 :: 		}
 L_end_Delay_DHW_valve_SETOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_DHW_valve_SETOnUp
 _Delay_DHW_valve_SETOnDown:
-;Controller_events_code.c,1888 :: 		void Delay_DHW_valve_SETOnDown() {
+;Controller_events_code.c,1889 :: 		void Delay_DHW_valve_SETOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1889 :: 		Tone1();
+;Controller_events_code.c,1890 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,1893 :: 		send_data_packet(THREE_WAY_DEL,1);
+;Controller_events_code.c,1894 :: 		send_data_packet(THREE_WAY_DEL,1);
 MOVS	R1, #1
 MOVW	R0, #50
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,1894 :: 		Delay_DHW_valve_SET.Visible = 0;
+;Controller_events_code.c,1895 :: 		Delay_DHW_valve_SET.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_DHW_valve_SET+20)
 MOVT	R0, #hi_addr(_Delay_DHW_valve_SET+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1895 :: 		Image348.Visible = 1;
+;Controller_events_code.c,1896 :: 		Image348.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image348+20)
 MOVT	R0, #hi_addr(_Image348+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1896 :: 		DrawImage (&Image348);
+;Controller_events_code.c,1897 :: 		DrawImage (&Image348);
 MOVW	R0, #lo_addr(_Image348+0)
 MOVT	R0, #hi_addr(_Image348+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1897 :: 		}
+;Controller_events_code.c,1898 :: 		}
 L_end_Delay_DHW_valve_SETOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_DHW_valve_SETOnDown
 _Delay_compressor_DOWNOnUp:
-;Controller_events_code.c,1899 :: 		void Delay_compressor_DOWNOnUp() {
+;Controller_events_code.c,1900 :: 		void Delay_compressor_DOWNOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1900 :: 		Image311.Visible = 0;
+;Controller_events_code.c,1901 :: 		Image311.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image311+20)
 MOVT	R0, #hi_addr(_Image311+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1901 :: 		Delay_compressor_DOWN.Visible = 1;
+;Controller_events_code.c,1902 :: 		Delay_compressor_DOWN.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_compressor_DOWN+20)
 MOVT	R0, #hi_addr(_Delay_compressor_DOWN+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1902 :: 		DrawImage(&Delay_compressor_DOWN);
+;Controller_events_code.c,1903 :: 		DrawImage(&Delay_compressor_DOWN);
 MOVW	R0, #lo_addr(_Delay_compressor_DOWN+0)
 MOVT	R0, #hi_addr(_Delay_compressor_DOWN+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1903 :: 		}
+;Controller_events_code.c,1904 :: 		}
 L_end_Delay_compressor_DOWNOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_compressor_DOWNOnUp
 _Delay_compressor_DOWNOnPress:
-;Controller_events_code.c,1904 :: 		void Delay_compressor_DOWNOnPress() {
+;Controller_events_code.c,1905 :: 		void Delay_compressor_DOWNOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1907 :: 		Tone2 ();
+;Controller_events_code.c,1908 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,1908 :: 		Image311.Visible = 1;
+;Controller_events_code.c,1909 :: 		Image311.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image311+20)
 MOVT	R0, #hi_addr(_Image311+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1909 :: 		Delay_compressor_DOWN.Visible = 0;
+;Controller_events_code.c,1910 :: 		Delay_compressor_DOWN.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_compressor_DOWN+20)
 MOVT	R0, #hi_addr(_Delay_compressor_DOWN+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1910 :: 		DrawImage(&Image311);
+;Controller_events_code.c,1911 :: 		DrawImage(&Image311);
 MOVW	R0, #lo_addr(_Image311+0)
 MOVT	R0, #hi_addr(_Image311+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1913 :: 		system_reg[COMP_DEL]--;
+;Controller_events_code.c,1914 :: 		system_reg[COMP_DEL]--;
 MOVW	R1, #lo_addr(_system_reg+20)
 MOVT	R1, #hi_addr(_system_reg+20)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1914 :: 		if (system_reg[COMP_DEL] < 0)
+;Controller_events_code.c,1915 :: 		if (system_reg[COMP_DEL] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Delay_compressor_DOWNOnPress285
-;Controller_events_code.c,1915 :: 		system_reg[COMP_DEL] = 0;
+BGE	L_Delay_compressor_DOWNOnPress289
+;Controller_events_code.c,1916 :: 		system_reg[COMP_DEL] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+20)
 MOVT	R0, #hi_addr(_system_reg+20)
 STRH	R1, [R0, #0]
-L_Delay_compressor_DOWNOnPress285:
-;Controller_events_code.c,1916 :: 		IntToStr(system_reg[COMP_DEL], txt);
+L_Delay_compressor_DOWNOnPress289:
+;Controller_events_code.c,1917 :: 		IntToStr(system_reg[COMP_DEL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+20)
 MOVT	R0, #hi_addr(_system_reg+20)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1917 :: 		Ltrim (txt);
+;Controller_events_code.c,1918 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1918 :: 		strncpy(Delay_compressor.Caption, txt, 2);
+;Controller_events_code.c,1919 :: 		strncpy(Delay_compressor.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Delay_compressor+24)
 MOVT	R0, #hi_addr(_Delay_compressor+24)
@@ -7742,99 +7793,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1919 :: 		DrawRoundButton(&Delay_compressor);
+;Controller_events_code.c,1920 :: 		DrawRoundButton(&Delay_compressor);
 MOVW	R0, #lo_addr(_Delay_compressor+0)
 MOVT	R0, #hi_addr(_Delay_compressor+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1920 :: 		Delay_ms (100);
+;Controller_events_code.c,1921 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Delay_compressor_DOWNOnPress286:
+L_Delay_compressor_DOWNOnPress290:
 SUBS	R7, R7, #1
-BNE	L_Delay_compressor_DOWNOnPress286
+BNE	L_Delay_compressor_DOWNOnPress290
 NOP
 NOP
 NOP
-;Controller_events_code.c,1921 :: 		}
+;Controller_events_code.c,1922 :: 		}
 L_end_Delay_compressor_DOWNOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Delay_compressor_DOWNOnPress
 _Delay_compressor_UPOnUp:
-;Controller_events_code.c,1922 :: 		void Delay_compressor_UPOnUp() {
+;Controller_events_code.c,1923 :: 		void Delay_compressor_UPOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1923 :: 		Image317.Visible = 0;
+;Controller_events_code.c,1924 :: 		Image317.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image317+20)
 MOVT	R0, #hi_addr(_Image317+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1924 :: 		Delay_compressor_UP.Visible = 1;
+;Controller_events_code.c,1925 :: 		Delay_compressor_UP.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_compressor_UP+20)
 MOVT	R0, #hi_addr(_Delay_compressor_UP+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1925 :: 		DrawImage(&Delay_compressor_UP);
+;Controller_events_code.c,1926 :: 		DrawImage(&Delay_compressor_UP);
 MOVW	R0, #lo_addr(_Delay_compressor_UP+0)
 MOVT	R0, #hi_addr(_Delay_compressor_UP+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1926 :: 		}
+;Controller_events_code.c,1927 :: 		}
 L_end_Delay_compressor_UPOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_compressor_UPOnUp
 _Delay_compressor_UPOnPress:
-;Controller_events_code.c,1927 :: 		void Delay_compressor_UPOnPress() {
+;Controller_events_code.c,1928 :: 		void Delay_compressor_UPOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1930 :: 		Tone2 ();
+;Controller_events_code.c,1931 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,1931 :: 		Image317.Visible = 1;
+;Controller_events_code.c,1932 :: 		Image317.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image317+20)
 MOVT	R0, #hi_addr(_Image317+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1932 :: 		Delay_compressor_UP.Visible = 0;
+;Controller_events_code.c,1933 :: 		Delay_compressor_UP.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_compressor_UP+20)
 MOVT	R0, #hi_addr(_Delay_compressor_UP+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1933 :: 		DrawImage(&Image317);
+;Controller_events_code.c,1934 :: 		DrawImage(&Image317);
 MOVW	R0, #lo_addr(_Image317+0)
 MOVT	R0, #hi_addr(_Image317+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1936 :: 		system_reg[COMP_DEL]++;
+;Controller_events_code.c,1937 :: 		system_reg[COMP_DEL]++;
 MOVW	R1, #lo_addr(_system_reg+20)
 MOVT	R1, #hi_addr(_system_reg+20)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1937 :: 		if (system_reg[COMP_DEL] >99)
+;Controller_events_code.c,1938 :: 		if (system_reg[COMP_DEL] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Delay_compressor_UPOnPress288
-;Controller_events_code.c,1938 :: 		system_reg[COMP_DEL] = 99;
+BLE	L_Delay_compressor_UPOnPress292
+;Controller_events_code.c,1939 :: 		system_reg[COMP_DEL] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+20)
 MOVT	R0, #hi_addr(_system_reg+20)
 STRH	R1, [R0, #0]
-L_Delay_compressor_UPOnPress288:
-;Controller_events_code.c,1939 :: 		IntToStr(system_reg[COMP_DEL], txt);
+L_Delay_compressor_UPOnPress292:
+;Controller_events_code.c,1940 :: 		IntToStr(system_reg[COMP_DEL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+20)
 MOVT	R0, #hi_addr(_system_reg+20)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1940 :: 		Ltrim (txt);
+;Controller_events_code.c,1941 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1941 :: 		strncpy(Delay_compressor.Caption, txt, 2);
+;Controller_events_code.c,1942 :: 		strncpy(Delay_compressor.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Delay_compressor+24)
 MOVT	R0, #hi_addr(_Delay_compressor+24)
@@ -7842,154 +7893,154 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1942 :: 		DrawRoundButton(&Delay_compressor);
+;Controller_events_code.c,1943 :: 		DrawRoundButton(&Delay_compressor);
 MOVW	R0, #lo_addr(_Delay_compressor+0)
 MOVT	R0, #hi_addr(_Delay_compressor+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1943 :: 		Delay_ms (100);
+;Controller_events_code.c,1944 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Delay_compressor_UPOnPress289:
+L_Delay_compressor_UPOnPress293:
 SUBS	R7, R7, #1
-BNE	L_Delay_compressor_UPOnPress289
+BNE	L_Delay_compressor_UPOnPress293
 NOP
 NOP
 NOP
-;Controller_events_code.c,1944 :: 		}
+;Controller_events_code.c,1945 :: 		}
 L_end_Delay_compressor_UPOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Delay_compressor_UPOnPress
 _Delay_compressor_SETOnUp:
-;Controller_events_code.c,1945 :: 		void Delay_compressor_SETOnUp() {
+;Controller_events_code.c,1946 :: 		void Delay_compressor_SETOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1946 :: 		Delay_compressor_SET.Visible = 1;
+;Controller_events_code.c,1947 :: 		Delay_compressor_SET.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Delay_compressor_SET+20)
 MOVT	R0, #hi_addr(_Delay_compressor_SET+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1947 :: 		Image349.Visible = 0;
+;Controller_events_code.c,1948 :: 		Image349.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image349+20)
 MOVT	R0, #hi_addr(_Image349+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1948 :: 		DrawImage (&Delay_compressor_SET);
+;Controller_events_code.c,1949 :: 		DrawImage (&Delay_compressor_SET);
 MOVW	R0, #lo_addr(_Delay_compressor_SET+0)
 MOVT	R0, #hi_addr(_Delay_compressor_SET+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1949 :: 		}
+;Controller_events_code.c,1950 :: 		}
 L_end_Delay_compressor_SETOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_compressor_SETOnUp
 _Delay_compressor_SETOnDown:
-;Controller_events_code.c,1950 :: 		void Delay_compressor_SETOnDown() {
+;Controller_events_code.c,1951 :: 		void Delay_compressor_SETOnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1951 :: 		Tone1();
+;Controller_events_code.c,1952 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,1955 :: 		send_data_packet(COMP_DEL,1);
+;Controller_events_code.c,1956 :: 		send_data_packet(COMP_DEL,1);
 MOVS	R1, #1
 MOVW	R0, #10
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,1956 :: 		Delay_compressor_SET.Visible = 0;
+;Controller_events_code.c,1957 :: 		Delay_compressor_SET.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Delay_compressor_SET+20)
 MOVT	R0, #hi_addr(_Delay_compressor_SET+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1957 :: 		Image349.Visible = 1;
+;Controller_events_code.c,1958 :: 		Image349.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image349+20)
 MOVT	R0, #hi_addr(_Image349+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1958 :: 		DrawImage (&Image349);
+;Controller_events_code.c,1959 :: 		DrawImage (&Image349);
 MOVW	R0, #lo_addr(_Image349+0)
 MOVT	R0, #hi_addr(_Image349+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1959 :: 		}
+;Controller_events_code.c,1960 :: 		}
 L_end_Delay_compressor_SETOnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Delay_compressor_SETOnDown
 _Down_1_OnUp:
-;Controller_events_code.c,1962 :: 		void Down_1_OnUp() {
+;Controller_events_code.c,1963 :: 		void Down_1_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1963 :: 		Image200.Visible = 0;
+;Controller_events_code.c,1964 :: 		Image200.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image200+20)
 MOVT	R0, #hi_addr(_Image200+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1964 :: 		Down_1_.Visible = 1;
+;Controller_events_code.c,1965 :: 		Down_1_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_1_+20)
 MOVT	R0, #hi_addr(_Down_1_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1965 :: 		DrawImage(&Down_1_);
+;Controller_events_code.c,1966 :: 		DrawImage(&Down_1_);
 MOVW	R0, #lo_addr(_Down_1_+0)
 MOVT	R0, #hi_addr(_Down_1_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1966 :: 		}
+;Controller_events_code.c,1967 :: 		}
 L_end_Down_1_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_1_OnUp
 _Down_1_OnPress:
-;Controller_events_code.c,1967 :: 		void Down_1_OnPress() {
+;Controller_events_code.c,1968 :: 		void Down_1_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1969 :: 		Tone3 ();
+;Controller_events_code.c,1970 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,1970 :: 		Image200.Visible = 1;
+;Controller_events_code.c,1971 :: 		Image200.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image200+20)
 MOVT	R0, #hi_addr(_Image200+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1971 :: 		Down_1_.Visible = 0;
+;Controller_events_code.c,1972 :: 		Down_1_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_1_+20)
 MOVT	R0, #hi_addr(_Down_1_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1972 :: 		DrawImage(&Image200);
+;Controller_events_code.c,1973 :: 		DrawImage(&Image200);
 MOVW	R0, #lo_addr(_Image200+0)
 MOVT	R0, #hi_addr(_Image200+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1973 :: 		system_reg[HEAT_MIN]--;
+;Controller_events_code.c,1974 :: 		system_reg[HEAT_MIN]--;
 MOVW	R1, #lo_addr(_system_reg+180)
 MOVT	R1, #hi_addr(_system_reg+180)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1974 :: 		if (system_reg[HEAT_MIN] < 0)
+;Controller_events_code.c,1975 :: 		if (system_reg[HEAT_MIN] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_1_OnPress291
-;Controller_events_code.c,1975 :: 		system_reg[HEAT_MIN] = 0;
+BGE	L_Down_1_OnPress295
+;Controller_events_code.c,1976 :: 		system_reg[HEAT_MIN] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+180)
 MOVT	R0, #hi_addr(_system_reg+180)
 STRH	R1, [R0, #0]
-L_Down_1_OnPress291:
-;Controller_events_code.c,1976 :: 		IntToStr(system_reg[HEAT_MIN], txt);
+L_Down_1_OnPress295:
+;Controller_events_code.c,1977 :: 		IntToStr(system_reg[HEAT_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+180)
 MOVT	R0, #hi_addr(_system_reg+180)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1977 :: 		Ltrim (txt);
+;Controller_events_code.c,1978 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1978 :: 		strncpy(Set_min_heating_HP.Caption, txt, 2);
+;Controller_events_code.c,1979 :: 		strncpy(Set_min_heating_HP.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_heating_HP+24)
 MOVT	R0, #hi_addr(_Set_min_heating_HP+24)
@@ -7997,99 +8048,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1979 :: 		DrawRoundButton(&Set_min_heating_HP);
+;Controller_events_code.c,1980 :: 		DrawRoundButton(&Set_min_heating_HP);
 MOVW	R0, #lo_addr(_Set_min_heating_HP+0)
 MOVT	R0, #hi_addr(_Set_min_heating_HP+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,1980 :: 		Delay_ms (100);
+;Controller_events_code.c,1981 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_1_OnPress292:
+L_Down_1_OnPress296:
 SUBS	R7, R7, #1
-BNE	L_Down_1_OnPress292
+BNE	L_Down_1_OnPress296
 NOP
 NOP
 NOP
-;Controller_events_code.c,1981 :: 		}
+;Controller_events_code.c,1982 :: 		}
 L_end_Down_1_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_1_OnPress
 _Up_1_OnUp:
-;Controller_events_code.c,1982 :: 		void Up_1_OnUp() {
+;Controller_events_code.c,1983 :: 		void Up_1_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,1983 :: 		Image218.Visible = 0;
+;Controller_events_code.c,1984 :: 		Image218.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image218+20)
 MOVT	R0, #hi_addr(_Image218+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1984 :: 		Up_1_.Visible = 1;
+;Controller_events_code.c,1985 :: 		Up_1_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_1_+20)
 MOVT	R0, #hi_addr(_Up_1_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1985 :: 		DrawImage(&Up_1_);
+;Controller_events_code.c,1986 :: 		DrawImage(&Up_1_);
 MOVW	R0, #lo_addr(_Up_1_+0)
 MOVT	R0, #hi_addr(_Up_1_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1986 :: 		}
+;Controller_events_code.c,1987 :: 		}
 L_end_Up_1_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_1_OnUp
 _Up_1_OnPress:
-;Controller_events_code.c,1987 :: 		void Up_1_OnPress() {
+;Controller_events_code.c,1988 :: 		void Up_1_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,1989 :: 		Tone2();
+;Controller_events_code.c,1990 :: 		Tone2();
 BL	_Tone2+0
-;Controller_events_code.c,1990 :: 		Image218.Visible = 1;
+;Controller_events_code.c,1991 :: 		Image218.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image218+20)
 MOVT	R0, #hi_addr(_Image218+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1991 :: 		Up_1_.Visible = 0;
+;Controller_events_code.c,1992 :: 		Up_1_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_1_+20)
 MOVT	R0, #hi_addr(_Up_1_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,1992 :: 		DrawImage(&Image218);
+;Controller_events_code.c,1993 :: 		DrawImage(&Image218);
 MOVW	R0, #lo_addr(_Image218+0)
 MOVT	R0, #hi_addr(_Image218+0)
 BL	_DrawImage+0
-;Controller_events_code.c,1993 :: 		system_reg[HEAT_MIN]++;
+;Controller_events_code.c,1994 :: 		system_reg[HEAT_MIN]++;
 MOVW	R1, #lo_addr(_system_reg+180)
 MOVT	R1, #hi_addr(_system_reg+180)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,1994 :: 		if (system_reg[HEAT_MIN] >99)
+;Controller_events_code.c,1995 :: 		if (system_reg[HEAT_MIN] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_1_OnPress294
-;Controller_events_code.c,1995 :: 		system_reg[HEAT_MIN] = 99;
+BLE	L_Up_1_OnPress298
+;Controller_events_code.c,1996 :: 		system_reg[HEAT_MIN] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+180)
 MOVT	R0, #hi_addr(_system_reg+180)
 STRH	R1, [R0, #0]
-L_Up_1_OnPress294:
-;Controller_events_code.c,1996 :: 		IntToStr(system_reg[HEAT_MIN], txt);
+L_Up_1_OnPress298:
+;Controller_events_code.c,1997 :: 		IntToStr(system_reg[HEAT_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+180)
 MOVT	R0, #hi_addr(_system_reg+180)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,1997 :: 		Ltrim (txt);
+;Controller_events_code.c,1998 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,1998 :: 		strncpy(Set_min_heating_HP.Caption, txt, 2);
+;Controller_events_code.c,1999 :: 		strncpy(Set_min_heating_HP.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_heating_HP+24)
 MOVT	R0, #hi_addr(_Set_min_heating_HP+24)
@@ -8097,99 +8148,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,1999 :: 		DrawRoundButton(&Set_min_heating_HP);
+;Controller_events_code.c,2000 :: 		DrawRoundButton(&Set_min_heating_HP);
 MOVW	R0, #lo_addr(_Set_min_heating_HP+0)
 MOVT	R0, #hi_addr(_Set_min_heating_HP+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2000 :: 		Delay_ms (100);
+;Controller_events_code.c,2001 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_1_OnPress295:
+L_Up_1_OnPress299:
 SUBS	R7, R7, #1
-BNE	L_Up_1_OnPress295
+BNE	L_Up_1_OnPress299
 NOP
 NOP
 NOP
-;Controller_events_code.c,2001 :: 		}
+;Controller_events_code.c,2002 :: 		}
 L_end_Up_1_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_1_OnPress
 _Down_2_OnUp:
-;Controller_events_code.c,2002 :: 		void Down_2_OnUp() {
+;Controller_events_code.c,2003 :: 		void Down_2_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2003 :: 		Image205.Visible = 0;
+;Controller_events_code.c,2004 :: 		Image205.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image205+20)
 MOVT	R0, #hi_addr(_Image205+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2004 :: 		Down_2_.Visible = 1;
+;Controller_events_code.c,2005 :: 		Down_2_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_2_+20)
 MOVT	R0, #hi_addr(_Down_2_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2005 :: 		DrawImage(&Down_2_);
+;Controller_events_code.c,2006 :: 		DrawImage(&Down_2_);
 MOVW	R0, #lo_addr(_Down_2_+0)
 MOVT	R0, #hi_addr(_Down_2_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2006 :: 		}
+;Controller_events_code.c,2007 :: 		}
 L_end_Down_2_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_2_OnUp
 _Down_2_OnPress:
-;Controller_events_code.c,2008 :: 		void Down_2_OnPress() {
+;Controller_events_code.c,2009 :: 		void Down_2_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2010 :: 		Tone3 ();
+;Controller_events_code.c,2011 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,2011 :: 		Image205.Visible = 1;
+;Controller_events_code.c,2012 :: 		Image205.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image205+20)
 MOVT	R0, #hi_addr(_Image205+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2012 :: 		Down_2_.Visible = 0;
+;Controller_events_code.c,2013 :: 		Down_2_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_2_+20)
 MOVT	R0, #hi_addr(_Down_2_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2013 :: 		DrawImage(&Image205);
+;Controller_events_code.c,2014 :: 		DrawImage(&Image205);
 MOVW	R0, #lo_addr(_Image205+0)
 MOVT	R0, #hi_addr(_Image205+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2015 :: 		system_reg[HEAT_MAX]--;
+;Controller_events_code.c,2016 :: 		system_reg[HEAT_MAX]--;
 MOVW	R1, #lo_addr(_system_reg+160)
 MOVT	R1, #hi_addr(_system_reg+160)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2016 :: 		if (system_reg[HEAT_MAX] < 0)
+;Controller_events_code.c,2017 :: 		if (system_reg[HEAT_MAX] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_2_OnPress297
-;Controller_events_code.c,2017 :: 		system_reg[HEAT_MAX] = 0;
+BGE	L_Down_2_OnPress301
+;Controller_events_code.c,2018 :: 		system_reg[HEAT_MAX] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+160)
 MOVT	R0, #hi_addr(_system_reg+160)
 STRH	R1, [R0, #0]
-L_Down_2_OnPress297:
-;Controller_events_code.c,2018 :: 		IntToStr(system_reg[HEAT_MAX], txt);
+L_Down_2_OnPress301:
+;Controller_events_code.c,2019 :: 		IntToStr(system_reg[HEAT_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+160)
 MOVT	R0, #hi_addr(_system_reg+160)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2019 :: 		Ltrim (txt);
+;Controller_events_code.c,2020 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2020 :: 		strncpy(Set_max_heating_HP.Caption, txt, 2);
+;Controller_events_code.c,2021 :: 		strncpy(Set_max_heating_HP.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_heating_HP+24)
 MOVT	R0, #hi_addr(_Set_max_heating_HP+24)
@@ -8197,75 +8248,75 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2021 :: 		DrawRoundButton(&Set_max_heating_HP);
+;Controller_events_code.c,2022 :: 		DrawRoundButton(&Set_max_heating_HP);
 MOVW	R0, #lo_addr(_Set_max_heating_HP+0)
 MOVT	R0, #hi_addr(_Set_max_heating_HP+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2022 :: 		Delay_ms (100);
+;Controller_events_code.c,2023 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_2_OnPress298:
+L_Down_2_OnPress302:
 SUBS	R7, R7, #1
-BNE	L_Down_2_OnPress298
+BNE	L_Down_2_OnPress302
 NOP
 NOP
 NOP
-;Controller_events_code.c,2023 :: 		}
+;Controller_events_code.c,2024 :: 		}
 L_end_Down_2_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_2_OnPress
 _Up_2_OnPress:
-;Controller_events_code.c,2024 :: 		void Up_2_OnPress() {
+;Controller_events_code.c,2025 :: 		void Up_2_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2026 :: 		Tone2 ();
+;Controller_events_code.c,2027 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2027 :: 		Image219.Visible = 1;
+;Controller_events_code.c,2028 :: 		Image219.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image219+20)
 MOVT	R0, #hi_addr(_Image219+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2028 :: 		Up_2_.Visible = 0;
+;Controller_events_code.c,2029 :: 		Up_2_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_2_+20)
 MOVT	R0, #hi_addr(_Up_2_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2029 :: 		DrawImage(&Image219);
+;Controller_events_code.c,2030 :: 		DrawImage(&Image219);
 MOVW	R0, #lo_addr(_Image219+0)
 MOVT	R0, #hi_addr(_Image219+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2031 :: 		system_reg[HEAT_MAX]++;
+;Controller_events_code.c,2032 :: 		system_reg[HEAT_MAX]++;
 MOVW	R1, #lo_addr(_system_reg+160)
 MOVT	R1, #hi_addr(_system_reg+160)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2032 :: 		if (system_reg[HEAT_MAX] >99)
+;Controller_events_code.c,2033 :: 		if (system_reg[HEAT_MAX] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_2_OnPress300
-;Controller_events_code.c,2033 :: 		system_reg[HEAT_MAX] = 99;
+BLE	L_Up_2_OnPress304
+;Controller_events_code.c,2034 :: 		system_reg[HEAT_MAX] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+160)
 MOVT	R0, #hi_addr(_system_reg+160)
 STRH	R1, [R0, #0]
-L_Up_2_OnPress300:
-;Controller_events_code.c,2034 :: 		IntToStr(system_reg[HEAT_MAX], txt);
+L_Up_2_OnPress304:
+;Controller_events_code.c,2035 :: 		IntToStr(system_reg[HEAT_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+160)
 MOVT	R0, #hi_addr(_system_reg+160)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2035 :: 		Ltrim (txt);
+;Controller_events_code.c,2036 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2036 :: 		strncpy(Set_max_heating_HP.Caption, txt, 2);
+;Controller_events_code.c,2037 :: 		strncpy(Set_max_heating_HP.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_heating_HP+24)
 MOVT	R0, #hi_addr(_Set_max_heating_HP+24)
@@ -8273,99 +8324,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2037 :: 		DrawRoundButton(&Set_max_heating_HP);
+;Controller_events_code.c,2038 :: 		DrawRoundButton(&Set_max_heating_HP);
 MOVW	R0, #lo_addr(_Set_max_heating_HP+0)
 MOVT	R0, #hi_addr(_Set_max_heating_HP+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2038 :: 		Delay_ms (100);
+;Controller_events_code.c,2039 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_2_OnPress301:
+L_Up_2_OnPress305:
 SUBS	R7, R7, #1
-BNE	L_Up_2_OnPress301
+BNE	L_Up_2_OnPress305
 NOP
 NOP
 NOP
-;Controller_events_code.c,2039 :: 		}
+;Controller_events_code.c,2040 :: 		}
 L_end_Up_2_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_2_OnPress
 _Up_2_OnUp:
-;Controller_events_code.c,2040 :: 		void Up_2_OnUp() {
+;Controller_events_code.c,2041 :: 		void Up_2_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2041 :: 		Image219.Visible = 0;
+;Controller_events_code.c,2042 :: 		Image219.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image219+20)
 MOVT	R0, #hi_addr(_Image219+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2042 :: 		Up_2_.Visible = 1;
+;Controller_events_code.c,2043 :: 		Up_2_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_2_+20)
 MOVT	R0, #hi_addr(_Up_2_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2043 :: 		DrawImage(&Up_2_);
+;Controller_events_code.c,2044 :: 		DrawImage(&Up_2_);
 MOVW	R0, #lo_addr(_Up_2_+0)
 MOVT	R0, #hi_addr(_Up_2_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2044 :: 		}
+;Controller_events_code.c,2045 :: 		}
 L_end_Up_2_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_2_OnUp
 _Down_3_OnPress:
-;Controller_events_code.c,2046 :: 		void Down_3_OnPress() {
+;Controller_events_code.c,2047 :: 		void Down_3_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2048 :: 		Tone3 ();
+;Controller_events_code.c,2049 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,2049 :: 		Image206.Visible = 1;
+;Controller_events_code.c,2050 :: 		Image206.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image206+20)
 MOVT	R0, #hi_addr(_Image206+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2050 :: 		Down_3_.Visible = 0;
+;Controller_events_code.c,2051 :: 		Down_3_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_3_+20)
 MOVT	R0, #hi_addr(_Down_3_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2051 :: 		DrawImage(&Image206);
+;Controller_events_code.c,2052 :: 		DrawImage(&Image206);
 MOVW	R0, #lo_addr(_Image206+0)
 MOVT	R0, #hi_addr(_Image206+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2053 :: 		system_reg[EXAUST_MAX]--;
+;Controller_events_code.c,2054 :: 		system_reg[EXAUST_MAX]--;
 MOVW	R1, #lo_addr(_system_reg+360)
 MOVT	R1, #hi_addr(_system_reg+360)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2054 :: 		if (system_reg[EXAUST_MAX] < 0)
+;Controller_events_code.c,2055 :: 		if (system_reg[EXAUST_MAX] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_3_OnPress303
-;Controller_events_code.c,2055 :: 		system_reg[EXAUST_MAX] = 0;
+BGE	L_Down_3_OnPress307
+;Controller_events_code.c,2056 :: 		system_reg[EXAUST_MAX] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+360)
 MOVT	R0, #hi_addr(_system_reg+360)
 STRH	R1, [R0, #0]
-L_Down_3_OnPress303:
-;Controller_events_code.c,2056 :: 		IntToStr(system_reg[EXAUST_MAX], txt);
+L_Down_3_OnPress307:
+;Controller_events_code.c,2057 :: 		IntToStr(system_reg[EXAUST_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+360)
 MOVT	R0, #hi_addr(_system_reg+360)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2057 :: 		Ltrim (txt);
+;Controller_events_code.c,2058 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2058 :: 		strncpy(Set_max_exhaust.Caption, txt, 3);
+;Controller_events_code.c,2059 :: 		strncpy(Set_max_exhaust.Caption, txt, 3);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_exhaust+24)
 MOVT	R0, #hi_addr(_Set_max_exhaust+24)
@@ -8373,99 +8424,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #3
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2059 :: 		DrawRoundButton(&Set_max_exhaust);
+;Controller_events_code.c,2060 :: 		DrawRoundButton(&Set_max_exhaust);
 MOVW	R0, #lo_addr(_Set_max_exhaust+0)
 MOVT	R0, #hi_addr(_Set_max_exhaust+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2060 :: 		Delay_ms (100);
+;Controller_events_code.c,2061 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_3_OnPress304:
+L_Down_3_OnPress308:
 SUBS	R7, R7, #1
-BNE	L_Down_3_OnPress304
+BNE	L_Down_3_OnPress308
 NOP
 NOP
 NOP
-;Controller_events_code.c,2061 :: 		}
+;Controller_events_code.c,2062 :: 		}
 L_end_Down_3_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_3_OnPress
 _Down_3_OnUp:
-;Controller_events_code.c,2062 :: 		void Down_3_OnUp() {
+;Controller_events_code.c,2063 :: 		void Down_3_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2063 :: 		Image206.Visible = 0;
+;Controller_events_code.c,2064 :: 		Image206.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image206+20)
 MOVT	R0, #hi_addr(_Image206+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2064 :: 		Down_3_.Visible = 1;
+;Controller_events_code.c,2065 :: 		Down_3_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_3_+20)
 MOVT	R0, #hi_addr(_Down_3_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2065 :: 		DrawImage(&Down_3_);
+;Controller_events_code.c,2066 :: 		DrawImage(&Down_3_);
 MOVW	R0, #lo_addr(_Down_3_+0)
 MOVT	R0, #hi_addr(_Down_3_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2066 :: 		}
+;Controller_events_code.c,2067 :: 		}
 L_end_Down_3_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_3_OnUp
 _Up_3_OnPress:
-;Controller_events_code.c,2067 :: 		void Up_3_OnPress() {
+;Controller_events_code.c,2068 :: 		void Up_3_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2069 :: 		Tone2 ();
+;Controller_events_code.c,2070 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2070 :: 		Image220.Visible = 1;
+;Controller_events_code.c,2071 :: 		Image220.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image220+20)
 MOVT	R0, #hi_addr(_Image220+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2071 :: 		Up_3_.Visible = 0;
+;Controller_events_code.c,2072 :: 		Up_3_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_3_+20)
 MOVT	R0, #hi_addr(_Up_3_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2072 :: 		DrawImage(&Image220);
+;Controller_events_code.c,2073 :: 		DrawImage(&Image220);
 MOVW	R0, #lo_addr(_Image220+0)
 MOVT	R0, #hi_addr(_Image220+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2073 :: 		system_reg[EXAUST_MAX]++;
+;Controller_events_code.c,2074 :: 		system_reg[EXAUST_MAX]++;
 MOVW	R1, #lo_addr(_system_reg+360)
 MOVT	R1, #hi_addr(_system_reg+360)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2074 :: 		if(system_reg[EXAUST_MAX]>115)
+;Controller_events_code.c,2075 :: 		if(system_reg[EXAUST_MAX]>115)
 CMP	R0, #115
 IT	LE
-BLE	L_Up_3_OnPress306
-;Controller_events_code.c,2075 :: 		system_reg[EXAUST_MAX] = 115;
+BLE	L_Up_3_OnPress310
+;Controller_events_code.c,2076 :: 		system_reg[EXAUST_MAX] = 115;
 MOVS	R1, #115
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+360)
 MOVT	R0, #hi_addr(_system_reg+360)
 STRH	R1, [R0, #0]
-L_Up_3_OnPress306:
-;Controller_events_code.c,2076 :: 		IntToStr(system_reg[EXAUST_MAX], txt);
+L_Up_3_OnPress310:
+;Controller_events_code.c,2077 :: 		IntToStr(system_reg[EXAUST_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+360)
 MOVT	R0, #hi_addr(_system_reg+360)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2077 :: 		Ltrim (txt);
+;Controller_events_code.c,2078 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2078 :: 		strncpy(Set_max_exhaust.Caption, txt, 3);
+;Controller_events_code.c,2079 :: 		strncpy(Set_max_exhaust.Caption, txt, 3);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_exhaust+24)
 MOVT	R0, #hi_addr(_Set_max_exhaust+24)
@@ -8473,100 +8524,100 @@ LDR	R0, [R0, #0]
 MOVS	R2, #3
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2079 :: 		DrawRoundButton(&Set_max_exhaust);
+;Controller_events_code.c,2080 :: 		DrawRoundButton(&Set_max_exhaust);
 MOVW	R0, #lo_addr(_Set_max_exhaust+0)
 MOVT	R0, #hi_addr(_Set_max_exhaust+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2080 :: 		Delay_ms (100);
+;Controller_events_code.c,2081 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_3_OnPress307:
+L_Up_3_OnPress311:
 SUBS	R7, R7, #1
-BNE	L_Up_3_OnPress307
+BNE	L_Up_3_OnPress311
 NOP
 NOP
 NOP
-;Controller_events_code.c,2081 :: 		}
+;Controller_events_code.c,2082 :: 		}
 L_end_Up_3_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_3_OnPress
 _Up_3_OnUp:
-;Controller_events_code.c,2082 :: 		void Up_3_OnUp() {
+;Controller_events_code.c,2083 :: 		void Up_3_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2083 :: 		Image220.Visible = 0;
+;Controller_events_code.c,2084 :: 		Image220.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image220+20)
 MOVT	R0, #hi_addr(_Image220+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2084 :: 		Up_3_.Visible = 1;
+;Controller_events_code.c,2085 :: 		Up_3_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_3_+20)
 MOVT	R0, #hi_addr(_Up_3_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2085 :: 		DrawImage(&Up_3_);
+;Controller_events_code.c,2086 :: 		DrawImage(&Up_3_);
 MOVW	R0, #lo_addr(_Up_3_+0)
 MOVT	R0, #hi_addr(_Up_3_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2086 :: 		}
+;Controller_events_code.c,2087 :: 		}
 L_end_Up_3_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_3_OnUp
 _Down_4_OnPress:
-;Controller_events_code.c,2087 :: 		void Down_4_OnPress() {
+;Controller_events_code.c,2088 :: 		void Down_4_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2089 :: 		Tone3 ();
+;Controller_events_code.c,2090 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,2090 :: 		Image207.Visible = 1;
+;Controller_events_code.c,2091 :: 		Image207.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image207+20)
 MOVT	R0, #hi_addr(_Image207+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2091 :: 		Down_4_.Visible = 0;
+;Controller_events_code.c,2092 :: 		Down_4_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_4_+20)
 MOVT	R0, #hi_addr(_Down_4_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2092 :: 		DrawImage(&Image207);
+;Controller_events_code.c,2093 :: 		DrawImage(&Image207);
 MOVW	R0, #lo_addr(_Image207+0)
 MOVT	R0, #hi_addr(_Image207+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2094 :: 		system_reg[SOURS_MIN]--;
+;Controller_events_code.c,2095 :: 		system_reg[SOURS_MIN]--;
 MOVW	R2, #lo_addr(_system_reg+880)
 MOVT	R2, #hi_addr(_system_reg+880)
 LDRSH	R0, [R2, #0]
 SUBS	R1, R0, #1
 SXTH	R1, R1
 STRH	R1, [R2, #0]
-;Controller_events_code.c,2095 :: 		if (system_reg[SOURS_MIN] < -30)
+;Controller_events_code.c,2096 :: 		if (system_reg[SOURS_MIN] < -30)
 MVN	R0, #29
 CMP	R1, R0
 IT	GE
-BGE	L_Down_4_OnPress309
-;Controller_events_code.c,2096 :: 		system_reg[SOURS_MIN] = -30;
+BGE	L_Down_4_OnPress313
+;Controller_events_code.c,2097 :: 		system_reg[SOURS_MIN] = -30;
 MOVW	R1, #65506
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+880)
 MOVT	R0, #hi_addr(_system_reg+880)
 STRH	R1, [R0, #0]
-L_Down_4_OnPress309:
-;Controller_events_code.c,2097 :: 		IntToStr(system_reg[SOURS_MIN], txt);
+L_Down_4_OnPress313:
+;Controller_events_code.c,2098 :: 		IntToStr(system_reg[SOURS_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+880)
 MOVT	R0, #hi_addr(_system_reg+880)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2098 :: 		Ltrim (txt);
+;Controller_events_code.c,2099 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2099 :: 		strncpy(Set_min_source_temp.Caption, txt, 3);
+;Controller_events_code.c,2100 :: 		strncpy(Set_min_source_temp.Caption, txt, 3);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_source_temp+24)
 MOVT	R0, #hi_addr(_Set_min_source_temp+24)
@@ -8574,75 +8625,75 @@ LDR	R0, [R0, #0]
 MOVS	R2, #3
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2100 :: 		DrawRoundButton(&Set_min_source_temp);
+;Controller_events_code.c,2101 :: 		DrawRoundButton(&Set_min_source_temp);
 MOVW	R0, #lo_addr(_Set_min_source_temp+0)
 MOVT	R0, #hi_addr(_Set_min_source_temp+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2101 :: 		Delay_ms (100);
+;Controller_events_code.c,2102 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_4_OnPress310:
+L_Down_4_OnPress314:
 SUBS	R7, R7, #1
-BNE	L_Down_4_OnPress310
+BNE	L_Down_4_OnPress314
 NOP
 NOP
 NOP
-;Controller_events_code.c,2102 :: 		}
+;Controller_events_code.c,2103 :: 		}
 L_end_Down_4_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_4_OnPress
 _Up_4_OnPress:
-;Controller_events_code.c,2103 :: 		void Up_4_OnPress(){
+;Controller_events_code.c,2104 :: 		void Up_4_OnPress(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2105 :: 		Tone2 ();
+;Controller_events_code.c,2106 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2106 :: 		Image221.Visible = 1;
+;Controller_events_code.c,2107 :: 		Image221.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image221+20)
 MOVT	R0, #hi_addr(_Image221+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2107 :: 		Up_4_.Visible = 0;
+;Controller_events_code.c,2108 :: 		Up_4_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_4_+20)
 MOVT	R0, #hi_addr(_Up_4_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2108 :: 		DrawImage(&Image221);
+;Controller_events_code.c,2109 :: 		DrawImage(&Image221);
 MOVW	R0, #lo_addr(_Image221+0)
 MOVT	R0, #hi_addr(_Image221+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2110 :: 		system_reg[SOURS_MIN]++;
+;Controller_events_code.c,2111 :: 		system_reg[SOURS_MIN]++;
 MOVW	R1, #lo_addr(_system_reg+880)
 MOVT	R1, #hi_addr(_system_reg+880)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2111 :: 		if (system_reg[SOURS_MIN] >99)
+;Controller_events_code.c,2112 :: 		if (system_reg[SOURS_MIN] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_4_OnPress312
-;Controller_events_code.c,2112 :: 		system_reg[SOURS_MIN] = 99;
+BLE	L_Up_4_OnPress316
+;Controller_events_code.c,2113 :: 		system_reg[SOURS_MIN] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+880)
 MOVT	R0, #hi_addr(_system_reg+880)
 STRH	R1, [R0, #0]
-L_Up_4_OnPress312:
-;Controller_events_code.c,2113 :: 		IntToStr(system_reg[SOURS_MIN], txt);
+L_Up_4_OnPress316:
+;Controller_events_code.c,2114 :: 		IntToStr(system_reg[SOURS_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+880)
 MOVT	R0, #hi_addr(_system_reg+880)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2114 :: 		Ltrim (txt);
+;Controller_events_code.c,2115 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2115 :: 		strncpy(Set_min_source_temp.Caption, txt, 3);
+;Controller_events_code.c,2116 :: 		strncpy(Set_min_source_temp.Caption, txt, 3);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_source_temp+24)
 MOVT	R0, #hi_addr(_Set_min_source_temp+24)
@@ -8650,147 +8701,147 @@ LDR	R0, [R0, #0]
 MOVS	R2, #3
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2116 :: 		DrawRoundButton(&Set_min_source_temp);
+;Controller_events_code.c,2117 :: 		DrawRoundButton(&Set_min_source_temp);
 MOVW	R0, #lo_addr(_Set_min_source_temp+0)
 MOVT	R0, #hi_addr(_Set_min_source_temp+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2117 :: 		Delay_ms (100);
+;Controller_events_code.c,2118 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_4_OnPress313:
+L_Up_4_OnPress317:
 SUBS	R7, R7, #1
-BNE	L_Up_4_OnPress313
+BNE	L_Up_4_OnPress317
 NOP
 NOP
 NOP
-;Controller_events_code.c,2119 :: 		}
+;Controller_events_code.c,2120 :: 		}
 L_end_Up_4_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_4_OnPress
 _Down_4_OnUp:
-;Controller_events_code.c,2120 :: 		void Down_4_OnUp() {
+;Controller_events_code.c,2121 :: 		void Down_4_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2121 :: 		Image207.Visible = 0;
+;Controller_events_code.c,2122 :: 		Image207.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image207+20)
 MOVT	R0, #hi_addr(_Image207+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2122 :: 		Down_4_.Visible = 1;
+;Controller_events_code.c,2123 :: 		Down_4_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_4_+20)
 MOVT	R0, #hi_addr(_Down_4_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2123 :: 		DrawImage(&Down_4_);
+;Controller_events_code.c,2124 :: 		DrawImage(&Down_4_);
 MOVW	R0, #lo_addr(_Down_4_+0)
 MOVT	R0, #hi_addr(_Down_4_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2124 :: 		}
+;Controller_events_code.c,2125 :: 		}
 L_end_Down_4_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_4_OnUp
 _Up_4_OnUp:
-;Controller_events_code.c,2125 :: 		void Up_4_OnUp() {
+;Controller_events_code.c,2126 :: 		void Up_4_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2126 :: 		Image221.Visible = 0;
+;Controller_events_code.c,2127 :: 		Image221.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image221+20)
 MOVT	R0, #hi_addr(_Image221+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2127 :: 		Up_4_.Visible = 1;
+;Controller_events_code.c,2128 :: 		Up_4_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_4_+20)
 MOVT	R0, #hi_addr(_Up_4_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2128 :: 		DrawImage(&Up_4_);
+;Controller_events_code.c,2129 :: 		DrawImage(&Up_4_);
 MOVW	R0, #lo_addr(_Up_4_+0)
 MOVT	R0, #hi_addr(_Up_4_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2129 :: 		}
+;Controller_events_code.c,2130 :: 		}
 L_end_Up_4_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_4_OnUp
 _Down_5_OnUp:
-;Controller_events_code.c,2130 :: 		void Down_5_OnUp() {
+;Controller_events_code.c,2131 :: 		void Down_5_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2131 :: 		Image208.Visible = 0;
+;Controller_events_code.c,2132 :: 		Image208.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image208+20)
 MOVT	R0, #hi_addr(_Image208+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2132 :: 		Down_5_.Visible = 1;
+;Controller_events_code.c,2133 :: 		Down_5_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_5_+20)
 MOVT	R0, #hi_addr(_Down_5_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2133 :: 		DrawImage(&Down_5_);
+;Controller_events_code.c,2134 :: 		DrawImage(&Down_5_);
 MOVW	R0, #lo_addr(_Down_5_+0)
 MOVT	R0, #hi_addr(_Down_5_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2134 :: 		}
+;Controller_events_code.c,2135 :: 		}
 L_end_Down_5_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_5_OnUp
 _Down_5_OnPress:
-;Controller_events_code.c,2135 :: 		void Down_5_OnPress(){
+;Controller_events_code.c,2136 :: 		void Down_5_OnPress(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2137 :: 		Tone3 ();
+;Controller_events_code.c,2138 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,2138 :: 		Image208.Visible = 1;
+;Controller_events_code.c,2139 :: 		Image208.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image208+20)
 MOVT	R0, #hi_addr(_Image208+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2139 :: 		Down_5_.Visible = 0;
+;Controller_events_code.c,2140 :: 		Down_5_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_5_+20)
 MOVT	R0, #hi_addr(_Down_5_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2140 :: 		DrawImage(&Image208);
+;Controller_events_code.c,2141 :: 		DrawImage(&Image208);
 MOVW	R0, #lo_addr(_Image208+0)
 MOVT	R0, #hi_addr(_Image208+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2141 :: 		system_reg[SOURS_MAX]--;
+;Controller_events_code.c,2142 :: 		system_reg[SOURS_MAX]--;
 MOVW	R1, #lo_addr(_system_reg+860)
 MOVT	R1, #hi_addr(_system_reg+860)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2142 :: 		if (system_reg[SOURS_MAX] < 0)
+;Controller_events_code.c,2143 :: 		if (system_reg[SOURS_MAX] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_5_OnPress315
-;Controller_events_code.c,2143 :: 		system_reg[SOURS_MAX] = 0;
+BGE	L_Down_5_OnPress319
+;Controller_events_code.c,2144 :: 		system_reg[SOURS_MAX] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+860)
 MOVT	R0, #hi_addr(_system_reg+860)
 STRH	R1, [R0, #0]
-L_Down_5_OnPress315:
-;Controller_events_code.c,2144 :: 		IntToStr(system_reg[SOURS_MAX], txt);
+L_Down_5_OnPress319:
+;Controller_events_code.c,2145 :: 		IntToStr(system_reg[SOURS_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+860)
 MOVT	R0, #hi_addr(_system_reg+860)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2145 :: 		Ltrim (txt);
+;Controller_events_code.c,2146 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2146 :: 		strncpy(Set_max_source_temp.Caption, txt, 2);
+;Controller_events_code.c,2147 :: 		strncpy(Set_max_source_temp.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_source_temp+24)
 MOVT	R0, #hi_addr(_Set_max_source_temp+24)
@@ -8798,75 +8849,75 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2147 :: 		DrawRoundButton(&Set_max_source_temp);
+;Controller_events_code.c,2148 :: 		DrawRoundButton(&Set_max_source_temp);
 MOVW	R0, #lo_addr(_Set_max_source_temp+0)
 MOVT	R0, #hi_addr(_Set_max_source_temp+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2148 :: 		Delay_ms (100);
+;Controller_events_code.c,2149 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_5_OnPress316:
+L_Down_5_OnPress320:
 SUBS	R7, R7, #1
-BNE	L_Down_5_OnPress316
+BNE	L_Down_5_OnPress320
 NOP
 NOP
 NOP
-;Controller_events_code.c,2149 :: 		}
+;Controller_events_code.c,2150 :: 		}
 L_end_Down_5_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_5_OnPress
 _Up_5_OnPress:
-;Controller_events_code.c,2150 :: 		void Up_5_OnPress() {
+;Controller_events_code.c,2151 :: 		void Up_5_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2152 :: 		Tone2 ();
+;Controller_events_code.c,2153 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2153 :: 		Image222.Visible = 1;
+;Controller_events_code.c,2154 :: 		Image222.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image222+20)
 MOVT	R0, #hi_addr(_Image222+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2154 :: 		Up_5_.Visible = 0;
+;Controller_events_code.c,2155 :: 		Up_5_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_5_+20)
 MOVT	R0, #hi_addr(_Up_5_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2155 :: 		DrawImage(&Image222);
+;Controller_events_code.c,2156 :: 		DrawImage(&Image222);
 MOVW	R0, #lo_addr(_Image222+0)
 MOVT	R0, #hi_addr(_Image222+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2156 :: 		system_reg[SOURS_MAX]++;
+;Controller_events_code.c,2157 :: 		system_reg[SOURS_MAX]++;
 MOVW	R1, #lo_addr(_system_reg+860)
 MOVT	R1, #hi_addr(_system_reg+860)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2157 :: 		if (system_reg[SOURS_MAX] >99)
+;Controller_events_code.c,2158 :: 		if (system_reg[SOURS_MAX] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_5_OnPress318
-;Controller_events_code.c,2158 :: 		system_reg[SOURS_MAX] = 99;
+BLE	L_Up_5_OnPress322
+;Controller_events_code.c,2159 :: 		system_reg[SOURS_MAX] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+860)
 MOVT	R0, #hi_addr(_system_reg+860)
 STRH	R1, [R0, #0]
-L_Up_5_OnPress318:
-;Controller_events_code.c,2159 :: 		IntToStr(system_reg[SOURS_MAX], txt);
+L_Up_5_OnPress322:
+;Controller_events_code.c,2160 :: 		IntToStr(system_reg[SOURS_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+860)
 MOVT	R0, #hi_addr(_system_reg+860)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2160 :: 		Ltrim (txt);
+;Controller_events_code.c,2161 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2161 :: 		strncpy(Set_max_source_temp.Caption, txt, 2);
+;Controller_events_code.c,2162 :: 		strncpy(Set_max_source_temp.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_source_temp+24)
 MOVT	R0, #hi_addr(_Set_max_source_temp+24)
@@ -8874,99 +8925,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2162 :: 		DrawRoundButton(&Set_max_source_temp);
+;Controller_events_code.c,2163 :: 		DrawRoundButton(&Set_max_source_temp);
 MOVW	R0, #lo_addr(_Set_max_source_temp+0)
 MOVT	R0, #hi_addr(_Set_max_source_temp+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2163 :: 		Delay_ms (100);
+;Controller_events_code.c,2164 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_5_OnPress319:
+L_Up_5_OnPress323:
 SUBS	R7, R7, #1
-BNE	L_Up_5_OnPress319
+BNE	L_Up_5_OnPress323
 NOP
 NOP
 NOP
-;Controller_events_code.c,2164 :: 		}
+;Controller_events_code.c,2165 :: 		}
 L_end_Up_5_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_5_OnPress
 _Up_5_OnUp:
-;Controller_events_code.c,2165 :: 		void Up_5_OnUp() {
+;Controller_events_code.c,2166 :: 		void Up_5_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2166 :: 		Image222.Visible = 0;
+;Controller_events_code.c,2167 :: 		Image222.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image222+20)
 MOVT	R0, #hi_addr(_Image222+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2167 :: 		Up_5_.Visible = 1;
+;Controller_events_code.c,2168 :: 		Up_5_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_5_+20)
 MOVT	R0, #hi_addr(_Up_5_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2168 :: 		DrawImage(&Up_5_);
+;Controller_events_code.c,2169 :: 		DrawImage(&Up_5_);
 MOVW	R0, #lo_addr(_Up_5_+0)
 MOVT	R0, #hi_addr(_Up_5_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2169 :: 		}
+;Controller_events_code.c,2170 :: 		}
 L_end_Up_5_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_5_OnUp
 _Down_6_OnPress:
-;Controller_events_code.c,2170 :: 		void Down_6_OnPress() {
+;Controller_events_code.c,2171 :: 		void Down_6_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2172 :: 		Tone3 ();
+;Controller_events_code.c,2173 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,2173 :: 		Image209.Visible = 1;
+;Controller_events_code.c,2174 :: 		Image209.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image209+20)
 MOVT	R0, #hi_addr(_Image209+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2174 :: 		Down_6_.Visible = 0;
+;Controller_events_code.c,2175 :: 		Down_6_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_6_+20)
 MOVT	R0, #hi_addr(_Down_6_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2175 :: 		DrawImage(&Image209);
+;Controller_events_code.c,2176 :: 		DrawImage(&Image209);
 MOVW	R0, #lo_addr(_Image209+0)
 MOVT	R0, #hi_addr(_Image209+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2176 :: 		system_reg[DEL_HEAT_MIN]--;
+;Controller_events_code.c,2177 :: 		system_reg[DEL_HEAT_MIN]--;
 MOVW	R1, #lo_addr(_system_reg+220)
 MOVT	R1, #hi_addr(_system_reg+220)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2177 :: 		if (system_reg[DEL_HEAT_MIN] < 0)
+;Controller_events_code.c,2178 :: 		if (system_reg[DEL_HEAT_MIN] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_6_OnPress321
-;Controller_events_code.c,2178 :: 		system_reg[DEL_HEAT_MIN] = 0;
+BGE	L_Down_6_OnPress325
+;Controller_events_code.c,2179 :: 		system_reg[DEL_HEAT_MIN] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+220)
 MOVT	R0, #hi_addr(_system_reg+220)
 STRH	R1, [R0, #0]
-L_Down_6_OnPress321:
-;Controller_events_code.c,2179 :: 		IntToStr(system_reg[DEL_HEAT_MIN], txt);
+L_Down_6_OnPress325:
+;Controller_events_code.c,2180 :: 		IntToStr(system_reg[DEL_HEAT_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+220)
 MOVT	R0, #hi_addr(_system_reg+220)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2180 :: 		Ltrim (txt);
+;Controller_events_code.c,2181 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2181 :: 		strncpy(Set_min_delta_heat.Caption, txt, 2);
+;Controller_events_code.c,2182 :: 		strncpy(Set_min_delta_heat.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_delta_heat+24)
 MOVT	R0, #hi_addr(_Set_min_delta_heat+24)
@@ -8974,99 +9025,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2182 :: 		DrawRoundButton(&Set_min_delta_heat);
+;Controller_events_code.c,2183 :: 		DrawRoundButton(&Set_min_delta_heat);
 MOVW	R0, #lo_addr(_Set_min_delta_heat+0)
 MOVT	R0, #hi_addr(_Set_min_delta_heat+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2183 :: 		Delay_ms (100);
+;Controller_events_code.c,2184 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_6_OnPress322:
+L_Down_6_OnPress326:
 SUBS	R7, R7, #1
-BNE	L_Down_6_OnPress322
+BNE	L_Down_6_OnPress326
 NOP
 NOP
 NOP
-;Controller_events_code.c,2184 :: 		}
+;Controller_events_code.c,2185 :: 		}
 L_end_Down_6_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_6_OnPress
 _Down_6_OnUp:
-;Controller_events_code.c,2185 :: 		void Down_6_OnUp() {
+;Controller_events_code.c,2186 :: 		void Down_6_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2186 :: 		Image209.Visible = 0;
+;Controller_events_code.c,2187 :: 		Image209.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image209+20)
 MOVT	R0, #hi_addr(_Image209+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2187 :: 		Down_6_.Visible = 1;
+;Controller_events_code.c,2188 :: 		Down_6_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_6_+20)
 MOVT	R0, #hi_addr(_Down_6_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2188 :: 		DrawImage(&Down_6_);
+;Controller_events_code.c,2189 :: 		DrawImage(&Down_6_);
 MOVW	R0, #lo_addr(_Down_6_+0)
 MOVT	R0, #hi_addr(_Down_6_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2189 :: 		}
+;Controller_events_code.c,2190 :: 		}
 L_end_Down_6_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_6_OnUp
 _Up_6_OnPress:
-;Controller_events_code.c,2190 :: 		void Up_6_OnPress() {
+;Controller_events_code.c,2191 :: 		void Up_6_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2192 :: 		Tone2 ();
+;Controller_events_code.c,2193 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2193 :: 		Image223.Visible = 1;
+;Controller_events_code.c,2194 :: 		Image223.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image223+20)
 MOVT	R0, #hi_addr(_Image223+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2194 :: 		Up_6_.Visible = 0;
+;Controller_events_code.c,2195 :: 		Up_6_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_6_+20)
 MOVT	R0, #hi_addr(_Up_6_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2195 :: 		DrawImage(&Image223);
+;Controller_events_code.c,2196 :: 		DrawImage(&Image223);
 MOVW	R0, #lo_addr(_Image223+0)
 MOVT	R0, #hi_addr(_Image223+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2196 :: 		system_reg[DEL_HEAT_MIN]++;
+;Controller_events_code.c,2197 :: 		system_reg[DEL_HEAT_MIN]++;
 MOVW	R1, #lo_addr(_system_reg+220)
 MOVT	R1, #hi_addr(_system_reg+220)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2197 :: 		if (system_reg[DEL_HEAT_MIN] >99)
+;Controller_events_code.c,2198 :: 		if (system_reg[DEL_HEAT_MIN] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_6_OnPress324
-;Controller_events_code.c,2198 :: 		system_reg[DEL_HEAT_MIN] = 99;
+BLE	L_Up_6_OnPress328
+;Controller_events_code.c,2199 :: 		system_reg[DEL_HEAT_MIN] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+220)
 MOVT	R0, #hi_addr(_system_reg+220)
 STRH	R1, [R0, #0]
-L_Up_6_OnPress324:
-;Controller_events_code.c,2199 :: 		IntToStr(system_reg[DEL_HEAT_MIN], txt);
+L_Up_6_OnPress328:
+;Controller_events_code.c,2200 :: 		IntToStr(system_reg[DEL_HEAT_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+220)
 MOVT	R0, #hi_addr(_system_reg+220)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2200 :: 		Ltrim (txt);
+;Controller_events_code.c,2201 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2201 :: 		strncpy(Set_min_delta_heat.Caption, txt, 2);
+;Controller_events_code.c,2202 :: 		strncpy(Set_min_delta_heat.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_delta_heat+24)
 MOVT	R0, #hi_addr(_Set_min_delta_heat+24)
@@ -9074,459 +9125,459 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2202 :: 		DrawRoundButton(&Set_min_delta_heat);
+;Controller_events_code.c,2203 :: 		DrawRoundButton(&Set_min_delta_heat);
 MOVW	R0, #lo_addr(_Set_min_delta_heat+0)
 MOVT	R0, #hi_addr(_Set_min_delta_heat+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2203 :: 		Delay_ms (100);
+;Controller_events_code.c,2204 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_6_OnPress325:
+L_Up_6_OnPress329:
 SUBS	R7, R7, #1
-BNE	L_Up_6_OnPress325
+BNE	L_Up_6_OnPress329
 NOP
 NOP
 NOP
-;Controller_events_code.c,2204 :: 		}
+;Controller_events_code.c,2205 :: 		}
 L_end_Up_6_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_6_OnPress
 _Up_6_OnUp:
-;Controller_events_code.c,2205 :: 		void Up_6_OnUp() {
+;Controller_events_code.c,2206 :: 		void Up_6_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2206 :: 		Image223.Visible = 0;
+;Controller_events_code.c,2207 :: 		Image223.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image223+20)
 MOVT	R0, #hi_addr(_Image223+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2207 :: 		Up_6_.Visible = 1;
+;Controller_events_code.c,2208 :: 		Up_6_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_6_+20)
 MOVT	R0, #hi_addr(_Up_6_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2208 :: 		DrawImage(&Up_6_);
+;Controller_events_code.c,2209 :: 		DrawImage(&Up_6_);
 MOVW	R0, #lo_addr(_Up_6_+0)
 MOVT	R0, #hi_addr(_Up_6_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2209 :: 		}
+;Controller_events_code.c,2210 :: 		}
 L_end_Up_6_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_6_OnUp
 _Set_1_OnDown:
-;Controller_events_code.c,2210 :: 		void Set_1_OnDown() {
+;Controller_events_code.c,2211 :: 		void Set_1_OnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2211 :: 		Tone1();
+;Controller_events_code.c,2212 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2215 :: 		send_data_packet(HEAT_MIN,1);
+;Controller_events_code.c,2216 :: 		send_data_packet(HEAT_MIN,1);
 MOVS	R1, #1
 MOVW	R0, #90
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2216 :: 		Set_1_.Visible = 0;
+;Controller_events_code.c,2217 :: 		Set_1_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_1_+20)
 MOVT	R0, #hi_addr(_Set_1_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2217 :: 		Image246.Visible = 1;
+;Controller_events_code.c,2218 :: 		Image246.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image246+20)
 MOVT	R0, #hi_addr(_Image246+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2218 :: 		DrawImage (&Image246);
+;Controller_events_code.c,2219 :: 		DrawImage (&Image246);
 MOVW	R0, #lo_addr(_Image246+0)
 MOVT	R0, #hi_addr(_Image246+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2219 :: 		}
+;Controller_events_code.c,2220 :: 		}
 L_end_Set_1_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_1_OnDown
 _Set_1_OnUp:
-;Controller_events_code.c,2220 :: 		void Set_1_OnUp() {
+;Controller_events_code.c,2221 :: 		void Set_1_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2221 :: 		Set_1_.Visible = 1;
+;Controller_events_code.c,2222 :: 		Set_1_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_1_+20)
 MOVT	R0, #hi_addr(_Set_1_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2222 :: 		Image246.Visible = 0;
+;Controller_events_code.c,2223 :: 		Image246.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image246+20)
 MOVT	R0, #hi_addr(_Image246+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2223 :: 		DrawImage (&Set_1_);
+;Controller_events_code.c,2224 :: 		DrawImage (&Set_1_);
 MOVW	R0, #lo_addr(_Set_1_+0)
 MOVT	R0, #hi_addr(_Set_1_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2224 :: 		}
+;Controller_events_code.c,2225 :: 		}
 L_end_Set_1_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_1_OnUp
 _Set_2_OnDown:
-;Controller_events_code.c,2225 :: 		void Set_2_OnDown() {
+;Controller_events_code.c,2226 :: 		void Set_2_OnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2226 :: 		Tone1();
+;Controller_events_code.c,2227 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2230 :: 		send_data_packet(HEAT_MAX,1);
+;Controller_events_code.c,2231 :: 		send_data_packet(HEAT_MAX,1);
 MOVS	R1, #1
 MOVW	R0, #80
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2231 :: 		Set_2_.Visible = 0;
+;Controller_events_code.c,2232 :: 		Set_2_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_2_+20)
 MOVT	R0, #hi_addr(_Set_2_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2232 :: 		Image247.Visible = 1;
+;Controller_events_code.c,2233 :: 		Image247.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image247+20)
 MOVT	R0, #hi_addr(_Image247+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2233 :: 		DrawImage (&Image247);
+;Controller_events_code.c,2234 :: 		DrawImage (&Image247);
 MOVW	R0, #lo_addr(_Image247+0)
 MOVT	R0, #hi_addr(_Image247+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2234 :: 		}
+;Controller_events_code.c,2235 :: 		}
 L_end_Set_2_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_2_OnDown
 _Set_2_OnUp:
-;Controller_events_code.c,2235 :: 		void Set_2_OnUp(){
+;Controller_events_code.c,2236 :: 		void Set_2_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2236 :: 		Set_2_.Visible = 1;
+;Controller_events_code.c,2237 :: 		Set_2_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_2_+20)
 MOVT	R0, #hi_addr(_Set_2_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2237 :: 		Image247.Visible = 0;
+;Controller_events_code.c,2238 :: 		Image247.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image247+20)
 MOVT	R0, #hi_addr(_Image247+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2238 :: 		DrawImage (&Set_2_);
+;Controller_events_code.c,2239 :: 		DrawImage (&Set_2_);
 MOVW	R0, #lo_addr(_Set_2_+0)
 MOVT	R0, #hi_addr(_Set_2_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2239 :: 		}
+;Controller_events_code.c,2240 :: 		}
 L_end_Set_2_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_2_OnUp
 _Set_3_OnDown:
-;Controller_events_code.c,2241 :: 		void Set_3_OnDown() {
+;Controller_events_code.c,2242 :: 		void Set_3_OnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2242 :: 		Tone1();
+;Controller_events_code.c,2243 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2246 :: 		send_data_packet(EXAUST_MAX,1);
+;Controller_events_code.c,2247 :: 		send_data_packet(EXAUST_MAX,1);
 MOVS	R1, #1
 MOVW	R0, #180
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2247 :: 		Set_3_.Visible = 0;
+;Controller_events_code.c,2248 :: 		Set_3_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_3_+20)
 MOVT	R0, #hi_addr(_Set_3_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2248 :: 		Image248.Visible = 1;
+;Controller_events_code.c,2249 :: 		Image248.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image248+20)
 MOVT	R0, #hi_addr(_Image248+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2249 :: 		DrawImage (&Image248);
+;Controller_events_code.c,2250 :: 		DrawImage (&Image248);
 MOVW	R0, #lo_addr(_Image248+0)
 MOVT	R0, #hi_addr(_Image248+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2250 :: 		}
+;Controller_events_code.c,2251 :: 		}
 L_end_Set_3_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_3_OnDown
 _Set_3_OnUp:
-;Controller_events_code.c,2251 :: 		void Set_3_OnUp()  {
+;Controller_events_code.c,2252 :: 		void Set_3_OnUp()  {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2252 :: 		Set_3_.Visible = 1;
+;Controller_events_code.c,2253 :: 		Set_3_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_3_+20)
 MOVT	R0, #hi_addr(_Set_3_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2253 :: 		Image248.Visible = 0;
+;Controller_events_code.c,2254 :: 		Image248.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image248+20)
 MOVT	R0, #hi_addr(_Image248+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2254 :: 		DrawImage (&Set_3_);
+;Controller_events_code.c,2255 :: 		DrawImage (&Set_3_);
 MOVW	R0, #lo_addr(_Set_3_+0)
 MOVT	R0, #hi_addr(_Set_3_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2255 :: 		}
+;Controller_events_code.c,2256 :: 		}
 L_end_Set_3_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_3_OnUp
 _Set_4_OnDown:
-;Controller_events_code.c,2256 :: 		void Set_4_OnDown() {
+;Controller_events_code.c,2257 :: 		void Set_4_OnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2257 :: 		Tone1();
+;Controller_events_code.c,2258 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2261 :: 		send_data_packet(SOURS_MIN,1);
+;Controller_events_code.c,2262 :: 		send_data_packet(SOURS_MIN,1);
 MOVS	R1, #1
 MOVW	R0, #440
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2262 :: 		Set_4_.Visible = 0;
+;Controller_events_code.c,2263 :: 		Set_4_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_4_+20)
 MOVT	R0, #hi_addr(_Set_4_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2263 :: 		Image249.Visible = 1;
+;Controller_events_code.c,2264 :: 		Image249.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image249+20)
 MOVT	R0, #hi_addr(_Image249+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2264 :: 		DrawImage (&Image249);
+;Controller_events_code.c,2265 :: 		DrawImage (&Image249);
 MOVW	R0, #lo_addr(_Image249+0)
 MOVT	R0, #hi_addr(_Image249+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2265 :: 		}
+;Controller_events_code.c,2266 :: 		}
 L_end_Set_4_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_4_OnDown
 _Set_4_OnUp:
-;Controller_events_code.c,2267 :: 		void Set_4_OnUp() {
+;Controller_events_code.c,2268 :: 		void Set_4_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2268 :: 		Set_4_.Visible = 1;
+;Controller_events_code.c,2269 :: 		Set_4_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_4_+20)
 MOVT	R0, #hi_addr(_Set_4_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2269 :: 		Image249.Visible = 0;
+;Controller_events_code.c,2270 :: 		Image249.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image249+20)
 MOVT	R0, #hi_addr(_Image249+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2270 :: 		DrawImage (&Set_4_);
+;Controller_events_code.c,2271 :: 		DrawImage (&Set_4_);
 MOVW	R0, #lo_addr(_Set_4_+0)
 MOVT	R0, #hi_addr(_Set_4_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2271 :: 		}
+;Controller_events_code.c,2272 :: 		}
 L_end_Set_4_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_4_OnUp
 _Set_5_OnDown:
-;Controller_events_code.c,2273 :: 		void Set_5_OnDown() {
+;Controller_events_code.c,2274 :: 		void Set_5_OnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2274 :: 		Tone1();
+;Controller_events_code.c,2275 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2278 :: 		send_data_packet(SOURS_MAX,1);
+;Controller_events_code.c,2279 :: 		send_data_packet(SOURS_MAX,1);
 MOVS	R1, #1
 MOVW	R0, #430
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2279 :: 		Set_5_.Visible = 0;
+;Controller_events_code.c,2280 :: 		Set_5_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_5_+20)
 MOVT	R0, #hi_addr(_Set_5_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2280 :: 		Image250.Visible = 1;
+;Controller_events_code.c,2281 :: 		Image250.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image250+20)
 MOVT	R0, #hi_addr(_Image250+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2281 :: 		DrawImage (&Image250);
+;Controller_events_code.c,2282 :: 		DrawImage (&Image250);
 MOVW	R0, #lo_addr(_Image250+0)
 MOVT	R0, #hi_addr(_Image250+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2282 :: 		}
+;Controller_events_code.c,2283 :: 		}
 L_end_Set_5_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_5_OnDown
 _Set_5_OnUp:
-;Controller_events_code.c,2283 :: 		void Set_5_OnUp() {
+;Controller_events_code.c,2284 :: 		void Set_5_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2284 :: 		Set_5_.Visible = 1;
+;Controller_events_code.c,2285 :: 		Set_5_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_5_+20)
 MOVT	R0, #hi_addr(_Set_5_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2285 :: 		Image250.Visible = 0;
+;Controller_events_code.c,2286 :: 		Image250.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image250+20)
 MOVT	R0, #hi_addr(_Image250+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2286 :: 		DrawImage (&Set_5_);
+;Controller_events_code.c,2287 :: 		DrawImage (&Set_5_);
 MOVW	R0, #lo_addr(_Set_5_+0)
 MOVT	R0, #hi_addr(_Set_5_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2287 :: 		}
+;Controller_events_code.c,2288 :: 		}
 L_end_Set_5_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_5_OnUp
 _Furnance_HP_OFF_save_ondown:
-;Controller_events_code.c,2288 :: 		void Furnance_HP_OFF_save_ondown() {
-;Controller_events_code.c,2290 :: 		}
+;Controller_events_code.c,2289 :: 		void Furnance_HP_OFF_save_ondown() {
+;Controller_events_code.c,2291 :: 		}
 L_end_Furnance_HP_OFF_save_ondown:
 BX	LR
 ; end of _Furnance_HP_OFF_save_ondown
 _Set_6_OnUp:
-;Controller_events_code.c,2291 :: 		void Set_6_OnUp() {
+;Controller_events_code.c,2292 :: 		void Set_6_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2292 :: 		Set_6_.Visible = 1;
+;Controller_events_code.c,2293 :: 		Set_6_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_6_+20)
 MOVT	R0, #hi_addr(_Set_6_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2293 :: 		Image251.Visible = 0;
+;Controller_events_code.c,2294 :: 		Image251.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image251+20)
 MOVT	R0, #hi_addr(_Image251+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2294 :: 		DrawImage (&Set_6_);
+;Controller_events_code.c,2295 :: 		DrawImage (&Set_6_);
 MOVW	R0, #lo_addr(_Set_6_+0)
 MOVT	R0, #hi_addr(_Set_6_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2295 :: 		}
+;Controller_events_code.c,2296 :: 		}
 L_end_Set_6_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_6_OnUp
 _Set_6_OnDown:
-;Controller_events_code.c,2296 :: 		void Set_6_OnDown(){
+;Controller_events_code.c,2297 :: 		void Set_6_OnDown(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2297 :: 		Tone1();
+;Controller_events_code.c,2298 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2301 :: 		send_data_packet(DEL_HEAT_MIN,1);
+;Controller_events_code.c,2302 :: 		send_data_packet(DEL_HEAT_MIN,1);
 MOVS	R1, #1
 MOVW	R0, #110
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2302 :: 		Set_6_.Visible = 0;
+;Controller_events_code.c,2303 :: 		Set_6_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_6_+20)
 MOVT	R0, #hi_addr(_Set_6_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2303 :: 		Image251.Visible = 1;
+;Controller_events_code.c,2304 :: 		Image251.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image251+20)
 MOVT	R0, #hi_addr(_Image251+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2304 :: 		DrawImage (&Image251);
+;Controller_events_code.c,2305 :: 		DrawImage (&Image251);
 MOVW	R0, #lo_addr(_Image251+0)
 MOVT	R0, #hi_addr(_Image251+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2305 :: 		}
+;Controller_events_code.c,2306 :: 		}
 L_end_Set_6_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_6_OnDown
 _Down_7_OnUp:
-;Controller_events_code.c,2307 :: 		void Down_7_OnUp() {
+;Controller_events_code.c,2308 :: 		void Down_7_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2308 :: 		Image210.Visible = 0;
+;Controller_events_code.c,2309 :: 		Image210.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image210+20)
 MOVT	R0, #hi_addr(_Image210+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2309 :: 		Down_7_.Visible = 1;
+;Controller_events_code.c,2310 :: 		Down_7_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_7_+20)
 MOVT	R0, #hi_addr(_Down_7_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2310 :: 		DrawImage(&Down_7_);
+;Controller_events_code.c,2311 :: 		DrawImage(&Down_7_);
 MOVW	R0, #lo_addr(_Down_7_+0)
 MOVT	R0, #hi_addr(_Down_7_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2311 :: 		}
+;Controller_events_code.c,2312 :: 		}
 L_end_Down_7_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_7_OnUp
 _Down_7_OnPress:
-;Controller_events_code.c,2312 :: 		void Down_7_OnPress(){
+;Controller_events_code.c,2313 :: 		void Down_7_OnPress(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2314 :: 		Tone3 ();
+;Controller_events_code.c,2315 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,2315 :: 		Image210.Visible = 1;
+;Controller_events_code.c,2316 :: 		Image210.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image210+20)
 MOVT	R0, #hi_addr(_Image210+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2316 :: 		Down_7_.Visible = 0;
+;Controller_events_code.c,2317 :: 		Down_7_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_7_+20)
 MOVT	R0, #hi_addr(_Down_7_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2317 :: 		DrawImage(&Image210);
+;Controller_events_code.c,2318 :: 		DrawImage(&Image210);
 MOVW	R0, #lo_addr(_Image210+0)
 MOVT	R0, #hi_addr(_Image210+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2318 :: 		system_reg[DEL_HEAT_MAX]--;
+;Controller_events_code.c,2319 :: 		system_reg[DEL_HEAT_MAX]--;
 MOVW	R1, #lo_addr(_system_reg+200)
 MOVT	R1, #hi_addr(_system_reg+200)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2319 :: 		if (system_reg[DEL_HEAT_MAX] < 0)
+;Controller_events_code.c,2320 :: 		if (system_reg[DEL_HEAT_MAX] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_7_OnPress327
-;Controller_events_code.c,2320 :: 		system_reg[DEL_HEAT_MAX] = 0;
+BGE	L_Down_7_OnPress331
+;Controller_events_code.c,2321 :: 		system_reg[DEL_HEAT_MAX] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+200)
 MOVT	R0, #hi_addr(_system_reg+200)
 STRH	R1, [R0, #0]
-L_Down_7_OnPress327:
-;Controller_events_code.c,2321 :: 		IntToStr(system_reg[DEL_HEAT_MAX], txt);
+L_Down_7_OnPress331:
+;Controller_events_code.c,2322 :: 		IntToStr(system_reg[DEL_HEAT_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+200)
 MOVT	R0, #hi_addr(_system_reg+200)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2322 :: 		Ltrim (txt);
+;Controller_events_code.c,2323 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2323 :: 		strncpy(Set_max_delta_heat.Caption, txt, 2);
+;Controller_events_code.c,2324 :: 		strncpy(Set_max_delta_heat.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_delta_heat+24)
 MOVT	R0, #hi_addr(_Set_max_delta_heat+24)
@@ -9534,75 +9585,75 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2324 :: 		DrawRoundButton(&Set_max_delta_heat);
+;Controller_events_code.c,2325 :: 		DrawRoundButton(&Set_max_delta_heat);
 MOVW	R0, #lo_addr(_Set_max_delta_heat+0)
 MOVT	R0, #hi_addr(_Set_max_delta_heat+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2325 :: 		Delay_ms (100);
+;Controller_events_code.c,2326 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_7_OnPress328:
+L_Down_7_OnPress332:
 SUBS	R7, R7, #1
-BNE	L_Down_7_OnPress328
+BNE	L_Down_7_OnPress332
 NOP
 NOP
 NOP
-;Controller_events_code.c,2326 :: 		}
+;Controller_events_code.c,2327 :: 		}
 L_end_Down_7_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_7_OnPress
 _Up_7_OnPress:
-;Controller_events_code.c,2328 :: 		void Up_7_OnPress() {
+;Controller_events_code.c,2329 :: 		void Up_7_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2330 :: 		Tone2 ();
+;Controller_events_code.c,2331 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2331 :: 		Image224.Visible = 1;
+;Controller_events_code.c,2332 :: 		Image224.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image224+20)
 MOVT	R0, #hi_addr(_Image224+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2332 :: 		Up_7_.Visible = 0;
+;Controller_events_code.c,2333 :: 		Up_7_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_7_+20)
 MOVT	R0, #hi_addr(_Up_7_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2333 :: 		DrawImage(&Image224);
+;Controller_events_code.c,2334 :: 		DrawImage(&Image224);
 MOVW	R0, #lo_addr(_Image224+0)
 MOVT	R0, #hi_addr(_Image224+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2334 :: 		system_reg[DEL_HEAT_MAX]++;
+;Controller_events_code.c,2335 :: 		system_reg[DEL_HEAT_MAX]++;
 MOVW	R1, #lo_addr(_system_reg+200)
 MOVT	R1, #hi_addr(_system_reg+200)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2335 :: 		if (system_reg[DEL_HEAT_MAX] >99)
+;Controller_events_code.c,2336 :: 		if (system_reg[DEL_HEAT_MAX] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_7_OnPress330
-;Controller_events_code.c,2336 :: 		system_reg[DEL_HEAT_MAX] = 99;
+BLE	L_Up_7_OnPress334
+;Controller_events_code.c,2337 :: 		system_reg[DEL_HEAT_MAX] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+200)
 MOVT	R0, #hi_addr(_system_reg+200)
 STRH	R1, [R0, #0]
-L_Up_7_OnPress330:
-;Controller_events_code.c,2337 :: 		IntToStr(system_reg[DEL_HEAT_MAX], txt);
+L_Up_7_OnPress334:
+;Controller_events_code.c,2338 :: 		IntToStr(system_reg[DEL_HEAT_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+200)
 MOVT	R0, #hi_addr(_system_reg+200)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2338 :: 		Ltrim (txt);
+;Controller_events_code.c,2339 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2339 :: 		strncpy(Set_max_delta_heat.Caption, txt, 2);
+;Controller_events_code.c,2340 :: 		strncpy(Set_max_delta_heat.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_delta_heat+24)
 MOVT	R0, #hi_addr(_Set_max_delta_heat+24)
@@ -9610,99 +9661,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2340 :: 		DrawRoundButton(&Set_max_delta_heat);
+;Controller_events_code.c,2341 :: 		DrawRoundButton(&Set_max_delta_heat);
 MOVW	R0, #lo_addr(_Set_max_delta_heat+0)
 MOVT	R0, #hi_addr(_Set_max_delta_heat+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2341 :: 		Delay_ms (100);
+;Controller_events_code.c,2342 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_7_OnPress331:
+L_Up_7_OnPress335:
 SUBS	R7, R7, #1
-BNE	L_Up_7_OnPress331
+BNE	L_Up_7_OnPress335
 NOP
 NOP
 NOP
-;Controller_events_code.c,2343 :: 		}
+;Controller_events_code.c,2344 :: 		}
 L_end_Up_7_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_7_OnPress
 _Up_7_OnUp:
-;Controller_events_code.c,2345 :: 		void Up_7_OnUp() {
+;Controller_events_code.c,2346 :: 		void Up_7_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2346 :: 		Image224.Visible = 0;
+;Controller_events_code.c,2347 :: 		Image224.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image224+20)
 MOVT	R0, #hi_addr(_Image224+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2347 :: 		Up_7_.Visible = 1;
+;Controller_events_code.c,2348 :: 		Up_7_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_7_+20)
 MOVT	R0, #hi_addr(_Up_7_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2348 :: 		DrawImage(&Up_7_);
+;Controller_events_code.c,2349 :: 		DrawImage(&Up_7_);
 MOVW	R0, #lo_addr(_Up_7_+0)
 MOVT	R0, #hi_addr(_Up_7_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2350 :: 		}
+;Controller_events_code.c,2351 :: 		}
 L_end_Up_7_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_7_OnUp
 _Down_8_OnPress:
-;Controller_events_code.c,2352 :: 		void Down_8_OnPress() {
+;Controller_events_code.c,2353 :: 		void Down_8_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2354 :: 		Tone3 ();
+;Controller_events_code.c,2355 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,2355 :: 		Image211.Visible = 1;
+;Controller_events_code.c,2356 :: 		Image211.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image211+20)
 MOVT	R0, #hi_addr(_Image211+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2356 :: 		Down_8_.Visible = 0;
+;Controller_events_code.c,2357 :: 		Down_8_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_8_+20)
 MOVT	R0, #hi_addr(_Down_8_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2357 :: 		DrawImage(&Image211);
+;Controller_events_code.c,2358 :: 		DrawImage(&Image211);
 MOVW	R0, #lo_addr(_Image211+0)
 MOVT	R0, #hi_addr(_Image211+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2358 :: 		system_reg[DEL_DHW_MIN]--;
+;Controller_events_code.c,2359 :: 		system_reg[DEL_DHW_MIN]--;
 MOVW	R1, #lo_addr(_system_reg+920)
 MOVT	R1, #hi_addr(_system_reg+920)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2359 :: 		if (system_reg[DEL_DHW_MIN] < 0)
+;Controller_events_code.c,2360 :: 		if (system_reg[DEL_DHW_MIN] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_8_OnPress333
-;Controller_events_code.c,2360 :: 		system_reg[DEL_DHW_MIN] = 0;
+BGE	L_Down_8_OnPress337
+;Controller_events_code.c,2361 :: 		system_reg[DEL_DHW_MIN] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+920)
 MOVT	R0, #hi_addr(_system_reg+920)
 STRH	R1, [R0, #0]
-L_Down_8_OnPress333:
-;Controller_events_code.c,2361 :: 		IntToStr(system_reg[DEL_DHW_MIN], txt);
+L_Down_8_OnPress337:
+;Controller_events_code.c,2362 :: 		IntToStr(system_reg[DEL_DHW_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+920)
 MOVT	R0, #hi_addr(_system_reg+920)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2362 :: 		Ltrim (txt);
+;Controller_events_code.c,2363 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2363 :: 		strncpy(Set_min_delta_DHW.Caption, txt, 2);
+;Controller_events_code.c,2364 :: 		strncpy(Set_min_delta_DHW.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_delta_DHW+24)
 MOVT	R0, #hi_addr(_Set_min_delta_DHW+24)
@@ -9710,99 +9761,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2364 :: 		DrawRoundButton(&Set_min_delta_DHW);
+;Controller_events_code.c,2365 :: 		DrawRoundButton(&Set_min_delta_DHW);
 MOVW	R0, #lo_addr(_Set_min_delta_DHW+0)
 MOVT	R0, #hi_addr(_Set_min_delta_DHW+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2365 :: 		Delay_ms (100);
+;Controller_events_code.c,2366 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_8_OnPress334:
+L_Down_8_OnPress338:
 SUBS	R7, R7, #1
-BNE	L_Down_8_OnPress334
+BNE	L_Down_8_OnPress338
 NOP
 NOP
 NOP
-;Controller_events_code.c,2366 :: 		}
+;Controller_events_code.c,2367 :: 		}
 L_end_Down_8_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_8_OnPress
 _Down_8_OnUp:
-;Controller_events_code.c,2368 :: 		void Down_8_OnUp() {
+;Controller_events_code.c,2369 :: 		void Down_8_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2369 :: 		Image211.Visible = 0;
+;Controller_events_code.c,2370 :: 		Image211.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image211+20)
 MOVT	R0, #hi_addr(_Image211+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2370 :: 		Down_8_.Visible = 1;
+;Controller_events_code.c,2371 :: 		Down_8_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_8_+20)
 MOVT	R0, #hi_addr(_Down_8_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2371 :: 		DrawImage(&Down_8_);
+;Controller_events_code.c,2372 :: 		DrawImage(&Down_8_);
 MOVW	R0, #lo_addr(_Down_8_+0)
 MOVT	R0, #hi_addr(_Down_8_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2372 :: 		}
+;Controller_events_code.c,2373 :: 		}
 L_end_Down_8_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_8_OnUp
 _Up_8_OnPress:
-;Controller_events_code.c,2374 :: 		void Up_8_OnPress() {
+;Controller_events_code.c,2375 :: 		void Up_8_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2376 :: 		Tone2 ();
+;Controller_events_code.c,2377 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2377 :: 		Image225.Visible = 1;
+;Controller_events_code.c,2378 :: 		Image225.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image225+20)
 MOVT	R0, #hi_addr(_Image225+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2378 :: 		Up_8_.Visible = 0;
+;Controller_events_code.c,2379 :: 		Up_8_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_8_+20)
 MOVT	R0, #hi_addr(_Up_8_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2379 :: 		DrawImage(&Image225);
+;Controller_events_code.c,2380 :: 		DrawImage(&Image225);
 MOVW	R0, #lo_addr(_Image225+0)
 MOVT	R0, #hi_addr(_Image225+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2380 :: 		system_reg[DEL_DHW_MIN]++;
+;Controller_events_code.c,2381 :: 		system_reg[DEL_DHW_MIN]++;
 MOVW	R1, #lo_addr(_system_reg+920)
 MOVT	R1, #hi_addr(_system_reg+920)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2381 :: 		if (system_reg[DEL_DHW_MIN] >99)
+;Controller_events_code.c,2382 :: 		if (system_reg[DEL_DHW_MIN] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_8_OnPress336
-;Controller_events_code.c,2382 :: 		system_reg[DEL_DHW_MIN] = 99;
+BLE	L_Up_8_OnPress340
+;Controller_events_code.c,2383 :: 		system_reg[DEL_DHW_MIN] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+920)
 MOVT	R0, #hi_addr(_system_reg+920)
 STRH	R1, [R0, #0]
-L_Up_8_OnPress336:
-;Controller_events_code.c,2383 :: 		IntToStr(system_reg[DEL_DHW_MIN], txt);
+L_Up_8_OnPress340:
+;Controller_events_code.c,2384 :: 		IntToStr(system_reg[DEL_DHW_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+920)
 MOVT	R0, #hi_addr(_system_reg+920)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2384 :: 		Ltrim (txt);
+;Controller_events_code.c,2385 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2385 :: 		strncpy(Set_min_delta_DHW.Caption, txt, 2);
+;Controller_events_code.c,2386 :: 		strncpy(Set_min_delta_DHW.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_delta_DHW+24)
 MOVT	R0, #hi_addr(_Set_min_delta_DHW+24)
@@ -9810,99 +9861,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2386 :: 		DrawRoundButton(&Set_min_delta_DHW);
+;Controller_events_code.c,2387 :: 		DrawRoundButton(&Set_min_delta_DHW);
 MOVW	R0, #lo_addr(_Set_min_delta_DHW+0)
 MOVT	R0, #hi_addr(_Set_min_delta_DHW+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2387 :: 		Delay_ms (100);
+;Controller_events_code.c,2388 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_8_OnPress337:
+L_Up_8_OnPress341:
 SUBS	R7, R7, #1
-BNE	L_Up_8_OnPress337
+BNE	L_Up_8_OnPress341
 NOP
 NOP
 NOP
-;Controller_events_code.c,2388 :: 		}
+;Controller_events_code.c,2389 :: 		}
 L_end_Up_8_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_8_OnPress
 _Up_8_OnUp:
-;Controller_events_code.c,2390 :: 		void Up_8_OnUp() {
+;Controller_events_code.c,2391 :: 		void Up_8_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2391 :: 		Image225.Visible = 0;
+;Controller_events_code.c,2392 :: 		Image225.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image225+20)
 MOVT	R0, #hi_addr(_Image225+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2392 :: 		Up_8_.Visible = 1;
+;Controller_events_code.c,2393 :: 		Up_8_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_8_+20)
 MOVT	R0, #hi_addr(_Up_8_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2393 :: 		DrawImage(&Up_8_);
+;Controller_events_code.c,2394 :: 		DrawImage(&Up_8_);
 MOVW	R0, #lo_addr(_Up_8_+0)
 MOVT	R0, #hi_addr(_Up_8_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2394 :: 		}
+;Controller_events_code.c,2395 :: 		}
 L_end_Up_8_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_8_OnUp
 _Down_9_OnPress:
-;Controller_events_code.c,2396 :: 		void Down_9_OnPress() {
+;Controller_events_code.c,2397 :: 		void Down_9_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2398 :: 		Tone3 ();
+;Controller_events_code.c,2399 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,2399 :: 		Image214.Visible = 1;
+;Controller_events_code.c,2400 :: 		Image214.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image214+20)
 MOVT	R0, #hi_addr(_Image214+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2400 :: 		Down_9_.Visible = 0;
+;Controller_events_code.c,2401 :: 		Down_9_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_9_+20)
 MOVT	R0, #hi_addr(_Down_9_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2401 :: 		DrawImage(&Image214);
+;Controller_events_code.c,2402 :: 		DrawImage(&Image214);
 MOVW	R0, #lo_addr(_Image214+0)
 MOVT	R0, #hi_addr(_Image214+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2402 :: 		system_reg[DEL_DHW_MAX]--;
+;Controller_events_code.c,2403 :: 		system_reg[DEL_DHW_MAX]--;
 MOVW	R1, #lo_addr(_system_reg+900)
 MOVT	R1, #hi_addr(_system_reg+900)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2403 :: 		if (system_reg[DEL_DHW_MAX] < 0)
+;Controller_events_code.c,2404 :: 		if (system_reg[DEL_DHW_MAX] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_9_OnPress339
-;Controller_events_code.c,2404 :: 		system_reg[DEL_DHW_MAX] = 0;
+BGE	L_Down_9_OnPress343
+;Controller_events_code.c,2405 :: 		system_reg[DEL_DHW_MAX] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+900)
 MOVT	R0, #hi_addr(_system_reg+900)
 STRH	R1, [R0, #0]
-L_Down_9_OnPress339:
-;Controller_events_code.c,2405 :: 		IntToStr(system_reg[DEL_DHW_MAX], txt);
+L_Down_9_OnPress343:
+;Controller_events_code.c,2406 :: 		IntToStr(system_reg[DEL_DHW_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+900)
 MOVT	R0, #hi_addr(_system_reg+900)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2406 :: 		Ltrim (txt);
+;Controller_events_code.c,2407 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2407 :: 		strncpy(Set_max_delta_DHW.Caption, txt, 2);
+;Controller_events_code.c,2408 :: 		strncpy(Set_max_delta_DHW.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_delta_DHW+24)
 MOVT	R0, #hi_addr(_Set_max_delta_DHW+24)
@@ -9910,99 +9961,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2408 :: 		DrawRoundButton(&Set_max_delta_DHW);
+;Controller_events_code.c,2409 :: 		DrawRoundButton(&Set_max_delta_DHW);
 MOVW	R0, #lo_addr(_Set_max_delta_DHW+0)
 MOVT	R0, #hi_addr(_Set_max_delta_DHW+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2409 :: 		Delay_ms (100);
+;Controller_events_code.c,2410 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_9_OnPress340:
+L_Down_9_OnPress344:
 SUBS	R7, R7, #1
-BNE	L_Down_9_OnPress340
+BNE	L_Down_9_OnPress344
 NOP
 NOP
 NOP
-;Controller_events_code.c,2410 :: 		}
+;Controller_events_code.c,2411 :: 		}
 L_end_Down_9_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_9_OnPress
 _Down_9_OnUp:
-;Controller_events_code.c,2412 :: 		void Down_9_OnUp() {
+;Controller_events_code.c,2413 :: 		void Down_9_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2413 :: 		Image214.Visible = 0;
+;Controller_events_code.c,2414 :: 		Image214.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image214+20)
 MOVT	R0, #hi_addr(_Image214+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2414 :: 		Down_9_.Visible = 1;
+;Controller_events_code.c,2415 :: 		Down_9_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_9_+20)
 MOVT	R0, #hi_addr(_Down_9_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2415 :: 		DrawImage(&Down_9_);
+;Controller_events_code.c,2416 :: 		DrawImage(&Down_9_);
 MOVW	R0, #lo_addr(_Down_9_+0)
 MOVT	R0, #hi_addr(_Down_9_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2416 :: 		}
+;Controller_events_code.c,2417 :: 		}
 L_end_Down_9_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_9_OnUp
 _Up_9_OnPress:
-;Controller_events_code.c,2418 :: 		void Up_9_OnPress() {
+;Controller_events_code.c,2419 :: 		void Up_9_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2420 :: 		Tone2 ();
+;Controller_events_code.c,2421 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2421 :: 		Image228.Visible = 1;
+;Controller_events_code.c,2422 :: 		Image228.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image228+20)
 MOVT	R0, #hi_addr(_Image228+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2422 :: 		Up_9_.Visible = 0;
+;Controller_events_code.c,2423 :: 		Up_9_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_9_+20)
 MOVT	R0, #hi_addr(_Up_9_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2423 :: 		DrawImage(&Image228);
+;Controller_events_code.c,2424 :: 		DrawImage(&Image228);
 MOVW	R0, #lo_addr(_Image228+0)
 MOVT	R0, #hi_addr(_Image228+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2424 :: 		system_reg[DEL_DHW_MAX]++;
+;Controller_events_code.c,2425 :: 		system_reg[DEL_DHW_MAX]++;
 MOVW	R1, #lo_addr(_system_reg+900)
 MOVT	R1, #hi_addr(_system_reg+900)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2425 :: 		if (system_reg[DEL_DHW_MAX] > 99)
+;Controller_events_code.c,2426 :: 		if (system_reg[DEL_DHW_MAX] > 99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_9_OnPress342
-;Controller_events_code.c,2426 :: 		system_reg[DEL_DHW_MAX] = 99;
+BLE	L_Up_9_OnPress346
+;Controller_events_code.c,2427 :: 		system_reg[DEL_DHW_MAX] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+900)
 MOVT	R0, #hi_addr(_system_reg+900)
 STRH	R1, [R0, #0]
-L_Up_9_OnPress342:
-;Controller_events_code.c,2427 :: 		IntToStr(system_reg[DEL_DHW_MAX], txt);
+L_Up_9_OnPress346:
+;Controller_events_code.c,2428 :: 		IntToStr(system_reg[DEL_DHW_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+900)
 MOVT	R0, #hi_addr(_system_reg+900)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2428 :: 		Ltrim (txt);
+;Controller_events_code.c,2429 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2429 :: 		strncpy(Set_max_delta_DHW.Caption, txt, 2);
+;Controller_events_code.c,2430 :: 		strncpy(Set_max_delta_DHW.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_delta_DHW+24)
 MOVT	R0, #hi_addr(_Set_max_delta_DHW+24)
@@ -10010,99 +10061,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2430 :: 		DrawRoundButton(&Set_max_delta_DHW);
+;Controller_events_code.c,2431 :: 		DrawRoundButton(&Set_max_delta_DHW);
 MOVW	R0, #lo_addr(_Set_max_delta_DHW+0)
 MOVT	R0, #hi_addr(_Set_max_delta_DHW+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2431 :: 		Delay_ms (100);
+;Controller_events_code.c,2432 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_9_OnPress343:
+L_Up_9_OnPress347:
 SUBS	R7, R7, #1
-BNE	L_Up_9_OnPress343
+BNE	L_Up_9_OnPress347
 NOP
 NOP
 NOP
-;Controller_events_code.c,2432 :: 		}
+;Controller_events_code.c,2433 :: 		}
 L_end_Up_9_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_9_OnPress
 _Up_9_OnUp:
-;Controller_events_code.c,2434 :: 		void Up_9_OnUp() {
+;Controller_events_code.c,2435 :: 		void Up_9_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2435 :: 		Image228.Visible = 0;
+;Controller_events_code.c,2436 :: 		Image228.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image228+20)
 MOVT	R0, #hi_addr(_Image228+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2436 :: 		Up_9_.Visible = 1;
+;Controller_events_code.c,2437 :: 		Up_9_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_9_+20)
 MOVT	R0, #hi_addr(_Up_9_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2437 :: 		DrawImage(&Up_9_);
+;Controller_events_code.c,2438 :: 		DrawImage(&Up_9_);
 MOVW	R0, #lo_addr(_Up_9_+0)
 MOVT	R0, #hi_addr(_Up_9_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2438 :: 		}
+;Controller_events_code.c,2439 :: 		}
 L_end_Up_9_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_9_OnUp
 _Down_10_OnPress:
-;Controller_events_code.c,2439 :: 		void Down_10_OnPress() {
+;Controller_events_code.c,2440 :: 		void Down_10_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2441 :: 		Tone3 ();
+;Controller_events_code.c,2442 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,2442 :: 		Image212.Visible = 1;
+;Controller_events_code.c,2443 :: 		Image212.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image212+20)
 MOVT	R0, #hi_addr(_Image212+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2443 :: 		Down_10_.Visible = 0;
+;Controller_events_code.c,2444 :: 		Down_10_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_10_+20)
 MOVT	R0, #hi_addr(_Down_10_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2444 :: 		DrawImage(&Image212);
+;Controller_events_code.c,2445 :: 		DrawImage(&Image212);
 MOVW	R0, #lo_addr(_Image212+0)
 MOVT	R0, #hi_addr(_Image212+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2445 :: 		system_reg[DEL_SOURS_MIN]--;
+;Controller_events_code.c,2446 :: 		system_reg[DEL_SOURS_MIN]--;
 MOVW	R1, #lo_addr(_system_reg+260)
 MOVT	R1, #hi_addr(_system_reg+260)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2446 :: 		if (system_reg[DEL_SOURS_MIN] < 0)
+;Controller_events_code.c,2447 :: 		if (system_reg[DEL_SOURS_MIN] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_10_OnPress345
-;Controller_events_code.c,2447 :: 		system_reg[DEL_SOURS_MIN] = 0;
+BGE	L_Down_10_OnPress349
+;Controller_events_code.c,2448 :: 		system_reg[DEL_SOURS_MIN] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+260)
 MOVT	R0, #hi_addr(_system_reg+260)
 STRH	R1, [R0, #0]
-L_Down_10_OnPress345:
-;Controller_events_code.c,2448 :: 		IntToStr(system_reg[DEL_SOURS_MIN], txt);
+L_Down_10_OnPress349:
+;Controller_events_code.c,2449 :: 		IntToStr(system_reg[DEL_SOURS_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+260)
 MOVT	R0, #hi_addr(_system_reg+260)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2449 :: 		Ltrim (txt);
+;Controller_events_code.c,2450 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2450 :: 		strncpy(Set_min_delta_source.Caption, txt, 2);
+;Controller_events_code.c,2451 :: 		strncpy(Set_min_delta_source.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_delta_source+24)
 MOVT	R0, #hi_addr(_Set_min_delta_source+24)
@@ -10110,99 +10161,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2451 :: 		DrawRoundButton(&Set_min_delta_source);
+;Controller_events_code.c,2452 :: 		DrawRoundButton(&Set_min_delta_source);
 MOVW	R0, #lo_addr(_Set_min_delta_source+0)
 MOVT	R0, #hi_addr(_Set_min_delta_source+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2452 :: 		Delay_ms (100);
+;Controller_events_code.c,2453 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_10_OnPress346:
+L_Down_10_OnPress350:
 SUBS	R7, R7, #1
-BNE	L_Down_10_OnPress346
+BNE	L_Down_10_OnPress350
 NOP
 NOP
 NOP
-;Controller_events_code.c,2453 :: 		}
+;Controller_events_code.c,2454 :: 		}
 L_end_Down_10_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_10_OnPress
 _Down_10_OnUp:
-;Controller_events_code.c,2455 :: 		void Down_10_OnUp() {
+;Controller_events_code.c,2456 :: 		void Down_10_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2456 :: 		Image212.Visible = 0;
+;Controller_events_code.c,2457 :: 		Image212.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image212+20)
 MOVT	R0, #hi_addr(_Image212+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2457 :: 		Down_10_.Visible = 1;
+;Controller_events_code.c,2458 :: 		Down_10_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_10_+20)
 MOVT	R0, #hi_addr(_Down_10_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2458 :: 		DrawImage(&Down_10_);
+;Controller_events_code.c,2459 :: 		DrawImage(&Down_10_);
 MOVW	R0, #lo_addr(_Down_10_+0)
 MOVT	R0, #hi_addr(_Down_10_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2459 :: 		}
+;Controller_events_code.c,2460 :: 		}
 L_end_Down_10_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_10_OnUp
 _Up_10_OnPress:
-;Controller_events_code.c,2461 :: 		void Up_10_OnPress() {
+;Controller_events_code.c,2462 :: 		void Up_10_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2463 :: 		Tone2 ();
+;Controller_events_code.c,2464 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2464 :: 		Image226.Visible = 1;
+;Controller_events_code.c,2465 :: 		Image226.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image226+20)
 MOVT	R0, #hi_addr(_Image226+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2465 :: 		Up_10_.Visible = 0;
+;Controller_events_code.c,2466 :: 		Up_10_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_10_+20)
 MOVT	R0, #hi_addr(_Up_10_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2466 :: 		DrawImage(&Image226);
+;Controller_events_code.c,2467 :: 		DrawImage(&Image226);
 MOVW	R0, #lo_addr(_Image226+0)
 MOVT	R0, #hi_addr(_Image226+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2467 :: 		system_reg[DEL_SOURS_MIN]++;
+;Controller_events_code.c,2468 :: 		system_reg[DEL_SOURS_MIN]++;
 MOVW	R1, #lo_addr(_system_reg+260)
 MOVT	R1, #hi_addr(_system_reg+260)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2468 :: 		if (system_reg[DEL_SOURS_MIN] >99)
+;Controller_events_code.c,2469 :: 		if (system_reg[DEL_SOURS_MIN] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_10_OnPress348
-;Controller_events_code.c,2469 :: 		system_reg[DEL_SOURS_MIN] = 99;
+BLE	L_Up_10_OnPress352
+;Controller_events_code.c,2470 :: 		system_reg[DEL_SOURS_MIN] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+260)
 MOVT	R0, #hi_addr(_system_reg+260)
 STRH	R1, [R0, #0]
-L_Up_10_OnPress348:
-;Controller_events_code.c,2470 :: 		IntToStr(system_reg[DEL_SOURS_MIN], txt);
+L_Up_10_OnPress352:
+;Controller_events_code.c,2471 :: 		IntToStr(system_reg[DEL_SOURS_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+260)
 MOVT	R0, #hi_addr(_system_reg+260)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2471 :: 		Ltrim (txt);
+;Controller_events_code.c,2472 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2472 :: 		strncpy(Set_min_delta_source.Caption, txt, 2);
+;Controller_events_code.c,2473 :: 		strncpy(Set_min_delta_source.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_delta_source+24)
 MOVT	R0, #hi_addr(_Set_min_delta_source+24)
@@ -10210,99 +10261,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2473 :: 		DrawRoundButton(&Set_min_delta_source);
+;Controller_events_code.c,2474 :: 		DrawRoundButton(&Set_min_delta_source);
 MOVW	R0, #lo_addr(_Set_min_delta_source+0)
 MOVT	R0, #hi_addr(_Set_min_delta_source+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2474 :: 		Delay_ms (100);
+;Controller_events_code.c,2475 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_10_OnPress349:
+L_Up_10_OnPress353:
 SUBS	R7, R7, #1
-BNE	L_Up_10_OnPress349
+BNE	L_Up_10_OnPress353
 NOP
 NOP
 NOP
-;Controller_events_code.c,2475 :: 		}
+;Controller_events_code.c,2476 :: 		}
 L_end_Up_10_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_10_OnPress
 _Up_10_OnUp:
-;Controller_events_code.c,2477 :: 		void Up_10_OnUp() {
+;Controller_events_code.c,2478 :: 		void Up_10_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2478 :: 		Image226.Visible = 0;
+;Controller_events_code.c,2479 :: 		Image226.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image226+20)
 MOVT	R0, #hi_addr(_Image226+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2479 :: 		Up_10_.Visible = 1;
+;Controller_events_code.c,2480 :: 		Up_10_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_10_+20)
 MOVT	R0, #hi_addr(_Up_10_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2480 :: 		DrawImage(&Up_10_);
+;Controller_events_code.c,2481 :: 		DrawImage(&Up_10_);
 MOVW	R0, #lo_addr(_Up_10_+0)
 MOVT	R0, #hi_addr(_Up_10_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2481 :: 		}
+;Controller_events_code.c,2482 :: 		}
 L_end_Up_10_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_10_OnUp
 _Down_11_OnPress:
-;Controller_events_code.c,2482 :: 		void Down_11_OnPress() {
+;Controller_events_code.c,2483 :: 		void Down_11_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2484 :: 		Tone3 ();
+;Controller_events_code.c,2485 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,2485 :: 		Image213.Visible = 1;
+;Controller_events_code.c,2486 :: 		Image213.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image213+20)
 MOVT	R0, #hi_addr(_Image213+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2486 :: 		Down_11_.Visible = 0;
+;Controller_events_code.c,2487 :: 		Down_11_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_11_+20)
 MOVT	R0, #hi_addr(_Down_11_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2487 :: 		DrawImage(&Image213);
+;Controller_events_code.c,2488 :: 		DrawImage(&Image213);
 MOVW	R0, #lo_addr(_Image213+0)
 MOVT	R0, #hi_addr(_Image213+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2488 :: 		system_reg[DEL_SOURS_MAX]--;
+;Controller_events_code.c,2489 :: 		system_reg[DEL_SOURS_MAX]--;
 MOVW	R1, #lo_addr(_system_reg+240)
 MOVT	R1, #hi_addr(_system_reg+240)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2489 :: 		if (system_reg[DEL_SOURS_MAX] < 0)
+;Controller_events_code.c,2490 :: 		if (system_reg[DEL_SOURS_MAX] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_11_OnPress351
-;Controller_events_code.c,2490 :: 		system_reg[DEL_SOURS_MAX] = 0;
+BGE	L_Down_11_OnPress355
+;Controller_events_code.c,2491 :: 		system_reg[DEL_SOURS_MAX] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+240)
 MOVT	R0, #hi_addr(_system_reg+240)
 STRH	R1, [R0, #0]
-L_Down_11_OnPress351:
-;Controller_events_code.c,2491 :: 		IntToStr(system_reg[DEL_SOURS_MAX], txt);
+L_Down_11_OnPress355:
+;Controller_events_code.c,2492 :: 		IntToStr(system_reg[DEL_SOURS_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+240)
 MOVT	R0, #hi_addr(_system_reg+240)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2492 :: 		Ltrim (txt);
+;Controller_events_code.c,2493 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2493 :: 		strncpy(Set_max_source_delta.Caption, txt, 2);
+;Controller_events_code.c,2494 :: 		strncpy(Set_max_source_delta.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_source_delta+24)
 MOVT	R0, #hi_addr(_Set_max_source_delta+24)
@@ -10310,99 +10361,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2494 :: 		DrawRoundButton(&Set_max_source_delta);
+;Controller_events_code.c,2495 :: 		DrawRoundButton(&Set_max_source_delta);
 MOVW	R0, #lo_addr(_Set_max_source_delta+0)
 MOVT	R0, #hi_addr(_Set_max_source_delta+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2495 :: 		Delay_ms (100);
+;Controller_events_code.c,2496 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_11_OnPress352:
+L_Down_11_OnPress356:
 SUBS	R7, R7, #1
-BNE	L_Down_11_OnPress352
+BNE	L_Down_11_OnPress356
 NOP
 NOP
 NOP
-;Controller_events_code.c,2496 :: 		}
+;Controller_events_code.c,2497 :: 		}
 L_end_Down_11_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_11_OnPress
 _Down_11_OnUp:
-;Controller_events_code.c,2498 :: 		void Down_11_OnUp() {
+;Controller_events_code.c,2499 :: 		void Down_11_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2499 :: 		Image213.Visible = 0;
+;Controller_events_code.c,2500 :: 		Image213.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image213+20)
 MOVT	R0, #hi_addr(_Image213+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2500 :: 		Down_11_.Visible = 1;
+;Controller_events_code.c,2501 :: 		Down_11_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_11_+20)
 MOVT	R0, #hi_addr(_Down_11_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2501 :: 		DrawImage(&Down_11_);
+;Controller_events_code.c,2502 :: 		DrawImage(&Down_11_);
 MOVW	R0, #lo_addr(_Down_11_+0)
 MOVT	R0, #hi_addr(_Down_11_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2503 :: 		}
+;Controller_events_code.c,2504 :: 		}
 L_end_Down_11_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_11_OnUp
 _Up_11_OnPress:
-;Controller_events_code.c,2505 :: 		void Up_11_OnPress() {
+;Controller_events_code.c,2506 :: 		void Up_11_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2507 :: 		Tone2 ();
+;Controller_events_code.c,2508 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2508 :: 		Image227.Visible = 1;
+;Controller_events_code.c,2509 :: 		Image227.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image227+20)
 MOVT	R0, #hi_addr(_Image227+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2509 :: 		Up_11_.Visible = 0;
+;Controller_events_code.c,2510 :: 		Up_11_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_11_+20)
 MOVT	R0, #hi_addr(_Up_11_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2510 :: 		DrawImage(&Image227);
+;Controller_events_code.c,2511 :: 		DrawImage(&Image227);
 MOVW	R0, #lo_addr(_Image227+0)
 MOVT	R0, #hi_addr(_Image227+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2511 :: 		system_reg[DEL_SOURS_MAX]++;
+;Controller_events_code.c,2512 :: 		system_reg[DEL_SOURS_MAX]++;
 MOVW	R1, #lo_addr(_system_reg+240)
 MOVT	R1, #hi_addr(_system_reg+240)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2512 :: 		if (system_reg[DEL_SOURS_MAX] >99)
+;Controller_events_code.c,2513 :: 		if (system_reg[DEL_SOURS_MAX] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_11_OnPress354
-;Controller_events_code.c,2513 :: 		system_reg[DEL_SOURS_MAX] = 99;
+BLE	L_Up_11_OnPress358
+;Controller_events_code.c,2514 :: 		system_reg[DEL_SOURS_MAX] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+240)
 MOVT	R0, #hi_addr(_system_reg+240)
 STRH	R1, [R0, #0]
-L_Up_11_OnPress354:
-;Controller_events_code.c,2514 :: 		IntToStr(system_reg[DEL_SOURS_MAX], txt);
+L_Up_11_OnPress358:
+;Controller_events_code.c,2515 :: 		IntToStr(system_reg[DEL_SOURS_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+240)
 MOVT	R0, #hi_addr(_system_reg+240)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2515 :: 		Ltrim (txt);
+;Controller_events_code.c,2516 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2516 :: 		strncpy(Set_max_source_delta.Caption, txt, 2);
+;Controller_events_code.c,2517 :: 		strncpy(Set_max_source_delta.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_source_delta+24)
 MOVT	R0, #hi_addr(_Set_max_source_delta+24)
@@ -10410,410 +10461,410 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2517 :: 		DrawRoundButton(&Set_max_source_delta);
+;Controller_events_code.c,2518 :: 		DrawRoundButton(&Set_max_source_delta);
 MOVW	R0, #lo_addr(_Set_max_source_delta+0)
 MOVT	R0, #hi_addr(_Set_max_source_delta+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2518 :: 		Delay_ms (100);
+;Controller_events_code.c,2519 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_11_OnPress355:
+L_Up_11_OnPress359:
 SUBS	R7, R7, #1
-BNE	L_Up_11_OnPress355
+BNE	L_Up_11_OnPress359
 NOP
 NOP
 NOP
-;Controller_events_code.c,2519 :: 		}
+;Controller_events_code.c,2520 :: 		}
 L_end_Up_11_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_11_OnPress
 _Up_11_OnUp:
-;Controller_events_code.c,2521 :: 		void Up_11_OnUp() {
+;Controller_events_code.c,2522 :: 		void Up_11_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2522 :: 		Image227.Visible = 0;
+;Controller_events_code.c,2523 :: 		Image227.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image227+20)
 MOVT	R0, #hi_addr(_Image227+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2523 :: 		Up_11_.Visible = 1;
+;Controller_events_code.c,2524 :: 		Up_11_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_11_+20)
 MOVT	R0, #hi_addr(_Up_11_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2524 :: 		DrawImage(&Up_11_);
+;Controller_events_code.c,2525 :: 		DrawImage(&Up_11_);
 MOVW	R0, #lo_addr(_Up_11_+0)
 MOVT	R0, #hi_addr(_Up_11_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2525 :: 		}
+;Controller_events_code.c,2526 :: 		}
 L_end_Up_11_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_11_OnUp
 _Down_12_OnPress:
-;Controller_events_code.c,2530 :: 		void Down_12_OnPress() {
-;Controller_events_code.c,2532 :: 		}
+;Controller_events_code.c,2531 :: 		void Down_12_OnPress() {
+;Controller_events_code.c,2533 :: 		}
 L_end_Down_12_OnPress:
 BX	LR
 ; end of _Down_12_OnPress
 _Down_12_OnUp:
-;Controller_events_code.c,2534 :: 		void Down_12_OnUp() {
-;Controller_events_code.c,2536 :: 		}
+;Controller_events_code.c,2535 :: 		void Down_12_OnUp() {
+;Controller_events_code.c,2537 :: 		}
 L_end_Down_12_OnUp:
 BX	LR
 ; end of _Down_12_OnUp
 _Up_12_OnPress:
-;Controller_events_code.c,2538 :: 		void Up_12_OnPress() {
-;Controller_events_code.c,2540 :: 		}
+;Controller_events_code.c,2539 :: 		void Up_12_OnPress() {
+;Controller_events_code.c,2541 :: 		}
 L_end_Up_12_OnPress:
 BX	LR
 ; end of _Up_12_OnPress
 _Up_12_OnUp:
-;Controller_events_code.c,2542 :: 		void Up_12_OnUp() {
-;Controller_events_code.c,2544 :: 		}
+;Controller_events_code.c,2543 :: 		void Up_12_OnUp() {
+;Controller_events_code.c,2545 :: 		}
 L_end_Up_12_OnUp:
 BX	LR
 ; end of _Up_12_OnUp
 _Set_7_OnUp:
-;Controller_events_code.c,2545 :: 		void Set_7_OnUp() {
+;Controller_events_code.c,2546 :: 		void Set_7_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2546 :: 		Set_7_.Visible = 1;
+;Controller_events_code.c,2547 :: 		Set_7_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_7_+20)
 MOVT	R0, #hi_addr(_Set_7_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2547 :: 		Image252.Visible = 0;
+;Controller_events_code.c,2548 :: 		Image252.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image252+20)
 MOVT	R0, #hi_addr(_Image252+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2548 :: 		DrawImage (&Set_7_);
+;Controller_events_code.c,2549 :: 		DrawImage (&Set_7_);
 MOVW	R0, #lo_addr(_Set_7_+0)
 MOVT	R0, #hi_addr(_Set_7_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2549 :: 		}
+;Controller_events_code.c,2550 :: 		}
 L_end_Set_7_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_7_OnUp
 _Set_7_OnDown:
-;Controller_events_code.c,2550 :: 		void Set_7_OnDown(){
+;Controller_events_code.c,2551 :: 		void Set_7_OnDown(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2551 :: 		Tone1();
+;Controller_events_code.c,2552 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2555 :: 		send_data_packet(DEL_HEAT_MAX,1);
+;Controller_events_code.c,2556 :: 		send_data_packet(DEL_HEAT_MAX,1);
 MOVS	R1, #1
 MOVW	R0, #100
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2556 :: 		Set_7_.Visible = 0;
+;Controller_events_code.c,2557 :: 		Set_7_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_7_+20)
 MOVT	R0, #hi_addr(_Set_7_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2557 :: 		Image252.Visible = 1;
+;Controller_events_code.c,2558 :: 		Image252.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image252+20)
 MOVT	R0, #hi_addr(_Image252+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2558 :: 		DrawImage (&Image252);
+;Controller_events_code.c,2559 :: 		DrawImage (&Image252);
 MOVW	R0, #lo_addr(_Image252+0)
 MOVT	R0, #hi_addr(_Image252+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2559 :: 		}
+;Controller_events_code.c,2560 :: 		}
 L_end_Set_7_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_7_OnDown
 _Set_8_OnDown:
-;Controller_events_code.c,2561 :: 		void Set_8_OnDown() {
+;Controller_events_code.c,2562 :: 		void Set_8_OnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2562 :: 		Tone1();
+;Controller_events_code.c,2563 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2566 :: 		send_data_packet(DEL_DHW_MIN,1);
+;Controller_events_code.c,2567 :: 		send_data_packet(DEL_DHW_MIN,1);
 MOVS	R1, #1
 MOVW	R0, #460
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2567 :: 		Set_8_.Visible = 0;
+;Controller_events_code.c,2568 :: 		Set_8_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_8_+20)
 MOVT	R0, #hi_addr(_Set_8_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2568 :: 		Image253.Visible = 1;
+;Controller_events_code.c,2569 :: 		Image253.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image253+20)
 MOVT	R0, #hi_addr(_Image253+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2569 :: 		DrawImage (&Image253);
+;Controller_events_code.c,2570 :: 		DrawImage (&Image253);
 MOVW	R0, #lo_addr(_Image253+0)
 MOVT	R0, #hi_addr(_Image253+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2570 :: 		}
+;Controller_events_code.c,2571 :: 		}
 L_end_Set_8_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_8_OnDown
 _Set_8_OnUp:
-;Controller_events_code.c,2572 :: 		void Set_8_OnUp() {
+;Controller_events_code.c,2573 :: 		void Set_8_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2573 :: 		Set_8_.Visible = 1;
+;Controller_events_code.c,2574 :: 		Set_8_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_8_+20)
 MOVT	R0, #hi_addr(_Set_8_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2574 :: 		Image253.Visible = 0;
+;Controller_events_code.c,2575 :: 		Image253.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image253+20)
 MOVT	R0, #hi_addr(_Image253+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2575 :: 		DrawImage (&Set_8_);
+;Controller_events_code.c,2576 :: 		DrawImage (&Set_8_);
 MOVW	R0, #lo_addr(_Set_8_+0)
 MOVT	R0, #hi_addr(_Set_8_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2576 :: 		}
+;Controller_events_code.c,2577 :: 		}
 L_end_Set_8_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_8_OnUp
 _Set_9_OnUp:
-;Controller_events_code.c,2578 :: 		void Set_9_OnUp() {
+;Controller_events_code.c,2579 :: 		void Set_9_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2579 :: 		Set_9_.Visible = 1;
+;Controller_events_code.c,2580 :: 		Set_9_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_9_+20)
 MOVT	R0, #hi_addr(_Set_9_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2580 :: 		Image256.Visible = 0;
+;Controller_events_code.c,2581 :: 		Image256.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image256+20)
 MOVT	R0, #hi_addr(_Image256+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2581 :: 		DrawImage (&Set_9_);
+;Controller_events_code.c,2582 :: 		DrawImage (&Set_9_);
 MOVW	R0, #lo_addr(_Set_9_+0)
 MOVT	R0, #hi_addr(_Set_9_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2582 :: 		}
+;Controller_events_code.c,2583 :: 		}
 L_end_Set_9_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_9_OnUp
 _Set_9_OnDown:
-;Controller_events_code.c,2583 :: 		void Set_9_OnDown() {
+;Controller_events_code.c,2584 :: 		void Set_9_OnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2584 :: 		Tone1();
+;Controller_events_code.c,2585 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2588 :: 		send_data_packet(DEL_DHW_MAX,1);
+;Controller_events_code.c,2589 :: 		send_data_packet(DEL_DHW_MAX,1);
 MOVS	R1, #1
 MOVW	R0, #450
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2589 :: 		Set_9_.Visible = 0;
+;Controller_events_code.c,2590 :: 		Set_9_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_9_+20)
 MOVT	R0, #hi_addr(_Set_9_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2590 :: 		Image256.Visible = 1;
+;Controller_events_code.c,2591 :: 		Image256.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image256+20)
 MOVT	R0, #hi_addr(_Image256+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2591 :: 		DrawImage (&Image256);
+;Controller_events_code.c,2592 :: 		DrawImage (&Image256);
 MOVW	R0, #lo_addr(_Image256+0)
 MOVT	R0, #hi_addr(_Image256+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2592 :: 		}
+;Controller_events_code.c,2593 :: 		}
 L_end_Set_9_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_9_OnDown
 _Set_10_OnDown:
-;Controller_events_code.c,2593 :: 		void Set_10_OnDown() {
+;Controller_events_code.c,2594 :: 		void Set_10_OnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2594 :: 		Tone1();
+;Controller_events_code.c,2595 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2598 :: 		send_data_packet(DEL_SOURS_MIN,1);
+;Controller_events_code.c,2599 :: 		send_data_packet(DEL_SOURS_MIN,1);
 MOVS	R1, #1
 MOVW	R0, #130
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2599 :: 		Set_10_.Visible = 0;
+;Controller_events_code.c,2600 :: 		Set_10_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_10_+20)
 MOVT	R0, #hi_addr(_Set_10_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2600 :: 		Image254.Visible = 1;
+;Controller_events_code.c,2601 :: 		Image254.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image254+20)
 MOVT	R0, #hi_addr(_Image254+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2601 :: 		DrawImage (&Image254);
+;Controller_events_code.c,2602 :: 		DrawImage (&Image254);
 MOVW	R0, #lo_addr(_Image254+0)
 MOVT	R0, #hi_addr(_Image254+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2602 :: 		}
+;Controller_events_code.c,2603 :: 		}
 L_end_Set_10_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_10_OnDown
 _Set_10_OnUp:
-;Controller_events_code.c,2604 :: 		void Set_10_OnUp() {
+;Controller_events_code.c,2605 :: 		void Set_10_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2605 :: 		Set_10_.Visible = 1;
+;Controller_events_code.c,2606 :: 		Set_10_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_10_+20)
 MOVT	R0, #hi_addr(_Set_10_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2606 :: 		Image254.Visible = 0;
+;Controller_events_code.c,2607 :: 		Image254.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image254+20)
 MOVT	R0, #hi_addr(_Image254+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2607 :: 		DrawImage (&Set_10_);
+;Controller_events_code.c,2608 :: 		DrawImage (&Set_10_);
 MOVW	R0, #lo_addr(_Set_10_+0)
 MOVT	R0, #hi_addr(_Set_10_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2608 :: 		}
+;Controller_events_code.c,2609 :: 		}
 L_end_Set_10_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_10_OnUp
 _Set_11_OnDown:
-;Controller_events_code.c,2609 :: 		void Set_11_OnDown() {
+;Controller_events_code.c,2610 :: 		void Set_11_OnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2610 :: 		Tone1();
+;Controller_events_code.c,2611 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2614 :: 		send_data_packet(DEL_SOURS_MAX,1);
+;Controller_events_code.c,2615 :: 		send_data_packet(DEL_SOURS_MAX,1);
 MOVS	R1, #1
 MOVW	R0, #120
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2615 :: 		Set_11_.Visible = 0;
+;Controller_events_code.c,2616 :: 		Set_11_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_11_+20)
 MOVT	R0, #hi_addr(_Set_11_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2616 :: 		Image255.Visible = 1;
+;Controller_events_code.c,2617 :: 		Image255.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image255+20)
 MOVT	R0, #hi_addr(_Image255+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2617 :: 		DrawImage (&Image255);
+;Controller_events_code.c,2618 :: 		DrawImage (&Image255);
 MOVW	R0, #lo_addr(_Image255+0)
 MOVT	R0, #hi_addr(_Image255+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2618 :: 		}
+;Controller_events_code.c,2619 :: 		}
 L_end_Set_11_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_11_OnDown
 _Set_11_OnUp:
-;Controller_events_code.c,2619 :: 		void Set_11_OnUp() {
+;Controller_events_code.c,2620 :: 		void Set_11_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2620 :: 		Set_11_.Visible = 1;
+;Controller_events_code.c,2621 :: 		Set_11_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_11_+20)
 MOVT	R0, #hi_addr(_Set_11_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2621 :: 		Image255.Visible = 0;
+;Controller_events_code.c,2622 :: 		Image255.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image255+20)
 MOVT	R0, #hi_addr(_Image255+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2622 :: 		DrawImage (&Set_11_);
+;Controller_events_code.c,2623 :: 		DrawImage (&Set_11_);
 MOVW	R0, #lo_addr(_Set_11_+0)
 MOVT	R0, #hi_addr(_Set_11_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2623 :: 		}
+;Controller_events_code.c,2624 :: 		}
 L_end_Set_11_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_11_OnUp
 _Set_12_OnDown:
-;Controller_events_code.c,2625 :: 		void Set_12_OnDown() {
-;Controller_events_code.c,2627 :: 		}
+;Controller_events_code.c,2626 :: 		void Set_12_OnDown() {
+;Controller_events_code.c,2628 :: 		}
 L_end_Set_12_OnDown:
 BX	LR
 ; end of _Set_12_OnDown
 _Set_12_OnUp:
-;Controller_events_code.c,2628 :: 		void Set_12_OnUp() {
-;Controller_events_code.c,2630 :: 		}
+;Controller_events_code.c,2629 :: 		void Set_12_OnUp() {
+;Controller_events_code.c,2631 :: 		}
 L_end_Set_12_OnUp:
 BX	LR
 ; end of _Set_12_OnUp
 _Down_19_OnPress:
-;Controller_events_code.c,2634 :: 		void Down_19_OnPress() {
+;Controller_events_code.c,2635 :: 		void Down_19_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2636 :: 		Tone3 ();
+;Controller_events_code.c,2637 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,2637 :: 		Image243.Visible = 1;
+;Controller_events_code.c,2638 :: 		Image243.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image243+20)
 MOVT	R0, #hi_addr(_Image243+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2638 :: 		Down_19_.Visible = 0;
+;Controller_events_code.c,2639 :: 		Down_19_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_19_+20)
 MOVT	R0, #hi_addr(_Down_19_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2639 :: 		DrawImage(&Image243);
+;Controller_events_code.c,2640 :: 		DrawImage(&Image243);
 MOVW	R0, #lo_addr(_Image243+0)
 MOVT	R0, #hi_addr(_Image243+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2640 :: 		system_reg[S_HEAT_MAX]--;
+;Controller_events_code.c,2641 :: 		system_reg[S_HEAT_MAX]--;
 MOVW	R1, #lo_addr(_system_reg+560)
 MOVT	R1, #hi_addr(_system_reg+560)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2641 :: 		if (system_reg[S_HEAT_MAX] < 0)
+;Controller_events_code.c,2642 :: 		if (system_reg[S_HEAT_MAX] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_19_OnPress357
-;Controller_events_code.c,2642 :: 		system_reg[S_HEAT_MAX] = 0;
+BGE	L_Down_19_OnPress361
+;Controller_events_code.c,2643 :: 		system_reg[S_HEAT_MAX] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+560)
 MOVT	R0, #hi_addr(_system_reg+560)
 STRH	R1, [R0, #0]
-L_Down_19_OnPress357:
-;Controller_events_code.c,2643 :: 		IntToStr(system_reg[S_HEAT_MAX], txt);
+L_Down_19_OnPress361:
+;Controller_events_code.c,2644 :: 		IntToStr(system_reg[S_HEAT_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+560)
 MOVT	R0, #hi_addr(_system_reg+560)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2644 :: 		Ltrim (txt);
+;Controller_events_code.c,2645 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2645 :: 		strncpy(Set_max_superheat.Caption, txt, 2);
+;Controller_events_code.c,2646 :: 		strncpy(Set_max_superheat.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_superheat+24)
 MOVT	R0, #hi_addr(_Set_max_superheat+24)
@@ -10821,99 +10872,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2646 :: 		DrawRoundButton(&Set_max_superheat);
+;Controller_events_code.c,2647 :: 		DrawRoundButton(&Set_max_superheat);
 MOVW	R0, #lo_addr(_Set_max_superheat+0)
 MOVT	R0, #hi_addr(_Set_max_superheat+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2647 :: 		Delay_ms (100);
+;Controller_events_code.c,2648 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_19_OnPress358:
+L_Down_19_OnPress362:
 SUBS	R7, R7, #1
-BNE	L_Down_19_OnPress358
+BNE	L_Down_19_OnPress362
 NOP
 NOP
 NOP
-;Controller_events_code.c,2648 :: 		}
+;Controller_events_code.c,2649 :: 		}
 L_end_Down_19_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_19_OnPress
 _Down_19_OnUp:
-;Controller_events_code.c,2649 :: 		void Down_19_OnUp() {
+;Controller_events_code.c,2650 :: 		void Down_19_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2650 :: 		Image243.Visible = 0;
+;Controller_events_code.c,2651 :: 		Image243.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image243+20)
 MOVT	R0, #hi_addr(_Image243+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2651 :: 		Down_19_.Visible = 1;
+;Controller_events_code.c,2652 :: 		Down_19_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_19_+20)
 MOVT	R0, #hi_addr(_Down_19_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2652 :: 		DrawImage(&Down_19_);
+;Controller_events_code.c,2653 :: 		DrawImage(&Down_19_);
 MOVW	R0, #lo_addr(_Down_19_+0)
 MOVT	R0, #hi_addr(_Down_19_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2653 :: 		}
+;Controller_events_code.c,2654 :: 		}
 L_end_Down_19_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_19_OnUp
 _Up_19_OnPress:
-;Controller_events_code.c,2654 :: 		void Up_19_OnPress() {
+;Controller_events_code.c,2655 :: 		void Up_19_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2656 :: 		Tone2 ();
+;Controller_events_code.c,2657 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2657 :: 		Image236.Visible = 1;
+;Controller_events_code.c,2658 :: 		Image236.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image236+20)
 MOVT	R0, #hi_addr(_Image236+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2658 :: 		Up_19_.Visible = 0;
+;Controller_events_code.c,2659 :: 		Up_19_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_19_+20)
 MOVT	R0, #hi_addr(_Up_19_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2659 :: 		DrawImage(&Image236);
+;Controller_events_code.c,2660 :: 		DrawImage(&Image236);
 MOVW	R0, #lo_addr(_Image236+0)
 MOVT	R0, #hi_addr(_Image236+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2660 :: 		system_reg[S_HEAT_MAX]++;
+;Controller_events_code.c,2661 :: 		system_reg[S_HEAT_MAX]++;
 MOVW	R1, #lo_addr(_system_reg+560)
 MOVT	R1, #hi_addr(_system_reg+560)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2661 :: 		if (system_reg[S_HEAT_MAX] >99)
+;Controller_events_code.c,2662 :: 		if (system_reg[S_HEAT_MAX] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_19_OnPress360
-;Controller_events_code.c,2662 :: 		system_reg[S_HEAT_MAX] = 99;
+BLE	L_Up_19_OnPress364
+;Controller_events_code.c,2663 :: 		system_reg[S_HEAT_MAX] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+560)
 MOVT	R0, #hi_addr(_system_reg+560)
 STRH	R1, [R0, #0]
-L_Up_19_OnPress360:
-;Controller_events_code.c,2663 :: 		IntToStr(system_reg[S_HEAT_MAX], txt);
+L_Up_19_OnPress364:
+;Controller_events_code.c,2664 :: 		IntToStr(system_reg[S_HEAT_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+560)
 MOVT	R0, #hi_addr(_system_reg+560)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2664 :: 		Ltrim (txt);
+;Controller_events_code.c,2665 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2665 :: 		strncpy(Set_max_superheat.Caption, txt, 2);
+;Controller_events_code.c,2666 :: 		strncpy(Set_max_superheat.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_superheat+24)
 MOVT	R0, #hi_addr(_Set_max_superheat+24)
@@ -10921,99 +10972,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2666 :: 		DrawRoundButton(&Set_max_superheat);
+;Controller_events_code.c,2667 :: 		DrawRoundButton(&Set_max_superheat);
 MOVW	R0, #lo_addr(_Set_max_superheat+0)
 MOVT	R0, #hi_addr(_Set_max_superheat+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2667 :: 		Delay_ms (100);
+;Controller_events_code.c,2668 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_19_OnPress361:
+L_Up_19_OnPress365:
 SUBS	R7, R7, #1
-BNE	L_Up_19_OnPress361
+BNE	L_Up_19_OnPress365
 NOP
 NOP
 NOP
-;Controller_events_code.c,2668 :: 		}
+;Controller_events_code.c,2669 :: 		}
 L_end_Up_19_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_19_OnPress
 _Up_19_OnUp:
-;Controller_events_code.c,2669 :: 		void Up_19_OnUp() {
+;Controller_events_code.c,2670 :: 		void Up_19_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2670 :: 		Image236.Visible = 0;
+;Controller_events_code.c,2671 :: 		Image236.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image236+20)
 MOVT	R0, #hi_addr(_Image236+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2671 :: 		Up_19_.Visible = 1;
+;Controller_events_code.c,2672 :: 		Up_19_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_19_+20)
 MOVT	R0, #hi_addr(_Up_19_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2672 :: 		DrawImage(&Up_19_);
+;Controller_events_code.c,2673 :: 		DrawImage(&Up_19_);
 MOVW	R0, #lo_addr(_Up_19_+0)
 MOVT	R0, #hi_addr(_Up_19_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2673 :: 		}
+;Controller_events_code.c,2674 :: 		}
 L_end_Up_19_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_19_OnUp
 _Down_20_OnPress:
-;Controller_events_code.c,2674 :: 		void Down_20_OnPress() {
+;Controller_events_code.c,2675 :: 		void Down_20_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2676 :: 		Tone3 ();
+;Controller_events_code.c,2677 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,2677 :: 		Image244.Visible = 1;
+;Controller_events_code.c,2678 :: 		Image244.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image244+20)
 MOVT	R0, #hi_addr(_Image244+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2678 :: 		Down_20_.Visible = 0;
+;Controller_events_code.c,2679 :: 		Down_20_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_20_+20)
 MOVT	R0, #hi_addr(_Down_20_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2679 :: 		DrawImage(&Image244);
+;Controller_events_code.c,2680 :: 		DrawImage(&Image244);
 MOVW	R0, #lo_addr(_Image244+0)
 MOVT	R0, #hi_addr(_Image244+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2680 :: 		system_reg[S_COOL_MIN]--;
+;Controller_events_code.c,2681 :: 		system_reg[S_COOL_MIN]--;
 MOVW	R1, #lo_addr(_system_reg+540)
 MOVT	R1, #hi_addr(_system_reg+540)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2681 :: 		if (system_reg[S_COOL_MIN]<0)
+;Controller_events_code.c,2682 :: 		if (system_reg[S_COOL_MIN]<0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_20_OnPress363
-;Controller_events_code.c,2682 :: 		system_reg[S_COOL_MIN] = 0;
+BGE	L_Down_20_OnPress367
+;Controller_events_code.c,2683 :: 		system_reg[S_COOL_MIN] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+540)
 MOVT	R0, #hi_addr(_system_reg+540)
 STRH	R1, [R0, #0]
-L_Down_20_OnPress363:
-;Controller_events_code.c,2683 :: 		IntToStr(system_reg[S_COOL_MIN], txt);
+L_Down_20_OnPress367:
+;Controller_events_code.c,2684 :: 		IntToStr(system_reg[S_COOL_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+540)
 MOVT	R0, #hi_addr(_system_reg+540)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2684 :: 		Ltrim (txt);
+;Controller_events_code.c,2685 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2685 :: 		strncpy(Set_min_subcooling.Caption, txt, 2);
+;Controller_events_code.c,2686 :: 		strncpy(Set_min_subcooling.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_subcooling+24)
 MOVT	R0, #hi_addr(_Set_min_subcooling+24)
@@ -11021,99 +11072,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2686 :: 		DrawRoundButton(&Set_min_subcooling);
+;Controller_events_code.c,2687 :: 		DrawRoundButton(&Set_min_subcooling);
 MOVW	R0, #lo_addr(_Set_min_subcooling+0)
 MOVT	R0, #hi_addr(_Set_min_subcooling+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2687 :: 		Delay_ms (100);
+;Controller_events_code.c,2688 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_20_OnPress364:
+L_Down_20_OnPress368:
 SUBS	R7, R7, #1
-BNE	L_Down_20_OnPress364
+BNE	L_Down_20_OnPress368
 NOP
 NOP
 NOP
-;Controller_events_code.c,2688 :: 		}
+;Controller_events_code.c,2689 :: 		}
 L_end_Down_20_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_20_OnPress
 _Down_20_OnUp:
-;Controller_events_code.c,2689 :: 		void Down_20_OnUp() {
+;Controller_events_code.c,2690 :: 		void Down_20_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2690 :: 		Image244.Visible = 0;
+;Controller_events_code.c,2691 :: 		Image244.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image244+20)
 MOVT	R0, #hi_addr(_Image244+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2691 :: 		Down_20_.Visible = 1;
+;Controller_events_code.c,2692 :: 		Down_20_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_20_+20)
 MOVT	R0, #hi_addr(_Down_20_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2692 :: 		DrawImage(&Down_20_);
+;Controller_events_code.c,2693 :: 		DrawImage(&Down_20_);
 MOVW	R0, #lo_addr(_Down_20_+0)
 MOVT	R0, #hi_addr(_Down_20_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2693 :: 		}
+;Controller_events_code.c,2694 :: 		}
 L_end_Down_20_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_20_OnUp
 _Up_20_OnPress:
-;Controller_events_code.c,2694 :: 		void Up_20_OnPress() {
+;Controller_events_code.c,2695 :: 		void Up_20_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2696 :: 		Tone2 ();
+;Controller_events_code.c,2697 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2697 :: 		Image237.Visible = 1;
+;Controller_events_code.c,2698 :: 		Image237.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image237+20)
 MOVT	R0, #hi_addr(_Image237+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2698 :: 		Up_20_.Visible = 0;
+;Controller_events_code.c,2699 :: 		Up_20_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_20_+20)
 MOVT	R0, #hi_addr(_Up_20_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2699 :: 		DrawImage(&Image237);
+;Controller_events_code.c,2700 :: 		DrawImage(&Image237);
 MOVW	R0, #lo_addr(_Image237+0)
 MOVT	R0, #hi_addr(_Image237+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2700 :: 		system_reg[S_COOL_MIN]++;
+;Controller_events_code.c,2701 :: 		system_reg[S_COOL_MIN]++;
 MOVW	R1, #lo_addr(_system_reg+540)
 MOVT	R1, #hi_addr(_system_reg+540)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2701 :: 		if (system_reg[S_COOL_MIN]>99)
+;Controller_events_code.c,2702 :: 		if (system_reg[S_COOL_MIN]>99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_20_OnPress366
-;Controller_events_code.c,2702 :: 		system_reg[S_COOL_MIN] = 99;
+BLE	L_Up_20_OnPress370
+;Controller_events_code.c,2703 :: 		system_reg[S_COOL_MIN] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+540)
 MOVT	R0, #hi_addr(_system_reg+540)
 STRH	R1, [R0, #0]
-L_Up_20_OnPress366:
-;Controller_events_code.c,2703 :: 		IntToStr(system_reg[S_COOL_MIN], txt);
+L_Up_20_OnPress370:
+;Controller_events_code.c,2704 :: 		IntToStr(system_reg[S_COOL_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+540)
 MOVT	R0, #hi_addr(_system_reg+540)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2704 :: 		Ltrim (txt);
+;Controller_events_code.c,2705 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2705 :: 		strncpy(Set_min_subcooling.Caption, txt, 2);
+;Controller_events_code.c,2706 :: 		strncpy(Set_min_subcooling.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_subcooling+24)
 MOVT	R0, #hi_addr(_Set_min_subcooling+24)
@@ -11121,99 +11172,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2706 :: 		DrawRoundButton(&Set_min_subcooling);
+;Controller_events_code.c,2707 :: 		DrawRoundButton(&Set_min_subcooling);
 MOVW	R0, #lo_addr(_Set_min_subcooling+0)
 MOVT	R0, #hi_addr(_Set_min_subcooling+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2707 :: 		Delay_ms (100);
+;Controller_events_code.c,2708 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_20_OnPress367:
+L_Up_20_OnPress371:
 SUBS	R7, R7, #1
-BNE	L_Up_20_OnPress367
+BNE	L_Up_20_OnPress371
 NOP
 NOP
 NOP
-;Controller_events_code.c,2708 :: 		}
+;Controller_events_code.c,2709 :: 		}
 L_end_Up_20_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_20_OnPress
 _Up_20_OnUp:
-;Controller_events_code.c,2709 :: 		void Up_20_OnUp() {
+;Controller_events_code.c,2710 :: 		void Up_20_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2710 :: 		Image237.Visible = 0;
+;Controller_events_code.c,2711 :: 		Image237.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image237+20)
 MOVT	R0, #hi_addr(_Image237+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2711 :: 		Up_20_.Visible = 1;
+;Controller_events_code.c,2712 :: 		Up_20_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_20_+20)
 MOVT	R0, #hi_addr(_Up_20_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2712 :: 		DrawImage(&Up_20_);
+;Controller_events_code.c,2713 :: 		DrawImage(&Up_20_);
 MOVW	R0, #lo_addr(_Up_20_+0)
 MOVT	R0, #hi_addr(_Up_20_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2713 :: 		}
+;Controller_events_code.c,2714 :: 		}
 L_end_Up_20_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_20_OnUp
 _Down_21_OnPress:
-;Controller_events_code.c,2714 :: 		void Down_21_OnPress() {
+;Controller_events_code.c,2715 :: 		void Down_21_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2716 :: 		Tone2 ();
+;Controller_events_code.c,2717 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2717 :: 		Image238.Visible = 1;
+;Controller_events_code.c,2718 :: 		Image238.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image238+20)
 MOVT	R0, #hi_addr(_Image238+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2718 :: 		Up_21_.Visible = 0;
+;Controller_events_code.c,2719 :: 		Up_21_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_21_+20)
 MOVT	R0, #hi_addr(_Up_21_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2719 :: 		DrawImage(&Image238);
+;Controller_events_code.c,2720 :: 		DrawImage(&Image238);
 MOVW	R0, #lo_addr(_Image238+0)
 MOVT	R0, #hi_addr(_Image238+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2720 :: 		system_reg[S_COOL_MAX]--;
+;Controller_events_code.c,2721 :: 		system_reg[S_COOL_MAX]--;
 MOVW	R1, #lo_addr(_system_reg+520)
 MOVT	R1, #hi_addr(_system_reg+520)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2721 :: 		if (system_reg[S_COOL_MAX]<0)
+;Controller_events_code.c,2722 :: 		if (system_reg[S_COOL_MAX]<0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_21_OnPress369
-;Controller_events_code.c,2722 :: 		system_reg[S_COOL_MAX] = 0;
+BGE	L_Down_21_OnPress373
+;Controller_events_code.c,2723 :: 		system_reg[S_COOL_MAX] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+520)
 MOVT	R0, #hi_addr(_system_reg+520)
 STRH	R1, [R0, #0]
-L_Down_21_OnPress369:
-;Controller_events_code.c,2723 :: 		IntToStr(system_reg[S_COOL_MAX], txt);
+L_Down_21_OnPress373:
+;Controller_events_code.c,2724 :: 		IntToStr(system_reg[S_COOL_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+520)
 MOVT	R0, #hi_addr(_system_reg+520)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2724 :: 		Ltrim (txt);
+;Controller_events_code.c,2725 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2725 :: 		strncpy(Set_max_subcooling.Caption, txt, 2);
+;Controller_events_code.c,2726 :: 		strncpy(Set_max_subcooling.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_subcooling+24)
 MOVT	R0, #hi_addr(_Set_max_subcooling+24)
@@ -11221,99 +11272,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2726 :: 		DrawRoundButton(&Set_max_subcooling);
+;Controller_events_code.c,2727 :: 		DrawRoundButton(&Set_max_subcooling);
 MOVW	R0, #lo_addr(_Set_max_subcooling+0)
 MOVT	R0, #hi_addr(_Set_max_subcooling+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2727 :: 		Delay_ms (100);
+;Controller_events_code.c,2728 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_21_OnPress370:
+L_Down_21_OnPress374:
 SUBS	R7, R7, #1
-BNE	L_Down_21_OnPress370
+BNE	L_Down_21_OnPress374
 NOP
 NOP
 NOP
-;Controller_events_code.c,2728 :: 		}
+;Controller_events_code.c,2729 :: 		}
 L_end_Down_21_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_21_OnPress
 _Down_21_OnUp:
-;Controller_events_code.c,2729 :: 		void Down_21_OnUp() {
+;Controller_events_code.c,2730 :: 		void Down_21_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2730 :: 		Image245.Visible = 0;
+;Controller_events_code.c,2731 :: 		Image245.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image245+20)
 MOVT	R0, #hi_addr(_Image245+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2731 :: 		Down_21_.Visible = 1;
+;Controller_events_code.c,2732 :: 		Down_21_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_21_+20)
 MOVT	R0, #hi_addr(_Down_21_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2732 :: 		DrawImage(&Down_21_);
+;Controller_events_code.c,2733 :: 		DrawImage(&Down_21_);
 MOVW	R0, #lo_addr(_Down_21_+0)
 MOVT	R0, #hi_addr(_Down_21_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2733 :: 		}
+;Controller_events_code.c,2734 :: 		}
 L_end_Down_21_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_21_OnUp
 _Up_21_OnPress:
-;Controller_events_code.c,2734 :: 		void Up_21_OnPress() {
+;Controller_events_code.c,2735 :: 		void Up_21_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2736 :: 		Tone2 ();
+;Controller_events_code.c,2737 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,2737 :: 		Image238.Visible = 1;
+;Controller_events_code.c,2738 :: 		Image238.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image238+20)
 MOVT	R0, #hi_addr(_Image238+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2738 :: 		Up_21_.Visible = 0;
+;Controller_events_code.c,2739 :: 		Up_21_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_21_+20)
 MOVT	R0, #hi_addr(_Up_21_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2739 :: 		DrawImage(&Image238);
+;Controller_events_code.c,2740 :: 		DrawImage(&Image238);
 MOVW	R0, #lo_addr(_Image238+0)
 MOVT	R0, #hi_addr(_Image238+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2740 :: 		system_reg[S_COOL_MAX]++;
+;Controller_events_code.c,2741 :: 		system_reg[S_COOL_MAX]++;
 MOVW	R1, #lo_addr(_system_reg+520)
 MOVT	R1, #hi_addr(_system_reg+520)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2741 :: 		if (system_reg[S_COOL_MAX]>99)
+;Controller_events_code.c,2742 :: 		if (system_reg[S_COOL_MAX]>99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_21_OnPress372
-;Controller_events_code.c,2742 :: 		system_reg[S_COOL_MAX] = 99;
+BLE	L_Up_21_OnPress376
+;Controller_events_code.c,2743 :: 		system_reg[S_COOL_MAX] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+520)
 MOVT	R0, #hi_addr(_system_reg+520)
 STRH	R1, [R0, #0]
-L_Up_21_OnPress372:
-;Controller_events_code.c,2743 :: 		IntToStr(system_reg[S_COOL_MAX], txt);
+L_Up_21_OnPress376:
+;Controller_events_code.c,2744 :: 		IntToStr(system_reg[S_COOL_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+520)
 MOVT	R0, #hi_addr(_system_reg+520)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2744 :: 		Ltrim (txt);
+;Controller_events_code.c,2745 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2745 :: 		strncpy(Set_max_subcooling.Caption, txt, 2);
+;Controller_events_code.c,2746 :: 		strncpy(Set_max_subcooling.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_subcooling+24)
 MOVT	R0, #hi_addr(_Set_max_subcooling+24)
@@ -11321,97 +11372,97 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2746 :: 		DrawRoundButton(&Set_max_subcooling);
+;Controller_events_code.c,2747 :: 		DrawRoundButton(&Set_max_subcooling);
 MOVW	R0, #lo_addr(_Set_max_subcooling+0)
 MOVT	R0, #hi_addr(_Set_max_subcooling+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2747 :: 		Delay_ms (100);
+;Controller_events_code.c,2748 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_21_OnPress373:
+L_Up_21_OnPress377:
 SUBS	R7, R7, #1
-BNE	L_Up_21_OnPress373
+BNE	L_Up_21_OnPress377
 NOP
 NOP
 NOP
-;Controller_events_code.c,2748 :: 		}
+;Controller_events_code.c,2749 :: 		}
 L_end_Up_21_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_21_OnPress
 _Up_21_OnUp:
-;Controller_events_code.c,2749 :: 		void Up_21_OnUp() {
+;Controller_events_code.c,2750 :: 		void Up_21_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2750 :: 		Image238.Visible = 0;
+;Controller_events_code.c,2751 :: 		Image238.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image238+20)
 MOVT	R0, #hi_addr(_Image238+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2751 :: 		Up_21_.Visible = 1;
+;Controller_events_code.c,2752 :: 		Up_21_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_21_+20)
 MOVT	R0, #hi_addr(_Up_21_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2752 :: 		DrawImage(&Up_21_);
+;Controller_events_code.c,2753 :: 		DrawImage(&Up_21_);
 MOVW	R0, #lo_addr(_Up_21_+0)
 MOVT	R0, #hi_addr(_Up_21_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2753 :: 		}
+;Controller_events_code.c,2754 :: 		}
 L_end_Up_21_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_21_OnUp
 _Down_22_OnPress:
-;Controller_events_code.c,2755 :: 		void Down_22_OnPress(){
+;Controller_events_code.c,2756 :: 		void Down_22_OnPress(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2757 :: 		Image24.Visible = 1;
+;Controller_events_code.c,2758 :: 		Image24.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image24+20)
 MOVT	R0, #hi_addr(_Image24+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2758 :: 		Down_22_.Visible = 0;
+;Controller_events_code.c,2759 :: 		Down_22_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_22_+20)
 MOVT	R0, #hi_addr(_Down_22_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2759 :: 		DrawImage(&Image24);
+;Controller_events_code.c,2760 :: 		DrawImage(&Image24);
 MOVW	R0, #lo_addr(_Image24+0)
 MOVT	R0, #hi_addr(_Image24+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2760 :: 		system_reg[HP_MAX]--;
+;Controller_events_code.c,2761 :: 		system_reg[HP_MAX]--;
 MOVW	R1, #lo_addr(_system_reg+440)
 MOVT	R1, #hi_addr(_system_reg+440)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2761 :: 		if (system_reg[HP_MAX]<0)
+;Controller_events_code.c,2762 :: 		if (system_reg[HP_MAX]<0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_22_OnPress375
-;Controller_events_code.c,2762 :: 		system_reg[HP_MAX] = 0;
+BGE	L_Down_22_OnPress379
+;Controller_events_code.c,2763 :: 		system_reg[HP_MAX] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+440)
 MOVT	R0, #hi_addr(_system_reg+440)
 STRH	R1, [R0, #0]
-L_Down_22_OnPress375:
-;Controller_events_code.c,2763 :: 		IntToStr(system_reg[HP_MAX], txt);
+L_Down_22_OnPress379:
+;Controller_events_code.c,2764 :: 		IntToStr(system_reg[HP_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+440)
 MOVT	R0, #hi_addr(_system_reg+440)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2764 :: 		Ltrim (txt);
+;Controller_events_code.c,2765 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2765 :: 		strncpy(Set_max_high_pressure.Caption, txt, 2);
+;Controller_events_code.c,2766 :: 		strncpy(Set_max_high_pressure.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_high_pressure+24)
 MOVT	R0, #hi_addr(_Set_max_high_pressure+24)
@@ -11419,97 +11470,97 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2766 :: 		DrawRoundButton(&Set_max_high_pressure);
+;Controller_events_code.c,2767 :: 		DrawRoundButton(&Set_max_high_pressure);
 MOVW	R0, #lo_addr(_Set_max_high_pressure+0)
 MOVT	R0, #hi_addr(_Set_max_high_pressure+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2767 :: 		Delay_ms (100);
+;Controller_events_code.c,2768 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_22_OnPress376:
+L_Down_22_OnPress380:
 SUBS	R7, R7, #1
-BNE	L_Down_22_OnPress376
+BNE	L_Down_22_OnPress380
 NOP
 NOP
 NOP
-;Controller_events_code.c,2768 :: 		}
+;Controller_events_code.c,2769 :: 		}
 L_end_Down_22_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_22_OnPress
 _Down_22_OnUp:
-;Controller_events_code.c,2769 :: 		void Down_22_OnUp(){
+;Controller_events_code.c,2770 :: 		void Down_22_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2770 :: 		Image24.Visible = 0;
+;Controller_events_code.c,2771 :: 		Image24.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image24+20)
 MOVT	R0, #hi_addr(_Image24+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2771 :: 		Down_22_.Visible = 1;
+;Controller_events_code.c,2772 :: 		Down_22_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_22_+20)
 MOVT	R0, #hi_addr(_Down_22_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2772 :: 		DrawImage(&Down_22_);
+;Controller_events_code.c,2773 :: 		DrawImage(&Down_22_);
 MOVW	R0, #lo_addr(_Down_22_+0)
 MOVT	R0, #hi_addr(_Down_22_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2774 :: 		}
+;Controller_events_code.c,2775 :: 		}
 L_end_Down_22_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_22_OnUp
 _Up_22_OnPress:
-;Controller_events_code.c,2775 :: 		void Up_22_OnPress(){
+;Controller_events_code.c,2776 :: 		void Up_22_OnPress(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2777 :: 		Image53.Visible = 1;
+;Controller_events_code.c,2778 :: 		Image53.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image53+20)
 MOVT	R0, #hi_addr(_Image53+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2778 :: 		Up_22_.Visible = 0;
+;Controller_events_code.c,2779 :: 		Up_22_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_22_+20)
 MOVT	R0, #hi_addr(_Up_22_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2779 :: 		DrawImage(&Image53);
+;Controller_events_code.c,2780 :: 		DrawImage(&Image53);
 MOVW	R0, #lo_addr(_Image53+0)
 MOVT	R0, #hi_addr(_Image53+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2780 :: 		system_reg[HP_MAX]++;
+;Controller_events_code.c,2781 :: 		system_reg[HP_MAX]++;
 MOVW	R1, #lo_addr(_system_reg+440)
 MOVT	R1, #hi_addr(_system_reg+440)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2781 :: 		if (system_reg[HP_MAX]>99)
+;Controller_events_code.c,2782 :: 		if (system_reg[HP_MAX]>99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_22_OnPress378
-;Controller_events_code.c,2782 :: 		system_reg[HP_MAX] = 99;
+BLE	L_Up_22_OnPress382
+;Controller_events_code.c,2783 :: 		system_reg[HP_MAX] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+440)
 MOVT	R0, #hi_addr(_system_reg+440)
 STRH	R1, [R0, #0]
-L_Up_22_OnPress378:
-;Controller_events_code.c,2783 :: 		IntToStr(system_reg[HP_MAX], txt);
+L_Up_22_OnPress382:
+;Controller_events_code.c,2784 :: 		IntToStr(system_reg[HP_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+440)
 MOVT	R0, #hi_addr(_system_reg+440)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2784 :: 		Ltrim (txt);
+;Controller_events_code.c,2785 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2785 :: 		strncpy(Set_max_high_pressure.Caption, txt, 2);
+;Controller_events_code.c,2786 :: 		strncpy(Set_max_high_pressure.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_high_pressure+24)
 MOVT	R0, #hi_addr(_Set_max_high_pressure+24)
@@ -11517,97 +11568,97 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2786 :: 		DrawRoundButton(&Set_max_high_pressure);
+;Controller_events_code.c,2787 :: 		DrawRoundButton(&Set_max_high_pressure);
 MOVW	R0, #lo_addr(_Set_max_high_pressure+0)
 MOVT	R0, #hi_addr(_Set_max_high_pressure+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2787 :: 		Delay_ms (100);
+;Controller_events_code.c,2788 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_22_OnPress379:
+L_Up_22_OnPress383:
 SUBS	R7, R7, #1
-BNE	L_Up_22_OnPress379
+BNE	L_Up_22_OnPress383
 NOP
 NOP
 NOP
-;Controller_events_code.c,2788 :: 		}
+;Controller_events_code.c,2789 :: 		}
 L_end_Up_22_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_22_OnPress
 _Up_22_OnUp:
-;Controller_events_code.c,2789 :: 		void Up_22_OnUp(){
+;Controller_events_code.c,2790 :: 		void Up_22_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2790 :: 		Image53.Visible = 0;
+;Controller_events_code.c,2791 :: 		Image53.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image53+20)
 MOVT	R0, #hi_addr(_Image53+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2791 :: 		Up_22_.Visible = 1;
+;Controller_events_code.c,2792 :: 		Up_22_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_22_+20)
 MOVT	R0, #hi_addr(_Up_22_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2792 :: 		DrawImage(&Up_22_);
+;Controller_events_code.c,2793 :: 		DrawImage(&Up_22_);
 MOVW	R0, #lo_addr(_Up_22_+0)
 MOVT	R0, #hi_addr(_Up_22_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2793 :: 		}
+;Controller_events_code.c,2794 :: 		}
 L_end_Up_22_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_22_OnUp
 _Down_23_OnPress:
-;Controller_events_code.c,2794 :: 		void Down_23_OnPress(){
+;Controller_events_code.c,2795 :: 		void Down_23_OnPress(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2796 :: 		Image86.Visible = 1;
+;Controller_events_code.c,2797 :: 		Image86.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image86+20)
 MOVT	R0, #hi_addr(_Image86+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2797 :: 		Down_23_.Visible = 0;
+;Controller_events_code.c,2798 :: 		Down_23_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_23_+20)
 MOVT	R0, #hi_addr(_Down_23_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2798 :: 		DrawImage(&Image86);
+;Controller_events_code.c,2799 :: 		DrawImage(&Image86);
 MOVW	R0, #lo_addr(_Image86+0)
 MOVT	R0, #hi_addr(_Image86+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2799 :: 		system_reg[HP_MIN]--;
+;Controller_events_code.c,2800 :: 		system_reg[HP_MIN]--;
 MOVW	R1, #lo_addr(_system_reg+480)
 MOVT	R1, #hi_addr(_system_reg+480)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2800 :: 		if (system_reg[HP_MIN]<0)
+;Controller_events_code.c,2801 :: 		if (system_reg[HP_MIN]<0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_23_OnPress381
-;Controller_events_code.c,2801 :: 		system_reg[HP_MIN] = 0;
+BGE	L_Down_23_OnPress385
+;Controller_events_code.c,2802 :: 		system_reg[HP_MIN] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+480)
 MOVT	R0, #hi_addr(_system_reg+480)
 STRH	R1, [R0, #0]
-L_Down_23_OnPress381:
-;Controller_events_code.c,2802 :: 		IntToStr(system_reg[HP_MIN], txt);
+L_Down_23_OnPress385:
+;Controller_events_code.c,2803 :: 		IntToStr(system_reg[HP_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+480)
 MOVT	R0, #hi_addr(_system_reg+480)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2803 :: 		Ltrim (txt);
+;Controller_events_code.c,2804 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2804 :: 		strncpy(Set_min_lhigh_pressure.Caption, txt, 2);
+;Controller_events_code.c,2805 :: 		strncpy(Set_min_lhigh_pressure.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_lhigh_pressure+24)
 MOVT	R0, #hi_addr(_Set_min_lhigh_pressure+24)
@@ -11615,97 +11666,97 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2805 :: 		DrawRoundButton(&Set_min_lhigh_pressure);
+;Controller_events_code.c,2806 :: 		DrawRoundButton(&Set_min_lhigh_pressure);
 MOVW	R0, #lo_addr(_Set_min_lhigh_pressure+0)
 MOVT	R0, #hi_addr(_Set_min_lhigh_pressure+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2806 :: 		Delay_ms (100);
+;Controller_events_code.c,2807 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_23_OnPress382:
+L_Down_23_OnPress386:
 SUBS	R7, R7, #1
-BNE	L_Down_23_OnPress382
+BNE	L_Down_23_OnPress386
 NOP
 NOP
 NOP
-;Controller_events_code.c,2807 :: 		}
+;Controller_events_code.c,2808 :: 		}
 L_end_Down_23_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_23_OnPress
 _Down_23_OnUp:
-;Controller_events_code.c,2808 :: 		void Down_23_OnUp(){
+;Controller_events_code.c,2809 :: 		void Down_23_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2809 :: 		Image86.Visible = 0;
+;Controller_events_code.c,2810 :: 		Image86.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image86+20)
 MOVT	R0, #hi_addr(_Image86+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2810 :: 		Down_23_.Visible = 1;
+;Controller_events_code.c,2811 :: 		Down_23_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_23_+20)
 MOVT	R0, #hi_addr(_Down_23_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2811 :: 		DrawImage(&Down_23_);
+;Controller_events_code.c,2812 :: 		DrawImage(&Down_23_);
 MOVW	R0, #lo_addr(_Down_23_+0)
 MOVT	R0, #hi_addr(_Down_23_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2813 :: 		}
+;Controller_events_code.c,2814 :: 		}
 L_end_Down_23_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_23_OnUp
 _Up_23_OnPress:
-;Controller_events_code.c,2814 :: 		void Up_23_OnPress(){
+;Controller_events_code.c,2815 :: 		void Up_23_OnPress(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,2816 :: 		Image95.Visible = 1;
+;Controller_events_code.c,2817 :: 		Image95.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image95+20)
 MOVT	R0, #hi_addr(_Image95+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2817 :: 		Up_23_.Visible = 0;
+;Controller_events_code.c,2818 :: 		Up_23_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_23_+20)
 MOVT	R0, #hi_addr(_Up_23_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2818 :: 		DrawImage(&Image95);
+;Controller_events_code.c,2819 :: 		DrawImage(&Image95);
 MOVW	R0, #lo_addr(_Image95+0)
 MOVT	R0, #hi_addr(_Image95+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2819 :: 		system_reg[HP_MIN]++;
+;Controller_events_code.c,2820 :: 		system_reg[HP_MIN]++;
 MOVW	R1, #lo_addr(_system_reg+480)
 MOVT	R1, #hi_addr(_system_reg+480)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,2820 :: 		if (system_reg[HP_MIN]>99)
+;Controller_events_code.c,2821 :: 		if (system_reg[HP_MIN]>99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_23_OnPress384
-;Controller_events_code.c,2821 :: 		system_reg[HP_MIN] = 99;
+BLE	L_Up_23_OnPress388
+;Controller_events_code.c,2822 :: 		system_reg[HP_MIN] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+480)
 MOVT	R0, #hi_addr(_system_reg+480)
 STRH	R1, [R0, #0]
-L_Up_23_OnPress384:
-;Controller_events_code.c,2822 :: 		IntToStr(system_reg[HP_MIN], txt);
+L_Up_23_OnPress388:
+;Controller_events_code.c,2823 :: 		IntToStr(system_reg[HP_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+480)
 MOVT	R0, #hi_addr(_system_reg+480)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,2823 :: 		Ltrim (txt);
+;Controller_events_code.c,2824 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,2824 :: 		strncpy(Set_min_lhigh_pressure.Caption, txt, 2);
+;Controller_events_code.c,2825 :: 		strncpy(Set_min_lhigh_pressure.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_lhigh_pressure+24)
 MOVT	R0, #hi_addr(_Set_min_lhigh_pressure+24)
@@ -11713,340 +11764,340 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,2825 :: 		DrawRoundButton(&Set_min_lhigh_pressure);
+;Controller_events_code.c,2826 :: 		DrawRoundButton(&Set_min_lhigh_pressure);
 MOVW	R0, #lo_addr(_Set_min_lhigh_pressure+0)
 MOVT	R0, #hi_addr(_Set_min_lhigh_pressure+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,2826 :: 		Delay_ms (100);
+;Controller_events_code.c,2827 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_23_OnPress385:
+L_Up_23_OnPress389:
 SUBS	R7, R7, #1
-BNE	L_Up_23_OnPress385
+BNE	L_Up_23_OnPress389
 NOP
 NOP
 NOP
-;Controller_events_code.c,2827 :: 		}
+;Controller_events_code.c,2828 :: 		}
 L_end_Up_23_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_23_OnPress
 _Up_23_OnUp:
-;Controller_events_code.c,2828 :: 		void Up_23_OnUp(){
+;Controller_events_code.c,2829 :: 		void Up_23_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2829 :: 		Image86.Visible = 0;
+;Controller_events_code.c,2830 :: 		Image86.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image86+20)
 MOVT	R0, #hi_addr(_Image86+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2830 :: 		Up_23_.Visible = 1;
+;Controller_events_code.c,2831 :: 		Up_23_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_23_+20)
 MOVT	R0, #hi_addr(_Up_23_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2831 :: 		DrawImage(&Up_23_);
+;Controller_events_code.c,2832 :: 		DrawImage(&Up_23_);
 MOVW	R0, #lo_addr(_Up_23_+0)
 MOVT	R0, #hi_addr(_Up_23_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2832 :: 		}
+;Controller_events_code.c,2833 :: 		}
 L_end_Up_23_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_23_OnUp
 _Set_19_OnUp:
-;Controller_events_code.c,2834 :: 		void Set_19_OnUp() {
+;Controller_events_code.c,2835 :: 		void Set_19_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2835 :: 		Set_19_.Visible = 1;
+;Controller_events_code.c,2836 :: 		Set_19_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_19_+20)
 MOVT	R0, #hi_addr(_Set_19_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2836 :: 		Image264.Visible = 0;
+;Controller_events_code.c,2837 :: 		Image264.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image264+20)
 MOVT	R0, #hi_addr(_Image264+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2837 :: 		DrawImage (&Set_19_);
+;Controller_events_code.c,2838 :: 		DrawImage (&Set_19_);
 MOVW	R0, #lo_addr(_Set_19_+0)
 MOVT	R0, #hi_addr(_Set_19_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2838 :: 		}
+;Controller_events_code.c,2839 :: 		}
 L_end_Set_19_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_19_OnUp
 _Set_19_OnDown:
-;Controller_events_code.c,2839 :: 		void void Set_19_OnDown(){
+;Controller_events_code.c,2840 :: 		void void Set_19_OnDown(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2840 :: 		Tone1();
+;Controller_events_code.c,2841 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2844 :: 		send_data_packet(S_HEAT_MAX,1);
+;Controller_events_code.c,2845 :: 		send_data_packet(S_HEAT_MAX,1);
 MOVS	R1, #1
 MOVW	R0, #280
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2845 :: 		Set_19_.Visible = 0;
+;Controller_events_code.c,2846 :: 		Set_19_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_19_+20)
 MOVT	R0, #hi_addr(_Set_19_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2846 :: 		Image264.Visible = 1;
+;Controller_events_code.c,2847 :: 		Image264.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image264+20)
 MOVT	R0, #hi_addr(_Image264+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2847 :: 		DrawImage (&Image264);
+;Controller_events_code.c,2848 :: 		DrawImage (&Image264);
 MOVW	R0, #lo_addr(_Image264+0)
 MOVT	R0, #hi_addr(_Image264+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2848 :: 		}
+;Controller_events_code.c,2849 :: 		}
 L_end_Set_19_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_19_OnDown
 _Set_20_OnDown:
-;Controller_events_code.c,2849 :: 		void Set_20_OnDown() {
+;Controller_events_code.c,2850 :: 		void Set_20_OnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2850 :: 		Tone1();
+;Controller_events_code.c,2851 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2854 :: 		send_data_packet(S_COOL_MIN,1);
+;Controller_events_code.c,2855 :: 		send_data_packet(S_COOL_MIN,1);
 MOVS	R1, #1
 MOVW	R0, #270
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2855 :: 		Set_20_.Visible = 0;
+;Controller_events_code.c,2856 :: 		Set_20_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_20_+20)
 MOVT	R0, #hi_addr(_Set_20_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2856 :: 		Image265.Visible = 1;
+;Controller_events_code.c,2857 :: 		Image265.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image265+20)
 MOVT	R0, #hi_addr(_Image265+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2857 :: 		DrawImage (&Image265);
+;Controller_events_code.c,2858 :: 		DrawImage (&Image265);
 MOVW	R0, #lo_addr(_Image265+0)
 MOVT	R0, #hi_addr(_Image265+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2858 :: 		}
+;Controller_events_code.c,2859 :: 		}
 L_end_Set_20_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_20_OnDown
 _Set_20_OnUp:
-;Controller_events_code.c,2859 :: 		void Set_20_OnUp() {
+;Controller_events_code.c,2860 :: 		void Set_20_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2860 :: 		Set_20_.Visible = 1;
+;Controller_events_code.c,2861 :: 		Set_20_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_20_+20)
 MOVT	R0, #hi_addr(_Set_20_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2861 :: 		Image265.Visible = 0;
+;Controller_events_code.c,2862 :: 		Image265.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image265+20)
 MOVT	R0, #hi_addr(_Image265+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2862 :: 		DrawImage (&Set_20_);
+;Controller_events_code.c,2863 :: 		DrawImage (&Set_20_);
 MOVW	R0, #lo_addr(_Set_20_+0)
 MOVT	R0, #hi_addr(_Set_20_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2863 :: 		}
+;Controller_events_code.c,2864 :: 		}
 L_end_Set_20_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_20_OnUp
 _Set_21_OnDown:
-;Controller_events_code.c,2864 :: 		void Set_21_OnDown() {
+;Controller_events_code.c,2865 :: 		void Set_21_OnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2865 :: 		Tone1();
+;Controller_events_code.c,2866 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2869 :: 		send_data_packet(S_COOL_MAX,1);
+;Controller_events_code.c,2870 :: 		send_data_packet(S_COOL_MAX,1);
 MOVS	R1, #1
 MOVW	R0, #260
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2870 :: 		Set_21_.Visible = 0;
+;Controller_events_code.c,2871 :: 		Set_21_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_21_+20)
 MOVT	R0, #hi_addr(_Set_21_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2871 :: 		Image266.Visible = 1;
+;Controller_events_code.c,2872 :: 		Image266.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image266+20)
 MOVT	R0, #hi_addr(_Image266+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2872 :: 		DrawImage (&Image266);
+;Controller_events_code.c,2873 :: 		DrawImage (&Image266);
 MOVW	R0, #lo_addr(_Image266+0)
 MOVT	R0, #hi_addr(_Image266+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2873 :: 		}
+;Controller_events_code.c,2874 :: 		}
 L_end_Set_21_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_21_OnDown
 _Set_21_OnUp:
-;Controller_events_code.c,2874 :: 		void Set_21_OnUp() {
+;Controller_events_code.c,2875 :: 		void Set_21_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2875 :: 		Set_21_.Visible = 1;
+;Controller_events_code.c,2876 :: 		Set_21_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_21_+20)
 MOVT	R0, #hi_addr(_Set_21_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2876 :: 		Image266.Visible = 0;
+;Controller_events_code.c,2877 :: 		Image266.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image266+20)
 MOVT	R0, #hi_addr(_Image266+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2877 :: 		DrawImage (&Set_21_);
+;Controller_events_code.c,2878 :: 		DrawImage (&Set_21_);
 MOVW	R0, #lo_addr(_Set_21_+0)
 MOVT	R0, #hi_addr(_Set_21_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2878 :: 		}
+;Controller_events_code.c,2879 :: 		}
 L_end_Set_21_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_21_OnUp
 _Set_22_OnDown:
-;Controller_events_code.c,2879 :: 		void Set_22_OnDown(){
+;Controller_events_code.c,2880 :: 		void Set_22_OnDown(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2880 :: 		Tone1();
+;Controller_events_code.c,2881 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2884 :: 		send_data_packet(HP_MAX,1);
+;Controller_events_code.c,2885 :: 		send_data_packet(HP_MAX,1);
 MOVS	R1, #1
 MOVW	R0, #220
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2885 :: 		Set_22_.Visible = 0;
+;Controller_events_code.c,2886 :: 		Set_22_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_22_+20)
 MOVT	R0, #hi_addr(_Set_22_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2886 :: 		Image34.Visible = 1;
+;Controller_events_code.c,2887 :: 		Image34.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image34+20)
 MOVT	R0, #hi_addr(_Image34+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2887 :: 		DrawImage (&Image34);
+;Controller_events_code.c,2888 :: 		DrawImage (&Image34);
 MOVW	R0, #lo_addr(_Image34+0)
 MOVT	R0, #hi_addr(_Image34+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2888 :: 		}
+;Controller_events_code.c,2889 :: 		}
 L_end_Set_22_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_22_OnDown
 _Set_22_OnUp:
-;Controller_events_code.c,2890 :: 		void Set_22_OnUp(){
+;Controller_events_code.c,2891 :: 		void Set_22_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2891 :: 		Tone1();
+;Controller_events_code.c,2892 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2892 :: 		Set_22_.Visible = 1;
+;Controller_events_code.c,2893 :: 		Set_22_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_22_+20)
 MOVT	R0, #hi_addr(_Set_22_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2893 :: 		Image34.Visible = 0;
+;Controller_events_code.c,2894 :: 		Image34.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image34+20)
 MOVT	R0, #hi_addr(_Image34+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2894 :: 		DrawImage (&Set_22_);
+;Controller_events_code.c,2895 :: 		DrawImage (&Set_22_);
 MOVW	R0, #lo_addr(_Set_22_+0)
 MOVT	R0, #hi_addr(_Set_22_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2895 :: 		}
+;Controller_events_code.c,2896 :: 		}
 L_end_Set_22_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_22_OnUp
 _Set_23_OnDown:
-;Controller_events_code.c,2896 :: 		void Set_23_OnDown(){
+;Controller_events_code.c,2897 :: 		void Set_23_OnDown(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2897 :: 		Tone1();
+;Controller_events_code.c,2898 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2901 :: 		send_data_packet(HP_MIN,1);
+;Controller_events_code.c,2902 :: 		send_data_packet(HP_MIN,1);
 MOVS	R1, #1
 MOVW	R0, #240
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2902 :: 		Set_23_.Visible = 0;
+;Controller_events_code.c,2903 :: 		Set_23_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_23_+20)
 MOVT	R0, #hi_addr(_Set_23_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2903 :: 		Image33.Visible = 1;
+;Controller_events_code.c,2904 :: 		Image33.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image33+20)
 MOVT	R0, #hi_addr(_Image33+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2904 :: 		DrawImage (&Image33);
+;Controller_events_code.c,2905 :: 		DrawImage (&Image33);
 MOVW	R0, #lo_addr(_Image33+0)
 MOVT	R0, #hi_addr(_Image33+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2905 :: 		}
+;Controller_events_code.c,2906 :: 		}
 L_end_Set_23_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_23_OnDown
 _Set_23_OnUp:
-;Controller_events_code.c,2906 :: 		void Set_23_OnUp(){
+;Controller_events_code.c,2907 :: 		void Set_23_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2907 :: 		Tone1();
+;Controller_events_code.c,2908 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,2908 :: 		Set_23_.Visible = 1;
+;Controller_events_code.c,2909 :: 		Set_23_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_23_+20)
 MOVT	R0, #hi_addr(_Set_23_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2909 :: 		Image33.Visible = 0;
+;Controller_events_code.c,2910 :: 		Image33.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image33+20)
 MOVT	R0, #hi_addr(_Image33+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2910 :: 		DrawImage (&Set_23_);
+;Controller_events_code.c,2911 :: 		DrawImage (&Set_23_);
 MOVW	R0, #lo_addr(_Set_23_+0)
 MOVT	R0, #hi_addr(_Set_23_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2911 :: 		}
+;Controller_events_code.c,2912 :: 		}
 L_end_Set_23_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_23_OnUp
 _One_CompressorsOnClick:
-;Controller_events_code.c,2914 :: 		void One_CompressorsOnClick() {
+;Controller_events_code.c,2915 :: 		void One_CompressorsOnClick() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2915 :: 		num_page=0;
+;Controller_events_code.c,2916 :: 		num_page=0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_num_page+0)
 MOVT	R0, #hi_addr(_num_page+0)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2916 :: 		if ((unsigned long)One_Compressors.Picture_Name == Compressor1_jpg)
+;Controller_events_code.c,2917 :: 		if ((unsigned long)One_Compressors.Picture_Name == Compressor1_jpg)
 MOVW	R0, #lo_addr(_One_Compressors+16)
 MOVT	R0, #hi_addr(_One_Compressors+16)
 LDR	R1, [R0, #0]
@@ -12054,92 +12105,92 @@ MOVW	R0, #35596
 MOVT	R0, #50
 CMP	R1, R0
 IT	NE
-BNE	L_One_CompressorsOnClick387
-;Controller_events_code.c,2918 :: 		One_Compressors.Picture_Name = Compressor2_jpg;
+BNE	L_One_CompressorsOnClick391
+;Controller_events_code.c,2919 :: 		One_Compressors.Picture_Name = Compressor2_jpg;
 MOVW	R1, #29584
 MOVT	R1, #50
 MOVW	R0, #lo_addr(_One_Compressors+16)
 MOVT	R0, #hi_addr(_One_Compressors+16)
 STR	R1, [R0, #0]
-;Controller_events_code.c,2919 :: 		Two_Compressors.Visible = 1;
+;Controller_events_code.c,2920 :: 		Two_Compressors.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Two_Compressors+20)
 MOVT	R0, #hi_addr(_Two_Compressors+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2920 :: 		DrawImage(&Two_Compressors);
+;Controller_events_code.c,2921 :: 		DrawImage(&Two_Compressors);
 MOVW	R0, #lo_addr(_Two_Compressors+0)
 MOVT	R0, #hi_addr(_Two_Compressors+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2921 :: 		system_reg[NOMB_COMPRESSORS]=2;
+;Controller_events_code.c,2922 :: 		system_reg[NOMB_COMPRESSORS]=2;
 MOVS	R1, #2
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+800)
 MOVT	R0, #hi_addr(_system_reg+800)
 STRH	R1, [R0, #0]
-;Controller_events_code.c,2922 :: 		two_compressors_mode=true;
+;Controller_events_code.c,2923 :: 		two_compressors_mode=true;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_two_compressors_mode+0)
 MOVT	R0, #hi_addr(_two_compressors_mode+0)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2923 :: 		}
+;Controller_events_code.c,2924 :: 		}
 IT	AL
-BAL	L_One_CompressorsOnClick388
-L_One_CompressorsOnClick387:
-;Controller_events_code.c,2925 :: 		One_Compressors.Picture_Name = Compressor1_jpg;
+BAL	L_One_CompressorsOnClick392
+L_One_CompressorsOnClick391:
+;Controller_events_code.c,2926 :: 		One_Compressors.Picture_Name = Compressor1_jpg;
 MOVW	R1, #35596
 MOVT	R1, #50
 MOVW	R0, #lo_addr(_One_Compressors+16)
 MOVT	R0, #hi_addr(_One_Compressors+16)
 STR	R1, [R0, #0]
-;Controller_events_code.c,2926 :: 		One_Compressors.Visible = 1;
+;Controller_events_code.c,2927 :: 		One_Compressors.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_One_Compressors+20)
 MOVT	R0, #hi_addr(_One_Compressors+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2927 :: 		DrawImage(&One_Compressors);
+;Controller_events_code.c,2928 :: 		DrawImage(&One_Compressors);
 MOVW	R0, #lo_addr(_One_Compressors+0)
 MOVT	R0, #hi_addr(_One_Compressors+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2928 :: 		system_reg[NOMB_COMPRESSORS]=1;
+;Controller_events_code.c,2929 :: 		system_reg[NOMB_COMPRESSORS]=1;
 MOVS	R1, #1
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+800)
 MOVT	R0, #hi_addr(_system_reg+800)
 STRH	R1, [R0, #0]
-;Controller_events_code.c,2929 :: 		two_compressors_mode=false;
+;Controller_events_code.c,2930 :: 		two_compressors_mode=false;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_two_compressors_mode+0)
 MOVT	R0, #hi_addr(_two_compressors_mode+0)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2930 :: 		}
-L_One_CompressorsOnClick388:
-;Controller_events_code.c,2931 :: 		send_data_packet(NOMB_COMPRESSORS,1);
+;Controller_events_code.c,2931 :: 		}
+L_One_CompressorsOnClick392:
+;Controller_events_code.c,2932 :: 		send_data_packet(NOMB_COMPRESSORS,1);
 MOVS	R1, #1
 MOVW	R0, #400
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2934 :: 		Delay_ms (300);
+;Controller_events_code.c,2935 :: 		Delay_ms (300);
 MOVW	R7, #57790
 MOVT	R7, #228
 NOP
 NOP
-L_One_CompressorsOnClick389:
+L_One_CompressorsOnClick393:
 SUBS	R7, R7, #1
-BNE	L_One_CompressorsOnClick389
+BNE	L_One_CompressorsOnClick393
 NOP
 NOP
 NOP
-;Controller_events_code.c,2935 :: 		}
+;Controller_events_code.c,2936 :: 		}
 L_end_One_CompressorsOnClick:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _One_CompressorsOnClick
 _Reversing_ON_HEATOnClick:
-;Controller_events_code.c,2937 :: 		void Reversing_ON_HEATOnClick() {
+;Controller_events_code.c,2938 :: 		void Reversing_ON_HEATOnClick() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2938 :: 		if ((unsigned long)Reversing_ON_HEAT.Picture_Name == but_ON_jpg)
+;Controller_events_code.c,2939 :: 		if ((unsigned long)Reversing_ON_HEAT.Picture_Name == but_ON_jpg)
 MOVW	R0, #lo_addr(_Reversing_ON_HEAT+16)
 MOVT	R0, #hi_addr(_Reversing_ON_HEAT+16)
 LDR	R1, [R0, #0]
@@ -12147,100 +12198,100 @@ MOVW	R0, #38602
 MOVT	R0, #50
 CMP	R1, R0
 IT	NE
-BNE	L_Reversing_ON_HEATOnClick391
-;Controller_events_code.c,2940 :: 		Reversing_ON_HEAT.Picture_Name = but_OFF_jpg;
+BNE	L_Reversing_ON_HEATOnClick395
+;Controller_events_code.c,2941 :: 		Reversing_ON_HEAT.Picture_Name = but_OFF_jpg;
 MOVW	R1, #32590
 MOVT	R1, #50
 MOVW	R0, #lo_addr(_Reversing_ON_HEAT+16)
 MOVT	R0, #hi_addr(_Reversing_ON_HEAT+16)
 STR	R1, [R0, #0]
-;Controller_events_code.c,2941 :: 		Reversing_Heat_OFF.Visible = 1;
+;Controller_events_code.c,2942 :: 		Reversing_Heat_OFF.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Reversing_Heat_OFF+20)
 MOVT	R0, #hi_addr(_Reversing_Heat_OFF+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2942 :: 		DrawImage(&Reversing_Heat_OFF);
+;Controller_events_code.c,2943 :: 		DrawImage(&Reversing_Heat_OFF);
 MOVW	R0, #lo_addr(_Reversing_Heat_OFF+0)
 MOVT	R0, #hi_addr(_Reversing_Heat_OFF+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2943 :: 		system_reg[REVERS_MOD]=0;
+;Controller_events_code.c,2944 :: 		system_reg[REVERS_MOD]=0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+820)
 MOVT	R0, #hi_addr(_system_reg+820)
 STRH	R1, [R0, #0]
-;Controller_events_code.c,2945 :: 		}
+;Controller_events_code.c,2946 :: 		}
 IT	AL
-BAL	L_Reversing_ON_HEATOnClick392
-L_Reversing_ON_HEATOnClick391:
-;Controller_events_code.c,2947 :: 		Reversing_ON_HEAT.Picture_Name = but_ON_jpg;
+BAL	L_Reversing_ON_HEATOnClick396
+L_Reversing_ON_HEATOnClick395:
+;Controller_events_code.c,2948 :: 		Reversing_ON_HEAT.Picture_Name = but_ON_jpg;
 MOVW	R1, #38602
 MOVT	R1, #50
 MOVW	R0, #lo_addr(_Reversing_ON_HEAT+16)
 MOVT	R0, #hi_addr(_Reversing_ON_HEAT+16)
 STR	R1, [R0, #0]
-;Controller_events_code.c,2948 :: 		Reversing_ON_HEAT.Visible = 1;
+;Controller_events_code.c,2949 :: 		Reversing_ON_HEAT.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Reversing_ON_HEAT+20)
 MOVT	R0, #hi_addr(_Reversing_ON_HEAT+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2949 :: 		DrawImage(&Reversing_ON_HEAT);
+;Controller_events_code.c,2950 :: 		DrawImage(&Reversing_ON_HEAT);
 MOVW	R0, #lo_addr(_Reversing_ON_HEAT+0)
 MOVT	R0, #hi_addr(_Reversing_ON_HEAT+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2950 :: 		system_reg[REVERS_MOD]=1;
+;Controller_events_code.c,2951 :: 		system_reg[REVERS_MOD]=1;
 MOVS	R1, #1
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+820)
 MOVT	R0, #hi_addr(_system_reg+820)
 STRH	R1, [R0, #0]
-;Controller_events_code.c,2951 :: 		}
-L_Reversing_ON_HEATOnClick392:
-;Controller_events_code.c,2952 :: 		send_data_packet(REVERS_MOD,1);
+;Controller_events_code.c,2952 :: 		}
+L_Reversing_ON_HEATOnClick396:
+;Controller_events_code.c,2953 :: 		send_data_packet(REVERS_MOD,1);
 MOVS	R1, #1
 MOVW	R0, #410
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2953 :: 		Delay_ms (300);
+;Controller_events_code.c,2954 :: 		Delay_ms (300);
 MOVW	R7, #57790
 MOVT	R7, #228
 NOP
 NOP
-L_Reversing_ON_HEATOnClick393:
+L_Reversing_ON_HEATOnClick397:
 SUBS	R7, R7, #1
-BNE	L_Reversing_ON_HEATOnClick393
+BNE	L_Reversing_ON_HEATOnClick397
 NOP
 NOP
 NOP
-;Controller_events_code.c,2954 :: 		}
+;Controller_events_code.c,2955 :: 		}
 L_end_Reversing_ON_HEATOnClick:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Reversing_ON_HEATOnClick
 _Flow_Source__Sensor_ONOnClick:
-;Controller_events_code.c,2955 :: 		void Flow_Source__Sensor_ONOnClick(){
-;Controller_events_code.c,2957 :: 		}
+;Controller_events_code.c,2956 :: 		void Flow_Source__Sensor_ONOnClick(){
+;Controller_events_code.c,2958 :: 		}
 L_end_Flow_Source__Sensor_ONOnClick:
 BX	LR
 ; end of _Flow_Source__Sensor_ONOnClick
 _Flow_Source__Heat1_ONOnClick:
-;Controller_events_code.c,2958 :: 		void Flow_Source__Heat1_ONOnClick() {
-;Controller_events_code.c,2960 :: 		}
+;Controller_events_code.c,2959 :: 		void Flow_Source__Heat1_ONOnClick() {
+;Controller_events_code.c,2961 :: 		}
 L_end_Flow_Source__Heat1_ONOnClick:
 BX	LR
 ; end of _Flow_Source__Heat1_ONOnClick
 _Flow_Source__Heat2_ONOnClick:
-;Controller_events_code.c,2961 :: 		void Flow_Source__Heat2_ONOnClick() {
-;Controller_events_code.c,2963 :: 		}
+;Controller_events_code.c,2962 :: 		void Flow_Source__Heat2_ONOnClick() {
+;Controller_events_code.c,2964 :: 		}
 L_end_Flow_Source__Heat2_ONOnClick:
 BX	LR
 ; end of _Flow_Source__Heat2_ONOnClick
 _Power_380VOnClick:
-;Controller_events_code.c,2964 :: 		void Power_380VOnClick() {
+;Controller_events_code.c,2965 :: 		void Power_380VOnClick() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,2965 :: 		if ((unsigned long)Power_380V.Picture_Name == but_380_on_jpg)
+;Controller_events_code.c,2966 :: 		if ((unsigned long)Power_380V.Picture_Name == but_380_on_jpg)
 MOVW	R0, #lo_addr(_Power_380V+16)
 MOVT	R0, #hi_addr(_Power_380V+16)
 LDR	R1, [R0, #0]
@@ -12248,377 +12299,377 @@ MOVW	R0, #41608
 MOVT	R0, #50
 CMP	R1, R0
 IT	NE
-BNE	L_Power_380VOnClick395
-;Controller_events_code.c,2967 :: 		Power_380V.Picture_Name = but_220_on_jpg;
+BNE	L_Power_380VOnClick399
+;Controller_events_code.c,2968 :: 		Power_380V.Picture_Name = but_220_on_jpg;
 MOVW	R1, #26778
 MOVT	R1, #50
 MOVW	R0, #lo_addr(_Power_380V+16)
 MOVT	R0, #hi_addr(_Power_380V+16)
 STR	R1, [R0, #0]
-;Controller_events_code.c,2968 :: 		Power_220V.Visible = 1;
+;Controller_events_code.c,2969 :: 		Power_220V.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Power_220V+20)
 MOVT	R0, #hi_addr(_Power_220V+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2969 :: 		DrawImage(&Power_220V);
+;Controller_events_code.c,2970 :: 		DrawImage(&Power_220V);
 MOVW	R0, #lo_addr(_Power_220V+0)
 MOVT	R0, #hi_addr(_Power_220V+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2970 :: 		system_reg[POWER_380]=0;
+;Controller_events_code.c,2971 :: 		system_reg[POWER_380]=0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+940)
 MOVT	R0, #hi_addr(_system_reg+940)
 STRH	R1, [R0, #0]
-;Controller_events_code.c,2972 :: 		}
+;Controller_events_code.c,2973 :: 		}
 IT	AL
-BAL	L_Power_380VOnClick396
-L_Power_380VOnClick395:
-;Controller_events_code.c,2974 :: 		Power_380V.Picture_Name = but_380_on_jpg;
+BAL	L_Power_380VOnClick400
+L_Power_380VOnClick399:
+;Controller_events_code.c,2975 :: 		Power_380V.Picture_Name = but_380_on_jpg;
 MOVW	R1, #41608
 MOVT	R1, #50
 MOVW	R0, #lo_addr(_Power_380V+16)
 MOVT	R0, #hi_addr(_Power_380V+16)
 STR	R1, [R0, #0]
-;Controller_events_code.c,2975 :: 		Power_380V.Visible = 1;
+;Controller_events_code.c,2976 :: 		Power_380V.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Power_380V+20)
 MOVT	R0, #hi_addr(_Power_380V+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,2976 :: 		DrawImage(&Power_380V);
+;Controller_events_code.c,2977 :: 		DrawImage(&Power_380V);
 MOVW	R0, #lo_addr(_Power_380V+0)
 MOVT	R0, #hi_addr(_Power_380V+0)
 BL	_DrawImage+0
-;Controller_events_code.c,2977 :: 		system_reg[POWER_380]=1;
+;Controller_events_code.c,2978 :: 		system_reg[POWER_380]=1;
 MOVS	R1, #1
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+940)
 MOVT	R0, #hi_addr(_system_reg+940)
 STRH	R1, [R0, #0]
-;Controller_events_code.c,2978 :: 		}
-L_Power_380VOnClick396:
-;Controller_events_code.c,2979 :: 		send_data_packet(POWER_380,1);
+;Controller_events_code.c,2979 :: 		}
+L_Power_380VOnClick400:
+;Controller_events_code.c,2980 :: 		send_data_packet(POWER_380,1);
 MOVS	R1, #1
 MOVW	R0, #470
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,2980 :: 		Delay_ms (300);
+;Controller_events_code.c,2981 :: 		Delay_ms (300);
 MOVW	R7, #57790
 MOVT	R7, #228
 NOP
 NOP
-L_Power_380VOnClick397:
+L_Power_380VOnClick401:
 SUBS	R7, R7, #1
-BNE	L_Power_380VOnClick397
+BNE	L_Power_380VOnClick401
 NOP
 NOP
 NOP
-;Controller_events_code.c,2984 :: 		}
+;Controller_events_code.c,2985 :: 		}
 L_end_Power_380VOnClick:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Power_380VOnClick
 _furnance_Mode_onOnClick:
-;Controller_events_code.c,2987 :: 		void furnance_Mode_onOnClick() {
-;Controller_events_code.c,2989 :: 		}
+;Controller_events_code.c,2988 :: 		void furnance_Mode_onOnClick() {
+;Controller_events_code.c,2990 :: 		}
 L_end_furnance_Mode_onOnClick:
 BX	LR
 ; end of _furnance_Mode_onOnClick
 _Furnance_start_temp_DownOnUp:
-;Controller_events_code.c,2991 :: 		void Furnance_start_temp_DownOnUp() {
-;Controller_events_code.c,2993 :: 		}
+;Controller_events_code.c,2992 :: 		void Furnance_start_temp_DownOnUp() {
+;Controller_events_code.c,2994 :: 		}
 L_end_Furnance_start_temp_DownOnUp:
 BX	LR
 ; end of _Furnance_start_temp_DownOnUp
 _Furnance_start_temp_DownOnPress:
-;Controller_events_code.c,2994 :: 		void Furnance_start_temp_DownOnPress() {
-;Controller_events_code.c,2996 :: 		}
+;Controller_events_code.c,2995 :: 		void Furnance_start_temp_DownOnPress() {
+;Controller_events_code.c,2997 :: 		}
 L_end_Furnance_start_temp_DownOnPress:
 BX	LR
 ; end of _Furnance_start_temp_DownOnPress
 _Furnance_HP_OFF_DowmOnUp:
-;Controller_events_code.c,2997 :: 		void Furnance_HP_OFF_DowmOnUp() {
-;Controller_events_code.c,2999 :: 		}
+;Controller_events_code.c,2998 :: 		void Furnance_HP_OFF_DowmOnUp() {
+;Controller_events_code.c,3000 :: 		}
 L_end_Furnance_HP_OFF_DowmOnUp:
 BX	LR
 ; end of _Furnance_HP_OFF_DowmOnUp
 _Furnance_HP_OFF_DowmOnPress:
-;Controller_events_code.c,3000 :: 		void Furnance_HP_OFF_DowmOnPress() {
-;Controller_events_code.c,3002 :: 		}
+;Controller_events_code.c,3001 :: 		void Furnance_HP_OFF_DowmOnPress() {
+;Controller_events_code.c,3003 :: 		}
 L_end_Furnance_HP_OFF_DowmOnPress:
 BX	LR
 ; end of _Furnance_HP_OFF_DowmOnPress
 _Furnance_HP_OFF_UPOnUp:
-;Controller_events_code.c,3003 :: 		void Furnance_HP_OFF_UPOnUp() {
-;Controller_events_code.c,3005 :: 		}
+;Controller_events_code.c,3004 :: 		void Furnance_HP_OFF_UPOnUp() {
+;Controller_events_code.c,3006 :: 		}
 L_end_Furnance_HP_OFF_UPOnUp:
 BX	LR
 ; end of _Furnance_HP_OFF_UPOnUp
 _Furnance_HP_OFF_UPOnPress:
-;Controller_events_code.c,3006 :: 		void Furnance_HP_OFF_UPOnPress() {
-;Controller_events_code.c,3008 :: 		}
+;Controller_events_code.c,3007 :: 		void Furnance_HP_OFF_UPOnPress() {
+;Controller_events_code.c,3009 :: 		}
 L_end_Furnance_HP_OFF_UPOnPress:
 BX	LR
 ; end of _Furnance_HP_OFF_UPOnPress
 _Furnance_off_downOnUp:
-;Controller_events_code.c,3010 :: 		void Furnance_off_downOnUp() {
-;Controller_events_code.c,3012 :: 		}
+;Controller_events_code.c,3011 :: 		void Furnance_off_downOnUp() {
+;Controller_events_code.c,3013 :: 		}
 L_end_Furnance_off_downOnUp:
 BX	LR
 ; end of _Furnance_off_downOnUp
 _Furnance_off_downOnPress:
-;Controller_events_code.c,3013 :: 		void Furnance_off_downOnPress() {
-;Controller_events_code.c,3015 :: 		}
+;Controller_events_code.c,3014 :: 		void Furnance_off_downOnPress() {
+;Controller_events_code.c,3016 :: 		}
 L_end_Furnance_off_downOnPress:
 BX	LR
 ; end of _Furnance_off_downOnPress
 _Furnance_off_upOnUp:
-;Controller_events_code.c,3016 :: 		void Furnance_off_upOnUp() {
-;Controller_events_code.c,3018 :: 		}
+;Controller_events_code.c,3017 :: 		void Furnance_off_upOnUp() {
+;Controller_events_code.c,3019 :: 		}
 L_end_Furnance_off_upOnUp:
 BX	LR
 ; end of _Furnance_off_upOnUp
 _Furnance_off_upOnPress:
-;Controller_events_code.c,3019 :: 		void Furnance_off_upOnPress() {
-;Controller_events_code.c,3021 :: 		}
+;Controller_events_code.c,3020 :: 		void Furnance_off_upOnPress() {
+;Controller_events_code.c,3022 :: 		}
 L_end_Furnance_off_upOnPress:
 BX	LR
 ; end of _Furnance_off_upOnPress
 _Furnance_off_save_onup:
-;Controller_events_code.c,3022 :: 		void Furnance_off_save_onup() {
-;Controller_events_code.c,3024 :: 		}
+;Controller_events_code.c,3023 :: 		void Furnance_off_save_onup() {
+;Controller_events_code.c,3025 :: 		}
 L_end_Furnance_off_save_onup:
 BX	LR
 ; end of _Furnance_off_save_onup
 _Furnance_off_save_ondown:
-;Controller_events_code.c,3025 :: 		void Furnance_off_save_ondown() {
-;Controller_events_code.c,3027 :: 		}
+;Controller_events_code.c,3026 :: 		void Furnance_off_save_ondown() {
+;Controller_events_code.c,3028 :: 		}
 L_end_Furnance_off_save_ondown:
 BX	LR
 ; end of _Furnance_off_save_ondown
 _Furnance_time_downOnUp:
-;Controller_events_code.c,3028 :: 		void Furnance_time_downOnUp() {
-;Controller_events_code.c,3030 :: 		}
+;Controller_events_code.c,3029 :: 		void Furnance_time_downOnUp() {
+;Controller_events_code.c,3031 :: 		}
 L_end_Furnance_time_downOnUp:
 BX	LR
 ; end of _Furnance_time_downOnUp
 _Furnance_time_downOnPress:
-;Controller_events_code.c,3031 :: 		void Furnance_time_downOnPress() {
-;Controller_events_code.c,3033 :: 		}
+;Controller_events_code.c,3032 :: 		void Furnance_time_downOnPress() {
+;Controller_events_code.c,3034 :: 		}
 L_end_Furnance_time_downOnPress:
 BX	LR
 ; end of _Furnance_time_downOnPress
 _Furnance_time_upOnUp:
-;Controller_events_code.c,3034 :: 		void Furnance_time_upOnUp() {
-;Controller_events_code.c,3036 :: 		}
+;Controller_events_code.c,3035 :: 		void Furnance_time_upOnUp() {
+;Controller_events_code.c,3037 :: 		}
 L_end_Furnance_time_upOnUp:
 BX	LR
 ; end of _Furnance_time_upOnUp
 _Furnance_time_upOnPress:
-;Controller_events_code.c,3037 :: 		void Furnance_time_upOnPress() {
-;Controller_events_code.c,3039 :: 		}
+;Controller_events_code.c,3038 :: 		void Furnance_time_upOnPress() {
+;Controller_events_code.c,3040 :: 		}
 L_end_Furnance_time_upOnPress:
 BX	LR
 ; end of _Furnance_time_upOnPress
 _furnance_time_OFFOnClick:
-;Controller_events_code.c,3040 :: 		void furnance_time_OFFOnClick() {
-;Controller_events_code.c,3042 :: 		}
+;Controller_events_code.c,3041 :: 		void furnance_time_OFFOnClick() {
+;Controller_events_code.c,3043 :: 		}
 L_end_furnance_time_OFFOnClick:
 BX	LR
 ; end of _furnance_time_OFFOnClick
 _Furnance_HP_OFF_save_onup:
-;Controller_events_code.c,3043 :: 		void Furnance_HP_OFF_save_onup(){
-;Controller_events_code.c,3044 :: 		}
+;Controller_events_code.c,3044 :: 		void Furnance_HP_OFF_save_onup(){
+;Controller_events_code.c,3045 :: 		}
 L_end_Furnance_HP_OFF_save_onup:
 BX	LR
 ; end of _Furnance_HP_OFF_save_onup
 _Furnance_start_temp_UPOnUp:
-;Controller_events_code.c,3045 :: 		void Furnance_start_temp_UPOnUp(){
-;Controller_events_code.c,3046 :: 		}
+;Controller_events_code.c,3046 :: 		void Furnance_start_temp_UPOnUp(){
+;Controller_events_code.c,3047 :: 		}
 L_end_Furnance_start_temp_UPOnUp:
 BX	LR
 ; end of _Furnance_start_temp_UPOnUp
 _Furnance_start_temp_UPOnPress:
-;Controller_events_code.c,3047 :: 		void Furnance_start_temp_UPOnPress(){
-;Controller_events_code.c,3048 :: 		}
+;Controller_events_code.c,3048 :: 		void Furnance_start_temp_UPOnPress(){
+;Controller_events_code.c,3049 :: 		}
 L_end_Furnance_start_temp_UPOnPress:
 BX	LR
 ; end of _Furnance_start_temp_UPOnPress
 _SetIPAddressOnClick:
-;Controller_events_code.c,3051 :: 		void SetIPAddressOnClick() {
-;Controller_events_code.c,3053 :: 		}
+;Controller_events_code.c,3052 :: 		void SetIPAddressOnClick() {
+;Controller_events_code.c,3054 :: 		}
 L_end_SetIPAddressOnClick:
 BX	LR
 ; end of _SetIPAddressOnClick
 _SetMaskOnClick:
-;Controller_events_code.c,3055 :: 		void SetMaskOnClick() {
-;Controller_events_code.c,3057 :: 		}
+;Controller_events_code.c,3056 :: 		void SetMaskOnClick() {
+;Controller_events_code.c,3058 :: 		}
 L_end_SetMaskOnClick:
 BX	LR
 ; end of _SetMaskOnClick
 _SetDNSOnClick:
-;Controller_events_code.c,3059 :: 		void SetDNSOnClick() {
-;Controller_events_code.c,3061 :: 		}
+;Controller_events_code.c,3060 :: 		void SetDNSOnClick() {
+;Controller_events_code.c,3062 :: 		}
 L_end_SetDNSOnClick:
 BX	LR
 ; end of _SetDNSOnClick
 _LAN_Key_1OnClick:
-;Controller_events_code.c,3063 :: 		void LAN_Key_1OnClick() {
-;Controller_events_code.c,3065 :: 		}
+;Controller_events_code.c,3064 :: 		void LAN_Key_1OnClick() {
+;Controller_events_code.c,3066 :: 		}
 L_end_LAN_Key_1OnClick:
 BX	LR
 ; end of _LAN_Key_1OnClick
 _LAN_Key_2OnClick:
-;Controller_events_code.c,3067 :: 		void LAN_Key_2OnClick() {
-;Controller_events_code.c,3069 :: 		}
+;Controller_events_code.c,3068 :: 		void LAN_Key_2OnClick() {
+;Controller_events_code.c,3070 :: 		}
 L_end_LAN_Key_2OnClick:
 BX	LR
 ; end of _LAN_Key_2OnClick
 _LAN_Key_3OnClick:
-;Controller_events_code.c,3071 :: 		void LAN_Key_3OnClick() {
-;Controller_events_code.c,3073 :: 		}
+;Controller_events_code.c,3072 :: 		void LAN_Key_3OnClick() {
+;Controller_events_code.c,3074 :: 		}
 L_end_LAN_Key_3OnClick:
 BX	LR
 ; end of _LAN_Key_3OnClick
 _LAN_Key_4OnClick:
-;Controller_events_code.c,3075 :: 		void LAN_Key_4OnClick() {
-;Controller_events_code.c,3077 :: 		}
+;Controller_events_code.c,3076 :: 		void LAN_Key_4OnClick() {
+;Controller_events_code.c,3078 :: 		}
 L_end_LAN_Key_4OnClick:
 BX	LR
 ; end of _LAN_Key_4OnClick
 _LAN_Key_5OnClick:
-;Controller_events_code.c,3079 :: 		void LAN_Key_5OnClick() {
-;Controller_events_code.c,3081 :: 		}
+;Controller_events_code.c,3080 :: 		void LAN_Key_5OnClick() {
+;Controller_events_code.c,3082 :: 		}
 L_end_LAN_Key_5OnClick:
 BX	LR
 ; end of _LAN_Key_5OnClick
 _LAN_Key_6OnClick:
-;Controller_events_code.c,3083 :: 		void LAN_Key_6OnClick() {
-;Controller_events_code.c,3085 :: 		}
+;Controller_events_code.c,3084 :: 		void LAN_Key_6OnClick() {
+;Controller_events_code.c,3086 :: 		}
 L_end_LAN_Key_6OnClick:
 BX	LR
 ; end of _LAN_Key_6OnClick
 _LAN_Key_7OnClick:
-;Controller_events_code.c,3087 :: 		void LAN_Key_7OnClick() {
-;Controller_events_code.c,3089 :: 		}
+;Controller_events_code.c,3088 :: 		void LAN_Key_7OnClick() {
+;Controller_events_code.c,3090 :: 		}
 L_end_LAN_Key_7OnClick:
 BX	LR
 ; end of _LAN_Key_7OnClick
 _LAN_Key_8OnClick:
-;Controller_events_code.c,3091 :: 		void LAN_Key_8OnClick() {
-;Controller_events_code.c,3093 :: 		}
+;Controller_events_code.c,3092 :: 		void LAN_Key_8OnClick() {
+;Controller_events_code.c,3094 :: 		}
 L_end_LAN_Key_8OnClick:
 BX	LR
 ; end of _LAN_Key_8OnClick
 _LAN_Key_9OnClick:
-;Controller_events_code.c,3095 :: 		void LAN_Key_9OnClick() {
-;Controller_events_code.c,3097 :: 		}
+;Controller_events_code.c,3096 :: 		void LAN_Key_9OnClick() {
+;Controller_events_code.c,3098 :: 		}
 L_end_LAN_Key_9OnClick:
 BX	LR
 ; end of _LAN_Key_9OnClick
 _LAN_Key_0OnClick:
-;Controller_events_code.c,3099 :: 		void LAN_Key_0OnClick() {
-;Controller_events_code.c,3101 :: 		}
+;Controller_events_code.c,3100 :: 		void LAN_Key_0OnClick() {
+;Controller_events_code.c,3102 :: 		}
 L_end_LAN_Key_0OnClick:
 BX	LR
 ; end of _LAN_Key_0OnClick
 _LAN_Key_DotOnClick:
-;Controller_events_code.c,3103 :: 		void LAN_Key_DotOnClick() {
-;Controller_events_code.c,3105 :: 		}
+;Controller_events_code.c,3104 :: 		void LAN_Key_DotOnClick() {
+;Controller_events_code.c,3106 :: 		}
 L_end_LAN_Key_DotOnClick:
 BX	LR
 ; end of _LAN_Key_DotOnClick
 _LAN_Key_ClearOnClick:
-;Controller_events_code.c,3107 :: 		void LAN_Key_ClearOnClick() {
-;Controller_events_code.c,3109 :: 		}
+;Controller_events_code.c,3108 :: 		void LAN_Key_ClearOnClick() {
+;Controller_events_code.c,3110 :: 		}
 L_end_LAN_Key_ClearOnClick:
 BX	LR
 ; end of _LAN_Key_ClearOnClick
 _LANSetOnClick:
-;Controller_events_code.c,3111 :: 		void LANSetOnClick() {
-;Controller_events_code.c,3113 :: 		}
+;Controller_events_code.c,3112 :: 		void LANSetOnClick() {
+;Controller_events_code.c,3114 :: 		}
 L_end_LANSetOnClick:
 BX	LR
 ; end of _LANSetOnClick
 _SetGateWayOnClick:
-;Controller_events_code.c,3114 :: 		void SetGateWayOnClick(){
-;Controller_events_code.c,3115 :: 		}
+;Controller_events_code.c,3115 :: 		void SetGateWayOnClick(){
+;Controller_events_code.c,3116 :: 		}
 L_end_SetGateWayOnClick:
 BX	LR
 ; end of _SetGateWayOnClick
 _Hyst_Heat_downOnUp:
-;Controller_events_code.c,3117 :: 		void Hyst_Heat_downOnUp() {
+;Controller_events_code.c,3118 :: 		void Hyst_Heat_downOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3118 :: 		Hyst_Heat_down.Visible = 1;
+;Controller_events_code.c,3119 :: 		Hyst_Heat_down.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Hyst_Heat_down+20)
 MOVT	R0, #hi_addr(_Hyst_Heat_down+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3119 :: 		Image114.Visible = 0;
+;Controller_events_code.c,3120 :: 		Image114.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image114+20)
 MOVT	R0, #hi_addr(_Image114+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3120 :: 		DrawImage(&Hyst_Heat_down);
+;Controller_events_code.c,3121 :: 		DrawImage(&Hyst_Heat_down);
 MOVW	R0, #lo_addr(_Hyst_Heat_down+0)
 MOVT	R0, #hi_addr(_Hyst_Heat_down+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3121 :: 		}
+;Controller_events_code.c,3122 :: 		}
 L_end_Hyst_Heat_downOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Hyst_Heat_downOnUp
 _Hyst_Heat_downOnPress:
-;Controller_events_code.c,3122 :: 		void Hyst_Heat_downOnPress() {
+;Controller_events_code.c,3123 :: 		void Hyst_Heat_downOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3124 :: 		Tone3 ();
+;Controller_events_code.c,3125 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,3125 :: 		Hyst_Heat_down.Visible = 0;
+;Controller_events_code.c,3126 :: 		Hyst_Heat_down.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Hyst_Heat_down+20)
 MOVT	R0, #hi_addr(_Hyst_Heat_down+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3126 :: 		Image114.Visible = 1;
+;Controller_events_code.c,3127 :: 		Image114.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image114+20)
 MOVT	R0, #hi_addr(_Image114+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3127 :: 		DrawImage(&Image114);
+;Controller_events_code.c,3128 :: 		DrawImage(&Image114);
 MOVW	R0, #lo_addr(_Image114+0)
 MOVT	R0, #hi_addr(_Image114+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3128 :: 		system_reg[DIFF_HEAT]--;
+;Controller_events_code.c,3129 :: 		system_reg[DIFF_HEAT]--;
 MOVW	R1, #lo_addr(_system_reg+320)
 MOVT	R1, #hi_addr(_system_reg+320)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3129 :: 		if (system_reg[DIFF_HEAT] <0)
+;Controller_events_code.c,3130 :: 		if (system_reg[DIFF_HEAT] <0)
 CMP	R0, #0
 IT	GE
-BGE	L_Hyst_Heat_downOnPress399
-;Controller_events_code.c,3130 :: 		system_reg[DIFF_HEAT] =0;
+BGE	L_Hyst_Heat_downOnPress403
+;Controller_events_code.c,3131 :: 		system_reg[DIFF_HEAT] =0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+320)
 MOVT	R0, #hi_addr(_system_reg+320)
 STRH	R1, [R0, #0]
-L_Hyst_Heat_downOnPress399:
-;Controller_events_code.c,3131 :: 		IntToStr(system_reg[DIFF_HEAT], txt);
+L_Hyst_Heat_downOnPress403:
+;Controller_events_code.c,3132 :: 		IntToStr(system_reg[DIFF_HEAT], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+320)
 MOVT	R0, #hi_addr(_system_reg+320)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3132 :: 		Ltrim (txt);
+;Controller_events_code.c,3133 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3133 :: 		strncpy(Hysteresis_heating.Caption, txt, 2);
+;Controller_events_code.c,3134 :: 		strncpy(Hysteresis_heating.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Hysteresis_heating+24)
 MOVT	R0, #hi_addr(_Hysteresis_heating+24)
@@ -12626,99 +12677,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3134 :: 		DrawRoundButton(&Hysteresis_heating);
+;Controller_events_code.c,3135 :: 		DrawRoundButton(&Hysteresis_heating);
 MOVW	R0, #lo_addr(_Hysteresis_heating+0)
 MOVT	R0, #hi_addr(_Hysteresis_heating+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3135 :: 		Delay_ms (100);
+;Controller_events_code.c,3136 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Hyst_Heat_downOnPress400:
+L_Hyst_Heat_downOnPress404:
 SUBS	R7, R7, #1
-BNE	L_Hyst_Heat_downOnPress400
+BNE	L_Hyst_Heat_downOnPress404
 NOP
 NOP
 NOP
-;Controller_events_code.c,3136 :: 		}
+;Controller_events_code.c,3137 :: 		}
 L_end_Hyst_Heat_downOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Hyst_Heat_downOnPress
 _Hyst_Heat_upOnUp:
-;Controller_events_code.c,3137 :: 		void Hyst_Heat_upOnUp() {
+;Controller_events_code.c,3138 :: 		void Hyst_Heat_upOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3138 :: 		Hyst_Heat_up.Visible = 1;
+;Controller_events_code.c,3139 :: 		Hyst_Heat_up.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Hyst_Heat_up+20)
 MOVT	R0, #hi_addr(_Hyst_Heat_up+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3139 :: 		Image121.Visible = 0;
+;Controller_events_code.c,3140 :: 		Image121.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image121+20)
 MOVT	R0, #hi_addr(_Image121+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3140 :: 		DrawImage(&Hyst_Heat_up);
+;Controller_events_code.c,3141 :: 		DrawImage(&Hyst_Heat_up);
 MOVW	R0, #lo_addr(_Hyst_Heat_up+0)
 MOVT	R0, #hi_addr(_Hyst_Heat_up+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3141 :: 		}
+;Controller_events_code.c,3142 :: 		}
 L_end_Hyst_Heat_upOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Hyst_Heat_upOnUp
 _Hyst_Heat_upOnPress:
-;Controller_events_code.c,3142 :: 		void Hyst_Heat_upOnPress() {
+;Controller_events_code.c,3143 :: 		void Hyst_Heat_upOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3144 :: 		Tone3 ();
+;Controller_events_code.c,3145 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,3145 :: 		Hyst_Heat_up.Visible = 0;
+;Controller_events_code.c,3146 :: 		Hyst_Heat_up.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Hyst_Heat_up+20)
 MOVT	R0, #hi_addr(_Hyst_Heat_up+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3146 :: 		Image121.Visible = 1;
+;Controller_events_code.c,3147 :: 		Image121.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image121+20)
 MOVT	R0, #hi_addr(_Image121+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3147 :: 		DrawImage(&Image121);
+;Controller_events_code.c,3148 :: 		DrawImage(&Image121);
 MOVW	R0, #lo_addr(_Image121+0)
 MOVT	R0, #hi_addr(_Image121+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3148 :: 		system_reg[DIFF_HEAT]++;
+;Controller_events_code.c,3149 :: 		system_reg[DIFF_HEAT]++;
 MOVW	R1, #lo_addr(_system_reg+320)
 MOVT	R1, #hi_addr(_system_reg+320)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3149 :: 		if (system_reg[DIFF_HEAT] >30)
+;Controller_events_code.c,3150 :: 		if (system_reg[DIFF_HEAT] >30)
 CMP	R0, #30
 IT	LE
-BLE	L_Hyst_Heat_upOnPress402
-;Controller_events_code.c,3150 :: 		system_reg[DIFF_HEAT] =30;
+BLE	L_Hyst_Heat_upOnPress406
+;Controller_events_code.c,3151 :: 		system_reg[DIFF_HEAT] =30;
 MOVS	R1, #30
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+320)
 MOVT	R0, #hi_addr(_system_reg+320)
 STRH	R1, [R0, #0]
-L_Hyst_Heat_upOnPress402:
-;Controller_events_code.c,3151 :: 		IntToStr(system_reg[DIFF_HEAT], txt);
+L_Hyst_Heat_upOnPress406:
+;Controller_events_code.c,3152 :: 		IntToStr(system_reg[DIFF_HEAT], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+320)
 MOVT	R0, #hi_addr(_system_reg+320)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3152 :: 		Ltrim (txt);
+;Controller_events_code.c,3153 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3153 :: 		strncpy(Hysteresis_heating.Caption, txt, 2);
+;Controller_events_code.c,3154 :: 		strncpy(Hysteresis_heating.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Hysteresis_heating+24)
 MOVT	R0, #hi_addr(_Hysteresis_heating+24)
@@ -12726,99 +12777,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3154 :: 		DrawRoundButton(&Hysteresis_heating);
+;Controller_events_code.c,3155 :: 		DrawRoundButton(&Hysteresis_heating);
 MOVW	R0, #lo_addr(_Hysteresis_heating+0)
 MOVT	R0, #hi_addr(_Hysteresis_heating+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3155 :: 		Delay_ms (100);
+;Controller_events_code.c,3156 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Hyst_Heat_upOnPress403:
+L_Hyst_Heat_upOnPress407:
 SUBS	R7, R7, #1
-BNE	L_Hyst_Heat_upOnPress403
+BNE	L_Hyst_Heat_upOnPress407
 NOP
 NOP
 NOP
-;Controller_events_code.c,3156 :: 		}
+;Controller_events_code.c,3157 :: 		}
 L_end_Hyst_Heat_upOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Hyst_Heat_upOnPress
 _Hyst_Cool_downOnUp:
-;Controller_events_code.c,3157 :: 		void Hyst_Cool_downOnUp() {
+;Controller_events_code.c,3158 :: 		void Hyst_Cool_downOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3158 :: 		Hyst_Cool_down.Visible = 1;
+;Controller_events_code.c,3159 :: 		Hyst_Cool_down.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Hyst_Cool_down+20)
 MOVT	R0, #hi_addr(_Hyst_Cool_down+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3159 :: 		Image115.Visible = 0;
+;Controller_events_code.c,3160 :: 		Image115.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image115+20)
 MOVT	R0, #hi_addr(_Image115+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3160 :: 		DrawImage(&Hyst_Cool_down);
+;Controller_events_code.c,3161 :: 		DrawImage(&Hyst_Cool_down);
 MOVW	R0, #lo_addr(_Hyst_Cool_down+0)
 MOVT	R0, #hi_addr(_Hyst_Cool_down+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3161 :: 		}
+;Controller_events_code.c,3162 :: 		}
 L_end_Hyst_Cool_downOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Hyst_Cool_downOnUp
 _Hyst_Cool_downOnPress:
-;Controller_events_code.c,3162 :: 		void Hyst_Cool_downOnPress() {
+;Controller_events_code.c,3163 :: 		void Hyst_Cool_downOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3164 :: 		Tone3 ();
+;Controller_events_code.c,3165 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,3165 :: 		Hyst_Cool_down.Visible = 0;
+;Controller_events_code.c,3166 :: 		Hyst_Cool_down.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Hyst_Cool_down+20)
 MOVT	R0, #hi_addr(_Hyst_Cool_down+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3166 :: 		Image115.Visible = 1;
+;Controller_events_code.c,3167 :: 		Image115.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image115+20)
 MOVT	R0, #hi_addr(_Image115+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3167 :: 		DrawImage(&Image115);
+;Controller_events_code.c,3168 :: 		DrawImage(&Image115);
 MOVW	R0, #lo_addr(_Image115+0)
 MOVT	R0, #hi_addr(_Image115+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3168 :: 		system_reg[DIFF_COOL]--;
+;Controller_events_code.c,3169 :: 		system_reg[DIFF_COOL]--;
 MOVW	R1, #lo_addr(_system_reg+280)
 MOVT	R1, #hi_addr(_system_reg+280)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3169 :: 		if (system_reg[DIFF_COOL] <0)
+;Controller_events_code.c,3170 :: 		if (system_reg[DIFF_COOL] <0)
 CMP	R0, #0
 IT	GE
-BGE	L_Hyst_Cool_downOnPress405
-;Controller_events_code.c,3170 :: 		system_reg[DIFF_COOL] =0;
+BGE	L_Hyst_Cool_downOnPress409
+;Controller_events_code.c,3171 :: 		system_reg[DIFF_COOL] =0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+280)
 MOVT	R0, #hi_addr(_system_reg+280)
 STRH	R1, [R0, #0]
-L_Hyst_Cool_downOnPress405:
-;Controller_events_code.c,3171 :: 		IntToStr(system_reg[DIFF_COOL], txt);
+L_Hyst_Cool_downOnPress409:
+;Controller_events_code.c,3172 :: 		IntToStr(system_reg[DIFF_COOL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+280)
 MOVT	R0, #hi_addr(_system_reg+280)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3172 :: 		Ltrim (txt);
+;Controller_events_code.c,3173 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3173 :: 		strncpy(Hysteresis_cooling.Caption, txt, 2);
+;Controller_events_code.c,3174 :: 		strncpy(Hysteresis_cooling.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Hysteresis_cooling+24)
 MOVT	R0, #hi_addr(_Hysteresis_cooling+24)
@@ -12826,99 +12877,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3174 :: 		DrawRoundButton(&Hysteresis_cooling);
+;Controller_events_code.c,3175 :: 		DrawRoundButton(&Hysteresis_cooling);
 MOVW	R0, #lo_addr(_Hysteresis_cooling+0)
 MOVT	R0, #hi_addr(_Hysteresis_cooling+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3175 :: 		Delay_ms (100);
+;Controller_events_code.c,3176 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Hyst_Cool_downOnPress406:
+L_Hyst_Cool_downOnPress410:
 SUBS	R7, R7, #1
-BNE	L_Hyst_Cool_downOnPress406
+BNE	L_Hyst_Cool_downOnPress410
 NOP
 NOP
 NOP
-;Controller_events_code.c,3176 :: 		}
+;Controller_events_code.c,3177 :: 		}
 L_end_Hyst_Cool_downOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Hyst_Cool_downOnPress
 _Hyst_Cool_upOnUp:
-;Controller_events_code.c,3177 :: 		void Hyst_Cool_upOnUp() {
+;Controller_events_code.c,3178 :: 		void Hyst_Cool_upOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3178 :: 		Hyst_Cool_up.Visible = 1;
+;Controller_events_code.c,3179 :: 		Hyst_Cool_up.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Hyst_Cool_up+20)
 MOVT	R0, #hi_addr(_Hyst_Cool_up+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3179 :: 		Image122.Visible = 0;
+;Controller_events_code.c,3180 :: 		Image122.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image122+20)
 MOVT	R0, #hi_addr(_Image122+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3180 :: 		DrawImage(&Hyst_Cool_up);
+;Controller_events_code.c,3181 :: 		DrawImage(&Hyst_Cool_up);
 MOVW	R0, #lo_addr(_Hyst_Cool_up+0)
 MOVT	R0, #hi_addr(_Hyst_Cool_up+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3182 :: 		}
+;Controller_events_code.c,3183 :: 		}
 L_end_Hyst_Cool_upOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Hyst_Cool_upOnUp
 _Hyst_Cool_upOnPress:
-;Controller_events_code.c,3183 :: 		void Hyst_Cool_upOnPress() {
+;Controller_events_code.c,3184 :: 		void Hyst_Cool_upOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3185 :: 		Tone3 ();
+;Controller_events_code.c,3186 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,3186 :: 		Hyst_Cool_up.Visible = 0;
+;Controller_events_code.c,3187 :: 		Hyst_Cool_up.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Hyst_Cool_up+20)
 MOVT	R0, #hi_addr(_Hyst_Cool_up+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3187 :: 		Image122.Visible = 1;
+;Controller_events_code.c,3188 :: 		Image122.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image122+20)
 MOVT	R0, #hi_addr(_Image122+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3188 :: 		DrawImage(&Image122);
+;Controller_events_code.c,3189 :: 		DrawImage(&Image122);
 MOVW	R0, #lo_addr(_Image122+0)
 MOVT	R0, #hi_addr(_Image122+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3189 :: 		system_reg[DIFF_COOL]++;
+;Controller_events_code.c,3190 :: 		system_reg[DIFF_COOL]++;
 MOVW	R1, #lo_addr(_system_reg+280)
 MOVT	R1, #hi_addr(_system_reg+280)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3190 :: 		if (system_reg[DIFF_COOL] >30)
+;Controller_events_code.c,3191 :: 		if (system_reg[DIFF_COOL] >30)
 CMP	R0, #30
 IT	LE
-BLE	L_Hyst_Cool_upOnPress408
-;Controller_events_code.c,3191 :: 		system_reg[DIFF_COOL] =30;
+BLE	L_Hyst_Cool_upOnPress412
+;Controller_events_code.c,3192 :: 		system_reg[DIFF_COOL] =30;
 MOVS	R1, #30
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+280)
 MOVT	R0, #hi_addr(_system_reg+280)
 STRH	R1, [R0, #0]
-L_Hyst_Cool_upOnPress408:
-;Controller_events_code.c,3192 :: 		IntToStr(system_reg[DIFF_COOL], txt);
+L_Hyst_Cool_upOnPress412:
+;Controller_events_code.c,3193 :: 		IntToStr(system_reg[DIFF_COOL], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+280)
 MOVT	R0, #hi_addr(_system_reg+280)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3193 :: 		Ltrim (txt);
+;Controller_events_code.c,3194 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3194 :: 		strncpy(Hysteresis_cooling.Caption, txt, 2);
+;Controller_events_code.c,3195 :: 		strncpy(Hysteresis_cooling.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Hysteresis_cooling+24)
 MOVT	R0, #hi_addr(_Hysteresis_cooling+24)
@@ -12926,99 +12977,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3195 :: 		DrawRoundButton(&Hysteresis_cooling);
+;Controller_events_code.c,3196 :: 		DrawRoundButton(&Hysteresis_cooling);
 MOVW	R0, #lo_addr(_Hysteresis_cooling+0)
 MOVT	R0, #hi_addr(_Hysteresis_cooling+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3196 :: 		Delay_ms (100);
+;Controller_events_code.c,3197 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Hyst_Cool_upOnPress409:
+L_Hyst_Cool_upOnPress413:
 SUBS	R7, R7, #1
-BNE	L_Hyst_Cool_upOnPress409
+BNE	L_Hyst_Cool_upOnPress413
 NOP
 NOP
 NOP
-;Controller_events_code.c,3197 :: 		}
+;Controller_events_code.c,3198 :: 		}
 L_end_Hyst_Cool_upOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Hyst_Cool_upOnPress
 _Hyst_DHW_downOnUp:
-;Controller_events_code.c,3198 :: 		void Hyst_DHW_downOnUp() {
+;Controller_events_code.c,3199 :: 		void Hyst_DHW_downOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3199 :: 		Hyst_DHW_down.Visible = 1;
+;Controller_events_code.c,3200 :: 		Hyst_DHW_down.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Hyst_DHW_down+20)
 MOVT	R0, #hi_addr(_Hyst_DHW_down+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3200 :: 		Image116.Visible = 0;
+;Controller_events_code.c,3201 :: 		Image116.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image116+20)
 MOVT	R0, #hi_addr(_Image116+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3201 :: 		DrawImage(&Hyst_DHW_down);
+;Controller_events_code.c,3202 :: 		DrawImage(&Hyst_DHW_down);
 MOVW	R0, #lo_addr(_Hyst_DHW_down+0)
 MOVT	R0, #hi_addr(_Hyst_DHW_down+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3202 :: 		}
+;Controller_events_code.c,3203 :: 		}
 L_end_Hyst_DHW_downOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Hyst_DHW_downOnUp
 _Hyst_DHW_downOnPress:
-;Controller_events_code.c,3203 :: 		void Hyst_DHW_downOnPress() {
+;Controller_events_code.c,3204 :: 		void Hyst_DHW_downOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3205 :: 		Tone3 ();
+;Controller_events_code.c,3206 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,3206 :: 		Hyst_DHW_down.Visible = 0;
+;Controller_events_code.c,3207 :: 		Hyst_DHW_down.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Hyst_DHW_down+20)
 MOVT	R0, #hi_addr(_Hyst_DHW_down+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3207 :: 		Image116.Visible = 1;
+;Controller_events_code.c,3208 :: 		Image116.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image116+20)
 MOVT	R0, #hi_addr(_Image116+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3208 :: 		DrawImage(&Image116);
+;Controller_events_code.c,3209 :: 		DrawImage(&Image116);
 MOVW	R0, #lo_addr(_Image116+0)
 MOVT	R0, #hi_addr(_Image116+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3209 :: 		system_reg[DIFF_DHW]--;
+;Controller_events_code.c,3210 :: 		system_reg[DIFF_DHW]--;
 MOVW	R1, #lo_addr(_system_reg+300)
 MOVT	R1, #hi_addr(_system_reg+300)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3210 :: 		if (system_reg[DIFF_DHW] <0)
+;Controller_events_code.c,3211 :: 		if (system_reg[DIFF_DHW] <0)
 CMP	R0, #0
 IT	GE
-BGE	L_Hyst_DHW_downOnPress411
-;Controller_events_code.c,3211 :: 		system_reg[DIFF_DHW] =0;
+BGE	L_Hyst_DHW_downOnPress415
+;Controller_events_code.c,3212 :: 		system_reg[DIFF_DHW] =0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+300)
 MOVT	R0, #hi_addr(_system_reg+300)
 STRH	R1, [R0, #0]
-L_Hyst_DHW_downOnPress411:
-;Controller_events_code.c,3212 :: 		IntToStr(system_reg[DIFF_DHW], txt);
+L_Hyst_DHW_downOnPress415:
+;Controller_events_code.c,3213 :: 		IntToStr(system_reg[DIFF_DHW], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+300)
 MOVT	R0, #hi_addr(_system_reg+300)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3213 :: 		Ltrim (txt);
+;Controller_events_code.c,3214 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3214 :: 		strncpy(Hysteresis_DHW.Caption, txt, 2);
+;Controller_events_code.c,3215 :: 		strncpy(Hysteresis_DHW.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Hysteresis_DHW+24)
 MOVT	R0, #hi_addr(_Hysteresis_DHW+24)
@@ -13026,97 +13077,97 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3215 :: 		DrawRoundButton(&Hysteresis_DHW);
+;Controller_events_code.c,3216 :: 		DrawRoundButton(&Hysteresis_DHW);
 MOVW	R0, #lo_addr(_Hysteresis_DHW+0)
 MOVT	R0, #hi_addr(_Hysteresis_DHW+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3216 :: 		Delay_ms (100);
+;Controller_events_code.c,3217 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Hyst_DHW_downOnPress412:
+L_Hyst_DHW_downOnPress416:
 SUBS	R7, R7, #1
-BNE	L_Hyst_DHW_downOnPress412
+BNE	L_Hyst_DHW_downOnPress416
 NOP
 NOP
 NOP
-;Controller_events_code.c,3217 :: 		}
+;Controller_events_code.c,3218 :: 		}
 L_end_Hyst_DHW_downOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Hyst_DHW_downOnPress
 _Hyst_DHW_upOnUp:
-;Controller_events_code.c,3218 :: 		void Hyst_DHW_upOnUp() {
+;Controller_events_code.c,3219 :: 		void Hyst_DHW_upOnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3219 :: 		Hyst_DHW_up.Visible = 1;
+;Controller_events_code.c,3220 :: 		Hyst_DHW_up.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Hyst_DHW_up+20)
 MOVT	R0, #hi_addr(_Hyst_DHW_up+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3220 :: 		Image123.Visible = 0;
+;Controller_events_code.c,3221 :: 		Image123.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image123+20)
 MOVT	R0, #hi_addr(_Image123+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3221 :: 		DrawImage(&Hyst_DHW_up);
+;Controller_events_code.c,3222 :: 		DrawImage(&Hyst_DHW_up);
 MOVW	R0, #lo_addr(_Hyst_DHW_up+0)
 MOVT	R0, #hi_addr(_Hyst_DHW_up+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3222 :: 		}
+;Controller_events_code.c,3223 :: 		}
 L_end_Hyst_DHW_upOnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Hyst_DHW_upOnUp
 _Hyst_DHW_upOnPress:
-;Controller_events_code.c,3223 :: 		void Hyst_DHW_upOnPress() {
+;Controller_events_code.c,3224 :: 		void Hyst_DHW_upOnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3225 :: 		Hyst_DHW_up.Visible = 0;
+;Controller_events_code.c,3226 :: 		Hyst_DHW_up.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Hyst_DHW_up+20)
 MOVT	R0, #hi_addr(_Hyst_DHW_up+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3226 :: 		Image123.Visible = 1;
+;Controller_events_code.c,3227 :: 		Image123.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image123+20)
 MOVT	R0, #hi_addr(_Image123+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3227 :: 		DrawImage(&Image123);
+;Controller_events_code.c,3228 :: 		DrawImage(&Image123);
 MOVW	R0, #lo_addr(_Image123+0)
 MOVT	R0, #hi_addr(_Image123+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3228 :: 		system_reg[DIFF_DHW]++;
+;Controller_events_code.c,3229 :: 		system_reg[DIFF_DHW]++;
 MOVW	R1, #lo_addr(_system_reg+300)
 MOVT	R1, #hi_addr(_system_reg+300)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3229 :: 		if (system_reg[DIFF_DHW] >30)
+;Controller_events_code.c,3230 :: 		if (system_reg[DIFF_DHW] >30)
 CMP	R0, #30
 IT	LE
-BLE	L_Hyst_DHW_upOnPress414
-;Controller_events_code.c,3230 :: 		system_reg[DIFF_DHW] =30;
+BLE	L_Hyst_DHW_upOnPress418
+;Controller_events_code.c,3231 :: 		system_reg[DIFF_DHW] =30;
 MOVS	R1, #30
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+300)
 MOVT	R0, #hi_addr(_system_reg+300)
 STRH	R1, [R0, #0]
-L_Hyst_DHW_upOnPress414:
-;Controller_events_code.c,3231 :: 		IntToStr(system_reg[DIFF_DHW], txt);
+L_Hyst_DHW_upOnPress418:
+;Controller_events_code.c,3232 :: 		IntToStr(system_reg[DIFF_DHW], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+300)
 MOVT	R0, #hi_addr(_system_reg+300)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3232 :: 		Ltrim (txt);
+;Controller_events_code.c,3233 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3233 :: 		strncpy(Hysteresis_DHW.Caption, txt, 2);
+;Controller_events_code.c,3234 :: 		strncpy(Hysteresis_DHW.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Hysteresis_DHW+24)
 MOVT	R0, #hi_addr(_Hysteresis_DHW+24)
@@ -13124,245 +13175,245 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3234 :: 		DrawRoundButton(&Hysteresis_DHW);
+;Controller_events_code.c,3235 :: 		DrawRoundButton(&Hysteresis_DHW);
 MOVW	R0, #lo_addr(_Hysteresis_DHW+0)
 MOVT	R0, #hi_addr(_Hysteresis_DHW+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3235 :: 		Delay_ms (100);
+;Controller_events_code.c,3236 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Hyst_DHW_upOnPress415:
+L_Hyst_DHW_upOnPress419:
 SUBS	R7, R7, #1
-BNE	L_Hyst_DHW_upOnPress415
+BNE	L_Hyst_DHW_upOnPress419
 NOP
 NOP
 NOP
-;Controller_events_code.c,3236 :: 		}
+;Controller_events_code.c,3237 :: 		}
 L_end_Hyst_DHW_upOnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Hyst_DHW_upOnPress
 _Set_heat_onup:
-;Controller_events_code.c,3237 :: 		void Set_heat_onup(){
+;Controller_events_code.c,3238 :: 		void Set_heat_onup(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3238 :: 		Tone1();
+;Controller_events_code.c,3239 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,3239 :: 		Image135.Visible = 1;
+;Controller_events_code.c,3240 :: 		Image135.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image135+20)
 MOVT	R0, #hi_addr(_Image135+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3240 :: 		Image128.Visible = 0;
+;Controller_events_code.c,3241 :: 		Image128.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image128+20)
 MOVT	R0, #hi_addr(_Image128+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3241 :: 		DrawImage (&Image135);
+;Controller_events_code.c,3242 :: 		DrawImage (&Image135);
 MOVW	R0, #lo_addr(_Image135+0)
 MOVT	R0, #hi_addr(_Image135+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3242 :: 		}
+;Controller_events_code.c,3243 :: 		}
 L_end_Set_heat_onup:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_heat_onup
 _Set_heat_OnDown:
-;Controller_events_code.c,3243 :: 		void Set_heat_OnDown(){
+;Controller_events_code.c,3244 :: 		void Set_heat_OnDown(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3244 :: 		Tone1();
+;Controller_events_code.c,3245 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,3248 :: 		send_data_packet (DIFF_HEAT,1);
+;Controller_events_code.c,3249 :: 		send_data_packet (DIFF_HEAT,1);
 MOVS	R1, #1
 MOVW	R0, #160
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,3249 :: 		Image135.Visible = 0;
+;Controller_events_code.c,3250 :: 		Image135.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image135+20)
 MOVT	R0, #hi_addr(_Image135+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3250 :: 		Image128.Visible = 1;
+;Controller_events_code.c,3251 :: 		Image128.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image128+20)
 MOVT	R0, #hi_addr(_Image128+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3251 :: 		DrawImage (&Image128);
+;Controller_events_code.c,3252 :: 		DrawImage (&Image128);
 MOVW	R0, #lo_addr(_Image128+0)
 MOVT	R0, #hi_addr(_Image128+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3252 :: 		}
+;Controller_events_code.c,3253 :: 		}
 L_end_Set_heat_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_heat_OnDown
 _Set_cool_OnUp:
-;Controller_events_code.c,3253 :: 		void Set_cool_OnUp(){
+;Controller_events_code.c,3254 :: 		void Set_cool_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3254 :: 		Tone1();
+;Controller_events_code.c,3255 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,3255 :: 		Image138.Visible = 1;
+;Controller_events_code.c,3256 :: 		Image138.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image138+20)
 MOVT	R0, #hi_addr(_Image138+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3256 :: 		Image129.Visible = 0;
+;Controller_events_code.c,3257 :: 		Image129.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image129+20)
 MOVT	R0, #hi_addr(_Image129+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3257 :: 		DrawImage (&Image138);
+;Controller_events_code.c,3258 :: 		DrawImage (&Image138);
 MOVW	R0, #lo_addr(_Image138+0)
 MOVT	R0, #hi_addr(_Image138+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3258 :: 		}
+;Controller_events_code.c,3259 :: 		}
 L_end_Set_cool_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_cool_OnUp
 _Set_cool_OnDown:
-;Controller_events_code.c,3259 :: 		void Set_cool_OnDown(){
+;Controller_events_code.c,3260 :: 		void Set_cool_OnDown(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3260 :: 		Tone1();
+;Controller_events_code.c,3261 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,3264 :: 		send_data_packet (DIFF_COOL,1);
+;Controller_events_code.c,3265 :: 		send_data_packet (DIFF_COOL,1);
 MOVS	R1, #1
 MOVW	R0, #140
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,3265 :: 		Image138.Visible = 0;
+;Controller_events_code.c,3266 :: 		Image138.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image138+20)
 MOVT	R0, #hi_addr(_Image138+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3266 :: 		Image129.Visible = 1;
+;Controller_events_code.c,3267 :: 		Image129.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image129+20)
 MOVT	R0, #hi_addr(_Image129+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3267 :: 		DrawImage (&Image129);
+;Controller_events_code.c,3268 :: 		DrawImage (&Image129);
 MOVW	R0, #lo_addr(_Image129+0)
 MOVT	R0, #hi_addr(_Image129+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3268 :: 		}
+;Controller_events_code.c,3269 :: 		}
 L_end_Set_cool_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_cool_OnDown
 _Set_dhw_OnUp:
-;Controller_events_code.c,3269 :: 		void Set_dhw_OnUp(){
+;Controller_events_code.c,3270 :: 		void Set_dhw_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3270 :: 		Tone1();
+;Controller_events_code.c,3271 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,3271 :: 		Set_DHW_HY.Visible = 1;
+;Controller_events_code.c,3272 :: 		Set_DHW_HY.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_DHW_HY+20)
 MOVT	R0, #hi_addr(_Set_DHW_HY+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3272 :: 		Image130.Visible = 0;
+;Controller_events_code.c,3273 :: 		Image130.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image130+20)
 MOVT	R0, #hi_addr(_Image130+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3273 :: 		DrawImage (&Set_DHW_HY);
+;Controller_events_code.c,3274 :: 		DrawImage (&Set_DHW_HY);
 MOVW	R0, #lo_addr(_Set_DHW_HY+0)
 MOVT	R0, #hi_addr(_Set_DHW_HY+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3274 :: 		}
+;Controller_events_code.c,3275 :: 		}
 L_end_Set_dhw_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_dhw_OnUp
 _Set_dhw_OnDown:
-;Controller_events_code.c,3275 :: 		void Set_dhw_OnDown(){
+;Controller_events_code.c,3276 :: 		void Set_dhw_OnDown(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3276 :: 		Tone1();
+;Controller_events_code.c,3277 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,3280 :: 		send_data_packet (DIFF_DHW,1);
+;Controller_events_code.c,3281 :: 		send_data_packet (DIFF_DHW,1);
 MOVS	R1, #1
 MOVW	R0, #150
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,3281 :: 		Set_DHW_HY.Visible = 0;
+;Controller_events_code.c,3282 :: 		Set_DHW_HY.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_DHW_HY+20)
 MOVT	R0, #hi_addr(_Set_DHW_HY+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3282 :: 		Image130.Visible = 1;
+;Controller_events_code.c,3283 :: 		Image130.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image130+20)
 MOVT	R0, #hi_addr(_Image130+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3283 :: 		DrawImage (&Image130);
+;Controller_events_code.c,3284 :: 		DrawImage (&Image130);
 MOVW	R0, #lo_addr(_Image130+0)
 MOVT	R0, #hi_addr(_Image130+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3284 :: 		}
+;Controller_events_code.c,3285 :: 		}
 L_end_Set_dhw_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_dhw_OnDown
 _DEC_EEV2OnPress:
-;Controller_events_code.c,3287 :: 		void DEC_EEV2OnPress() {
-;Controller_events_code.c,3289 :: 		}
+;Controller_events_code.c,3288 :: 		void DEC_EEV2OnPress() {
+;Controller_events_code.c,3290 :: 		}
 L_end_DEC_EEV2OnPress:
 BX	LR
 ; end of _DEC_EEV2OnPress
 _INC_EEV2OnPress:
-;Controller_events_code.c,3290 :: 		void INC_EEV2OnPress() {
-;Controller_events_code.c,3292 :: 		}
+;Controller_events_code.c,3291 :: 		void INC_EEV2OnPress() {
+;Controller_events_code.c,3293 :: 		}
 L_end_INC_EEV2OnPress:
 BX	LR
 ; end of _INC_EEV2OnPress
 _EEV2DownOnUp:
-;Controller_events_code.c,3293 :: 		void EEV2DownOnUp() {
-;Controller_events_code.c,3295 :: 		}
+;Controller_events_code.c,3294 :: 		void EEV2DownOnUp() {
+;Controller_events_code.c,3296 :: 		}
 L_end_EEV2DownOnUp:
 BX	LR
 ; end of _EEV2DownOnUp
 _EEV2DownOnDown:
-;Controller_events_code.c,3297 :: 		void EEV2DownOnDown() {
-;Controller_events_code.c,3299 :: 		}
+;Controller_events_code.c,3298 :: 		void EEV2DownOnDown() {
+;Controller_events_code.c,3300 :: 		}
 L_end_EEV2DownOnDown:
 BX	LR
 ; end of _EEV2DownOnDown
 _EEV2UpOnUp:
-;Controller_events_code.c,3300 :: 		void EEV2UpOnUp() {
-;Controller_events_code.c,3302 :: 		}
+;Controller_events_code.c,3301 :: 		void EEV2UpOnUp() {
+;Controller_events_code.c,3303 :: 		}
 L_end_EEV2UpOnUp:
 BX	LR
 ; end of _EEV2UpOnUp
 _EEV2UpOnDown:
-;Controller_events_code.c,3303 :: 		void EEV2UpOnDown() {
-;Controller_events_code.c,3305 :: 		}
+;Controller_events_code.c,3304 :: 		void EEV2UpOnDown() {
+;Controller_events_code.c,3306 :: 		}
 L_end_EEV2UpOnDown:
 BX	LR
 ; end of _EEV2UpOnDown
 _EEV2_AutoOnClick:
-;Controller_events_code.c,3306 :: 		void EEV2_AutoOnClick() {
-;Controller_events_code.c,3308 :: 		}
+;Controller_events_code.c,3307 :: 		void EEV2_AutoOnClick() {
+;Controller_events_code.c,3309 :: 		}
 L_end_EEV2_AutoOnClick:
 BX	LR
 ; end of _EEV2_AutoOnClick
 _Mode_ground_onOnClick:
-;Controller_events_code.c,3310 :: 		void  Mode_ground_onOnClick () {
+;Controller_events_code.c,3311 :: 		void  Mode_ground_onOnClick () {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3311 :: 		if ((unsigned long)Mode_ground_on.Picture_Name == mode_brine_jpg)
+;Controller_events_code.c,3312 :: 		if ((unsigned long)Mode_ground_on.Picture_Name == mode_brine_jpg)
 MOVW	R0, #lo_addr(_Mode_ground_on+16)
 MOVT	R0, #hi_addr(_Mode_ground_on+16)
 LDR	R1, [R0, #0]
@@ -13370,133 +13421,133 @@ MOVW	R0, #5350
 MOVT	R0, #66
 CMP	R1, R0
 IT	NE
-BNE	L_Mode_ground_onOnClick417
-;Controller_events_code.c,3313 :: 		Mode_ground_on.Picture_Name = mode_air_jpg;
+BNE	L_Mode_ground_onOnClick421
+;Controller_events_code.c,3314 :: 		Mode_ground_on.Picture_Name = mode_air_jpg;
 MOVW	R1, #63200
 MOVT	R1, #65
 MOVW	R0, #lo_addr(_Mode_ground_on+16)
 MOVT	R0, #hi_addr(_Mode_ground_on+16)
 STR	R1, [R0, #0]
-;Controller_events_code.c,3314 :: 		Mode_air_on.Visible= 1;
+;Controller_events_code.c,3315 :: 		Mode_air_on.Visible= 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Mode_air_on+20)
 MOVT	R0, #hi_addr(_Mode_air_on+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3315 :: 		DrawImage(&Mode_air_on);
+;Controller_events_code.c,3316 :: 		DrawImage(&Mode_air_on);
 MOVW	R0, #lo_addr(_Mode_air_on+0)
 MOVT	R0, #hi_addr(_Mode_air_on+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3316 :: 		system_reg[AIRE_TO_WATER]=1;
+;Controller_events_code.c,3317 :: 		system_reg[AIRE_TO_WATER]=1;
 MOVS	R1, #1
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+340)
 MOVT	R0, #hi_addr(_system_reg+340)
 STRH	R1, [R0, #0]
-;Controller_events_code.c,3317 :: 		ground_heat_pump=false;
+;Controller_events_code.c,3318 :: 		ground_heat_pump=false;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_ground_heat_pump+0)
 MOVT	R0, #hi_addr(_ground_heat_pump+0)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3318 :: 		}
+;Controller_events_code.c,3319 :: 		}
 IT	AL
-BAL	L_Mode_ground_onOnClick418
-L_Mode_ground_onOnClick417:
-;Controller_events_code.c,3320 :: 		Mode_ground_on.Picture_Name = mode_brine_jpg;
+BAL	L_Mode_ground_onOnClick422
+L_Mode_ground_onOnClick421:
+;Controller_events_code.c,3321 :: 		Mode_ground_on.Picture_Name = mode_brine_jpg;
 MOVW	R1, #5350
 MOVT	R1, #66
 MOVW	R0, #lo_addr(_Mode_ground_on+16)
 MOVT	R0, #hi_addr(_Mode_ground_on+16)
 STR	R1, [R0, #0]
-;Controller_events_code.c,3321 :: 		Mode_ground_on.Visible= 1;
+;Controller_events_code.c,3322 :: 		Mode_ground_on.Visible= 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Mode_ground_on+20)
 MOVT	R0, #hi_addr(_Mode_ground_on+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3322 :: 		DrawImage(&Mode_ground_on);
+;Controller_events_code.c,3323 :: 		DrawImage(&Mode_ground_on);
 MOVW	R0, #lo_addr(_Mode_ground_on+0)
 MOVT	R0, #hi_addr(_Mode_ground_on+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3323 :: 		system_reg[AIRE_TO_WATER]=0;
+;Controller_events_code.c,3324 :: 		system_reg[AIRE_TO_WATER]=0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+340)
 MOVT	R0, #hi_addr(_system_reg+340)
 STRH	R1, [R0, #0]
-;Controller_events_code.c,3324 :: 		ground_heat_pump=true;
+;Controller_events_code.c,3325 :: 		ground_heat_pump=true;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_ground_heat_pump+0)
 MOVT	R0, #hi_addr(_ground_heat_pump+0)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3325 :: 		}
-L_Mode_ground_onOnClick418:
-;Controller_events_code.c,3326 :: 		send_data_packet(AIRE_TO_WATER,1);
+;Controller_events_code.c,3326 :: 		}
+L_Mode_ground_onOnClick422:
+;Controller_events_code.c,3327 :: 		send_data_packet(AIRE_TO_WATER,1);
 MOVS	R1, #1
 MOVW	R0, #170
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,3327 :: 		Delay_ms (300);
+;Controller_events_code.c,3328 :: 		Delay_ms (300);
 MOVW	R7, #57790
 MOVT	R7, #228
 NOP
 NOP
-L_Mode_ground_onOnClick419:
+L_Mode_ground_onOnClick423:
 SUBS	R7, R7, #1
-BNE	L_Mode_ground_onOnClick419
+BNE	L_Mode_ground_onOnClick423
 NOP
 NOP
 NOP
-;Controller_events_code.c,3328 :: 		}
+;Controller_events_code.c,3329 :: 		}
 L_end_Mode_ground_onOnClick:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Mode_ground_onOnClick
 _Down_24_OnPress:
-;Controller_events_code.c,3335 :: 		void Down_24_OnPress(){
+;Controller_events_code.c,3336 :: 		void Down_24_OnPress(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3337 :: 		Image99.Visible = 1;
+;Controller_events_code.c,3338 :: 		Image99.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image99+20)
 MOVT	R0, #hi_addr(_Image99+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3338 :: 		Image17.Visible = 0;
+;Controller_events_code.c,3339 :: 		Image17.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image17+20)
 MOVT	R0, #hi_addr(_Image17+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3339 :: 		DrawImage(&Image99);
+;Controller_events_code.c,3340 :: 		DrawImage(&Image99);
 MOVW	R0, #lo_addr(_Image99+0)
 MOVT	R0, #hi_addr(_Image99+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3340 :: 		system_reg[LP_MAX]--;
+;Controller_events_code.c,3341 :: 		system_reg[LP_MAX]--;
 MOVW	R1, #lo_addr(_system_reg+460)
 MOVT	R1, #hi_addr(_system_reg+460)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3341 :: 		if (system_reg[LP_MAX]<0)
+;Controller_events_code.c,3342 :: 		if (system_reg[LP_MAX]<0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_24_OnPress421
-;Controller_events_code.c,3342 :: 		system_reg[LP_MAX] = 0;
+BGE	L_Down_24_OnPress425
+;Controller_events_code.c,3343 :: 		system_reg[LP_MAX] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+460)
 MOVT	R0, #hi_addr(_system_reg+460)
 STRH	R1, [R0, #0]
-L_Down_24_OnPress421:
-;Controller_events_code.c,3343 :: 		IntToStr(system_reg[LP_MAX], txt);
+L_Down_24_OnPress425:
+;Controller_events_code.c,3344 :: 		IntToStr(system_reg[LP_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+460)
 MOVT	R0, #hi_addr(_system_reg+460)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3344 :: 		Ltrim (txt);
+;Controller_events_code.c,3345 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3345 :: 		strncpy(Set_max_low_pressure.Caption, txt, 2);
+;Controller_events_code.c,3346 :: 		strncpy(Set_max_low_pressure.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_low_pressure+24)
 MOVT	R0, #hi_addr(_Set_max_low_pressure+24)
@@ -13504,97 +13555,97 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3346 :: 		DrawRoundButton(&Set_max_low_pressure);
+;Controller_events_code.c,3347 :: 		DrawRoundButton(&Set_max_low_pressure);
 MOVW	R0, #lo_addr(_Set_max_low_pressure+0)
 MOVT	R0, #hi_addr(_Set_max_low_pressure+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3347 :: 		Delay_ms (100);
+;Controller_events_code.c,3348 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_24_OnPress422:
+L_Down_24_OnPress426:
 SUBS	R7, R7, #1
-BNE	L_Down_24_OnPress422
+BNE	L_Down_24_OnPress426
 NOP
 NOP
 NOP
-;Controller_events_code.c,3349 :: 		}
+;Controller_events_code.c,3350 :: 		}
 L_end_Down_24_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_24_OnPress
 _Down_24_OnUp:
-;Controller_events_code.c,3350 :: 		void Down_24_OnUp(){
+;Controller_events_code.c,3351 :: 		void Down_24_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3351 :: 		Image99.Visible = 0;
+;Controller_events_code.c,3352 :: 		Image99.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image99+20)
 MOVT	R0, #hi_addr(_Image99+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3352 :: 		Image17.Visible = 1;
+;Controller_events_code.c,3353 :: 		Image17.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image17+20)
 MOVT	R0, #hi_addr(_Image17+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3353 :: 		DrawImage(&Image17);
+;Controller_events_code.c,3354 :: 		DrawImage(&Image17);
 MOVW	R0, #lo_addr(_Image17+0)
 MOVT	R0, #hi_addr(_Image17+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3354 :: 		}
+;Controller_events_code.c,3355 :: 		}
 L_end_Down_24_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_24_OnUp
 _Up_24_OnPress:
-;Controller_events_code.c,3355 :: 		void Up_24_OnPress(){
+;Controller_events_code.c,3356 :: 		void Up_24_OnPress(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3357 :: 		Image100.Visible = 1;
+;Controller_events_code.c,3358 :: 		Image100.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image100+20)
 MOVT	R0, #hi_addr(_Image100+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3358 :: 		Image12.Visible = 0;
+;Controller_events_code.c,3359 :: 		Image12.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image12+20)
 MOVT	R0, #hi_addr(_Image12+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3359 :: 		DrawImage(&Image100);
+;Controller_events_code.c,3360 :: 		DrawImage(&Image100);
 MOVW	R0, #lo_addr(_Image100+0)
 MOVT	R0, #hi_addr(_Image100+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3360 :: 		system_reg[LP_MAX]++;
+;Controller_events_code.c,3361 :: 		system_reg[LP_MAX]++;
 MOVW	R1, #lo_addr(_system_reg+460)
 MOVT	R1, #hi_addr(_system_reg+460)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3361 :: 		if (system_reg[LP_MAX]>99)
+;Controller_events_code.c,3362 :: 		if (system_reg[LP_MAX]>99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_24_OnPress424
-;Controller_events_code.c,3362 :: 		system_reg[LP_MAX] = 99;
+BLE	L_Up_24_OnPress428
+;Controller_events_code.c,3363 :: 		system_reg[LP_MAX] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+460)
 MOVT	R0, #hi_addr(_system_reg+460)
 STRH	R1, [R0, #0]
-L_Up_24_OnPress424:
-;Controller_events_code.c,3363 :: 		IntToStr(system_reg[LP_MAX], txt);
+L_Up_24_OnPress428:
+;Controller_events_code.c,3364 :: 		IntToStr(system_reg[LP_MAX], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+460)
 MOVT	R0, #hi_addr(_system_reg+460)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3364 :: 		Ltrim (txt);
+;Controller_events_code.c,3365 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3365 :: 		strncpy(Set_max_low_pressure.Caption, txt, 2);
+;Controller_events_code.c,3366 :: 		strncpy(Set_max_low_pressure.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_max_low_pressure+24)
 MOVT	R0, #hi_addr(_Set_max_low_pressure+24)
@@ -13602,97 +13653,97 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3366 :: 		DrawRoundButton(&Set_max_low_pressure);
+;Controller_events_code.c,3367 :: 		DrawRoundButton(&Set_max_low_pressure);
 MOVW	R0, #lo_addr(_Set_max_low_pressure+0)
 MOVT	R0, #hi_addr(_Set_max_low_pressure+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3367 :: 		Delay_ms (100);
+;Controller_events_code.c,3368 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_24_OnPress425:
+L_Up_24_OnPress429:
 SUBS	R7, R7, #1
-BNE	L_Up_24_OnPress425
+BNE	L_Up_24_OnPress429
 NOP
 NOP
 NOP
-;Controller_events_code.c,3369 :: 		}
+;Controller_events_code.c,3370 :: 		}
 L_end_Up_24_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_24_OnPress
 _Up_24_OnUp:
-;Controller_events_code.c,3370 :: 		void Up_24_OnUp(){
+;Controller_events_code.c,3371 :: 		void Up_24_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3371 :: 		Image100.Visible = 0;
+;Controller_events_code.c,3372 :: 		Image100.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image100+20)
 MOVT	R0, #hi_addr(_Image100+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3372 :: 		Image12.Visible = 1;
+;Controller_events_code.c,3373 :: 		Image12.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image12+20)
 MOVT	R0, #hi_addr(_Image12+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3373 :: 		DrawImage(&Image12);
+;Controller_events_code.c,3374 :: 		DrawImage(&Image12);
 MOVW	R0, #lo_addr(_Image12+0)
 MOVT	R0, #hi_addr(_Image12+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3374 :: 		}
+;Controller_events_code.c,3375 :: 		}
 L_end_Up_24_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_24_OnUp
 _Down_25_OnPress:
-;Controller_events_code.c,3375 :: 		void Down_25_OnPress(){
+;Controller_events_code.c,3376 :: 		void Down_25_OnPress(){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3377 :: 		Image280.Visible = 1;
+;Controller_events_code.c,3378 :: 		Image280.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image280+20)
 MOVT	R0, #hi_addr(_Image280+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3378 :: 		Image18.Visible = 0;
+;Controller_events_code.c,3379 :: 		Image18.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image18+20)
 MOVT	R0, #hi_addr(_Image18+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3379 :: 		DrawImage(&Image280);
+;Controller_events_code.c,3380 :: 		DrawImage(&Image280);
 MOVW	R0, #lo_addr(_Image280+0)
 MOVT	R0, #hi_addr(_Image280+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3380 :: 		system_reg[LP_MIN]--;
+;Controller_events_code.c,3381 :: 		system_reg[LP_MIN]--;
 MOVW	R1, #lo_addr(_system_reg+500)
 MOVT	R1, #hi_addr(_system_reg+500)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3381 :: 		if (system_reg[LP_MIN]<0)
+;Controller_events_code.c,3382 :: 		if (system_reg[LP_MIN]<0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_25_OnPress427
-;Controller_events_code.c,3382 :: 		system_reg[LP_MIN] = 0;
+BGE	L_Down_25_OnPress431
+;Controller_events_code.c,3383 :: 		system_reg[LP_MIN] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+500)
 MOVT	R0, #hi_addr(_system_reg+500)
 STRH	R1, [R0, #0]
-L_Down_25_OnPress427:
-;Controller_events_code.c,3383 :: 		IntToStr(system_reg[LP_MIN], txt);
+L_Down_25_OnPress431:
+;Controller_events_code.c,3384 :: 		IntToStr(system_reg[LP_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+500)
 MOVT	R0, #hi_addr(_system_reg+500)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3384 :: 		Ltrim (txt);
+;Controller_events_code.c,3385 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3385 :: 		strncpy(Set_min_low_pressure.Caption, txt, 3);
+;Controller_events_code.c,3386 :: 		strncpy(Set_min_low_pressure.Caption, txt, 3);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_low_pressure+24)
 MOVT	R0, #hi_addr(_Set_min_low_pressure+24)
@@ -13700,97 +13751,97 @@ LDR	R0, [R0, #0]
 MOVS	R2, #3
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3386 :: 		DrawRoundButton(&Set_min_low_pressure);
+;Controller_events_code.c,3387 :: 		DrawRoundButton(&Set_min_low_pressure);
 MOVW	R0, #lo_addr(_Set_min_low_pressure+0)
 MOVT	R0, #hi_addr(_Set_min_low_pressure+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3387 :: 		Delay_ms (100);
+;Controller_events_code.c,3388 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_25_OnPress428:
+L_Down_25_OnPress432:
 SUBS	R7, R7, #1
-BNE	L_Down_25_OnPress428
+BNE	L_Down_25_OnPress432
 NOP
 NOP
 NOP
-;Controller_events_code.c,3389 :: 		}
+;Controller_events_code.c,3390 :: 		}
 L_end_Down_25_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_25_OnPress
 _Down_25_OnUp:
-;Controller_events_code.c,3390 :: 		void Down_25_OnUp(){
+;Controller_events_code.c,3391 :: 		void Down_25_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3391 :: 		Image280.Visible = 0;
+;Controller_events_code.c,3392 :: 		Image280.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image280+20)
 MOVT	R0, #hi_addr(_Image280+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3392 :: 		Image18.Visible = 1;
+;Controller_events_code.c,3393 :: 		Image18.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image18+20)
 MOVT	R0, #hi_addr(_Image18+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3393 :: 		DrawImage(&Image18);
+;Controller_events_code.c,3394 :: 		DrawImage(&Image18);
 MOVW	R0, #lo_addr(_Image18+0)
 MOVT	R0, #hi_addr(_Image18+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3395 :: 		}
+;Controller_events_code.c,3396 :: 		}
 L_end_Down_25_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_25_OnUp
 _Up_25_OnPress:
-;Controller_events_code.c,3396 :: 		void Up_25_OnPress(){
+;Controller_events_code.c,3397 :: 		void Up_25_OnPress(){
 SUB	SP, SP, #20
 STR	LR, [SP, #0]
-;Controller_events_code.c,3398 :: 		Image281.Visible = 1;
+;Controller_events_code.c,3399 :: 		Image281.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image281+20)
 MOVT	R0, #hi_addr(_Image281+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3399 :: 		Image14.Visible = 0;
+;Controller_events_code.c,3400 :: 		Image14.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image14+20)
 MOVT	R0, #hi_addr(_Image14+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3400 :: 		DrawImage(&Image281);
+;Controller_events_code.c,3401 :: 		DrawImage(&Image281);
 MOVW	R0, #lo_addr(_Image281+0)
 MOVT	R0, #hi_addr(_Image281+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3401 :: 		system_reg[LP_MIN]++;
+;Controller_events_code.c,3402 :: 		system_reg[LP_MIN]++;
 MOVW	R1, #lo_addr(_system_reg+500)
 MOVT	R1, #hi_addr(_system_reg+500)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3402 :: 		if (system_reg[LP_MIN]>99)
+;Controller_events_code.c,3403 :: 		if (system_reg[LP_MIN]>99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_25_OnPress430
-;Controller_events_code.c,3403 :: 		system_reg[LP_MIN] = 99;
+BLE	L_Up_25_OnPress434
+;Controller_events_code.c,3404 :: 		system_reg[LP_MIN] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+500)
 MOVT	R0, #hi_addr(_system_reg+500)
 STRH	R1, [R0, #0]
-L_Up_25_OnPress430:
-;Controller_events_code.c,3404 :: 		IntToStr(system_reg[LP_MIN], txt);
+L_Up_25_OnPress434:
+;Controller_events_code.c,3405 :: 		IntToStr(system_reg[LP_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+500)
 MOVT	R0, #hi_addr(_system_reg+500)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3405 :: 		Ltrim (txt);
+;Controller_events_code.c,3406 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3406 :: 		strncpy(Set_min_low_pressure.Caption, txt, 3);
+;Controller_events_code.c,3407 :: 		strncpy(Set_min_low_pressure.Caption, txt, 3);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_low_pressure+24)
 MOVT	R0, #hi_addr(_Set_min_low_pressure+24)
@@ -13798,381 +13849,381 @@ LDR	R0, [R0, #0]
 MOVS	R2, #3
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3407 :: 		DrawRoundButton(&Set_min_low_pressure);
+;Controller_events_code.c,3408 :: 		DrawRoundButton(&Set_min_low_pressure);
 MOVW	R0, #lo_addr(_Set_min_low_pressure+0)
 MOVT	R0, #hi_addr(_Set_min_low_pressure+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3408 :: 		Delay_ms (100);
+;Controller_events_code.c,3409 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_25_OnPress431:
+L_Up_25_OnPress435:
 SUBS	R7, R7, #1
-BNE	L_Up_25_OnPress431
+BNE	L_Up_25_OnPress435
 NOP
 NOP
 NOP
-;Controller_events_code.c,3409 :: 		}
+;Controller_events_code.c,3410 :: 		}
 L_end_Up_25_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #20
 BX	LR
 ; end of _Up_25_OnPress
 _Up_25_OnUp:
-;Controller_events_code.c,3410 :: 		void Up_25_OnUp(){
+;Controller_events_code.c,3411 :: 		void Up_25_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3411 :: 		Image281.Visible = 0;
+;Controller_events_code.c,3412 :: 		Image281.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image281+20)
 MOVT	R0, #hi_addr(_Image281+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3412 :: 		Image14.Visible = 1;
+;Controller_events_code.c,3413 :: 		Image14.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image14+20)
 MOVT	R0, #hi_addr(_Image14+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3413 :: 		DrawImage(&Image14);
+;Controller_events_code.c,3414 :: 		DrawImage(&Image14);
 MOVW	R0, #lo_addr(_Image14+0)
 MOVT	R0, #hi_addr(_Image14+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3414 :: 		}
+;Controller_events_code.c,3415 :: 		}
 L_end_Up_25_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_25_OnUp
 _Down_26_OnPress:
-;Controller_events_code.c,3415 :: 		void Down_26_OnPress() {
-;Controller_events_code.c,3417 :: 		}
+;Controller_events_code.c,3416 :: 		void Down_26_OnPress() {
+;Controller_events_code.c,3418 :: 		}
 L_end_Down_26_OnPress:
 BX	LR
 ; end of _Down_26_OnPress
 _Down_26_OnUp:
-;Controller_events_code.c,3418 :: 		void Down_26_OnUp() {
-;Controller_events_code.c,3420 :: 		}
+;Controller_events_code.c,3419 :: 		void Down_26_OnUp() {
+;Controller_events_code.c,3421 :: 		}
 L_end_Down_26_OnUp:
 BX	LR
 ; end of _Down_26_OnUp
 _UP_26_OnPress:
-;Controller_events_code.c,3421 :: 		void UP_26_OnPress() {
-;Controller_events_code.c,3423 :: 		}
+;Controller_events_code.c,3422 :: 		void UP_26_OnPress() {
+;Controller_events_code.c,3424 :: 		}
 L_end_UP_26_OnPress:
 BX	LR
 ; end of _UP_26_OnPress
 _UP_26_OnUp:
-;Controller_events_code.c,3424 :: 		void UP_26_OnUp() {
-;Controller_events_code.c,3426 :: 		}
+;Controller_events_code.c,3425 :: 		void UP_26_OnUp() {
+;Controller_events_code.c,3427 :: 		}
 L_end_UP_26_OnUp:
 BX	LR
 ; end of _UP_26_OnUp
 _Set_24_OnDown:
-;Controller_events_code.c,3427 :: 		void Set_24_OnDown(){
+;Controller_events_code.c,3428 :: 		void Set_24_OnDown(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3428 :: 		Tone1();
+;Controller_events_code.c,3429 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,3432 :: 		send_data_packet(LP_MAX,1);
+;Controller_events_code.c,3433 :: 		send_data_packet(LP_MAX,1);
 MOVS	R1, #1
 MOVW	R0, #230
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,3433 :: 		Image279.Visible = 0;
+;Controller_events_code.c,3434 :: 		Image279.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image279+20)
 MOVT	R0, #hi_addr(_Image279+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3434 :: 		Image29.Visible = 1;
+;Controller_events_code.c,3435 :: 		Image29.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image29+20)
 MOVT	R0, #hi_addr(_Image29+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3435 :: 		DrawImage (&Image29);
+;Controller_events_code.c,3436 :: 		DrawImage (&Image29);
 MOVW	R0, #lo_addr(_Image29+0)
 MOVT	R0, #hi_addr(_Image29+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3436 :: 		}
+;Controller_events_code.c,3437 :: 		}
 L_end_Set_24_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_24_OnDown
 _Set_24_OnUp:
-;Controller_events_code.c,3437 :: 		void Set_24_OnUp(){
+;Controller_events_code.c,3438 :: 		void Set_24_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3438 :: 		Tone1();
+;Controller_events_code.c,3439 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,3439 :: 		Image279.Visible = 1;
+;Controller_events_code.c,3440 :: 		Image279.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image279+20)
 MOVT	R0, #hi_addr(_Image279+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3440 :: 		Image29.Visible = 0;
+;Controller_events_code.c,3441 :: 		Image29.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image29+20)
 MOVT	R0, #hi_addr(_Image29+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3441 :: 		DrawImage (&Image279);
+;Controller_events_code.c,3442 :: 		DrawImage (&Image279);
 MOVW	R0, #lo_addr(_Image279+0)
 MOVT	R0, #hi_addr(_Image279+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3442 :: 		}
+;Controller_events_code.c,3443 :: 		}
 L_end_Set_24_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_24_OnUp
 _Set_25_OnDown:
-;Controller_events_code.c,3443 :: 		void Set_25_OnDown(){
+;Controller_events_code.c,3444 :: 		void Set_25_OnDown(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3444 :: 		Tone1();
+;Controller_events_code.c,3445 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,3448 :: 		send_data_packet(LP_MIN,1);
+;Controller_events_code.c,3449 :: 		send_data_packet(LP_MIN,1);
 MOVS	R1, #1
 MOVW	R0, #250
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,3449 :: 		Image282.Visible = 0;
+;Controller_events_code.c,3450 :: 		Image282.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image282+20)
 MOVT	R0, #hi_addr(_Image282+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3450 :: 		Image22.Visible = 1;
+;Controller_events_code.c,3451 :: 		Image22.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image22+20)
 MOVT	R0, #hi_addr(_Image22+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3451 :: 		DrawImage (&Image22);
+;Controller_events_code.c,3452 :: 		DrawImage (&Image22);
 MOVW	R0, #lo_addr(_Image22+0)
 MOVT	R0, #hi_addr(_Image22+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3452 :: 		}
+;Controller_events_code.c,3453 :: 		}
 L_end_Set_25_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_25_OnDown
 _Set_25_OnUp:
-;Controller_events_code.c,3453 :: 		void Set_25_OnUp(){
+;Controller_events_code.c,3454 :: 		void Set_25_OnUp(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3454 :: 		Tone1();
+;Controller_events_code.c,3455 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,3455 :: 		Image282.Visible = 1;
+;Controller_events_code.c,3456 :: 		Image282.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image282+20)
 MOVT	R0, #hi_addr(_Image282+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3456 :: 		Image22.Visible = 0;
+;Controller_events_code.c,3457 :: 		Image22.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image22+20)
 MOVT	R0, #hi_addr(_Image22+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3457 :: 		DrawImage (&Image282);
+;Controller_events_code.c,3458 :: 		DrawImage (&Image282);
 MOVW	R0, #lo_addr(_Image282+0)
 MOVT	R0, #hi_addr(_Image282+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3458 :: 		}
+;Controller_events_code.c,3459 :: 		}
 L_end_Set_25_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_25_OnUp
 _Set_26_OnDown:
-;Controller_events_code.c,3459 :: 		void Set_26_OnDown() {
-;Controller_events_code.c,3461 :: 		}
+;Controller_events_code.c,3460 :: 		void Set_26_OnDown() {
+;Controller_events_code.c,3462 :: 		}
 L_end_Set_26_OnDown:
 BX	LR
 ; end of _Set_26_OnDown
 _Set_26_OnUp:
-;Controller_events_code.c,3462 :: 		void Set_26_OnUp() {
-;Controller_events_code.c,3464 :: 		}
+;Controller_events_code.c,3463 :: 		void Set_26_OnUp() {
+;Controller_events_code.c,3465 :: 		}
 L_end_Set_26_OnUp:
 BX	LR
 ; end of _Set_26_OnUp
 _Set_phase_check:
-;Controller_events_code.c,3465 :: 		void Set_phase_check(){
-;Controller_events_code.c,3467 :: 		}
+;Controller_events_code.c,3466 :: 		void Set_phase_check(){
+;Controller_events_code.c,3468 :: 		}
 L_end_Set_phase_check:
 BX	LR
 ; end of _Set_phase_check
 _Set_voltage_check:
-;Controller_events_code.c,3468 :: 		void Set_voltage_check(){
-;Controller_events_code.c,3470 :: 		}
+;Controller_events_code.c,3469 :: 		void Set_voltage_check(){
+;Controller_events_code.c,3471 :: 		}
 L_end_Set_voltage_check:
 BX	LR
 ; end of _Set_voltage_check
 _Down_13_OnUp:
-;Controller_events_code.c,3473 :: 		void Down_13_OnUp() {
-;Controller_events_code.c,3475 :: 		}
+;Controller_events_code.c,3474 :: 		void Down_13_OnUp() {
+;Controller_events_code.c,3476 :: 		}
 L_end_Down_13_OnUp:
 BX	LR
 ; end of _Down_13_OnUp
 _Down_13_OnPress:
-;Controller_events_code.c,3476 :: 		void Down_13_OnPress() {
-;Controller_events_code.c,3477 :: 		}
+;Controller_events_code.c,3477 :: 		void Down_13_OnPress() {
+;Controller_events_code.c,3478 :: 		}
 L_end_Down_13_OnPress:
 BX	LR
 ; end of _Down_13_OnPress
 _Up_13_OnPress:
-;Controller_events_code.c,3478 :: 		void Up_13_OnPress() {
-;Controller_events_code.c,3480 :: 		}
+;Controller_events_code.c,3479 :: 		void Up_13_OnPress() {
+;Controller_events_code.c,3481 :: 		}
 L_end_Up_13_OnPress:
 BX	LR
 ; end of _Up_13_OnPress
 _Up_13_OnUp:
-;Controller_events_code.c,3481 :: 		void Up_13_OnUp() {
-;Controller_events_code.c,3483 :: 		}
+;Controller_events_code.c,3482 :: 		void Up_13_OnUp() {
+;Controller_events_code.c,3484 :: 		}
 L_end_Up_13_OnUp:
 BX	LR
 ; end of _Up_13_OnUp
 _Down_14_OnPress:
-;Controller_events_code.c,3485 :: 		void Down_14_OnPress() {
-;Controller_events_code.c,3487 :: 		}
+;Controller_events_code.c,3486 :: 		void Down_14_OnPress() {
+;Controller_events_code.c,3488 :: 		}
 L_end_Down_14_OnPress:
 BX	LR
 ; end of _Down_14_OnPress
 _Down_14_OnUp:
-;Controller_events_code.c,3488 :: 		void Down_14_OnUp() {
-;Controller_events_code.c,3490 :: 		}
+;Controller_events_code.c,3489 :: 		void Down_14_OnUp() {
+;Controller_events_code.c,3491 :: 		}
 L_end_Down_14_OnUp:
 BX	LR
 ; end of _Down_14_OnUp
 _Up_14_OnPress:
-;Controller_events_code.c,3491 :: 		void Up_14_OnPress() {
-;Controller_events_code.c,3493 :: 		}
+;Controller_events_code.c,3492 :: 		void Up_14_OnPress() {
+;Controller_events_code.c,3494 :: 		}
 L_end_Up_14_OnPress:
 BX	LR
 ; end of _Up_14_OnPress
 _Up_14_OnUp:
-;Controller_events_code.c,3494 :: 		void Up_14_OnUp() {
-;Controller_events_code.c,3496 :: 		}
+;Controller_events_code.c,3495 :: 		void Up_14_OnUp() {
+;Controller_events_code.c,3497 :: 		}
 L_end_Up_14_OnUp:
 BX	LR
 ; end of _Up_14_OnUp
 _Down_15_OnPress:
-;Controller_events_code.c,3497 :: 		void Down_15_OnPress() {
-;Controller_events_code.c,3499 :: 		}
+;Controller_events_code.c,3498 :: 		void Down_15_OnPress() {
+;Controller_events_code.c,3500 :: 		}
 L_end_Down_15_OnPress:
 BX	LR
 ; end of _Down_15_OnPress
 _Down_15_OnUp:
-;Controller_events_code.c,3500 :: 		void Down_15_OnUp() {
-;Controller_events_code.c,3502 :: 		}
+;Controller_events_code.c,3501 :: 		void Down_15_OnUp() {
+;Controller_events_code.c,3503 :: 		}
 L_end_Down_15_OnUp:
 BX	LR
 ; end of _Down_15_OnUp
 _Up_15_OnPress:
-;Controller_events_code.c,3503 :: 		void Up_15_OnPress() {
-;Controller_events_code.c,3505 :: 		}
+;Controller_events_code.c,3504 :: 		void Up_15_OnPress() {
+;Controller_events_code.c,3506 :: 		}
 L_end_Up_15_OnPress:
 BX	LR
 ; end of _Up_15_OnPress
 _Up_15_OnUp:
-;Controller_events_code.c,3506 :: 		void Up_15_OnUp() {
-;Controller_events_code.c,3508 :: 		}
+;Controller_events_code.c,3507 :: 		void Up_15_OnUp() {
+;Controller_events_code.c,3509 :: 		}
 L_end_Up_15_OnUp:
 BX	LR
 ; end of _Up_15_OnUp
 _Down_16_OnPress:
-;Controller_events_code.c,3509 :: 		void Down_16_OnPress() {
-;Controller_events_code.c,3511 :: 		}
+;Controller_events_code.c,3510 :: 		void Down_16_OnPress() {
+;Controller_events_code.c,3512 :: 		}
 L_end_Down_16_OnPress:
 BX	LR
 ; end of _Down_16_OnPress
 _Down_16_OnUp:
-;Controller_events_code.c,3512 :: 		void Down_16_OnUp() {
-;Controller_events_code.c,3514 :: 		}
+;Controller_events_code.c,3513 :: 		void Down_16_OnUp() {
+;Controller_events_code.c,3515 :: 		}
 L_end_Down_16_OnUp:
 BX	LR
 ; end of _Down_16_OnUp
 _Up_16_OnPress:
-;Controller_events_code.c,3515 :: 		void Up_16_OnPress() {
-;Controller_events_code.c,3517 :: 		}
+;Controller_events_code.c,3516 :: 		void Up_16_OnPress() {
+;Controller_events_code.c,3518 :: 		}
 L_end_Up_16_OnPress:
 BX	LR
 ; end of _Up_16_OnPress
 _Up_16_OnUp:
-;Controller_events_code.c,3518 :: 		void Up_16_OnUp() {
-;Controller_events_code.c,3520 :: 		}
+;Controller_events_code.c,3519 :: 		void Up_16_OnUp() {
+;Controller_events_code.c,3521 :: 		}
 L_end_Up_16_OnUp:
 BX	LR
 ; end of _Up_16_OnUp
 _Down_17_OnPress:
-;Controller_events_code.c,3521 :: 		void Down_17_OnPress() {      // Electric heater preset setting
-;Controller_events_code.c,3523 :: 		}
+;Controller_events_code.c,3522 :: 		void Down_17_OnPress() {      // Electric heater preset setting
+;Controller_events_code.c,3524 :: 		}
 L_end_Down_17_OnPress:
 BX	LR
 ; end of _Down_17_OnPress
 _Down_17_OnUp:
-;Controller_events_code.c,3524 :: 		void Down_17_OnUp() {
-;Controller_events_code.c,3526 :: 		}
+;Controller_events_code.c,3525 :: 		void Down_17_OnUp() {
+;Controller_events_code.c,3527 :: 		}
 L_end_Down_17_OnUp:
 BX	LR
 ; end of _Down_17_OnUp
 _Up_17_OnPress:
-;Controller_events_code.c,3527 :: 		void Up_17_OnPress() {
-;Controller_events_code.c,3529 :: 		}
+;Controller_events_code.c,3528 :: 		void Up_17_OnPress() {
+;Controller_events_code.c,3530 :: 		}
 L_end_Up_17_OnPress:
 BX	LR
 ; end of _Up_17_OnPress
 _Up_17_OnUp:
-;Controller_events_code.c,3530 :: 		void Up_17_OnUp() {
-;Controller_events_code.c,3532 :: 		}
+;Controller_events_code.c,3531 :: 		void Up_17_OnUp() {
+;Controller_events_code.c,3533 :: 		}
 L_end_Up_17_OnUp:
 BX	LR
 ; end of _Up_17_OnUp
 _Down_18_OnPress:
-;Controller_events_code.c,3533 :: 		void Down_18_OnPress() {
+;Controller_events_code.c,3534 :: 		void Down_18_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3535 :: 		Tone3 ();
+;Controller_events_code.c,3536 :: 		Tone3 ();
 BL	_Tone3+0
-;Controller_events_code.c,3536 :: 		Image481.Visible = 1;
+;Controller_events_code.c,3537 :: 		Image481.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image481+20)
 MOVT	R0, #hi_addr(_Image481+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3537 :: 		Down_18_.Visible = 0;
+;Controller_events_code.c,3538 :: 		Down_18_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Down_18_+20)
 MOVT	R0, #hi_addr(_Down_18_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3538 :: 		DrawImage(&Image481);
+;Controller_events_code.c,3539 :: 		DrawImage(&Image481);
 MOVW	R0, #lo_addr(_Image481+0)
 MOVT	R0, #hi_addr(_Image481+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3539 :: 		system_reg[S_HEAT_MIN]--;
+;Controller_events_code.c,3540 :: 		system_reg[S_HEAT_MIN]--;
 MOVW	R1, #lo_addr(_system_reg+580)
 MOVT	R1, #hi_addr(_system_reg+580)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3540 :: 		if (system_reg[S_HEAT_MIN] < 0)
+;Controller_events_code.c,3541 :: 		if (system_reg[S_HEAT_MIN] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_Down_18_OnPress433
-;Controller_events_code.c,3541 :: 		system_reg[S_HEAT_MIN] = 0;
+BGE	L_Down_18_OnPress437
+;Controller_events_code.c,3542 :: 		system_reg[S_HEAT_MIN] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+580)
 MOVT	R0, #hi_addr(_system_reg+580)
 STRH	R1, [R0, #0]
-L_Down_18_OnPress433:
-;Controller_events_code.c,3542 :: 		IntToStr(system_reg[S_HEAT_MIN], txt);
+L_Down_18_OnPress437:
+;Controller_events_code.c,3543 :: 		IntToStr(system_reg[S_HEAT_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+580)
 MOVT	R0, #hi_addr(_system_reg+580)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3543 :: 		Ltrim (txt);
+;Controller_events_code.c,3544 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3544 :: 		strncpy(Set_min_superheat.Caption, txt, 2);
+;Controller_events_code.c,3545 :: 		strncpy(Set_min_superheat.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_superheat+24)
 MOVT	R0, #hi_addr(_Set_min_superheat+24)
@@ -14180,99 +14231,99 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3545 :: 		DrawRoundButton(&Set_min_superheat);
+;Controller_events_code.c,3546 :: 		DrawRoundButton(&Set_min_superheat);
 MOVW	R0, #lo_addr(_Set_min_superheat+0)
 MOVT	R0, #hi_addr(_Set_min_superheat+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3546 :: 		Delay_ms (100);
+;Controller_events_code.c,3547 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Down_18_OnPress434:
+L_Down_18_OnPress438:
 SUBS	R7, R7, #1
-BNE	L_Down_18_OnPress434
+BNE	L_Down_18_OnPress438
 NOP
 NOP
 NOP
-;Controller_events_code.c,3547 :: 		}
+;Controller_events_code.c,3548 :: 		}
 L_end_Down_18_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Down_18_OnPress
 _Down_18_OnUp:
-;Controller_events_code.c,3548 :: 		void Down_18_OnUp() {
+;Controller_events_code.c,3549 :: 		void Down_18_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3549 :: 		Image481.Visible = 0;
+;Controller_events_code.c,3550 :: 		Image481.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image481+20)
 MOVT	R0, #hi_addr(_Image481+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3550 :: 		Down_18_.Visible = 1;
+;Controller_events_code.c,3551 :: 		Down_18_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Down_18_+20)
 MOVT	R0, #hi_addr(_Down_18_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3551 :: 		DrawImage(&Down_18_);
+;Controller_events_code.c,3552 :: 		DrawImage(&Down_18_);
 MOVW	R0, #lo_addr(_Down_18_+0)
 MOVT	R0, #hi_addr(_Down_18_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3552 :: 		}
+;Controller_events_code.c,3553 :: 		}
 L_end_Down_18_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Down_18_OnUp
 _Up_18_OnPress:
-;Controller_events_code.c,3553 :: 		void Up_18_OnPress() {
+;Controller_events_code.c,3554 :: 		void Up_18_OnPress() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3555 :: 		Tone2 ();
+;Controller_events_code.c,3556 :: 		Tone2 ();
 BL	_Tone2+0
-;Controller_events_code.c,3556 :: 		Image477.Visible = 1;
+;Controller_events_code.c,3557 :: 		Image477.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image477+20)
 MOVT	R0, #hi_addr(_Image477+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3557 :: 		Up_18_.Visible = 0;
+;Controller_events_code.c,3558 :: 		Up_18_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Up_18_+20)
 MOVT	R0, #hi_addr(_Up_18_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3558 :: 		DrawImage(&Image477);
+;Controller_events_code.c,3559 :: 		DrawImage(&Image477);
 MOVW	R0, #lo_addr(_Image477+0)
 MOVT	R0, #hi_addr(_Image477+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3559 :: 		system_reg[S_HEAT_MIN]++;
+;Controller_events_code.c,3560 :: 		system_reg[S_HEAT_MIN]++;
 MOVW	R1, #lo_addr(_system_reg+580)
 MOVT	R1, #hi_addr(_system_reg+580)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3560 :: 		if (system_reg[S_HEAT_MIN] >99)
+;Controller_events_code.c,3561 :: 		if (system_reg[S_HEAT_MIN] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_Up_18_OnPress436
-;Controller_events_code.c,3561 :: 		system_reg[S_HEAT_MIN] = 99;
+BLE	L_Up_18_OnPress440
+;Controller_events_code.c,3562 :: 		system_reg[S_HEAT_MIN] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+580)
 MOVT	R0, #hi_addr(_system_reg+580)
 STRH	R1, [R0, #0]
-L_Up_18_OnPress436:
-;Controller_events_code.c,3562 :: 		IntToStr(system_reg[S_HEAT_MIN], txt);
+L_Up_18_OnPress440:
+;Controller_events_code.c,3563 :: 		IntToStr(system_reg[S_HEAT_MIN], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+580)
 MOVT	R0, #hi_addr(_system_reg+580)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3563 :: 		Ltrim (txt);
+;Controller_events_code.c,3564 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3564 :: 		strncpy(Set_min_superheat.Caption, txt, 2);
+;Controller_events_code.c,3565 :: 		strncpy(Set_min_superheat.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Set_min_superheat+24)
 MOVT	R0, #hi_addr(_Set_min_superheat+24)
@@ -14280,198 +14331,198 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3565 :: 		DrawRoundButton(&Set_min_superheat);
+;Controller_events_code.c,3566 :: 		DrawRoundButton(&Set_min_superheat);
 MOVW	R0, #lo_addr(_Set_min_superheat+0)
 MOVT	R0, #hi_addr(_Set_min_superheat+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3566 :: 		Delay_ms (100);
+;Controller_events_code.c,3567 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_Up_18_OnPress437:
+L_Up_18_OnPress441:
 SUBS	R7, R7, #1
-BNE	L_Up_18_OnPress437
+BNE	L_Up_18_OnPress441
 NOP
 NOP
 NOP
-;Controller_events_code.c,3567 :: 		}
+;Controller_events_code.c,3568 :: 		}
 L_end_Up_18_OnPress:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Up_18_OnPress
 _Up_18_OnUp:
-;Controller_events_code.c,3568 :: 		void Up_18_OnUp() {
+;Controller_events_code.c,3569 :: 		void Up_18_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3569 :: 		Image477.Visible = 0;
+;Controller_events_code.c,3570 :: 		Image477.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image477+20)
 MOVT	R0, #hi_addr(_Image477+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3570 :: 		Up_18_.Visible = 1;
+;Controller_events_code.c,3571 :: 		Up_18_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Up_18_+20)
 MOVT	R0, #hi_addr(_Up_18_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3571 :: 		DrawImage(&Up_18_);
+;Controller_events_code.c,3572 :: 		DrawImage(&Up_18_);
 MOVW	R0, #lo_addr(_Up_18_+0)
 MOVT	R0, #hi_addr(_Up_18_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3572 :: 		}
+;Controller_events_code.c,3573 :: 		}
 L_end_Up_18_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Up_18_OnUp
 _Set_15_OnUp:
-;Controller_events_code.c,3573 :: 		void Set_15_OnUp() {
-;Controller_events_code.c,3575 :: 		}
+;Controller_events_code.c,3574 :: 		void Set_15_OnUp() {
+;Controller_events_code.c,3576 :: 		}
 L_end_Set_15_OnUp:
 BX	LR
 ; end of _Set_15_OnUp
 _Set_15_OnDown:
-;Controller_events_code.c,3576 :: 		void Set_15_OnDown() {
-;Controller_events_code.c,3578 :: 		}
+;Controller_events_code.c,3577 :: 		void Set_15_OnDown() {
+;Controller_events_code.c,3579 :: 		}
 L_end_Set_15_OnDown:
 BX	LR
 ; end of _Set_15_OnDown
 _Set_16_OnUp:
-;Controller_events_code.c,3579 :: 		void Set_16_OnUp() {
-;Controller_events_code.c,3581 :: 		}
+;Controller_events_code.c,3580 :: 		void Set_16_OnUp() {
+;Controller_events_code.c,3582 :: 		}
 L_end_Set_16_OnUp:
 BX	LR
 ; end of _Set_16_OnUp
 _Set_16_OnDown:
-;Controller_events_code.c,3582 :: 		void Set_16_OnDown() {
-;Controller_events_code.c,3584 :: 		}
+;Controller_events_code.c,3583 :: 		void Set_16_OnDown() {
+;Controller_events_code.c,3585 :: 		}
 L_end_Set_16_OnDown:
 BX	LR
 ; end of _Set_16_OnDown
 _Set_17_OnUp:
-;Controller_events_code.c,3585 :: 		void Set_17_OnUp () {
-;Controller_events_code.c,3587 :: 		}
+;Controller_events_code.c,3586 :: 		void Set_17_OnUp () {
+;Controller_events_code.c,3588 :: 		}
 L_end_Set_17_OnUp:
 BX	LR
 ; end of _Set_17_OnUp
 _Set_17_OnDown:
-;Controller_events_code.c,3588 :: 		void Set_17_OnDown() {
-;Controller_events_code.c,3590 :: 		}
+;Controller_events_code.c,3589 :: 		void Set_17_OnDown() {
+;Controller_events_code.c,3591 :: 		}
 L_end_Set_17_OnDown:
 BX	LR
 ; end of _Set_17_OnDown
 _Set_18_OnUp:
-;Controller_events_code.c,3591 :: 		void Set_18_OnUp() {
+;Controller_events_code.c,3592 :: 		void Set_18_OnUp() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3592 :: 		Set_18_.Visible = 1;
+;Controller_events_code.c,3593 :: 		Set_18_.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Set_18_+20)
 MOVT	R0, #hi_addr(_Set_18_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3593 :: 		Image485.Visible = 0;
+;Controller_events_code.c,3594 :: 		Image485.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image485+20)
 MOVT	R0, #hi_addr(_Image485+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3594 :: 		DrawImage (&Set_18_);
+;Controller_events_code.c,3595 :: 		DrawImage (&Set_18_);
 MOVW	R0, #lo_addr(_Set_18_+0)
 MOVT	R0, #hi_addr(_Set_18_+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3595 :: 		}
+;Controller_events_code.c,3596 :: 		}
 L_end_Set_18_OnUp:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_18_OnUp
 _Set_18_OnDown:
-;Controller_events_code.c,3596 :: 		void Set_18_OnDown() {
+;Controller_events_code.c,3597 :: 		void Set_18_OnDown() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3597 :: 		Tone1();
+;Controller_events_code.c,3598 :: 		Tone1();
 BL	_Tone1+0
-;Controller_events_code.c,3599 :: 		send_data_packet(S_HEAT_MIN,1);
+;Controller_events_code.c,3600 :: 		send_data_packet(S_HEAT_MIN,1);
 MOVS	R1, #1
 MOVW	R0, #290
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,3600 :: 		Set_18_.Visible = 0;
+;Controller_events_code.c,3601 :: 		Set_18_.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Set_18_+20)
 MOVT	R0, #hi_addr(_Set_18_+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3601 :: 		Image485.Visible = 1;
+;Controller_events_code.c,3602 :: 		Image485.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image485+20)
 MOVT	R0, #hi_addr(_Image485+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3602 :: 		DrawImage (&Image485);
+;Controller_events_code.c,3603 :: 		DrawImage (&Image485);
 MOVW	R0, #lo_addr(_Image485+0)
 MOVT	R0, #hi_addr(_Image485+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3603 :: 		}
+;Controller_events_code.c,3604 :: 		}
 L_end_Set_18_OnDown:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Set_18_OnDown
 _Set_14_OnDown:
-;Controller_events_code.c,3604 :: 		void Set_14_OnDown() {
-;Controller_events_code.c,3606 :: 		}
+;Controller_events_code.c,3605 :: 		void Set_14_OnDown() {
+;Controller_events_code.c,3607 :: 		}
 L_end_Set_14_OnDown:
 BX	LR
 ; end of _Set_14_OnDown
 _Set_14_OnUp:
-;Controller_events_code.c,3607 :: 		void Set_14_OnUp(){
-;Controller_events_code.c,3608 :: 		}
+;Controller_events_code.c,3608 :: 		void Set_14_OnUp(){
+;Controller_events_code.c,3609 :: 		}
 L_end_Set_14_OnUp:
 BX	LR
 ; end of _Set_14_OnUp
 _Set_13_OnUp:
-;Controller_events_code.c,3609 :: 		void Set_13_OnUp() {
-;Controller_events_code.c,3611 :: 		}
+;Controller_events_code.c,3610 :: 		void Set_13_OnUp() {
+;Controller_events_code.c,3612 :: 		}
 L_end_Set_13_OnUp:
 BX	LR
 ; end of _Set_13_OnUp
 _Set_13_OnDown:
-;Controller_events_code.c,3612 :: 		void Set_13_OnDown() {
-;Controller_events_code.c,3614 :: 		}
+;Controller_events_code.c,3613 :: 		void Set_13_OnDown() {
+;Controller_events_code.c,3615 :: 		}
 L_end_Set_13_OnDown:
 BX	LR
 ; end of _Set_13_OnDown
 _dec_def:
-;Controller_events_code.c,3622 :: 		void dec_def() {
+;Controller_events_code.c,3623 :: 		void dec_def() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3624 :: 		system_reg[TIME_BETWEEN_DEF]--;
+;Controller_events_code.c,3625 :: 		system_reg[TIME_BETWEEN_DEF]--;
 MOVW	R1, #lo_addr(_system_reg+960)
 MOVT	R1, #hi_addr(_system_reg+960)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3625 :: 		if (system_reg[TIME_BETWEEN_DEF] < 0)
+;Controller_events_code.c,3626 :: 		if (system_reg[TIME_BETWEEN_DEF] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_dec_def439
-;Controller_events_code.c,3626 :: 		system_reg[TIME_BETWEEN_DEF] = 0;
+BGE	L_dec_def443
+;Controller_events_code.c,3627 :: 		system_reg[TIME_BETWEEN_DEF] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+960)
 MOVT	R0, #hi_addr(_system_reg+960)
 STRH	R1, [R0, #0]
-L_dec_def439:
-;Controller_events_code.c,3627 :: 		IntToStr(system_reg[TIME_BETWEEN_DEF], txt);
+L_dec_def443:
+;Controller_events_code.c,3628 :: 		IntToStr(system_reg[TIME_BETWEEN_DEF], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+960)
 MOVT	R0, #hi_addr(_system_reg+960)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3628 :: 		Ltrim (txt);
+;Controller_events_code.c,3629 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3629 :: 		strncpy(Defrost_on_time.Caption, txt, 2);
+;Controller_events_code.c,3630 :: 		strncpy(Defrost_on_time.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Defrost_on_time+24)
 MOVT	R0, #hi_addr(_Defrost_on_time+24)
@@ -14479,59 +14530,59 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3630 :: 		DrawRoundButton(&Defrost_on_time);
+;Controller_events_code.c,3631 :: 		DrawRoundButton(&Defrost_on_time);
 MOVW	R0, #lo_addr(_Defrost_on_time+0)
 MOVT	R0, #hi_addr(_Defrost_on_time+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3631 :: 		Delay_ms (100);
+;Controller_events_code.c,3632 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_dec_def440:
+L_dec_def444:
 SUBS	R7, R7, #1
-BNE	L_dec_def440
+BNE	L_dec_def444
 NOP
 NOP
 NOP
-;Controller_events_code.c,3632 :: 		}
+;Controller_events_code.c,3633 :: 		}
 L_end_dec_def:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _dec_def
 _time_def_dec:
-;Controller_events_code.c,3634 :: 		void time_def_dec() {
+;Controller_events_code.c,3635 :: 		void time_def_dec() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3636 :: 		system_reg[TIME_DEFROST]--;
+;Controller_events_code.c,3637 :: 		system_reg[TIME_DEFROST]--;
 MOVW	R1, #lo_addr(_system_reg+720)
 MOVT	R1, #hi_addr(_system_reg+720)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3637 :: 		if (system_reg[TIME_DEFROST] < 0)
+;Controller_events_code.c,3638 :: 		if (system_reg[TIME_DEFROST] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_time_def_dec442
-;Controller_events_code.c,3638 :: 		system_reg[TIME_DEFROST] = 0;
+BGE	L_time_def_dec446
+;Controller_events_code.c,3639 :: 		system_reg[TIME_DEFROST] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+720)
 MOVT	R0, #hi_addr(_system_reg+720)
 STRH	R1, [R0, #0]
-L_time_def_dec442:
-;Controller_events_code.c,3639 :: 		IntToStr(system_reg[TIME_DEFROST], txt);
+L_time_def_dec446:
+;Controller_events_code.c,3640 :: 		IntToStr(system_reg[TIME_DEFROST], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+720)
 MOVT	R0, #hi_addr(_system_reg+720)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3640 :: 		Ltrim (txt);
+;Controller_events_code.c,3641 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3641 :: 		strncpy(Defrost_off_time.Caption, txt, 2);
+;Controller_events_code.c,3642 :: 		strncpy(Defrost_off_time.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Defrost_off_time+24)
 MOVT	R0, #hi_addr(_Defrost_off_time+24)
@@ -14539,59 +14590,59 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3642 :: 		DrawRoundButton(&Defrost_off_time);
+;Controller_events_code.c,3643 :: 		DrawRoundButton(&Defrost_off_time);
 MOVW	R0, #lo_addr(_Defrost_off_time+0)
 MOVT	R0, #hi_addr(_Defrost_off_time+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3643 :: 		Delay_ms (100);
+;Controller_events_code.c,3644 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_time_def_dec443:
+L_time_def_dec447:
 SUBS	R7, R7, #1
-BNE	L_time_def_dec443
+BNE	L_time_def_dec447
 NOP
 NOP
 NOP
-;Controller_events_code.c,3644 :: 		}
+;Controller_events_code.c,3645 :: 		}
 L_end_time_def_dec:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _time_def_dec
 _temp_on_dec:
-;Controller_events_code.c,3646 :: 		void temp_on_dec() {
+;Controller_events_code.c,3647 :: 		void temp_on_dec() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3648 :: 		system_reg[TEMP_DEFROST]--;
+;Controller_events_code.c,3649 :: 		system_reg[TEMP_DEFROST]--;
 MOVW	R1, #lo_addr(_system_reg+700)
 MOVT	R1, #hi_addr(_system_reg+700)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3649 :: 		if (system_reg[TEMP_DEFROST] < 0)
+;Controller_events_code.c,3650 :: 		if (system_reg[TEMP_DEFROST] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_temp_on_dec445
-;Controller_events_code.c,3650 :: 		system_reg[TEMP_DEFROST] = 0;
+BGE	L_temp_on_dec449
+;Controller_events_code.c,3651 :: 		system_reg[TEMP_DEFROST] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+700)
 MOVT	R0, #hi_addr(_system_reg+700)
 STRH	R1, [R0, #0]
-L_temp_on_dec445:
-;Controller_events_code.c,3651 :: 		IntToStr(system_reg[TEMP_DEFROST], txt);
+L_temp_on_dec449:
+;Controller_events_code.c,3652 :: 		IntToStr(system_reg[TEMP_DEFROST], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+700)
 MOVT	R0, #hi_addr(_system_reg+700)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3652 :: 		Ltrim (txt);
+;Controller_events_code.c,3653 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3653 :: 		strncpy(Defrost_on_temperature.Caption, txt, 2);
+;Controller_events_code.c,3654 :: 		strncpy(Defrost_on_temperature.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Defrost_on_temperature+24)
 MOVT	R0, #hi_addr(_Defrost_on_temperature+24)
@@ -14599,59 +14650,59 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3654 :: 		DrawRoundButton(&Defrost_on_temperature);
+;Controller_events_code.c,3655 :: 		DrawRoundButton(&Defrost_on_temperature);
 MOVW	R0, #lo_addr(_Defrost_on_temperature+0)
 MOVT	R0, #hi_addr(_Defrost_on_temperature+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3655 :: 		Delay_ms (100);
+;Controller_events_code.c,3656 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_temp_on_dec446:
+L_temp_on_dec450:
 SUBS	R7, R7, #1
-BNE	L_temp_on_dec446
+BNE	L_temp_on_dec450
 NOP
 NOP
 NOP
-;Controller_events_code.c,3656 :: 		}
+;Controller_events_code.c,3657 :: 		}
 L_end_temp_on_dec:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _temp_on_dec
 _temp_off_dec:
-;Controller_events_code.c,3658 :: 		void temp_off_dec() {
+;Controller_events_code.c,3659 :: 		void temp_off_dec() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3660 :: 		system_reg[TEMP_STOP_DEFROST]--;
+;Controller_events_code.c,3661 :: 		system_reg[TEMP_STOP_DEFROST]--;
 MOVW	R1, #lo_addr(_system_reg+760)
 MOVT	R1, #hi_addr(_system_reg+760)
 LDRSH	R0, [R1, #0]
 SUBS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3661 :: 		if (system_reg[TEMP_STOP_DEFROST] < 0)
+;Controller_events_code.c,3662 :: 		if (system_reg[TEMP_STOP_DEFROST] < 0)
 CMP	R0, #0
 IT	GE
-BGE	L_temp_off_dec448
-;Controller_events_code.c,3662 :: 		system_reg[TEMP_STOP_DEFROST] = 0;
+BGE	L_temp_off_dec452
+;Controller_events_code.c,3663 :: 		system_reg[TEMP_STOP_DEFROST] = 0;
 MOVS	R1, #0
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+760)
 MOVT	R0, #hi_addr(_system_reg+760)
 STRH	R1, [R0, #0]
-L_temp_off_dec448:
-;Controller_events_code.c,3663 :: 		IntToStr(system_reg[TEMP_STOP_DEFROST], txt);
+L_temp_off_dec452:
+;Controller_events_code.c,3664 :: 		IntToStr(system_reg[TEMP_STOP_DEFROST], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+760)
 MOVT	R0, #hi_addr(_system_reg+760)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3664 :: 		Ltrim (txt);
+;Controller_events_code.c,3665 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3665 :: 		strncpy(Defrost_off_temperature.Caption, txt, 2);
+;Controller_events_code.c,3666 :: 		strncpy(Defrost_off_temperature.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Defrost_off_temperature+24)
 MOVT	R0, #hi_addr(_Defrost_off_temperature+24)
@@ -14659,65 +14710,65 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3666 :: 		DrawRoundButton(&Defrost_off_temperature);
+;Controller_events_code.c,3667 :: 		DrawRoundButton(&Defrost_off_temperature);
 MOVW	R0, #lo_addr(_Defrost_off_temperature+0)
 MOVT	R0, #hi_addr(_Defrost_off_temperature+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3667 :: 		Delay_ms (100);
+;Controller_events_code.c,3668 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_temp_off_dec449:
+L_temp_off_dec453:
 SUBS	R7, R7, #1
-BNE	L_temp_off_dec449
+BNE	L_temp_off_dec453
 NOP
 NOP
 NOP
-;Controller_events_code.c,3668 :: 		}
+;Controller_events_code.c,3669 :: 		}
 L_end_temp_off_dec:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _temp_off_dec
 _hum_dec:
-;Controller_events_code.c,3670 :: 		void hum_dec() {
-;Controller_events_code.c,3672 :: 		}
+;Controller_events_code.c,3671 :: 		void hum_dec() {
+;Controller_events_code.c,3673 :: 		}
 L_end_hum_dec:
 BX	LR
 ; end of _hum_dec
 _inc_def:
-;Controller_events_code.c,3674 :: 		void inc_def() {
+;Controller_events_code.c,3675 :: 		void inc_def() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3676 :: 		system_reg[TIME_BETWEEN_DEF]++;
+;Controller_events_code.c,3677 :: 		system_reg[TIME_BETWEEN_DEF]++;
 MOVW	R1, #lo_addr(_system_reg+960)
 MOVT	R1, #hi_addr(_system_reg+960)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3677 :: 		if (system_reg[TIME_BETWEEN_DEF] > 99)
+;Controller_events_code.c,3678 :: 		if (system_reg[TIME_BETWEEN_DEF] > 99)
 CMP	R0, #99
 IT	LE
-BLE	L_inc_def451
-;Controller_events_code.c,3678 :: 		system_reg[TIME_BETWEEN_DEF] = 99;
+BLE	L_inc_def455
+;Controller_events_code.c,3679 :: 		system_reg[TIME_BETWEEN_DEF] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+960)
 MOVT	R0, #hi_addr(_system_reg+960)
 STRH	R1, [R0, #0]
-L_inc_def451:
-;Controller_events_code.c,3679 :: 		IntToStr(system_reg[TIME_BETWEEN_DEF], txt);
+L_inc_def455:
+;Controller_events_code.c,3680 :: 		IntToStr(system_reg[TIME_BETWEEN_DEF], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+960)
 MOVT	R0, #hi_addr(_system_reg+960)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3680 :: 		Ltrim (txt);
+;Controller_events_code.c,3681 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3681 :: 		strncpy(Defrost_on_time.Caption, txt, 2);
+;Controller_events_code.c,3682 :: 		strncpy(Defrost_on_time.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Defrost_on_time+24)
 MOVT	R0, #hi_addr(_Defrost_on_time+24)
@@ -14725,59 +14776,59 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3682 :: 		DrawRoundButton(&Defrost_on_time);
+;Controller_events_code.c,3683 :: 		DrawRoundButton(&Defrost_on_time);
 MOVW	R0, #lo_addr(_Defrost_on_time+0)
 MOVT	R0, #hi_addr(_Defrost_on_time+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3683 :: 		Delay_ms (100);
+;Controller_events_code.c,3684 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_inc_def452:
+L_inc_def456:
 SUBS	R7, R7, #1
-BNE	L_inc_def452
+BNE	L_inc_def456
 NOP
 NOP
 NOP
-;Controller_events_code.c,3684 :: 		}
+;Controller_events_code.c,3685 :: 		}
 L_end_inc_def:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _inc_def
 _time_def_inc:
-;Controller_events_code.c,3686 :: 		void time_def_inc() {
+;Controller_events_code.c,3687 :: 		void time_def_inc() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3688 :: 		system_reg[TIME_DEFROST]++;
+;Controller_events_code.c,3689 :: 		system_reg[TIME_DEFROST]++;
 MOVW	R1, #lo_addr(_system_reg+720)
 MOVT	R1, #hi_addr(_system_reg+720)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3689 :: 		if (system_reg[TIME_DEFROST] >99)
+;Controller_events_code.c,3690 :: 		if (system_reg[TIME_DEFROST] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_time_def_inc454
-;Controller_events_code.c,3690 :: 		system_reg[TIME_BETWEEN_DEF] = 99;
+BLE	L_time_def_inc458
+;Controller_events_code.c,3691 :: 		system_reg[TIME_BETWEEN_DEF] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+960)
 MOVT	R0, #hi_addr(_system_reg+960)
 STRH	R1, [R0, #0]
-L_time_def_inc454:
-;Controller_events_code.c,3691 :: 		IntToStr(system_reg[TIME_DEFROST], txt);
+L_time_def_inc458:
+;Controller_events_code.c,3692 :: 		IntToStr(system_reg[TIME_DEFROST], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+720)
 MOVT	R0, #hi_addr(_system_reg+720)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3692 :: 		Ltrim (txt);
+;Controller_events_code.c,3693 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3693 :: 		strncpy(Defrost_off_time.Caption, txt, 2);
+;Controller_events_code.c,3694 :: 		strncpy(Defrost_off_time.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Defrost_off_time+24)
 MOVT	R0, #hi_addr(_Defrost_off_time+24)
@@ -14785,59 +14836,59 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3694 :: 		DrawRoundButton(&Defrost_off_time);
+;Controller_events_code.c,3695 :: 		DrawRoundButton(&Defrost_off_time);
 MOVW	R0, #lo_addr(_Defrost_off_time+0)
 MOVT	R0, #hi_addr(_Defrost_off_time+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3695 :: 		Delay_ms (100);
+;Controller_events_code.c,3696 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_time_def_inc455:
+L_time_def_inc459:
 SUBS	R7, R7, #1
-BNE	L_time_def_inc455
+BNE	L_time_def_inc459
 NOP
 NOP
 NOP
-;Controller_events_code.c,3696 :: 		}
+;Controller_events_code.c,3697 :: 		}
 L_end_time_def_inc:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _time_def_inc
 _temp_on_inc:
-;Controller_events_code.c,3698 :: 		void temp_on_inc() {
+;Controller_events_code.c,3699 :: 		void temp_on_inc() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3700 :: 		system_reg[TEMP_DEFROST]++;
+;Controller_events_code.c,3701 :: 		system_reg[TEMP_DEFROST]++;
 MOVW	R1, #lo_addr(_system_reg+700)
 MOVT	R1, #hi_addr(_system_reg+700)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3701 :: 		if (system_reg[TEMP_DEFROST] >99)
+;Controller_events_code.c,3702 :: 		if (system_reg[TEMP_DEFROST] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_temp_on_inc457
-;Controller_events_code.c,3702 :: 		system_reg[TEMP_DEFROST] = 99;
+BLE	L_temp_on_inc461
+;Controller_events_code.c,3703 :: 		system_reg[TEMP_DEFROST] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+700)
 MOVT	R0, #hi_addr(_system_reg+700)
 STRH	R1, [R0, #0]
-L_temp_on_inc457:
-;Controller_events_code.c,3703 :: 		IntToStr(system_reg[TEMP_DEFROST], txt);
+L_temp_on_inc461:
+;Controller_events_code.c,3704 :: 		IntToStr(system_reg[TEMP_DEFROST], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+700)
 MOVT	R0, #hi_addr(_system_reg+700)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3704 :: 		Ltrim (txt);
+;Controller_events_code.c,3705 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3705 :: 		strncpy(Defrost_on_temperature.Caption, txt, 2);
+;Controller_events_code.c,3706 :: 		strncpy(Defrost_on_temperature.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Defrost_on_temperature+24)
 MOVT	R0, #hi_addr(_Defrost_on_temperature+24)
@@ -14845,59 +14896,59 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3706 :: 		DrawRoundButton(&Defrost_on_temperature);
+;Controller_events_code.c,3707 :: 		DrawRoundButton(&Defrost_on_temperature);
 MOVW	R0, #lo_addr(_Defrost_on_temperature+0)
 MOVT	R0, #hi_addr(_Defrost_on_temperature+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3707 :: 		Delay_ms (100);
+;Controller_events_code.c,3708 :: 		Delay_ms (100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_temp_on_inc458:
+L_temp_on_inc462:
 SUBS	R7, R7, #1
-BNE	L_temp_on_inc458
+BNE	L_temp_on_inc462
 NOP
 NOP
 NOP
-;Controller_events_code.c,3708 :: 		}
+;Controller_events_code.c,3709 :: 		}
 L_end_temp_on_inc:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _temp_on_inc
 _temp_off_inc:
-;Controller_events_code.c,3710 :: 		void temp_off_inc() {
+;Controller_events_code.c,3711 :: 		void temp_off_inc() {
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
-;Controller_events_code.c,3712 :: 		system_reg[TEMP_STOP_DEFROST]++;
+;Controller_events_code.c,3713 :: 		system_reg[TEMP_STOP_DEFROST]++;
 MOVW	R1, #lo_addr(_system_reg+760)
 MOVT	R1, #hi_addr(_system_reg+760)
 LDRSH	R0, [R1, #0]
 ADDS	R0, R0, #1
 SXTH	R0, R0
 STRH	R0, [R1, #0]
-;Controller_events_code.c,3713 :: 		if (system_reg[TEMP_STOP_DEFROST] >99)
+;Controller_events_code.c,3714 :: 		if (system_reg[TEMP_STOP_DEFROST] >99)
 CMP	R0, #99
 IT	LE
-BLE	L_temp_off_inc460
-;Controller_events_code.c,3714 :: 		system_reg[TEMP_STOP_DEFROST] = 99;
+BLE	L_temp_off_inc464
+;Controller_events_code.c,3715 :: 		system_reg[TEMP_STOP_DEFROST] = 99;
 MOVS	R1, #99
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+760)
 MOVT	R0, #hi_addr(_system_reg+760)
 STRH	R1, [R0, #0]
-L_temp_off_inc460:
-;Controller_events_code.c,3715 :: 		IntToStr(system_reg[TEMP_STOP_DEFROST], txt);
+L_temp_off_inc464:
+;Controller_events_code.c,3716 :: 		IntToStr(system_reg[TEMP_STOP_DEFROST], txt);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_system_reg+760)
 MOVT	R0, #hi_addr(_system_reg+760)
 LDRSH	R0, [R0, #0]
 BL	_IntToStr+0
-;Controller_events_code.c,3716 :: 		Ltrim (txt);
+;Controller_events_code.c,3717 :: 		Ltrim (txt);
 ADD	R0, SP, #4
 BL	_Ltrim+0
-;Controller_events_code.c,3717 :: 		strncpy(Defrost_off_temperature.Caption, txt, 2);
+;Controller_events_code.c,3718 :: 		strncpy(Defrost_off_temperature.Caption, txt, 2);
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Defrost_off_temperature+24)
 MOVT	R0, #hi_addr(_Defrost_off_temperature+24)
@@ -14905,256 +14956,256 @@ LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
 BL	_strncpy+0
-;Controller_events_code.c,3718 :: 		DrawRoundButton(&Defrost_off_temperature);
+;Controller_events_code.c,3719 :: 		DrawRoundButton(&Defrost_off_temperature);
 MOVW	R0, #lo_addr(_Defrost_off_temperature+0)
 MOVT	R0, #hi_addr(_Defrost_off_temperature+0)
 BL	_DrawRoundButton+0
-;Controller_events_code.c,3719 :: 		}
+;Controller_events_code.c,3720 :: 		}
 L_end_temp_off_inc:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _temp_off_inc
 _hum_inc:
-;Controller_events_code.c,3721 :: 		void hum_inc() {
-;Controller_events_code.c,3723 :: 		}
+;Controller_events_code.c,3722 :: 		void hum_inc() {
+;Controller_events_code.c,3724 :: 		}
 L_end_hum_inc:
 BX	LR
 ; end of _hum_inc
 _hum_set:
-;Controller_events_code.c,3729 :: 		void hum_set() {
-;Controller_events_code.c,3731 :: 		}
+;Controller_events_code.c,3730 :: 		void hum_set() {
+;Controller_events_code.c,3732 :: 		}
 L_end_hum_set:
 BX	LR
 ; end of _hum_set
 _SetUPttimDef:
-;Controller_events_code.c,3733 :: 		void SetUPttimDef() {
+;Controller_events_code.c,3734 :: 		void SetUPttimDef() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3735 :: 		Defrost_set1.Visible = 1;
+;Controller_events_code.c,3736 :: 		Defrost_set1.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Defrost_set1+20)
 MOVT	R0, #hi_addr(_Defrost_set1+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3736 :: 		Image355.Visible = 0;
+;Controller_events_code.c,3737 :: 		Image355.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image355+20)
 MOVT	R0, #hi_addr(_Image355+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3737 :: 		DrawImage (&Defrost_set1);
+;Controller_events_code.c,3738 :: 		DrawImage (&Defrost_set1);
 MOVW	R0, #lo_addr(_Defrost_set1+0)
 MOVT	R0, #hi_addr(_Defrost_set1+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3738 :: 		}
+;Controller_events_code.c,3739 :: 		}
 L_end_SetUPttimDef:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _SetUPttimDef
 _SetdownttimDef:
-;Controller_events_code.c,3740 :: 		void SetdownttimDef() {
+;Controller_events_code.c,3741 :: 		void SetdownttimDef() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3741 :: 		Defrost_set1.Visible = 0;
+;Controller_events_code.c,3742 :: 		Defrost_set1.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Defrost_set1+20)
 MOVT	R0, #hi_addr(_Defrost_set1+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3742 :: 		Image355.Visible = 1;
+;Controller_events_code.c,3743 :: 		Image355.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image355+20)
 MOVT	R0, #hi_addr(_Image355+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3743 :: 		DrawImage (&Image355);
+;Controller_events_code.c,3744 :: 		DrawImage (&Image355);
 MOVW	R0, #lo_addr(_Image355+0)
 MOVT	R0, #hi_addr(_Image355+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3744 :: 		send_data_packet(TIME_BETWEEN_DEF,1);
+;Controller_events_code.c,3745 :: 		send_data_packet(TIME_BETWEEN_DEF,1);
 MOVS	R1, #1
 MOVW	R0, #480
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,3745 :: 		}
+;Controller_events_code.c,3746 :: 		}
 L_end_SetdownttimDef:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _SetdownttimDef
 _Setdownintdef:
-;Controller_events_code.c,3747 :: 		void Setdownintdef() {
+;Controller_events_code.c,3748 :: 		void Setdownintdef() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3748 :: 		Defrost_set2.Visible = 0;
+;Controller_events_code.c,3749 :: 		Defrost_set2.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Defrost_set2+20)
 MOVT	R0, #hi_addr(_Defrost_set2+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3749 :: 		Image381.Visible = 1;
+;Controller_events_code.c,3750 :: 		Image381.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image381+20)
 MOVT	R0, #hi_addr(_Image381+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3750 :: 		DrawImage (&Image381);
+;Controller_events_code.c,3751 :: 		DrawImage (&Image381);
 MOVW	R0, #lo_addr(_Image381+0)
 MOVT	R0, #hi_addr(_Image381+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3751 :: 		send_data_packet(TIME_DEFROST,1);
+;Controller_events_code.c,3752 :: 		send_data_packet(TIME_DEFROST,1);
 MOVS	R1, #1
 MOVW	R0, #360
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,3753 :: 		}
+;Controller_events_code.c,3754 :: 		}
 L_end_Setdownintdef:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Setdownintdef
 _Setupintdef:
-;Controller_events_code.c,3755 :: 		void Setupintdef() {
+;Controller_events_code.c,3756 :: 		void Setupintdef() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3756 :: 		Defrost_set2.Visible = 1;
+;Controller_events_code.c,3757 :: 		Defrost_set2.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Defrost_set2+20)
 MOVT	R0, #hi_addr(_Defrost_set2+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3757 :: 		Image381.Visible = 0;
+;Controller_events_code.c,3758 :: 		Image381.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image381+20)
 MOVT	R0, #hi_addr(_Image381+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3758 :: 		DrawImage (&Defrost_set2);
+;Controller_events_code.c,3759 :: 		DrawImage (&Defrost_set2);
 MOVW	R0, #lo_addr(_Defrost_set2+0)
 MOVT	R0, #hi_addr(_Defrost_set2+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3760 :: 		}
+;Controller_events_code.c,3761 :: 		}
 L_end_Setupintdef:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Setupintdef
 _Setuptempdef:
-;Controller_events_code.c,3762 :: 		void Setuptempdef() {
+;Controller_events_code.c,3763 :: 		void Setuptempdef() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3763 :: 		Defrost_set3.Visible = 1;
+;Controller_events_code.c,3764 :: 		Defrost_set3.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Defrost_set3+20)
 MOVT	R0, #hi_addr(_Defrost_set3+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3764 :: 		Image384.Visible = 0;
+;Controller_events_code.c,3765 :: 		Image384.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image384+20)
 MOVT	R0, #hi_addr(_Image384+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3765 :: 		DrawImage (&Defrost_set3);
+;Controller_events_code.c,3766 :: 		DrawImage (&Defrost_set3);
 MOVW	R0, #lo_addr(_Defrost_set3+0)
 MOVT	R0, #hi_addr(_Defrost_set3+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3767 :: 		}
+;Controller_events_code.c,3768 :: 		}
 L_end_Setuptempdef:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Setuptempdef
 _Setdowntempdef:
-;Controller_events_code.c,3769 :: 		void Setdowntempdef() {
+;Controller_events_code.c,3770 :: 		void Setdowntempdef() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3770 :: 		Defrost_set3.Visible = 0;
+;Controller_events_code.c,3771 :: 		Defrost_set3.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Defrost_set3+20)
 MOVT	R0, #hi_addr(_Defrost_set3+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3771 :: 		Image384.Visible = 1;
+;Controller_events_code.c,3772 :: 		Image384.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image384+20)
 MOVT	R0, #hi_addr(_Image384+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3772 :: 		DrawImage (&Image384);
+;Controller_events_code.c,3773 :: 		DrawImage (&Image384);
 MOVW	R0, #lo_addr(_Image384+0)
 MOVT	R0, #hi_addr(_Image384+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3773 :: 		send_data_packet(TEMP_DEFROST,1);
+;Controller_events_code.c,3774 :: 		send_data_packet(TEMP_DEFROST,1);
 MOVS	R1, #1
 MOVW	R0, #350
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,3774 :: 		}
+;Controller_events_code.c,3775 :: 		}
 L_end_Setdowntempdef:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Setdowntempdef
 _temp_off_set:
-;Controller_events_code.c,3776 :: 		void temp_off_set() {
+;Controller_events_code.c,3777 :: 		void temp_off_set() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3777 :: 		Defrost_set4.Visible = 0;
+;Controller_events_code.c,3778 :: 		Defrost_set4.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Defrost_set4+20)
 MOVT	R0, #hi_addr(_Defrost_set4+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3778 :: 		Image388.Visible = 1;
+;Controller_events_code.c,3779 :: 		Image388.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Image388+20)
 MOVT	R0, #hi_addr(_Image388+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3779 :: 		DrawImage (&Image388);
+;Controller_events_code.c,3780 :: 		DrawImage (&Image388);
 MOVW	R0, #lo_addr(_Image388+0)
 MOVT	R0, #hi_addr(_Image388+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3780 :: 		send_data_packet(TEMP_STOP_DEFROST,1);
+;Controller_events_code.c,3781 :: 		send_data_packet(TEMP_STOP_DEFROST,1);
 MOVS	R1, #1
 MOVW	R0, #380
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,3781 :: 		}
+;Controller_events_code.c,3782 :: 		}
 L_end_temp_off_set:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _temp_off_set
 _temp_on_set:
-;Controller_events_code.c,3783 :: 		void temp_on_set() {
+;Controller_events_code.c,3784 :: 		void temp_on_set() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3784 :: 		Defrost_set4.Visible = 1;
+;Controller_events_code.c,3785 :: 		Defrost_set4.Visible = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_Defrost_set4+20)
 MOVT	R0, #hi_addr(_Defrost_set4+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3785 :: 		Image388.Visible = 0;
+;Controller_events_code.c,3786 :: 		Image388.Visible = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_Image388+20)
 MOVT	R0, #hi_addr(_Image388+20)
 STRB	R1, [R0, #0]
-;Controller_events_code.c,3786 :: 		DrawImage (&Defrost_set4);
+;Controller_events_code.c,3787 :: 		DrawImage (&Defrost_set4);
 MOVW	R0, #lo_addr(_Defrost_set4+0)
 MOVT	R0, #hi_addr(_Defrost_set4+0)
 BL	_DrawImage+0
-;Controller_events_code.c,3788 :: 		}
+;Controller_events_code.c,3789 :: 		}
 L_end_temp_on_set:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _temp_on_set
 _pushDEF:
-;Controller_events_code.c,3789 :: 		void pushDEF(){
+;Controller_events_code.c,3790 :: 		void pushDEF(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Controller_events_code.c,3790 :: 		system_reg[PUSH_DEFROS]=1;
+;Controller_events_code.c,3791 :: 		system_reg[PUSH_DEFROS]=1;
 MOVS	R1, #1
 SXTH	R1, R1
 MOVW	R0, #lo_addr(_system_reg+786)
 MOVT	R0, #hi_addr(_system_reg+786)
 STRH	R1, [R0, #0]
-;Controller_events_code.c,3791 :: 		send_data_packet(PUSH_DEFROS,1);
+;Controller_events_code.c,3792 :: 		send_data_packet(PUSH_DEFROS,1);
 MOVS	R1, #1
 MOVW	R0, #393
 SXTH	R0, R0
 BL	_send_data_packet+0
-;Controller_events_code.c,3792 :: 		}
+;Controller_events_code.c,3793 :: 		}
 L_end_pushDEF:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4

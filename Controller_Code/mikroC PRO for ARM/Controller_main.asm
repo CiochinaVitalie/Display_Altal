@@ -7,13 +7,13 @@ MOVS	R1, #1
 SXTB	R1, R1
 MOVW	R0, #lo_addr(RCC_APB1ENR+0)
 MOVT	R0, #hi_addr(RCC_APB1ENR+0)
-_SX	[R0, ByteOffset(RCC_APB1ENR+0)]
+STR	R1, [R0, #0]
 ;Controller_main.c,69 :: 		TIM2_CR1.CEN = 0;
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(TIM2_CR1+0)
 MOVT	R0, #hi_addr(TIM2_CR1+0)
-_SX	[R0, ByteOffset(TIM2_CR1+0)]
+STR	R1, [R0, #0]
 ;Controller_main.c,70 :: 		TIM2_PSC = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(TIM2_PSC+0)
@@ -32,7 +32,7 @@ MOVS	R1, #1
 SXTB	R1, R1
 MOVW	R0, #lo_addr(TIM2_DIER+0)
 MOVT	R0, #hi_addr(TIM2_DIER+0)
-_SX	[R0, ByteOffset(TIM2_DIER+0)]
+STR	R1, [R0, #0]
 ;Controller_main.c,75 :: 		}
 L_end_InitTimer2:
 LDR	LR, [SP, #0]
@@ -48,7 +48,7 @@ MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(TIM2_SR+0)
 MOVT	R0, #hi_addr(TIM2_SR+0)
-_SX	[R0, ByteOffset(TIM2_SR+0)]
+STR	R1, [R0, #0]
 ;Controller_main.c,79 :: 		rx_time++;
 MOVW	R0, #lo_addr(_rx_time+0)
 MOVT	R0, #hi_addr(_rx_time+0)
@@ -106,7 +106,7 @@ MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(TIM2_CR1+0)
 MOVT	R0, #hi_addr(TIM2_CR1+0)
-_SX	[R0, ByteOffset(TIM2_CR1+0)]
+STR	R1, [R0, #0]
 ;Controller_main.c,89 :: 		checkResponse();
 BL	_checkResponse+0
 ;Controller_main.c,91 :: 		}
@@ -136,25 +136,25 @@ MOVS	R2, #1
 SXTB	R2, R2
 MOVW	R0, #lo_addr(USART2_CR1bits+0)
 MOVT	R0, #hi_addr(USART2_CR1bits+0)
-_SX	[R0, ByteOffset(USART2_CR1bits+0)]
+STR	R2, [R0, #0]
 ;Controller_main.c,100 :: 		USART2_CR1bits.TXEIE = 0;
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(USART2_CR1bits+0)
 MOVT	R0, #hi_addr(USART2_CR1bits+0)
-_SX	[R0, ByteOffset(USART2_CR1bits+0)]
+STR	R1, [R0, #0]
 ;Controller_main.c,101 :: 		USART2_CR1bits.UE = 1;
 MOVW	R0, #lo_addr(USART2_CR1bits+0)
 MOVT	R0, #hi_addr(USART2_CR1bits+0)
-_SX	[R0, ByteOffset(USART2_CR1bits+0)]
+STR	R2, [R0, #0]
 ;Controller_main.c,102 :: 		USART2_CR1bits.TE=1;
 MOVW	R0, #lo_addr(USART2_CR1bits+0)
 MOVT	R0, #hi_addr(USART2_CR1bits+0)
-_SX	[R0, ByteOffset(USART2_CR1bits+0)]
+STR	R2, [R0, #0]
 ;Controller_main.c,103 :: 		USART2_CR1bits.RE=1;
 MOVW	R0, #lo_addr(USART2_CR1bits+0)
 MOVT	R0, #hi_addr(USART2_CR1bits+0)
-_SX	[R0, ByteOffset(USART2_CR1bits+0)]
+STR	R2, [R0, #0]
 ;Controller_main.c,104 :: 		NVIC_IntEnable(IVT_INT_USART2);  // enable interrupt vector
 MOVW	R0, #54
 BL	_NVIC_IntEnable+0
@@ -169,16 +169,16 @@ _USARTINTERRUPT:
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
 ;Controller_main.c,109 :: 		if(USART2_SRbits.RXNE != 0){
-MOVW	R0, #lo_addr(USART2_SRbits+0)
-MOVT	R0, #hi_addr(USART2_SRbits+0)
-_LX	[R0, ByteOffset(USART2_SRbits+0)]
+MOVW	R1, #lo_addr(USART2_SRbits+0)
+MOVT	R1, #hi_addr(USART2_SRbits+0)
+LDR	R0, [R1, #0]
 CMP	R0, #0
 IT	EQ
 BEQ	L_USARTINTERRUPT1
 ;Controller_main.c,110 :: 		if(TIM2_CR1.CEN == 0)TIM2_CR1.CEN = 1;
-MOVW	R0, #lo_addr(TIM2_CR1+0)
-MOVT	R0, #hi_addr(TIM2_CR1+0)
-_LX	[R0, ByteOffset(TIM2_CR1+0)]
+MOVW	R1, #lo_addr(TIM2_CR1+0)
+MOVT	R1, #hi_addr(TIM2_CR1+0)
+LDR	R0, [R1, #0]
 CMP	R0, #0
 IT	NE
 BNE	L_USARTINTERRUPT2
@@ -186,7 +186,7 @@ MOVS	R1, #1
 SXTB	R1, R1
 MOVW	R0, #lo_addr(TIM2_CR1+0)
 MOVT	R0, #hi_addr(TIM2_CR1+0)
-_SX	[R0, ByteOffset(TIM2_CR1+0)]
+STR	R1, [R0, #0]
 L_USARTINTERRUPT2:
 ;Controller_main.c,111 :: 		rx_time_previos = rx_time;
 MOVW	R0, #lo_addr(_rx_time+0)

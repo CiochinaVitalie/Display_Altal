@@ -1,6 +1,6 @@
-#line 1 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_driver.c"
-#line 1 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
-#line 27 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
+#line 1 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_driver.c"
+#line 1 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
+#line 27 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
 typedef enum {_pbsClearSector, _pbsFillSector} TProgressBarSector;
 
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
@@ -2017,7 +2017,7 @@ void furnanceUP();
 void furnanceDown();
 void user_defrostOnUp();
 void user_defrostOnPress();
-#line 2048 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
+#line 2048 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_objects.h"
 void DEC_EEV1OnPress();
 void INC_EEV1OnPress();
 
@@ -3700,9 +3700,9 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "d:/altal/display_altal/controller_code/mikroc pro for arm/controller_resources.h"
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
-#line 7 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_driver.c"
+#line 1 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/controller_resources.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/built_in.h"
+#line 7 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_driver.c"
 sbit Mmc_Chip_Select at GPIOD_ODR.B3;
 
 
@@ -33219,7 +33219,7 @@ static char IsInsideObject (unsigned int X, unsigned int Y, unsigned int Left, u
  else
  return 0;
 }
-#line 29537 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_driver.c"
+#line 29537 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Controller_driver.c"
 void DrawButton(TButton *Abutton) {
 unsigned int ALeft, ATop;
  if (Abutton->Visible != 0) {

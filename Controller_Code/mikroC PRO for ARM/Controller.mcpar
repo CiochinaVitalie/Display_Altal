@@ -15,7 +15,17 @@ Value=
 Value=0
 [HEAP_SIZE]
 Value=2000
+[LIB_EXPANDED_NODES]
+Count=0
+[NECTO_OPTIONS]
+NECTO_RESET_TYPE=1
+NECTO_ERASE_TYPE=0
+NECTO_CONNECTION=0
+NECTO_SPEED=0
+NECTO_HALT_AFTER=0
+NECTO_VERIFY_AFTER=0
 [FILES]
+Count=11
 File0=Controller_main.c
 File1=Controller_events_code.c
 File2=Controller_driver.c
@@ -27,20 +37,19 @@ File7=DataConvertor.c
 File8=Gauge.c
 File9=Errors.c
 File10=Pages.c
-Count=11
 [BINARIES]
 Count=0
 [IMAGES]
 Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
+Count=6
 File0=Controller_main.c
 File1=Controller_events_code.c
 File2=Pages.c
 File3=Errors.c
 File4=controller_objects.h
 File5=Controller_driver.c
-Count=6
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -48,17 +57,23 @@ Count=0
 [OTHER_FILES]
 Count=0
 [SEARCH_PATH]
-Count=0
+Count=4
+Path0=C:\MikroC\mikroC PRO for ARM\Defs\
+Path1=C:\MikroC\mikroC PRO for ARM\Uses\ST M4\
+Path2=C:\MikroC\mikroC PRO for ARM\Uses\
+Path3=C:\Users\Dumitru\Desktop\!!!!!!!!\Display_Altal\Controller_Code\mikroC PRO for ARM\
 [HEADER_PATH]
-Count=0
+Count=1
+Path0=C:\Users\Dumitru\Desktop\!!!!!!!!\Display_Altal\Controller_Code\mikroC PRO for ARM\
 [HEADERS]
+Count=3
 File0=Controller_objects.h
 File1=Controller_resources.h
 File2=Systick.h
-Count=3
 [PLDS]
 Count=0
 [Useses]
+Count=20
 File0=C_Math
 File1=C_Stdlib
 File2=UART
@@ -79,12 +94,7 @@ File16=TFT_Defs
 File17=TFT
 File18=C_String
 File19=Conversions
-Count=20
 [EXPANDED_NODES]
-0=Controller.mcpar
-1=Sources
-Count=2
-[LIB_EXPANDED_NODES]
 Count=0
 [PROGRAMMER_OPTIONS]
 Value=SWD
@@ -92,13 +102,6 @@ Value=SWD
 Value=mikroE mikroProg
 [DEBUGGER_TYPE]
 Value=default
-[NECTO_OPTIONS]
-NECTO_RESET_TYPE=1
-NECTO_ERASE_TYPE=0
-NECTO_CONNECTION=0
-NECTO_SPEED=0
-NECTO_HALT_AFTER=0
-NECTO_VERIFY_AFTER=0
 [AT_DEBUG_STARTUP]
 LOAD_BIN_TO_RAM=0
 START_EXEC_FROM_ADDR=0

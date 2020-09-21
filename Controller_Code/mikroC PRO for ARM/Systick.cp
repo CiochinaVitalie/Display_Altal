@@ -1,6 +1,6 @@
-#line 1 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Systick.c"
-#line 1 "d:/altal/display_altal/controller_code/mikroc pro for arm/systick.h"
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/stdint.h"
+#line 1 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Systick.c"
+#line 1 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/systick.h"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdint.h"
 
 
 
@@ -49,11 +49,11 @@ typedef unsigned long int uintptr_t;
 
 typedef signed long long intmax_t;
 typedef unsigned long long uintmax_t;
-#line 25 "d:/altal/display_altal/controller_code/mikroc pro for arm/systick.h"
+#line 25 "c:/users/dumitru/desktop/!!!!!!!!/display_altal/controller_code/mikroc pro for arm/systick.h"
  void InitSysTick();
  uint32_t millis();
-#line 1 "c:/users/vitalie/documents/mikroelektronika/mikroc pro for arm/include/stdint.h"
-#line 4 "D:/ALTAL/Display_Altal/Controller_Code/mikroC PRO for ARM/Systick.c"
+#line 1 "c:/mikroc/mikroc pro for arm/include/stdint.h"
+#line 4 "C:/Users/Dumitru/Desktop/!!!!!!!!/Display_Altal/Controller_Code/mikroC PRO for ARM/Systick.c"
  volatile uint32_t time_count = 0;
 
 

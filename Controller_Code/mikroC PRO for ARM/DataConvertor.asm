@@ -56,7 +56,7 @@ _calc_temperature:
 MOVS	R4, #0
 ;DataConvertor.c,31 :: 		r = (sizeof(termo_table) / sizeof(termo_table[0])) - 1;
 ; r start address is: 12 (R3)
-MOVW	R3, #29
+MOVS	R3, #29
 ;DataConvertor.c,32 :: 		thigh = termo_table[r];
 MOVS	R2, #58
 MOVW	R1, #lo_addr(_termo_table+0)
