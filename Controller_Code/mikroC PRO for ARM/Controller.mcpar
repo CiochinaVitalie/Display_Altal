@@ -39,7 +39,8 @@ File1=Controller_events_code.c
 File2=Pages.c
 File3=Errors.c
 File4=controller_objects.h
-Count=5
+File5=Controller_driver.c
+Count=6
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
