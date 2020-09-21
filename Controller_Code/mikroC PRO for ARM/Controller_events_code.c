@@ -420,7 +420,8 @@ void Heat_SettingOnClick(){
             else if(strcmp(bar_heating.Caption,"COOLING")==0) IntToStr(system_reg[SET_COOL], txt);
             Ltrim(txt);
             strncpy(TEMP_Setting_value.Caption, txt, 2);
-            if(system_reg[SET_HEAT]<10 && system_reg[SET_HEAT]>=0){TEMP_Setting_value.Caption[1]=TEMP_Setting_value.Caption[0];TEMP_Setting_value.Caption[0]='0';}
+            if(system_reg[SET_HEAT]<10 && system_reg[SET_HEAT]>=0 && bar_heating.Caption,"HEATING")==0){TEMP_Setting_value.Caption[1]=TEMP_Setting_value.Caption[0];TEMP_Setting_value.Caption[0]='0';}
+             else if(system_reg[SET_COOL]<10 && system_reg[SET_COOL]>=0 && bar_heating.Caption,"COOLING")==0){TEMP_Setting_value.Caption[1]=TEMP_Setting_value.Caption[0];TEMP_Setting_value.Caption[0]='0';}
             Heat_Setting.Caption = "SELECT";
             DrawRoundBox(&Heat_Windows);
             DrawRoundButton(&Heat_Setting);

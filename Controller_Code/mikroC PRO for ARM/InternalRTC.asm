@@ -202,34 +202,34 @@ STR	LR, [SP, #0]
 ; Cal_Value end address is: 0 (R0)
 ; Cal_Value start address is: 0 (R0)
 ;InternalRTC.c,109 :: 		unsigned long          recalpfcount = 0;
-; recalpfcount start address is: 12 (R3)
-MOV	R3, #0
+; recalpfcount start address is: 8 (R2)
+MOV	R2, #0
 ;InternalRTC.c,112 :: 		if (RTC_ISR.B16 == 1)
-MOVW	R2, #lo_addr(RTC_ISR+0)
-MOVT	R2, #hi_addr(RTC_ISR+0)
-LDR	R1, [R2, #0]
+MOVW	R1, #lo_addr(RTC_ISR+0)
+MOVT	R1, #hi_addr(RTC_ISR+0)
+_LX	[R1, ByteOffset(RTC_ISR+0)]
 CMP	R1, #0
 IT	EQ
 BEQ	L__Calibrate_RTC_Crystal36
-; recalpfcount end address is: 12 (R3)
+; recalpfcount end address is: 8 (R2)
 ; Cal_Value end address is: 0 (R0)
 ;InternalRTC.c,115 :: 		while ((RTC_ISR.B16 == 1) && (recalpfcount < 131072))
 L_Calibrate_RTC_Crystal7:
-; recalpfcount start address is: 12 (R3)
+; recalpfcount start address is: 8 (R2)
 ; Cal_Value start address is: 0 (R0)
-MOVW	R2, #lo_addr(RTC_ISR+0)
-MOVT	R2, #hi_addr(RTC_ISR+0)
-LDR	R1, [R2, #0]
+MOVW	R1, #lo_addr(RTC_ISR+0)
+MOVT	R1, #hi_addr(RTC_ISR+0)
+_LX	[R1, ByteOffset(RTC_ISR+0)]
 CMP	R1, #0
 IT	EQ
 BEQ	L__Calibrate_RTC_Crystal35
-CMP	R3, #131072
+CMP	R2, #131072
 IT	CS
 BCS	L__Calibrate_RTC_Crystal34
 L__Calibrate_RTC_Crystal33:
 ;InternalRTC.c,116 :: 		recalpfcount++;
-ADDS	R3, R3, #1
-; recalpfcount end address is: 12 (R3)
+ADDS	R2, R2, #1
+; recalpfcount end address is: 8 (R2)
 IT	AL
 BAL	L_Calibrate_RTC_Crystal7
 ;InternalRTC.c,115 :: 		while ((RTC_ISR.B16 == 1) && (recalpfcount < 131072))
@@ -252,7 +252,9 @@ BGE	L_Calibrate_RTC_Crystal11
 ; Cal_Value end address is: 0 (R0)
 BL	_abs+0
 ;InternalRTC.c,123 :: 		Cal_Value = Cal_Value / 2;
-ASRS	R1, R0, #1
+MOVS	R1, #2
+SXTH	R1, R1
+SDIV	R1, R0, R1
 SXTH	R1, R1
 ;InternalRTC.c,124 :: 		Cal_Value = Cal_Value & 0x001F;                                        // Only use the bottom 5 bits.
 AND	R3, R1, #31
@@ -261,7 +263,7 @@ MOVS	R2, #1
 SXTB	R2, R2
 MOVW	R1, #lo_addr(RTC_CALIBRbits+0)
 MOVT	R1, #hi_addr(RTC_CALIBRbits+0)
-STR	R2, [R1, #0]
+_SX	[R1, ByteOffset(RTC_CALIBRbits+0)]
 ;InternalRTC.c,126 :: 		RTC_CALIBRbits.DC  = (short) Cal_Value;                                // DC[4:0]: Digital calibration
 UXTB	R3, R3
 MOVW	R2, #lo_addr(RTC_CALIBRbits+0)
@@ -275,7 +277,9 @@ BAL	L_Calibrate_RTC_Crystal12
 L_Calibrate_RTC_Crystal11:
 ;InternalRTC.c,130 :: 		Cal_Value = Cal_Value / 2;
 ; Cal_Value start address is: 0 (R0)
-ASRS	R1, R0, #1
+MOVS	R1, #2
+SXTH	R1, R1
+SDIV	R1, R0, R1
 SXTH	R1, R1
 ; Cal_Value end address is: 0 (R0)
 ;InternalRTC.c,131 :: 		Cal_Value = Cal_Value & 0x001F;                                        // Only use the bottom 5 bits.
@@ -285,7 +289,7 @@ MOVS	R2, #0
 SXTB	R2, R2
 MOVW	R1, #lo_addr(RTC_CALIBRbits+0)
 MOVT	R1, #hi_addr(RTC_CALIBRbits+0)
-STR	R2, [R1, #0]
+_SX	[R1, ByteOffset(RTC_CALIBRbits+0)]
 ;InternalRTC.c,133 :: 		RTC_CALIBRbits.DC  = (short) Cal_Value;                                // DC[4:0]: Digital calibration
 UXTB	R3, R3
 MOVW	R2, #lo_addr(RTC_CALIBRbits+0)
@@ -313,7 +317,7 @@ MOVS	R2, #1
 SXTB	R2, R2
 MOVW	R1, #lo_addr(PWR_CR+0)
 MOVT	R1, #hi_addr(PWR_CR+0)
-STR	R2, [R1, #0]
+_SX	[R1, ByteOffset(PWR_CR+0)]
 ;InternalRTC.c,150 :: 		RTC_WPR = 0xCA;                   //unlock write protection
 MOVS	R2, #202
 MOVW	R1, #lo_addr(RTC_WPR+0)
@@ -334,9 +338,9 @@ MOV	R4, R0
 ;InternalRTC.c,153 :: 		while(RTC_ISR.INITF != 1){};      // bit 6
 L_Set_RTC13:
 ; RTCC_Time start address is: 16 (R4)
-MOVW	R2, #lo_addr(RTC_ISR+0)
-MOVT	R2, #hi_addr(RTC_ISR+0)
-LDR	R1, [R2, #0]
+MOVW	R1, #lo_addr(RTC_ISR+0)
+MOVT	R1, #hi_addr(RTC_ISR+0)
+_LX	[R1, ByteOffset(RTC_ISR+0)]
 CMP	R1, #0
 IT	NE
 BNE	L_Set_RTC14
@@ -430,7 +434,7 @@ MOVS	R2, #0
 SXTB	R2, R2
 MOVW	R1, #lo_addr(RTC_CRbits+0)
 MOVT	R1, #hi_addr(RTC_CRbits+0)
-STR	R2, [R1, #0]
+_SX	[R1, ByteOffset(RTC_CRbits+0)]
 ;InternalRTC.c,171 :: 		RTC_CRbits.WCKSEL = 0;   // set FMT 24H format
 MOVS	R3, #0
 MOVW	R2, #lo_addr(RTC_CRbits+0)
@@ -457,7 +461,7 @@ BX	LR
 _RTCC_Read:
 ;InternalRTC.c,185 :: 		char RTCC_Read(TTime *RTCC_Time){
 ; RTCC_Time start address is: 0 (R0)
-SUB	SP, SP, #12
+SUB	SP, SP, #8
 STR	LR, [SP, #0]
 MOV	R4, R0
 ; RTCC_Time end address is: 0 (R0)
@@ -492,7 +496,6 @@ BEQ	L__RTCC_Read37
 ;InternalRTC.c,193 :: 		old_RTC_Time = RTC_Time;
 MOVW	R3, #lo_addr(_RTC_Time+0)
 MOVT	R3, #hi_addr(_RTC_Time+0)
-STR	R3, [SP, #8]
 LDR	R2, [R3, #0]
 MOVW	R1, #lo_addr(_old_RTC_Time+0)
 MOVT	R1, #hi_addr(_old_RTC_Time+0)
@@ -516,9 +519,10 @@ BL	_Bcd2Dec+0
 LDR	R1, [SP, #4]
 STRB	R0, [R1, #0]
 ;InternalRTC.c,197 :: 		RTCC_Time->minutes = Bcd2Dec((short)((RTC_Time & 0x007f00) >> 8));
-ADDS	R2, R4, #2
-LDR	R1, [SP, #8]
-STR	R2, [SP, #4]
+ADDS	R1, R4, #2
+STR	R1, [SP, #4]
+MOVW	R1, #lo_addr(_RTC_Time+0)
+MOVT	R1, #hi_addr(_RTC_Time+0)
 LDR	R1, [R1, #0]
 AND	R1, R1, #32512
 LSRS	R1, R1, #8
@@ -527,9 +531,10 @@ BL	_Bcd2Dec+0
 LDR	R1, [SP, #4]
 STRB	R0, [R1, #0]
 ;InternalRTC.c,198 :: 		RTCC_Time->seconds = Bcd2Dec((short)(RTC_Time & 0x0000ff));
-ADDS	R2, R4, #1
-LDR	R1, [SP, #8]
-STR	R2, [SP, #4]
+ADDS	R1, R4, #1
+STR	R1, [SP, #4]
+MOVW	R1, #lo_addr(_RTC_Time+0)
+MOVT	R1, #hi_addr(_RTC_Time+0)
 LDR	R1, [R1, #0]
 AND	R1, R1, #255
 UXTB	R0, R1
@@ -562,7 +567,6 @@ BEQ	L__RTCC_Read38
 ;InternalRTC.c,204 :: 		old_RTC_Date = RTC_Date;
 MOVW	R3, #lo_addr(_RTC_Date+0)
 MOVT	R3, #hi_addr(_RTC_Date+0)
-STR	R3, [SP, #8]
 LDR	R2, [R3, #0]
 MOVW	R1, #lo_addr(_old_RTC_Date+0)
 MOVT	R1, #hi_addr(_old_RTC_Date+0)
@@ -579,9 +583,10 @@ BL	_Bcd2Dec+0
 LDR	R1, [SP, #4]
 STRB	R0, [R1, #0]
 ;InternalRTC.c,207 :: 		RTCC_Time->weekday = Bcd2Dec((short)((RTC_Date & 0x00e000) >> 13));
-ADDS	R2, R4, #6
-LDR	R1, [SP, #8]
-STR	R2, [SP, #4]
+ADDS	R1, R4, #6
+STR	R1, [SP, #4]
+MOVW	R1, #lo_addr(_RTC_Date+0)
+MOVT	R1, #hi_addr(_RTC_Date+0)
 LDR	R1, [R1, #0]
 AND	R1, R1, #57344
 LSRS	R1, R1, #13
@@ -590,9 +595,10 @@ BL	_Bcd2Dec+0
 LDR	R1, [SP, #4]
 STRB	R0, [R1, #0]
 ;InternalRTC.c,208 :: 		RTCC_Time->month = Bcd2Dec((short)((RTC_Date & 0x00001F00) >> 8));
-ADDS	R2, R4, #5
-LDR	R1, [SP, #8]
-STR	R2, [SP, #4]
+ADDS	R1, R4, #5
+STR	R1, [SP, #4]
+MOVW	R1, #lo_addr(_RTC_Date+0)
+MOVT	R1, #hi_addr(_RTC_Date+0)
 LDR	R1, [R1, #0]
 AND	R1, R1, #7936
 LSRS	R1, R1, #8
@@ -601,10 +607,11 @@ BL	_Bcd2Dec+0
 LDR	R1, [SP, #4]
 STRB	R0, [R1, #0]
 ;InternalRTC.c,209 :: 		RTCC_Time->day = Bcd2Dec((short)(RTC_Date & 0x0000ff));
-ADDS	R2, R4, #4
+ADDS	R1, R4, #4
 ; RTCC_Time end address is: 16 (R4)
-LDR	R1, [SP, #8]
-STR	R2, [SP, #4]
+STR	R1, [SP, #4]
+MOVW	R1, #lo_addr(_RTC_Date+0)
+MOVT	R1, #hi_addr(_RTC_Date+0)
 LDR	R1, [R1, #0]
 AND	R1, R1, #255
 UXTB	R0, R1
@@ -628,7 +635,7 @@ L_RTCC_Read16:
 ;InternalRTC.c,214 :: 		}
 L_end_RTCC_Read:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #12
+ADD	SP, SP, #8
 BX	LR
 ; end of _RTCC_Read
 _RTC_GetSubSeconds:
@@ -679,11 +686,11 @@ _RTC_GetTime:
 ; RTC_TimeStruct end address is: 0 (R0)
 ; RTC_TimeStruct start address is: 0 (R0)
 ;InternalRTC.c,249 :: 		RTC_TimeStruct->RTC_H12         =  (unsigned short) RTC_TRbits.PM;
-ADDS	R3, R0, #6
-MOVW	R2, #lo_addr(RTC_TRbits+0)
-MOVT	R2, #hi_addr(RTC_TRbits+0)
-LDR	R1, [R2, #0]
-STRB	R1, [R3, #0]
+ADDS	R2, R0, #6
+MOVW	R1, #lo_addr(RTC_TRbits+0)
+MOVT	R1, #hi_addr(RTC_TRbits+0)
+_LX	[R1, ByteOffset(RTC_TRbits+0)]
+_SX	[R2, ByteOffset(#0)]
 ;InternalRTC.c,250 :: 		RTC_TimeStruct->RTC_Hour_Tens   =  (unsigned short) RTC_TRbits.HT;
 MOVW	R1, #lo_addr(RTC_TRbits+0)
 MOVT	R1, #hi_addr(RTC_TRbits+0)
@@ -761,11 +768,11 @@ LDRB	R1, [R1, #0]
 UBFX	R1, R1, #0, #4
 STRB	R1, [R2, #0]
 ;InternalRTC.c,271 :: 		RTC_DateStruct->RTC_Month_Tens    =  (unsigned short) RTC_DRbits.MT;
-ADDS	R3, R0, #3
-MOVW	R2, #lo_addr(RTC_DRbits+0)
-MOVT	R2, #hi_addr(RTC_DRbits+0)
-LDR	R1, [R2, #0]
-STRB	R1, [R3, #0]
+ADDS	R2, R0, #3
+MOVW	R1, #lo_addr(RTC_DRbits+0)
+MOVT	R1, #hi_addr(RTC_DRbits+0)
+_LX	[R1, ByteOffset(RTC_DRbits+0)]
+_SX	[R2, ByteOffset(#0)]
 ;InternalRTC.c,272 :: 		RTC_DateStruct->RTC_Month_Units   =  (unsigned short) RTC_DRbits.MU;
 ADDS	R2, R0, #4
 MOVW	R1, #lo_addr(RTC_DRbits+0)
@@ -798,7 +805,7 @@ BX	LR
 _RTC_PrintTime:
 ;InternalRTC.c,285 :: 		void RTC_PrintTime(RTC_TimeTypeDef *RTC_TimeStruct)
 ; RTC_TimeStruct start address is: 0 (R0)
-SUB	SP, SP, #12
+SUB	SP, SP, #8
 STR	LR, [SP, #0]
 MOV	R7, R0
 ; RTC_TimeStruct end address is: 0 (R0)
@@ -811,7 +818,6 @@ MOVS	R0, #10
 BL	_UART2_Write+0
 ;InternalRTC.c,291 :: 		ByteToStr(RTC_TimeStruct->RTC_Hour_Tens, txt);
 ADD	R2, SP, #4
-STR	R2, [SP, #8]
 LDRB	R1, [R7, #0]
 UXTB	R0, R1
 MOV	R1, R2
@@ -828,11 +834,10 @@ UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
 ;InternalRTC.c,294 :: 		txt[0] = txt[2];    txt[1] = txt[3];
-ADD	R2, SP, #4
-ADDS	R1, R2, #2
+ADD	R3, SP, #4
+ADDS	R1, R3, #2
 LDRB	R1, [R1, #0]
-STRB	R1, [R2, #0]
-LDR	R3, [SP, #8]
+STRB	R1, [R3, #0]
 ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
@@ -853,11 +858,10 @@ UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
 ;InternalRTC.c,298 :: 		txt[0] = txt[2];    txt[1] = txt[3];
-ADD	R2, SP, #4
-ADDS	R1, R2, #2
+ADD	R3, SP, #4
+ADDS	R1, R3, #2
 LDRB	R1, [R1, #0]
-STRB	R1, [R2, #0]
-LDR	R3, [SP, #8]
+STRB	R1, [R3, #0]
 ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
@@ -873,11 +877,10 @@ UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
 ;InternalRTC.c,301 :: 		txt[0] = txt[2];    txt[1] = txt[3];
-ADD	R2, SP, #4
-ADDS	R1, R2, #2
+ADD	R3, SP, #4
+ADDS	R1, R3, #2
 LDRB	R1, [R1, #0]
-STRB	R1, [R2, #0]
-LDR	R3, [SP, #8]
+STRB	R1, [R3, #0]
 ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
@@ -898,11 +901,10 @@ UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
 ;InternalRTC.c,305 :: 		txt[0] = txt[2];    txt[1] = txt[3];
-ADD	R2, SP, #4
-ADDS	R1, R2, #2
+ADD	R3, SP, #4
+ADDS	R1, R3, #2
 LDRB	R1, [R1, #0]
-STRB	R1, [R2, #0]
-LDR	R3, [SP, #8]
+STRB	R1, [R3, #0]
 ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
@@ -918,11 +920,10 @@ UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
 ;InternalRTC.c,308 :: 		txt[0] = txt[2];    txt[1] = txt[3];
-ADD	R2, SP, #4
-ADDS	R1, R2, #2
+ADD	R3, SP, #4
+ADDS	R1, R3, #2
 LDRB	R1, [R1, #0]
-STRB	R1, [R2, #0]
-LDR	R3, [SP, #8]
+STRB	R1, [R3, #0]
 ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
@@ -960,13 +961,13 @@ BL	_UART2_Write+0
 ;InternalRTC.c,318 :: 		}
 L_end_RTC_PrintTime:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #12
+ADD	SP, SP, #8
 BX	LR
 ; end of _RTC_PrintTime
 _RTC_PrintDate:
 ;InternalRTC.c,327 :: 		void RTC_PrintDate(RTC_DateTypeDef *RTC_DateStruct)
 ; RTC_DateStruct start address is: 0 (R0)
-SUB	SP, SP, #12
+SUB	SP, SP, #8
 STR	LR, [SP, #0]
 MOV	R7, R0
 ; RTC_DateStruct end address is: 0 (R0)
@@ -1069,7 +1070,6 @@ BEQ	L_RTC_PrintDate27
 L_RTC_PrintDate20:
 ;InternalRTC.c,349 :: 		ByteToStr(RTC_DateStruct->RTC_Date_Tens, txt);
 ADD	R2, SP, #4
-STR	R2, [SP, #8]
 ADDS	R1, R7, #1
 LDRB	R1, [R1, #0]
 UXTB	R0, R1
@@ -1087,11 +1087,10 @@ UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
 ;InternalRTC.c,352 :: 		txt[0] = txt[2];    txt[1] = txt[3];
-ADD	R2, SP, #4
-ADDS	R1, R2, #2
+ADD	R3, SP, #4
+ADDS	R1, R3, #2
 LDRB	R1, [R1, #0]
-STRB	R1, [R2, #0]
-LDR	R3, [SP, #8]
+STRB	R1, [R3, #0]
 ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
@@ -1112,11 +1111,10 @@ UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
 ;InternalRTC.c,356 :: 		txt[0] = txt[2];    txt[1] = txt[3];
-ADD	R2, SP, #4
-ADDS	R1, R2, #2
+ADD	R3, SP, #4
+ADDS	R1, R3, #2
 LDRB	R1, [R1, #0]
-STRB	R1, [R2, #0]
-LDR	R3, [SP, #8]
+STRB	R1, [R3, #0]
 ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
@@ -1132,11 +1130,10 @@ UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
 ;InternalRTC.c,359 :: 		txt[0] = txt[2];    txt[1] = txt[3];
-ADD	R2, SP, #4
-ADDS	R1, R2, #2
+ADD	R3, SP, #4
+ADDS	R1, R3, #2
 LDRB	R1, [R1, #0]
-STRB	R1, [R2, #0]
-LDR	R3, [SP, #8]
+STRB	R1, [R3, #0]
 ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
@@ -1157,11 +1154,10 @@ UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
 ;InternalRTC.c,363 :: 		txt[0] = txt[2];    txt[1] = txt[3];
-ADD	R2, SP, #4
-ADDS	R1, R2, #2
+ADD	R3, SP, #4
+ADDS	R1, R3, #2
 LDRB	R1, [R1, #0]
-STRB	R1, [R2, #0]
-LDR	R3, [SP, #8]
+STRB	R1, [R3, #0]
 ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
@@ -1178,11 +1174,10 @@ UXTB	R0, R1
 MOV	R1, R2
 BL	_ByteToStr+0
 ;InternalRTC.c,366 :: 		txt[0] = txt[2];    txt[1] = txt[3];
-ADD	R2, SP, #4
-ADDS	R1, R2, #2
+ADD	R3, SP, #4
+ADDS	R1, R3, #2
 LDRB	R1, [R1, #0]
-STRB	R1, [R2, #0]
-LDR	R3, [SP, #8]
+STRB	R1, [R3, #0]
 ADDS	R2, R3, #1
 ADDS	R1, R3, #3
 LDRB	R1, [R1, #0]
@@ -1199,7 +1194,7 @@ BL	_UART2_Write+0
 ;InternalRTC.c,372 :: 		}
 L_end_RTC_PrintDate:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #12
+ADD	SP, SP, #8
 BX	LR
 ; end of _RTC_PrintDate
 _Print_Sub_Secs:
@@ -1351,7 +1346,9 @@ MOV	R0, R4
 LDRSB	R0, [R0, #0]
 ADDS	R1, R0, R2
 SXTH	R1, R1
-ASRS	R0, R2, #2
+MOVS	R0, #4
+SXTH	R0, R0
+SDIV	R0, R2, R0
 SXTH	R0, R0
 ADDS	R1, R1, R0
 SXTH	R1, R1

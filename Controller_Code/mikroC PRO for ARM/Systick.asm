@@ -13,7 +13,7 @@ MOVW	R0, #lo_addr(STK_VAL+0)
 MOVT	R0, #hi_addr(STK_VAL+0)
 STR	R1, [R0, #0]
 ;Systick.c,12 :: 		SysTick_CTRL_ENABLE_Msk;
-MOVS	R1, #7
+MOV	R1, #7
 MOVW	R0, #lo_addr(STK_CTRL+0)
 MOVT	R0, #hi_addr(STK_CTRL+0)
 STR	R1, [R0, #0]

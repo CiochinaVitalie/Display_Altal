@@ -54,7 +54,6 @@ L__main_page384:
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_dhw_T+24)
 MOVT	R0, #hi_addr(_dhw_T+24)
-STR	R0, [SP, #24]
 LDR	R0, [R0, #0]
 MOVS	R2, #1
 SXTH	R2, R2
@@ -70,7 +69,7 @@ LDRB	R0, [R0, #0]
 STRB	R0, [R1, #0]
 ;Pages.c,27 :: 		dhw_T.Caption[0]='0';
 MOVS	R1, #48
-LDR	R0, [SP, #24]
+MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
 ;Pages.c,28 :: 		DrawRoundButton(&dhw_T);
@@ -281,7 +280,6 @@ L__main_page390:
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_heat_T+24)
 MOVT	R0, #hi_addr(_heat_T+24)
-STR	R0, [SP, #24]
 LDR	R0, [R0, #0]
 MOVS	R2, #1
 SXTH	R2, R2
@@ -297,7 +295,7 @@ LDRB	R0, [R0, #0]
 STRB	R0, [R1, #0]
 ;Pages.c,66 :: 		heat_T.Caption[0]='0';
 MOVS	R1, #48
-LDR	R0, [SP, #24]
+MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
 ;Pages.c,67 :: 		DrawRoundButton(&heat_T);
@@ -590,7 +588,6 @@ L__main_page400:
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_sourc_out_TEMP+24)
 MOVT	R0, #hi_addr(_sourc_out_TEMP+24)
-STR	R0, [SP, #24]
 LDR	R0, [R0, #0]
 MOVS	R2, #1
 SXTH	R2, R2
@@ -606,7 +603,7 @@ LDRB	R0, [R0, #0]
 STRB	R0, [R1, #0]
 ;Pages.c,107 :: 		sourc_out_TEMP.Caption[0]='0';
 MOVS	R1, #48
-LDR	R0, [SP, #24]
+MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
 ;Pages.c,108 :: 		DrawRoundButton(&sourc_out_TEMP);
@@ -911,7 +908,6 @@ L__main_page410:
 ADD	R1, SP, #8
 MOVW	R0, #lo_addr(_sourc_in_T+24)
 MOVT	R0, #hi_addr(_sourc_in_T+24)
-STR	R0, [SP, #24]
 LDR	R0, [R0, #0]
 MOVS	R2, #1
 SXTH	R2, R2
@@ -927,7 +923,7 @@ LDRB	R0, [R0, #0]
 STRB	R0, [R1, #0]
 ;Pages.c,156 :: 		sourc_in_T.Caption[0]='0';
 MOVS	R1, #48
-LDR	R0, [SP, #24]
+MOV	R0, R2
 LDR	R0, [R0, #0]
 STRB	R1, [R0, #0]
 ;Pages.c,157 :: 		DrawRoundButton(&sourc_in_T);
@@ -1973,7 +1969,6 @@ BEQ	L_sensor_1127
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_S_Compressor_1+24)
 MOVT	R1, #hi_addr(_S_Compressor_1+24)
-STR	R1, [SP, #20]
 LDR	R1, [R1, #0]
 MOV	R0, R1
 MOV	R1, R2
@@ -1990,7 +1985,6 @@ LDR	R1, [R1, #0]
 ADDS	R1, R1, #1
 LDRB	R1, [R1, #0]
 STRB	R1, [R2, #0]
-LDR	R3, [SP, #20]
 MOV	R1, R3
 LDR	R1, [R1, #0]
 ADDS	R2, R1, #1
@@ -3613,7 +3607,6 @@ BEQ	L_sensor_1215
 ADD	R2, SP, #4
 MOVW	R1, #lo_addr(_S_Compressor_1+24)
 MOVT	R1, #hi_addr(_S_Compressor_1+24)
-STR	R1, [SP, #20]
 LDR	R1, [R1, #0]
 MOV	R0, R1
 MOV	R1, R2
@@ -3630,7 +3623,6 @@ LDR	R1, [R1, #0]
 ADDS	R1, R1, #1
 LDRB	R1, [R1, #0]
 STRB	R1, [R2, #0]
-LDR	R3, [SP, #20]
 MOV	R1, R3
 LDR	R1, [R1, #0]
 ADDS	R2, R1, #1
@@ -6026,7 +6018,7 @@ BX	LR
 ; end of _working_time
 _schema1_page:
 ;Pages.c,886 :: 		void schema1_page(){
-SUB	SP, SP, #16
+SUB	SP, SP, #12
 STR	LR, [SP, #0]
 ;Pages.c,889 :: 		if(system_reg[COM_STATE_1]==1) DrawImage(&Image76);
 MOVW	R0, #lo_addr(_system_reg+22)
@@ -6282,7 +6274,6 @@ BEQ	L_schema1_page328
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_S_ComprEx_1+24)
 MOVT	R0, #hi_addr(_S_ComprEx_1+24)
-STR	R0, [SP, #12]
 LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
@@ -6297,7 +6288,6 @@ LDR	R0, [R0, #0]
 ADDS	R0, R0, #1
 LDRB	R0, [R0, #0]
 STRB	R0, [R1, #0]
-LDR	R2, [SP, #12]
 MOV	R0, R2
 LDR	R0, [R0, #0]
 ADDS	R1, R0, #1
@@ -6513,12 +6503,12 @@ L_schema1_page335:
 ;Pages.c,929 :: 		}
 L_end_schema1_page:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #16
+ADD	SP, SP, #12
 BX	LR
 ; end of _schema1_page
 _schema2_page:
 ;Pages.c,931 :: 		void schema2_page(){
-SUB	SP, SP, #16
+SUB	SP, SP, #12
 STR	LR, [SP, #0]
 ;Pages.c,934 :: 		if(system_reg[COM_STATE_1]==1) DrawImage(&Image166);
 MOVW	R0, #lo_addr(_system_reg+22)
@@ -6796,7 +6786,6 @@ BEQ	L_schema2_page353
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module1_exhaust+24)
 MOVT	R0, #hi_addr(_Module1_exhaust+24)
-STR	R0, [SP, #12]
 LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
@@ -6811,7 +6800,6 @@ LDR	R0, [R0, #0]
 ADDS	R0, R0, #1
 LDRB	R0, [R0, #0]
 STRB	R0, [R1, #0]
-LDR	R2, [SP, #12]
 MOV	R0, R2
 LDR	R0, [R0, #0]
 ADDS	R1, R0, #1
@@ -7064,7 +7052,6 @@ BEQ	L_schema2_page362
 ADD	R1, SP, #4
 MOVW	R0, #lo_addr(_Module2_exhaust+24)
 MOVT	R0, #hi_addr(_Module2_exhaust+24)
-STR	R0, [SP, #12]
 LDR	R0, [R0, #0]
 MOVS	R2, #2
 SXTH	R2, R2
@@ -7079,7 +7066,6 @@ LDR	R0, [R0, #0]
 ADDS	R0, R0, #1
 LDRB	R0, [R0, #0]
 STRB	R0, [R1, #0]
-LDR	R2, [SP, #12]
 MOV	R0, R2
 LDR	R0, [R0, #0]
 ADDS	R1, R0, #1
@@ -7233,6 +7219,6 @@ L_schema2_page367:
 ;Pages.c,1000 :: 		}
 L_end_schema2_page:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #16
+ADD	SP, SP, #12
 BX	LR
 ; end of _schema2_page
